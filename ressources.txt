@@ -1,0 +1,9 @@
+gcc main.c ms_echo.c -L. -lft
+
+ms_echo.c: fonction "echo"
+
+ms_echo: programme echo
+
+tester les commandes suivantes:
+1) echo basile --> va lancer ms_echo.c (built-in) au sein du shell
+2) echo ms_echo basile --> va lancer le programme ms_echo dans un nouveau shell

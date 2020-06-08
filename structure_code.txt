@@ -1,0 +1,28 @@
+main()
+
+    initialisation du shell
+    boucle while(1)
+        afficher prompt
+        lire cmd
+        fonction "handle"(cmd)
+
+handle(cmd)
+
+    parsing(cmd)
+    split(cmd)
+    traitement(cmd)
+
+traitement(cmd)
+
+    // deux cas:
+    // cas 1: la commande appelée est une commande built-in -> executée directement dans notre programme
+    // cas 2: pas un built-in: on veut créer un nouveau process pour l'executer, via fork
+    // --> avant de faire le fork, on vérifie que la fonction n'est pas un shell built-in
+    if (ft_check_built_in)
+        ft_exec_built
+    else
+        ft_fork
+
+
+
+
