@@ -10,8 +10,6 @@ int ft_check_built_in(char *cmd, int *index)
     int res;
 
     // index: index du built_in correspondant à la commande, au sein du tableau "built"
-    // on initialise index à -1 -> si index a pour valeur -1 à la fin de la fonction c'est qu'il n'y a pas de built in correspondant à la commande
-    *index = -1;
     len_cmd = ft_strlen(cmd);
     i = 0;
     while (built[i])
