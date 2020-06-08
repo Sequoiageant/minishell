@@ -8,11 +8,11 @@ main()
 
 handle(cmd)
 
-    parsing(cmd)
+    parsing(cmd) -> flag
     split(cmd)
-    traitement(cmd)
+    traitement(cmd, flag)
 
-traitement(cmd)
+traitement(cmd, flag)
 
     // deux cas:
     // cas 1: la commande appelée est une commande built-in -> executée directement dans notre programme
@@ -23,4 +23,6 @@ traitement(cmd)
     else
         ft_fork
 
-
+A insérer: 
+- les "signaux" (CTRL + C et CTRL + D)
+- la variable $? et le retour des fonctions
