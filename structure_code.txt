@@ -24,5 +24,3 @@ traitement(cmd)
         ft_fork
 
 
-
-

@@ -1,4 +1,4 @@
-gcc main.c ms_echo.c -L. -lft
+gcc *.c -L. -lft
 
 ms_echo.c: fonction "echo"
 
