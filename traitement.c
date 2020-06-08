@@ -5,11 +5,14 @@ int ft_check_built_in(char *cmd, int *index)
 {
     char *built[] = {"echo", "cd", "pwd", "export", "unset", "env", "exit", NULL};
     int i;
-    int len_cmd;
+    unsigned int len_cmd;
     int max_len;
     int res;
 
+    // index: index du built_in correspondant à la commande, au sein du tableau "built"
+    // on initialise index à -1 -> si index a pour valeur -1 à la fin de la fonction c'est qu'il n'y a pas de built in correspondant à la commande
     *index = -1;
+    len_cmd = ft_strlen(cmd);
     i = 0;
     while (built[i])
     {
@@ -17,7 +20,7 @@ int ft_check_built_in(char *cmd, int *index)
             max_len = len_cmd;
         else
             max_len = ft_strlen(built[i]);
-        if ((res = ft_strncmp(cmd, built[i], max_len)) == 0)
+        if ((res = ft_strncmp(cmd, built[i], max_len) == 0))
         {
             *index = i;
             return (TRUE);
@@ -49,4 +52,5 @@ int ft_traitement(char **cmd)
         ft_putstr_fd(">>fork\n", 1);
         ft_fork(cmd);
     }
+    return(0);
 }

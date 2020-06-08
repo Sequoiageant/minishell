@@ -21,7 +21,7 @@ int ft_fork(char **cmd)
     {
         // old process
         wait(&status);
-        return(new_pid);
+        // return(new_pid);
     }
-    
+    return(0);
 }

@@ -1,7 +1,7 @@
 #include "libft.h"
 #include "mshell.h"
 
-int print_cmd(char **cmd)
+void print_cmd(char **cmd)
 {
     int i = 0;
     while (cmd[i])
@@ -22,6 +22,7 @@ int ft_handle(char *buf)
     cmd = ft_split(buf, ' ');
     ft_traitement(cmd);
     //free cmd
+    return(0);
 }
 
 int main()
