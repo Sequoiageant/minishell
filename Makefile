@@ -6,7 +6,7 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc $(OBJ) -L. -lft
+	gcc $(OBJ) -o $(NAME) -L. -lft
 
 %.o: %.c
 	gcc -c $(FLAGS) $^ -o $@

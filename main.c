@@ -20,6 +20,7 @@ int ft_handle(char *buf)
 
     // il faudrait parser ici la commande, et set des flags en fonction (chercher les '<', '>>'...)
     cmd = ft_split(buf, ' ');
+    // ft_parse(buf);
     ft_traitement(cmd);
     //free cmd
     return(0);

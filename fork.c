@@ -5,6 +5,8 @@ int ft_fork(char **cmd)
 {
     pid_t new_pid;
     int status;
+    char *filepath;
+    filename = malloc(100);
     
     new_pid = fork();
     if (new_pid == 0)
@@ -13,7 +15,10 @@ int ft_fork(char **cmd)
         ft_putstr_fd(">>Inside new process\n", 1);
         // va chercher ./cmd[0] pour l'executer
         // il faudrait au préalable chercher dans PATH pour trouver l'executable correspondant à la commande. Puis donner le "chemin" de cet executable en input (à la place de cmd[0])
-        if (execve(cmd[0], cmd, NULL) == -1)
+        ft_strlcat(filepath, "executables/", 100);
+        ft_strlcat(filepath, cmd[0], 100);
+        printf("filename: %s\n", filename);
+        if (execve(filepath, cmd, NULL) == -1)
             printf(">>Exec failed\n");
         // else should not return
     }
