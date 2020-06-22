@@ -6,7 +6,7 @@ int ft_fork(char **cmd)
     pid_t new_pid;
     int status;
     char *filepath;
-    filename = malloc(100);
+    filepath = malloc(100);
     
     new_pid = fork();
     if (new_pid == 0)
@@ -17,7 +17,7 @@ int ft_fork(char **cmd)
         // il faudrait au préalable chercher dans PATH pour trouver l'executable correspondant à la commande. Puis donner le "chemin" de cet executable en input (à la place de cmd[0])
         ft_strlcat(filepath, "executables/", 100);
         ft_strlcat(filepath, cmd[0], 100);
-        printf("filename: %s\n", filename);
+        printf("filename: %s\n", filepath);
         if (execve(filepath, cmd, NULL) == -1)
             printf(">>Exec failed\n");
         // else should not return
