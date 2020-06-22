@@ -1,6 +1,19 @@
 #include "libft.h"
 #include "mshell.h"
 
+void ft_print_env(t_list *env)
+{
+    t_key_val *elem;
+    
+    while (env)
+    {
+        elem = (t_key_val *)(env->content);
+        printf("clé: %s\n", elem->key);
+        printf("val: %s\n", elem->val);
+        env = env->next;
+    }
+}
+
 void print_cmd(char **cmd)
 {
     int i = 0;
@@ -28,10 +41,13 @@ int ft_handle(char *buf)
 
 int main()
 {        
+    t_list *env;
     int ret;
     char *buf;
     buf = malloc(BUF_SIZE + 1);
 
+    ft_init(&env);
+    ft_print_env(env);
     ft_putstr_fd("Welcome to shell: \n", 1);
     while(1)
     {
