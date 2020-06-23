@@ -1,32 +1,6 @@
 #include "libft.h"
 #include "mshell.h"
 
-void ft_print_env(t_list *env)
-{
-    t_key_val *elem;
-    
-    while (env)
-    {
-        elem = (t_key_val *)(env->content);
-        printf("clé: %s\n", elem->key);
-        printf("val: %s\n", elem->val);
-        env = env->next;
-    }
-}
-
-void print_cmd(char **cmd)
-{
-    int i = 0;
-    while (cmd[i])
-    {
-        // ft_putnbr_fd(i, 1);
-        // ft_putstr_fd("\n", 1);
-        ft_putstr_fd(cmd[i], 1);
-        // ft_putstr_fd("\n", 1);
-        i++;
-    }
-}
-
 int ft_handle(char *buf)
 {
     char **cmd;
@@ -35,8 +9,27 @@ int ft_handle(char *buf)
     cmd = ft_split(buf, ' ');
     // ft_parse(buf);
     ft_traitement(cmd);
-    //free cmd
+    int i = 0;
+    
+    while (cmd[i])
+    {
+        free(cmd[i]);
+        i++;
+    }
+    free(cmd);
+
     return(0);
+}
+
+void del(void *elem)
+{
+    t_key_val *key_val;
+
+    key_val = (t_key_val*)elem;
+    
+    free(key_val->key);
+    free(key_val->val);
+    free(key_val);
 }
 
 int main()
@@ -44,11 +37,10 @@ int main()
     t_list *env;
     int ret;
     char *buf;
-    buf = malloc(BUF_SIZE + 1);
 
+    buf = malloc(BUF_SIZE + 1);
     ft_init(&env);
-    ft_print_env(env);
-    ft_putstr_fd("Welcome to shell: \n", 1);
+    // ft_print_env(env);
     while(1)
     {
         ft_putstr_fd("cmd: ", 1);
@@ -60,4 +52,6 @@ int main()
             buf[ret] = 0;
         ft_handle(buf);
     }
+    ft_lstclear(&env, &del);
+    free(buf);
 }

@@ -6,7 +6,7 @@ int ft_fork(char **cmd)
     pid_t new_pid;
     int status;
     char *filepath;
-    filepath = malloc(100);
+    filepath = ft_calloc(100, 1);
     
     new_pid = fork();
     if (new_pid == 0)
@@ -19,7 +19,7 @@ int ft_fork(char **cmd)
         ft_strlcat(filepath, cmd[0], 100);
         printf("filename: %s\n", filepath);
         if (execve(filepath, cmd, NULL) == -1)
-            printf(">>Exec failed\n");
+            printf(">>Exec failed\n");  
         // else should not return
     }
     else
@@ -28,5 +28,6 @@ int ft_fork(char **cmd)
         wait(&status);
         // return(new_pid);
     }
+    free(filepath);
     return(0);
 }

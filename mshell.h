@@ -32,5 +32,7 @@ int ft_fork(char **cmd);
 int ft_built_in(char **cmd, int argc, int index);
 int ft_traitement(char **cmd);
 int ft_init(t_list **env);
+void ft_print_env(t_list *env);
+void print_cmd(char **cmd);
 
 #endif

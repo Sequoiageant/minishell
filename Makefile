@@ -9,7 +9,7 @@ $(NAME): $(OBJ)
 	gcc $(OBJ) -o $(NAME) -L. -lft
 
 %.o: %.c
-	gcc -c $(FLAGS) $^ -o $@
+	gcc -c -g $(FLAGS) $^ -o $@
 
 clean:
 	rm -f $(OBJ)
