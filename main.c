@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 15:26:51 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/23 19:08:02 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		ft_handle(char *buf, t_list **env)
 
 	// il faudrait parser ici la commande, et set des flags en fonction (chercher les '<', '>>'...)
 	cmd = ft_split(buf, ' ');
+	// print_cmd(cmd);
 	// ft_parse(buf);
 	ft_traitement(cmd, env);
 	i = 0;
@@ -57,11 +58,9 @@ int		main()
 	{
 		ft_putstr_fd("cmd: ", 1);
 		ret = read(1, buf, BUF_SIZE);
+		// printf("ret: %d\n", ret);
 		// on a un /n qui s'ajoute à la fin du buffer, dont on ne veut pas
-		if (ret)
-			buf[ret - 1] = 0;
-		else
-			buf[ret] = 0;
+		buf[ret - 1] = 0;
 		ft_handle(buf, &env);
 		// i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 16:15:43 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/23 18:15:48 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_cmd(char **cmd)
 		// ft_putnbr_fd(i, 1);
 		// ft_putstr_fd("\n", 1);
 		ft_putstr_fd(cmd[i], 1);
-		// ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", 1);
 		i++;
 	}
 }
