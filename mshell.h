@@ -35,5 +35,6 @@ int			ft_init(t_list **env);
 void		ft_print_env(t_list *env);
 void		print_cmd(char **cmd);
 t_key_val	*find_key_val(t_list *env, char *key);
+void		print_env_elem(t_list *env, char *key);
 
 #endif

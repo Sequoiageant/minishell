@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 15:01:54 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/23 16:15:43 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,20 @@ t_key_val	*find_key_val(t_list *env, char *key)
 		env = env->next;
 	}
 	return(NULL);
+}
+
+void	print_env_elem(t_list *env, char *key)
+{
+	t_key_val *elem;
+	
+	elem = find_key_val(env, key);
+	if (elem)
+	{
+		ft_putstr_fd(elem->key, 1);
+		ft_putstr_fd("=", 1);
+		ft_putstr_fd(elem->val, 1);
+		ft_putstr_fd("\n", 1);
+	}
+	else
+		ft_putstr_fd("Unknown env variable\n", 1);
 }
