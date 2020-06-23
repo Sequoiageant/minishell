@@ -41,6 +41,8 @@ int main()
     buf = malloc(BUF_SIZE + 1);
     ft_init(&env);
     // ft_print_env(env);
+    // int i = 0;
+    // while (i < 1)
     while(1)
     {
         ft_putstr_fd("cmd: ", 1);
@@ -51,6 +53,7 @@ int main()
         else
             buf[ret] = 0;
         ft_handle(buf);
+        // i++;
     }
     ft_lstclear(&env, &del);
     free(buf);
