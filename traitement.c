@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 14:29:49 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/23 14:44:31 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		ft_check_built_in(char *cmd, int *index)
 	return (FALSE);
 }
 
-int		ft_traitement(char **cmd)
+int		ft_traitement(char **cmd, t_list **env)
 {
 	int	argc;
 	int	built_index;
@@ -47,7 +47,7 @@ int		ft_traitement(char **cmd)
 	if (ft_check_built_in(cmd[0], &built_index) == TRUE)
 	{
 		ft_putstr_fd(">>built-in\n", 1);
-		ft_built_in(cmd, argc, built_index);
+		ft_built_in(cmd, argc, built_index, env);
 		// lance la fonction "cmd";
 	}
 	else

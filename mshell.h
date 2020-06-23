@@ -13,7 +13,7 @@
 #define FALSE 0
 #define BUF_SIZE 1000
 
-typedef int (*t_built)(int argc, char *argv[]);
+typedef int (*t_built)(int argc, char *argv[], t_list **env);
 
 typedef struct	s_key_val
 {
@@ -21,16 +21,16 @@ typedef struct	s_key_val
 	char			*val;
 }				t_key_val;
 
-int			ms_echo(int argc, char *argv[]);
-int			ms_cd(int argc, char *argv[]);
-int			ms_pwd(int argc, char *argv[]);
-int			ms_export(int argc, char *argv[]);
-int			ms_env(int argc, char *argv[]);
-int			ms_unset(int argc, char *argv[]);
-int			ms_exit(int argc, char *argv[]);
+int			ms_echo(int argc, char *argv[], t_list **env);
+int			ms_cd(int argc, char *argv[], t_list **env);
+int			ms_pwd(int argc, char *argv[], t_list **env);
+int			ms_export(int argc, char *argv[], t_list **env);
+int			ms_env(int argc, char *argv[], t_list **env);
+int			ms_unset(int argc, char *argv[], t_list **env);
+int			ms_exit(int argc, char *argv[], t_list **env);
 int			ft_fork(char **cmd);
-int			ft_built_in(char **cmd, int argc, int index);
-int			ft_traitement(char **cmd);
+int			ft_built_in(char **cmd, int argc, int index, t_list **env);
+int			ft_traitement(char **cmd, t_list **env);
 int			ft_init(t_list **env);
 void		ft_print_env(t_list *env);
 void		print_cmd(char **cmd);

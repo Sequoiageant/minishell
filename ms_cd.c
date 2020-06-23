@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 14:21:36 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/23 14:49:43 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 	//      Attention: printer le cwd une fois trouvé
 
 
-void ft_cd_change_env()
+void ft_cd_change_env(t_list **env)
 {
-
+	(void)env;
 }
 
 void	ft_cd_perror(char **argv)
@@ -41,7 +41,7 @@ void	ft_cd_perror(char **argv)
 	ft_putstr_fd("\n", 1);
 }
 
-int		ms_cd(int argc, char **argv)
+int		ms_cd(int argc, char **argv, t_list **env)
 {
 	int	ret;
 
@@ -61,6 +61,6 @@ int		ms_cd(int argc, char **argv)
 	if (ret)
 		ft_cd_perror(argv);
 	else
-		ft_cd_change_env();
+		ft_cd_change_env(env);
 	return (ret);
 }

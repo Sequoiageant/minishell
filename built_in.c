@@ -6,14 +6,14 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:06 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 12:37:49 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/23 14:45:50 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int		ft_built_in(char **cmd, int argc, int index)
+int		ft_built_in(char **cmd, int argc, int index, t_list **env)
 {
 	t_built	built_func[] = {ms_echo, ms_cd}; // ,ms_pwd, ms_export, ms_unset, ms_env, ms_exit};
 	int		ret;
@@ -23,7 +23,7 @@ int		ft_built_in(char **cmd, int argc, int index)
 	{
 		// printf("pre-pwd: %s\n", getenv("PWD"));
 		// printf("pre-getcwd: %s\n", getcwd(cwd, 200));
-		ret = built_func[index](argc, cmd);
+		ret = built_func[index](argc, cmd, env);
 		// printf("post-pwd: %s\n", getenv("PWD"));
 		// printf("post-getcwd: %s\n", getcwd(cwd, 200));
 		// free(cwd);

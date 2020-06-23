@@ -6,14 +6,14 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 14:27:08 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/23 14:43:41 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int		ft_handle(char *buf)
+int		ft_handle(char *buf, t_list **env)
 {
 	char	**cmd;
 	int		i;
@@ -21,7 +21,7 @@ int		ft_handle(char *buf)
 	// il faudrait parser ici la commande, et set des flags en fonction (chercher les '<', '>>'...)
 	cmd = ft_split(buf, ' ');
 	// ft_parse(buf);
-	ft_traitement(cmd);
+	ft_traitement(cmd, env);
 	i = 0;
 	while (cmd[i])
 	{
@@ -62,7 +62,7 @@ int		main()
 			buf[ret - 1] = 0;
 		else
 			buf[ret] = 0;
-		ft_handle(buf);
+		ft_handle(buf, &env);
 		// i++;
 	}
 	ft_lstclear(&env, &del);

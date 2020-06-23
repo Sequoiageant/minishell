@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:34 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 14:04:47 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/23 14:48:46 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 // ajouter le main si on veut créer l'executable
 // ne gère pas le retour d'erreur (en cas d'erreur de write)
 
-int	ms_echo(int argc, char *argv[])
+int	ms_echo(int argc, char *argv[], t_list **env)
 {
 	int	i;
 	int	n_opt;
 
+	(void)env;
 	i = 1;
 	n_opt = FALSE;
 	// printf("argc: %d\n", argc);
