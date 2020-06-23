@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 14:44:31 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/23 15:02:07 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_check_built_in(char *cmd, int *index)
 	i = 0;
 	while (built[i])
 	{
-		if ((res = strcmp(cmd, built[i]) == 0))
+		if ((res = ft_strcmp(cmd, built[i]) == 0))
 		{
 			*index = i;
 			return (TRUE);

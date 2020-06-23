@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 14:49:43 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/23 15:01:25 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 	//      Attention: printer le cwd une fois trouvé
 	// 3) changer la valeur de PWD et de OLD_PWD
 	//      Remarque: après un chdir, $PATH reste inchangé (En revanche, getcwd() renvoie bien le nouveau cwd) -> il faut donc le changer "à la main"
-	// 4) coder ft_strcmp et l'ajouter à la libft. Puis remplacer strcmp par ft_strcmp ci dessous
-	// 5) gerer le "cd -": go back to OLD_PWD
+	// 4) gerer le "cd -": go back to OLD_PWD
 	//      Attention: printer le cwd une fois trouvé
 
 
@@ -47,7 +46,7 @@ int		ms_cd(int argc, char **argv, t_list **env)
 
 	if (argc == 1)
 	{
-		if (getenv("HOME") == NULL || strcmp(getenv("HOME"), "") == 0)
+		if (getenv("HOME") == NULL || ft_strcmp(getenv("HOME"), "") == 0)
 			return (1);
 		ret = chdir(getenv("HOME"));
 	}
