@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 19:08:02 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/24 09:21:48 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ int		main()
 		ft_putstr_fd("cmd: ", 1);
 		ret = read(1, buf, BUF_SIZE);
 		// printf("ret: %d\n", ret);
-		// on a un /n qui s'ajoute à la fin du buffer, dont on ne veut pas
-		buf[ret - 1] = 0;
+		buf[ret - 1] = 0; // on a un \n qui s'ajoute à la fin du buffer, dont on ne veut pas
 		ft_handle(buf, &env);
 		// i++;
 	}

@@ -1,9 +1,70 @@
-gcc *.c -L. -lft
+PLAN
 
-ms_echo.c: fonction "echo"
+    main()
 
-ms_echo: programme echo
+        initialisation du shell
+            message d'accueil si besoin
+            recuperer l'environnement
+        boucle while(1)
+            afficher prompt
+            lire buf
+            fonction "handle"(buf)
 
-tester les commandes suivantes:
-1) echo basile --> va lancer ms_echo.c (built-in) au sein du shell
-2) echo ms_echo basile --> va lancer le programme ms_echo dans un nouveau shell
+    handle(buf)
+
+        parsing(buf) --> cf paragraphe dédié
+            allouer autant de struct s_cmd que necessaire
+        traitement(cmd)
+
+    traitement(cmd)
+
+        // trois cas:
+        // cas 0: la commande est vide (ou une suite d'espace) -> RAS, on revient au prompt
+        // cas 1: la commande appelée est une commande built-in -> executée directement dans notre programme
+        // cas 2: pas un built-in: on veut créer un nouveau process pour l'executer, via fork
+        // --> avant de faire le fork, on vérifie que la fonction n'est pas un shell built-in
+        if empty
+            return
+        if (ft_check_built_in)
+            ft_exec_built
+        else
+            ft_fork
+
+    A insérer: 
+    - les "signaux" (CTRL + C et CTRL + D)
+    - le retour des fonctions
+    - set la variable $?
+    - les pipe / dup / open à faire en fonction des redirections (au début et à la fin)
+
+
+
+PARSING
+
+    SUBSTITUTION
+    to do: detecter les caracteres et faire la substitution directement
+        $               changer en la variable d'env correspondate
+        ''              message affiché tel quel (pas de subsitution)
+        ""              message analysé pour detecter la présence de $ (et d'échappement (\) ?)
+
+    MULTI COMMANDES
+    to do: alloc plusieurs cmd
+        ;               multi commandes
+
+    REDIRECTION
+    to do: detecter les caracteres et set des flags de redirection
+    flags de redirection  = infos necessaires pour lancer les syscall "pipe" et/ou "dup"
+        >               OUTPUT = file
+                            -> il faut ouvrir le fichier (open classique) et faire le putstr dedans
+                            -> besoin du nom du fichier
+        >>              OUTPUT = file
+                            -> il faut ouvrir le fichier (open avec flag O_APPEND) et faire le putstr dedans
+                            -> besoin du nom du fichier
+        <               INPUT = file on STDIN: 
+                            -> juste a faire un dup du fd du fichier comme dans dup_test.c
+                            -> besoin juste du nom du fichier (char *)
+        cmd1 | cmd2    STDOUT of cmd1 is STDIN of cmd 2
+                            -> pipe to connect both commands, and duplicate (dup) output fd in cmd1 to stdout and inputdf in cmd2 to stdin
+                            -> besoin de savoir si on est dans le cas [ cmd | ] ou dans le cas [ | cmd ] 
+    cf. sur les pipes et dup: https://tldp.org/LDP/lpg/node10.html#SECTION00721000000000000000
+    cf. dup_test.c et pipe_test.c
+

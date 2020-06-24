@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 16:22:30 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/24 09:18:51 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 	//      Remarque: après un chdir, $PATH reste inchangé (En revanche, getcwd() renvoie bien le nouveau cwd) -> il faut donc le changer "à la main"
 	// 4) gerer le "cd -": go back to OLD_PWD
 	//      Attention: printer le cwd une fois trouvé
+	// 5) gerer les redirections
 
 
 void ft_cd_change_env(t_list **env, char *oldpwd)
