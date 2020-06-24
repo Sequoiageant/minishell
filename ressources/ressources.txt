@@ -1,3 +1,6 @@
+Google doc man bash:
+https://docs.google.com/document/d/1Md5AhIjY-1H6xenDQ8D-qWu5CGWgze6Q3J14B6_FQu0/edit?usp=sharing
+
 PLAN
 
     main()
