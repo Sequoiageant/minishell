@@ -6,43 +6,43 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/06/24 15:46:54 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/24 15:51:05 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int		ft_handle(char *buf, t_list **env)
-{
-	char	**cmd;
-	int		i;
-
-	cmd = ft_split(buf, ' ');
-	ft_traitement(cmd, env);
-	i = 0;
-	while (cmd[i])
-	{
-		free(cmd[i]);
-		i++;
-	}
-	free(cmd);
-	return (0);
-}
-
-// int		ft_handle_1(char *buf, t_list **env)
+// int		ft_handle(char *buf, t_list **env)
 // {
-// 	t_list	*cmd;
+// 	char	**cmd;
+// 	int		i;
 
-// 	// il faudrait parser ici la commande, et set des flags en fonction (chercher les '<', '>>'...)
-// 	// cmd = ft_split(buf, ' ');
-// 	// print_cmd(cmd);
-// 	if (ft_parse(buf, *env, &cmd) == ERROR)
-// 		return(ERROR);
-// 	ft_traitement1(cmd, env);
-// 	ft_lstclear(&cmd, &del_cmd);
+// 	cmd = ft_split(buf, ' ');
+// 	ft_traitement(cmd, env);
+// 	i = 0;
+// 	while (cmd[i])
+// 	{
+// 		free(cmd[i]);
+// 		i++;
+// 	}
+// 	free(cmd);
 // 	return (0);
 // }
+
+int		ft_handle_1(char *buf, t_list **env)
+{
+	t_list	*cmd;
+
+	// il faudrait parser ici la commande, et set des flags en fonction (chercher les '<', '>>'...)
+	// cmd = ft_split(buf, ' ');
+	// print_cmd(cmd);
+	if (ft_parse(buf, *env, &cmd) == ERROR)
+		return(ERROR);
+	ft_traitement(cmd, env);
+	ft_lstclear(&cmd, &del_cmd);
+	return (0);
+}
 
 int		main()
 {
@@ -61,8 +61,8 @@ int		main()
 		ret = read(1, buf, BUF_SIZE);
 		// printf("ret: %d\n", ret);
 		buf[ret - 1] = 0; // on a un \n qui s'ajoute à la fin du buffer, dont on ne veut pas
-		ft_handle(buf, &env);
-		// ft_handle_1(buf, &env);
+		// ft_handle(buf, &env);
+		ft_handle_1(buf, &env);
 		// i++;
 	}
 	ft_lstclear(&env, &del_key_val);

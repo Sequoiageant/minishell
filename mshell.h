@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/06/24 15:46:08 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/24 15:52:06 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int			ms_unset(int argc, char *argv[], t_list **env);
 int			ms_exit(int argc, char *argv[], t_list **env);
 int			ft_fork(char **cmd);
 int			ft_built_in(char **cmd, int argc, int index, t_list **env);
-int			ft_traitement(char **cmd, t_list **env);
 // int			ft_traitement(char **cmd, t_list **env);
+int			ft_traitement(t_list *cmd, t_list **env);
 int			ft_init(t_list **env);
 void		ft_print_env(t_list *env);
 void		print_cmd(char **cmd);
