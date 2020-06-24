@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/06/24 17:10:05 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/24 17:22:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 
 // int	ft_subsitute(char **buf, t_list *env)
 // {
-	
+//	// susbtituer les variables d'env
+//	// gerer les '\'	
 // }
 
 int	ft_alloc_cmd(int num, t_list **cmd_list)
@@ -71,23 +72,21 @@ int	ft_parse(char *buf, t_list *env, t_list **cmd )
 	int	num_cmd;
 // 	int err;
 
-// 	// substitue $, \...
 	(void)env;
+
 // 	ft_substitute(&buf, env);
-// 	// detect synthax error
+
 // 	if ((err = ft_detect_error(buf) != 0))
 // 	{
 // 		ft_display_synthax_error(err);
 // 		return(1);
 // 	}
-// 	// count cmds
+
 // 	num_cmd = ft_count_cmd(buf);
 	num_cmd = 1;
-// 	// alloc cmds
+
 	ft_alloc_cmd(num_cmd, cmd);
-// 	// init cmds
 	ft_init_cmd(*cmd);
-// 	// fill cmds
 	ft_fill_cmd(*cmd, buf);
 	return (0);
 }
