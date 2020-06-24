@@ -6,15 +6,18 @@ NAME = minishell
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc $(OBJ) -o $(NAME) -L. -lft
+	cd libft ; make
+	gcc $(OBJ) -o $(NAME) -Llibft -lft
 
 %.o: %.c
 	gcc -c -g $(FLAGS) $^ -o $@
 
 clean:
+	cd libft ; make clean
 	rm -f $(OBJ)
 
 fclean: clean
+	cd libft ; make fclean
 	rm -f $(NAME)
 
 re: fclean all
