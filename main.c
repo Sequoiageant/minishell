@@ -6,31 +6,14 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/06/24 15:51:05 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/24 17:13:29 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-// int		ft_handle(char *buf, t_list **env)
-// {
-// 	char	**cmd;
-// 	int		i;
-
-// 	cmd = ft_split(buf, ' ');
-// 	ft_traitement(cmd, env);
-// 	i = 0;
-// 	while (cmd[i])
-// 	{
-// 		free(cmd[i]);
-// 		i++;
-// 	}
-// 	free(cmd);
-// 	return (0);
-// }
-
-int		ft_handle_1(char *buf, t_list **env)
+int		ft_handle(char *buf, t_list **env)
 {
 	t_list	*cmd;
 
@@ -53,17 +36,16 @@ int		main()
 	buf = malloc(BUF_SIZE + 1);
 	ft_init(&env);
 	// ft_print_env(env);
-	// int i = 0;
-	// while (i < 1)
-	while (1)
+	int i = 0;
+	while (i < 1)
+	// while (1)
 	{
 		ft_putstr_fd("cmd: ", 1);
 		ret = read(1, buf, BUF_SIZE);
 		// printf("ret: %d\n", ret);
 		buf[ret - 1] = 0; // on a un \n qui s'ajoute à la fin du buffer, dont on ne veut pas
-		// ft_handle(buf, &env);
-		ft_handle_1(buf, &env);
-		// i++;
+		ft_handle(buf, &env);
+		i++;
 	}
 	ft_lstclear(&env, &del_key_val);
 	free(buf);
