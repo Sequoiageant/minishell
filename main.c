@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/06/24 09:21:48 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/24 15:46:54 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int		ft_handle(char *buf, t_list **env)
 	char	**cmd;
 	int		i;
 
-	// il faudrait parser ici la commande, et set des flags en fonction (chercher les '<', '>>'...)
 	cmd = ft_split(buf, ' ');
-	// print_cmd(cmd);
-	// ft_parse(buf);
 	ft_traitement(cmd, env);
 	i = 0;
 	while (cmd[i])
@@ -33,15 +30,19 @@ int		ft_handle(char *buf, t_list **env)
 	return (0);
 }
 
-void	del(void *elem)
-{
-	t_key_val *key_val;
+// int		ft_handle_1(char *buf, t_list **env)
+// {
+// 	t_list	*cmd;
 
-	key_val = (t_key_val*)elem;
-	free(key_val->key);
-	free(key_val->val);
-	free(key_val);
-}
+// 	// il faudrait parser ici la commande, et set des flags en fonction (chercher les '<', '>>'...)
+// 	// cmd = ft_split(buf, ' ');
+// 	// print_cmd(cmd);
+// 	if (ft_parse(buf, *env, &cmd) == ERROR)
+// 		return(ERROR);
+// 	ft_traitement1(cmd, env);
+// 	ft_lstclear(&cmd, &del_cmd);
+// 	return (0);
+// }
 
 int		main()
 {
@@ -61,8 +62,9 @@ int		main()
 		// printf("ret: %d\n", ret);
 		buf[ret - 1] = 0; // on a un \n qui s'ajoute à la fin du buffer, dont on ne veut pas
 		ft_handle(buf, &env);
+		// ft_handle_1(buf, &env);
 		// i++;
 	}
-	ft_lstclear(&env, &del);
+	ft_lstclear(&env, &del_key_val);
 	free(buf);
 }
