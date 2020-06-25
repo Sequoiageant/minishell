@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   m_init.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:11 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 14:07:59 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/25 14:45:28 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ft_init(t_list **env)
 	i = 0;
 	while(environ[i])
 	{
-		// printf("%s\n", environ[i]);
+		printf("%s\n", environ[i]);
 		elem = ft_split_env(environ[i]);
 		key_val = malloc(sizeof(t_key_val));
 		key_val->key = elem[0];

@@ -57,12 +57,12 @@ PARSING
                             brunet
                             donne basilebruent
 
-        ''              preserves the litteral value of each character
+        ''             preserves the litteral value of each character
                         -> pas de subsitution après $
                         -> le backslash ne preserve pas la litteral value of the character that follows
                         RQ: a single quote may not occur between single quotes, even when preceded by a backslash.
 
-        ''              preserves the litteral value of each character EXCEPT \ and $, that retain their special meaning
+        ""              preserves the litteral value of each character EXCEPT \ and $, that retain their special meaning
                         -> subsitution après $
                         -> the backslash retains its special meaning ONLY when followed by one of the following characters: $, `, ", \, or <newline>. 
                         RQ: a double quote may be quoted within double quotes by preceding it with a backslash.
