@@ -45,7 +45,7 @@ PARSING
 
     SUBSTITUTION
     to do: detecter les caracteres et faire la substitution directement
-        $               changer en la variable d'env correspondate
+        $var            changer en la variable d'env correspondate
 
     SPECIAL CHARACTERS
     Ne sont pas "lus" en tant que tel, sauf s'ils sont "quoted"
@@ -58,7 +58,7 @@ PARSING
 
     QUOTING
     to do:  disable or not special treatment of special characters
-            disable or not parameter expansion
+            disable or not parameter expansion (substitution with $)
         
         \               disables special treatment of special character
                         ...with the exception of <newline>: PAS A GERER JE PENSE
