@@ -46,13 +46,19 @@ PARSING
     SUBSTITUTION
     to do: detecter les caracteres et faire la substitution directement
         $               changer en la variable d'env correspondate
-    
+
+    SPECIAL CHARACTERS
+    Ne sont pas "lus" en tant que tel, sauf s'ils sont "quoted"
+        <>              redirection
+        |               piping
+        ;               new command
+        ' "" \          quoting
+        space           ignored
+        newline         fin de la commande
+
     QUOTING
     to do:  disable or not special treatment of special characters
             disable or not parameter expansion
-        
-    special characters: | & ; < space newline '' "" \
-    ---> aucun de ces caracteres n'apparait en tant que tel si n'est pas "quoted"
         
         \               disables special treatment of special character
                         ...with the exception of <newline>: PAS A GERER JE PENSE
