@@ -48,28 +48,63 @@ PARSING
         $               changer en la variable d'env correspondate
     
     QUOTING
-    to do: able/disable special treatment of characters
-        \               preserves the litteral value of the character that follows
-                        ex: echo $PWD donne /home/basile
-                            echo \$PWD donne $PWD
-                        with the exception of <newline>. If a \<newline> pair appears, and the backslash is not itself quoted, the \<newline> is treated as a line continuation (that is, it is removed from the input stream and effectively ignored).
-                        ex: echo basile\
-                            brunet
-                            donne basilebruent
+    to do:  disable or not special treatment of special characters
+            disable or not parameter expansion
+        
+    special characters: | & ; < space newline '' "" \
+    ---> aucun de ces caracteres n'apparait en tant que tel si n'est pas "quoted"
+        
+        \               disables special treatment of special character
+                        ...with the exception of <newline>: PAS A GERER JE PENSE
+                        ......if a \<newline> pair appears, and the backslash is not itself quoted, the \<newline> is treated as a line continuation (that is, it is removed from the input stream and effectively ignored).
+                        disables parameter expansion
 
-        ''             preserves the litteral value of each character
-                        -> pas de subsitution après $
-                        -> le backslash ne preserve pas la litteral value of the character that follows
+        ''              disables special treatment of all special characters inside
+                        ...y compris du \
+                        ....y compris du \<newline>: PAS A GERER CEST SUR
+                        disables parameter expansion
                         RQ: a single quote may not occur between single quotes, even when preceded by a backslash.
 
-        ""              preserves the litteral value of each character EXCEPT \ and $, that retain their special meaning
-                        -> subsitution après $
-                        -> the backslash retains its special meaning ONLY when followed by one of the following characters: $, `, ", \, or <newline>. 
+        ""              disables special treatment of all special characters inside
+                        ...sauf le \ lorsqu'il precède $, ", \, [ou <newline> PAS A GERER]
+                        parameter expansion is enabled
                         RQ: a double quote may be quoted within double quotes by preceding it with a backslash.
-                        
-                            ex sur l'utilisation du backslash avec "" vs '':
-                            echo 'basile \$' donne basile \$
-                            echo "basile \$' donne basile $
+        
+        PAS A GERER JE PENSE:
+        $'string'       Words of the form $'string' are treated specially. 
+                        The word expands to string, with backslash-escaped characters replaced as specified by the ANSI C standard.  
+                        Backslash escape sequences, if present, are decoded as follows:
+                            \a
+                            alert (bell)
+                            \b
+                            backspace
+                            \e
+                            \E
+                            an escape character
+                            \f
+                            form feed
+                            \n
+                            new line
+                            \r
+                            carriage return
+                            \t
+                            horizontal tab
+                            \v
+                            vertical tab
+                            \\
+                            backslash
+                            \'
+                            single quote
+                            \"
+                            double quote
+                            \nnn
+                            the eight-bit character whose value is the octal value nnn (one to three digits)
+                            \xHH
+                            the eight-bit character whose value is the hexadecimal value HH (one or two hex digits)
+                            \cx
+                            a control-x character
+                            The expanded result is single-quoted, as if the dollar sign had not been present.
+
 
     MULTI COMMANDES
     to do: alloc plusieurs cmd
