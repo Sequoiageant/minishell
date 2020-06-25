@@ -46,8 +46,30 @@ PARSING
     SUBSTITUTION
     to do: detecter les caracteres et faire la substitution directement
         $               changer en la variable d'env correspondate
-        ''              message affiché tel quel (pas de subsitution)
-        ""              message analysé pour detecter la présence de $ (et d'échappement (\) ?)
+    
+    QUOTING
+    to do: able/disable special treatment of characters
+        \               preserves the litteral value of the character that follows
+                        ex: echo $PWD donne /home/basile
+                            echo \$PWD donne $PWD
+                        with the exception of <newline>. If a \<newline> pair appears, and the backslash is not itself quoted, the \<newline> is treated as a line continuation (that is, it is removed from the input stream and effectively ignored).
+                        ex: echo basile\
+                            brunet
+                            donne basilebruent
+
+        ''              preserves the litteral value of each character
+                        -> pas de subsitution après $
+                        -> le backslash ne preserve pas la litteral value of the character that follows
+                        RQ: a single quote may not occur between single quotes, even when preceded by a backslash.
+
+        ''              preserves the litteral value of each character EXCEPT \ and $, that retain their special meaning
+                        -> subsitution après $
+                        -> the backslash retains its special meaning ONLY when followed by one of the following characters: $, `, ", \, or <newline>. 
+                        RQ: a double quote may be quoted within double quotes by preceding it with a backslash.
+                        
+                            ex sur l'utilisation du backslash avec "" vs '':
+                            echo 'basile \$' donne basile \$
+                            echo "basile \$' donne basile $
 
     MULTI COMMANDES
     to do: alloc plusieurs cmd
@@ -71,3 +93,26 @@ PARSING
     cf. sur les pipes et dup: https://tldp.org/LDP/lpg/node10.html#SECTION00721000000000000000
     cf. dup_test.c et pipe_test.c
 
+Special characters:
+
+\a
+alert (bell)
+\b
+backspace
+\e
+\E
+an escape character
+\f
+form feed
+\n
+new line
+\r
+carriage return
+\t
+horizontal tab
+\v
+vertical tab
+
+--> ne sont transformés que entre quotes:
+echo 'ba\ts' et echo "ba\ts" donnent ba     s
+mais echo ba\ts donne ba\ts

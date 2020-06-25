@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   traitement.c                                       :+:      :+:    :+:   */
+/*   m_traitement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/06/24 17:13:59 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/25 13:47:50 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int		ft_traitement(t_list *cmd_list, t_list **env)
 	int	built_index;
 	t_cmd *cmd;
 
-	// cas ou on a un seul maillon dans la liste
-	// en réalité il faut boucler sur la liste et faire ca pour tous les maillons
 	while (cmd_list)
 	{
 		cmd = (t_cmd*)cmd_list->content;
