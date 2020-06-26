@@ -1,3 +1,4 @@
 proteger les mallocs
 read du buffer: pour l'instant limité à 1000 char -> voir si meilleur methode
 exit du shell plus proprement (notamment bien faire le free de l'env)
+changer les headers ?
