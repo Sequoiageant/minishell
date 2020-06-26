@@ -1,6 +1,11 @@
 Google doc man bash:
 https://docs.google.com/document/d/1Md5AhIjY-1H6xenDQ8D-qWu5CGWgze6Q3J14B6_FQu0/edit?usp=sharing
 
+
+Sur l'execution des commandes dans un pipe:
+https://42born2code.slack.com/archives/C3QG85SG6/p1592546890255700
+https://unix.stackexchange.com/questions/37508/in-what-order-do-piped-commands-run
+
 PLAN
 
     main()
@@ -76,45 +81,10 @@ PARSING
                         parameter expansion is enabled
                         RQ: a double quote may be quoted within double quotes by preceding it with a backslash.
         
-        PAS A GERER JE PENSE:
-        $'string'       Words of the form $'string' are treated specially. 
-                        The word expands to string, with backslash-escaped characters replaced as specified by the ANSI C standard.  
-                        Backslash escape sequences, if present, are decoded as follows:
-                            \a
-                            alert (bell)
-                            \b
-                            backspace
-                            \e
-                            \E
-                            an escape character
-                            \f
-                            form feed
-                            \n
-                            new line
-                            \r
-                            carriage return
-                            \t
-                            horizontal tab
-                            \v
-                            vertical tab
-                            \\
-                            backslash
-                            \'
-                            single quote
-                            \"
-                            double quote
-                            \nnn
-                            the eight-bit character whose value is the octal value nnn (one to three digits)
-                            \xHH
-                            the eight-bit character whose value is the hexadecimal value HH (one or two hex digits)
-                            \cx
-                            a control-x character
-                            The expanded result is single-quoted, as if the dollar sign had not been present.
-
-
     MULTI COMMANDES
     to do: alloc plusieurs cmd
         ;               multi commandes
+                        Sont executées l'une après l'autre
 
     REDIRECTION
     to do: detecter les caracteres et set des flags de redirection
@@ -128,32 +98,12 @@ PARSING
         <               INPUT = file on STDIN: 
                             -> juste a faire un dup du fd du fichier comme dans dup_test.c
                             -> besoin juste du nom du fichier (char *)
+        
+        
+        PIPELINE
         cmd1 | cmd2    STDOUT of cmd1 is STDIN of cmd 2
+                        cmd1 et cmd2 sont executées de manière concomitante
                             -> pipe to connect both commands, and duplicate (dup) output fd in cmd1 to stdout and inputdf in cmd2 to stdin
                             -> besoin de savoir si on est dans le cas [ cmd | ] ou dans le cas [ | cmd ] 
     cf. sur les pipes et dup: https://tldp.org/LDP/lpg/node10.html#SECTION00721000000000000000
     cf. dup_test.c et pipe_test.c
-
-Special characters:
-
-\a
-alert (bell)
-\b
-backspace
-\e
-\E
-an escape character
-\f
-form feed
-\n
-new line
-\r
-carriage return
-\t
-horizontal tab
-\v
-vertical tab
-
---> ne sont transformés que entre quotes:
-echo 'ba\ts' et echo "ba\ts" donnent ba     s
-mais echo ba\ts donne ba\ts
