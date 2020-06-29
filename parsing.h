@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/06/26 14:39:52 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/29 10:50:59 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ typedef struct	s_cmd
 
 int ft_parse(char *buf, t_list *env, t_list **cmd );
 int ft_fill_cmd(t_list *cmd_list, char *buf);
+int ft_parse_fsm(char *buf, t_list *env);
 
 #endif

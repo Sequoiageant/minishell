@@ -3,13 +3,14 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include "libft.h"
 
 # define SUCCESS	0
 # define FAILURE	-1
 # define TRUE		1
 # define FALSE		0
 
-# define NB_STATE		4
+# define NB_STATE		5
 # define NB_FLAG		6
 # define NB_CONV		10
 # define CHAR_FORMAT	'%'
@@ -44,11 +45,10 @@
 
 enum	e_state
 {
-	NORMAL,
+	LETTER,
 	DOLLAR,
-	QUOTE,
-	DOUBLE_Q,
-	BACKSLASH
+	BACKSLASH,
+	FLAG
 };
 
 typedef struct s_state_machine
@@ -57,10 +57,10 @@ typedef struct s_state_machine
 	int				flag_dquote;
 	int				flag_quote;
 	int				flag_backslash;
-	int				backslash_activated;
+	int				conv_activated;
 }				t_state_machine;
 
-typedef	int	(*t_function)(char *, t_state_machine *);
+typedef	int	(*t_function)(char *, t_state_machine *, t_list *);
 
 
 #endif
