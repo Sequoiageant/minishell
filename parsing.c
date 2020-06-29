@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/06/24 18:13:23 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/29 15:21:10 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int ft_init_cmd(t_list *cmd_list)
 	return(0);
 }
 
-int	ft_parse(char *buf, t_list *env, t_list **cmd )
+int	ft_parse(char *buf, t_list *env, t_list **cmd)
 {
 	int	num_cmd;
 // 	int err;

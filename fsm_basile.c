@@ -195,20 +195,14 @@ void	chose_state(char *buf, t_state_machine *machine)
 		machine->state = LETTER;
 }
 
-void	init_machine(t_state_machine *machine)
-{
-	machine->flag_dquote = 0;
-	machine->flag_quote = 0;
-	machine->flag_backslash = 0;
-}
-
 int		parser(char *buf, t_list *env)
 {
 	t_state_machine		machine;
 	static t_function	func[NB_STATE] = {letter, dollar, backslash, flag};
 	int					ret;
 
-	init_machine(&machine);
+	machine.flag_dquote = 0;
+	machine.flag_quote = 0;
 	while (*buf != '\0')
 	{
 		// printf("state: %d\n", machine.state);
@@ -222,7 +216,7 @@ int		parser(char *buf, t_list *env)
 	return (SUCCESS);
 }
 
-int	ft_parse_fsm(char *buf, t_list *env)
+int		ft_parse_fsm(char *buf, t_list *env)
 {
 	if (parser(buf, env) == FAILURE)
 		return (EXIT_FAILURE);
