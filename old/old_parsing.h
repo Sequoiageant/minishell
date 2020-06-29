@@ -1,19 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   old_parsing.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/06/29 15:45:05 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/29 15:31:01 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-#include "libft.h"
+
+
+// etat normal
+
+// etat '
+// etat "
+// etat backslash
+
+// etat $
+
+// etat ;
+// etat |
+
+// echappement oui ou non (en fonction de la combinaison '', "" et backslash)
+// si non:
+//     etat ;
+//     etat |
+// si oui: etat normal
+
+// etat substitution oui ou non (en fonction de la combinaison '', "" et backslash)
+// si oui:
+//     etat $
+// si non:
+//     etat normal
+ 
+
+
 
 // buffer = une ou plusieurs pipelines
 // pipeline = une ou plusieurs commandes
@@ -29,52 +55,39 @@
 // pipeline_list->next = autre t_pipeline
 
 
-# define SUCCESS	0
-# define FAILURE	-1
-# define TRUE		1
-# define FALSE		0
-
-# define NB_STATE		5
-# define NB_FLAG		6
-# define NB_CONV		10
-
-typedef struct	s_pipeline
-{
-    t_list      *cmd;
-}				t_pipeline;
+// typedef struct	s_pipeline
+// {
+//     t_list      *cmd;
+// }				t_pipeline;
 
 // cmd->content = (t_cmd*)cmd;
 
-typedef struct s_cmd
+// typedef struct s_cmd
+// {
+//     char		    **argv;
+// 	   int		    argc;
+//     int         output_file; // >
+//     int         output_file_append; // >>
+//     int         input_file; // <
+//     char        *file; // pour >, >> et <
+// }               t_cmd;
+
+#include "libft.h"
+
+typedef struct	s_cmd
 {
-    char		    **argv;
-	   int		    argc;
+	char		**argv;
+	int			argc;
     int         output_file; // >
     int         output_file_append; // >>
     int         input_file; // <
     char        *file; // pour >, >> et <
-}               t_cmd;
-
-enum	e_state
-{
-	LETTER,
-	DOLLAR,
-	BACKSLASH,
-	FLAG,
-	PIPE,
-	REDIR,
-	MULTI
-};
-
-typedef struct s_state_machine
-{
-	enum e_state	state;	
-	int				flag_dquote;
-	int				flag_quote;
-}				t_state_machine;
-
-typedef	int	(*t_function)(char *, t_state_machine *, t_list *);
+    int         chained_input; // cmd |
+    int         chained_output; // | cmd
+}				t_cmd;
 
 int ft_parse(char *buf, t_list *env, t_list **cmd );
+int ft_fill_cmd(t_list *cmd_list, char *buf);
+int ft_parse_fsm(char *buf, t_list *env);
 
 #endif

@@ -6,87 +6,120 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/06/29 15:21:10 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/29 15:46:47 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-// int	ft_count_cmd(char *buf)
-// {
-// 	// separators = ; ou |		
-// }
-
-// int ft_detect_error(char *buf)
-// {
-// 	// exemple de syntax errors:
-// 	//	[ < ]
-// 	//	[ cmd < ] 
-// }
-
-// int	ft_subsitute(char **buf, t_list *env)
-// {
-//	// susbtituer les variables d'env
-//	// gerer les '\'	
-// }
-
-int	ft_alloc_cmd(int num, t_list **cmd_list)
+int		dollar(char *buf, t_state_machine *machine, t_list *env)
 {
 	int i;
-	t_cmd *cmd;
-	
-	*cmd_list = NULL;
-	i = 0;
-	while (i < num)
-	{
-		cmd = malloc(sizeof(t_cmd));
-		ft_lstadd_back(cmd_list, ft_lstnew(cmd));
-		i++;
-	}
-	return (0);
-}
-
-int ft_init_cmd(t_list *cmd_list)
-{
-	t_cmd *cmd;
-
-	while (cmd_list)
-	{
-		cmd = (t_cmd*)cmd_list->content;
-		cmd->argc = 0;
-		cmd->chained_input = 0;
-		cmd->chained_output = 0;
-		cmd->input_file = 0;
-		cmd->output_file = 0;
-		cmd->output_file_append = 0;
-		cmd->argv = NULL;
-		cmd->file = NULL;
-		cmd_list = cmd_list->next;
-	}
-	return(0);
-}
-
-int	ft_parse(char *buf, t_list *env, t_list **cmd)
-{
-	int	num_cmd;
-// 	int err;
+	char *str;
 
 	(void)env;
+	i = 0;
+	while(buf[i] != ' ' && buf[i])
+		i++;
+	str = ft_substr(buf, 0, i);
+	printf("[%s] -> ENV\n", str);
+	// printf("i: %d\n", i);
+	if (buf[i] == ' ')
+		i++;
+	machine->state = LETTER;
+	return(i);
+}
 
-// 	ft_substitute(&buf, env);
+int		backslash(char *buf, t_state_machine *machine, t_list *env)
+{
+	(void)machine;
+	(void)env;
+	printf("[%c] -> LETTER (ESCAPED)\n", buf[1]);
+	return(2);
+}
 
-// 	if ((err = ft_detect_error(buf) != 0))
-// 	{
-// 		ft_display_synthax_error(err);
-// 		return(1);
-// 	}
+int		flag(char *buf, t_state_machine *machine, t_list *env)
+{
+	(void)env;
+	if (*buf == '"')
+	{
+		if (machine->flag_dquote)
+			machine->flag_dquote = 0;
+		else
+			machine->flag_dquote = 1;
+	}
+	else
+	{
+		if (machine->flag_quote)
+			machine->flag_quote = 0;
+		else
+			machine->flag_quote = 1;
+	}
+	return (1);
+}
 
-// 	num_cmd = ft_count_cmd(buf);
-	num_cmd = 1;
+int		letter(char *buf, t_state_machine *machine, t_list *env)
+{
+	(void)machine;
+	(void)env;
+	printf("[%c] -> LETTER\n", *buf);
+	return (1);
+}
 
-	ft_alloc_cmd(num_cmd, cmd);
-	ft_init_cmd(*cmd);
-	ft_fill_cmd(*cmd, buf);
-	return (0);
+int		backslash_activated(char *buf, t_state_machine *machine)
+{
+	if (machine->flag_quote)
+		return (0);
+	if (machine->flag_dquote)
+	{
+		if (buf[1] == '$' || buf[1] == '"' || buf[1] == '\\')
+			return (1);
+		else
+			return (0);
+	}
+	return (1);
+}
+
+void	chose_state(char *buf, t_state_machine *machine)
+{
+	if (*buf == '"' && !machine->flag_quote)
+		machine->state = FLAG;
+	else if (*buf == '\'' && !machine->flag_dquote)
+		machine->state = FLAG;
+	else if (*buf == '\\' && backslash_activated(buf, machine))
+		machine->state = BACKSLASH;
+	else if (*buf == '$' && !machine->flag_quote)
+		machine->state = DOLLAR;
+	else
+		machine->state = LETTER;
+}
+
+int		parser(char *buf, t_list *env)
+{
+	t_state_machine		machine;
+	static t_function	func[NB_STATE] = {letter, dollar, backslash, flag};
+	int					ret;
+
+	machine.flag_dquote = 0;
+	machine.flag_quote = 0;
+	while (*buf != '\0')
+	{
+		// printf("state: %d\n", machine.state);
+		chose_state(buf, &machine);
+		ret = func[machine.state](buf, &machine, env);
+		if (ret == FAILURE)
+			return (FAILURE);
+		// printf("ret: %d\n", ret);
+		buf += ret;
+	}
+	return (SUCCESS);
+}
+
+int		ft_parse(char *buf, t_list *env, t_list **pipe_list)
+{
+	(void)pipe_list;
+	if (parser(buf, env) == FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/06/29 11:04:13 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/29 15:49:22 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 
 int		ft_handle(char *buf, t_list **env)
 {
-	t_list	*cmd;
+	t_list	*pipe_list;
 
-	// il faudrait parser ici la commande, et set des flags en fonction (chercher les '<', '>>'...)
 	// cmd = ft_split(buf, ' ');
 	// print_cmd(cmd);
-	if (ft_parse_fsm(buf, *env) == ERROR)
+	if (ft_parse(buf, *env, &pipe_list) == ERROR)
 		return(ERROR);
-	(void)cmd;
 	// ft_traitement(cmd, env);
 	// ft_lstclear(&cmd, &del_cmd);
 	return (0);
