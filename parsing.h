@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/06/29 15:45:05 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/29 16:00:17 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,9 @@ typedef struct s_state_machine
 typedef	int	(*t_function)(char *, t_state_machine *, t_list *);
 
 int ft_parse(char *buf, t_list *env, t_list **cmd );
+int		dollar(char *buf, t_state_machine *machine, t_list *env);
+int		backslash(char *buf, t_state_machine *machine, t_list *env);
+int		flag(char *buf, t_state_machine *machine, t_list *env);
+int		letter(char *buf, t_state_machine *machine, t_list *env);
 
 #endif
