@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/06/29 16:00:17 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/29 19:12:58 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,16 @@
 
 typedef struct	s_pipeline
 {
-    t_list      *cmd;
+    t_list      *cmd_list;
+    char        *pipe_buf;
 }				t_pipeline;
 
 // cmd->content = (t_cmd*)cmd;
 
 typedef struct s_cmd
 {
-    char		    **argv;
-	   int		    argc;
+    char		**argv;
+	int		    argc;
     int         output_file; // >
     int         output_file_append; // >>
     int         input_file; // <
@@ -73,12 +74,15 @@ typedef struct s_state_machine
 	int				flag_quote;
 }				t_state_machine;
 
-typedef	int	(*t_function)(char *, t_state_machine *, t_list *);
+typedef	int	(*t_function)(char *, t_state_machine *, t_list *, t_list **);
 
-int ft_parse(char *buf, t_list *env, t_list **cmd );
-int		dollar(char *buf, t_state_machine *machine, t_list *env);
-int		backslash(char *buf, t_state_machine *machine, t_list *env);
-int		flag(char *buf, t_state_machine *machine, t_list *env);
-int		letter(char *buf, t_state_machine *machine, t_list *env);
+int     ft_parse(char *buf, t_list *env, t_list **pipe_list);
+int		dollar(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		backslash(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		flag(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		letter(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		add_pipe(t_list **pipe_list);
+int     ft_join_str_to_pipe(char *str, t_list *pipe_list);
+char    *char_to_str(char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/06/29 15:59:17 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/29 19:09:09 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,48 @@ void	chose_state(char *buf, t_state_machine *machine)
 		machine->state = LETTER;
 }
 
-int		parser(char *buf, t_list *env)
+int		parser(char *buf, t_list *env, t_list **pipe_list)
 {
 	t_state_machine		machine;
 	static t_function	func[NB_STATE] = {letter, dollar, backslash, flag};
 	int					ret;
-
+	
+	// juste pour faire des printf du pipe_buf
+	t_pipeline *pipe;
+	pipe = (t_pipeline*)(*pipe_list)->content;
+	//
+	
 	machine.flag_dquote = 0;
 	machine.flag_quote = 0;
 	while (*buf != '\0')
 	{
 		// printf("state: %d\n", machine.state);
 		chose_state(buf, &machine);
-		ret = func[machine.state](buf, &machine, env);
+		ret = func[machine.state](buf, &machine, env, pipe_list);
 		if (ret == FAILURE)
 			return (FAILURE);
 		// printf("ret: %d\n", ret);
+		printf("pipe_buf: %s\n", pipe->pipe_buf);
 		buf += ret;
 	}
 	return (SUCCESS);
 }
 
+
 int		ft_parse(char *buf, t_list *env, t_list **pipe_list)
 {
-	(void)pipe_list;
-	if (parser(buf, env) == FAILURE)
+	if (add_pipe(pipe_list) == -1)
+		return (EXIT_FAILURE);
+	
+	// t_pipeline *pipe;
+	// char	*pipe_buf;
+	// pipe = (t_pipeline*)(*pipe_list)->content;
+	// pipe_buf = pipe->pipe_buf;
+	// printf("p_buf: %s\n", pipe_buf);
+
+	// (void)env;
+	// (void)buf;
+	if (parser(buf, env, pipe_list) == FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
