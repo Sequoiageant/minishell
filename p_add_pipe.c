@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_pipe_list.c                                      :+:      :+:    :+:   */
+/*   p_add_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 16:09:18 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 16:28:47 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		add_pipe(t_list **pipe_list)
    
    cmd_list = NULL;
    init_cmd_list(&cmd_list);
+   cmd_list->next = NULL;
    ft_lstadd_back(pipe_list, ft_lstnew(cmd_list));
    return(0);
 }

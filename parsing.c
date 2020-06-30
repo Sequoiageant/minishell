@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 16:17:45 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 16:56:20 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,12 @@ void	chose_state(char *buf, t_state_machine *machine)
 		machine->state = BACKSLASH;
 	else if (*buf == '$' && !machine->flag_quote)
 		machine->state = DOLLAR;
-	else if (*buf == ';' && !machine->flag_quote)
+	else if (*buf == ';' && !machine->flag_quote && !machine->flag_dquote)
 		machine->state = MULTI;
+	else if (*buf == '|' && !machine->flag_quote && !machine->flag_dquote)
+		machine->state = PIPE;
+	else if ((*buf == '<' || *buf == '>') && !machine->flag_quote && !machine->flag_dquote)
+		machine->state = REDIR;
 	else
 		machine->state = LETTER;
 }
@@ -46,7 +50,7 @@ void	chose_state(char *buf, t_state_machine *machine)
 int		parser(char *buf, t_list *env, t_list **pipe_list)
 {
 	t_state_machine		machine;
-	static t_function	func[NB_STATE] = {fsm_letter, fsm_dollar, fsm_backslash, fsm_flag, fsm_multi};
+	static t_function	func[NB_STATE] = {fsm_letter, fsm_dollar, fsm_backslash, fsm_flag, fsm_multi, fsm_pipe, fsm_redir};
 	int					ret;
 	
 	

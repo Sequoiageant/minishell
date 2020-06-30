@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 16:16:15 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 16:39:49 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define TRUE		1
 # define FALSE		0
 
-# define NB_STATE		5
+# define NB_STATE		7
 # define NB_FLAG		6
 # define NB_CONV		10
 
@@ -43,7 +43,8 @@ enum	e_state
 	BACKSLASH,
 	FLAG,
 	MULTI,
-    PIPE
+    PIPE,
+	REDIR
 };
 
 typedef struct s_state_machine
@@ -61,10 +62,11 @@ int		fsm_flag(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_li
 int		fsm_letter(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
 int		fsm_multi(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
 int		fsm_pipe(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		fsm_redir(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
 
 int     ft_parse(char *buf, t_list *env, t_list **pipe_list);
 int		add_pipe(t_list **pipe_list);
-int     add_cmd(t_list **pipe_list);
+int     add_cmd(t_list *pipe_list);
 int     ft_join_to_cmd_buf(char *str, t_list *pipe_list);
 char    *char_to_str(char c);
 int		ft_is_special(char c);
