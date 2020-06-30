@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 14:05:43 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 15:39:34 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,6 @@
 # define PARSING_H
 
 #include "libft.h"
-
-// buffer = une ou plusieurs pipelines
-// pipeline = une ou plusieurs commandes
-
-
-// cmd 1 ; cmd2 | cmd 3 | cmd4 ; cmd5
-// 3 pipeline avec 1 cmd, 3 cmd, 1 cmd
-
-
-// t_list  *pipeline_list
-
-// pipeline_list->content = (t_pipeline *)pipeline
-// pipeline_list->next = autre t_pipeline
-
 
 # define SUCCESS	0
 # define FAILURE	-1
@@ -38,13 +24,6 @@
 # define NB_FLAG		6
 # define NB_CONV		10
 
-typedef struct	s_pipeline
-{
-    t_list      *cmd_list;
-    char        *pipe_buf;
-}				t_pipeline;
-
-// cmd->content = (t_cmd*)cmd;
 
 typedef struct s_cmd
 {
