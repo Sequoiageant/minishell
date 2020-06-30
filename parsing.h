@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 11:51:10 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 14:05:43 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		multi(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list)
 
 int     ft_parse(char *buf, t_list *env, t_list **pipe_list);
 int		add_pipe(t_list **pipe_list);
-int     ft_join_str_to_pipe(char *str, t_list *pipe_list);
+int     ft_join_to_cmd_buf(char *str, t_list *pipe_list);
 char    *char_to_str(char c);
 int		ft_is_special(char c);
 

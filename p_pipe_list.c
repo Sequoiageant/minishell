@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 11:47:54 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 15:35:31 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,46 @@
 #include "mshell.h"
 
 
-// int     add_cmd(t_list **cmd_list)
-// {
-//     t_cmd   *cmd;
+int     init_cmd_list(t_list **cmd_list)
+{
+    t_cmd   *cmd;
 
-//     *cmd_list = malloc(sizeof *cmd_list);
-//     cmd = malloc(sizeof *cmd);
-//     ft_lstadd_back(cmd_list, ft_lstnew(cmd));
-// }
+    cmd = malloc(sizeof *cmd);
+    cmd->buf = malloc(1);
+    cmd->buf[0] = 0;
+    ft_lstadd_back(cmd_list, ft_lstnew(cmd));
+    return (0);
+}
 
-// int		add_pipe(t_list **pipe_list)
-// {
-//     t_list      *cmd_list;
-    
-//     add_cmd(&cmd_list);
-//     ft_lstadd_back(pipe_list, ft_lstnew(cmd_list));
-// 	return(0);
-// }
 int		add_pipe(t_list **pipe_list)
 {
-	t_pipeline *pipe;
-	// char *pipe_buf;
-	
-	pipe = malloc(sizeof(*pipe)); 
-	pipe->cmd_list = NULL;
-	pipe->pipe_buf = malloc(1);
-	pipe->pipe_buf[0] = 0;
-	ft_lstadd_back(pipe_list, ft_lstnew(pipe));
-	return(0);
+    
+   t_list *cmd_list;
+   
+   cmd_list = NULL;
+   init_cmd_list(&cmd_list);
+   ft_lstadd_back(pipe_list, ft_lstnew(cmd_list));
+   return(0);
 }
-int     ft_join_str_to_pipe(char *str, t_list *pipe_list)
+
+int     ft_join_to_cmd_buf(char *str, t_list *pipe_list)
 {
-    t_pipeline *pipe;
-    char *tmp;
+    t_list  *cmd_list;
+    t_cmd   *cmd;
+    char    *tmp;
     
     while (pipe_list->next)
         pipe_list = pipe_list->next;
-    pipe = (t_pipeline*)pipe_list->content;
-    tmp = pipe->pipe_buf;
-    pipe->pipe_buf = ft_strjoin(tmp, str);
-    free(tmp); // on ne free pas str car c'est un maillon de la t_list env
+    cmd_list = (t_list*)pipe_list->content;
+    while (cmd_list->next)
+        cmd_list = cmd_list->next;
+    cmd = (t_cmd*)cmd_list->content;
+    tmp = cmd->buf;
+    cmd->buf = ft_strjoin(tmp, str);
+    free(tmp);
+    free(str);
+    // on ne free pas str --> à gérer au cas par cas (dans le cas du dollar, on ne veut pas free un maillon de la t_list env...)
+    printf("buf: [%s]\n", cmd->buf);
     return(1);
 }
 
@@ -66,10 +66,3 @@ char    *char_to_str(char c)
     str[1] = 0;
     return (str);
 }
-
-// int     fill_pipe(t_pipeline *pipe)
-// {
-//     // faire un split de pipe->buf avec '|' en séparateur
-//     // allouer autant d'element dans la t_list *pipe->cmd_list que de commandes
-//     // remplir chaque t_cmd commande, en commencant par gérer les redirections 
-// }

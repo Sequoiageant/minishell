@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 11:49:17 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 15:36:56 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int		parser(char *buf, t_list *env, t_list **pipe_list)
 	t_state_machine		machine;
 	static t_function	func[NB_STATE] = {letter, dollar, backslash, flag, multi};
 	int					ret;
-	t_pipeline 			*pipe;
 	
 	
 	machine.flag_dquote = 0;
@@ -62,13 +61,6 @@ int		parser(char *buf, t_list *env, t_list **pipe_list)
 			return (FAILURE);
 		// printf("ret: %d\n", ret);
 		buf += ret;
-	
-		// juste pour faire des printf du pipe_buf
-		while ((*pipe_list)->next)
-			*pipe_list = (*pipe_list)->next;
-		pipe = (t_pipeline*)(*pipe_list)->content;
-		printf(" pipe_buf: [%s]\n", pipe->pipe_buf);
-		//
 	}
 	return (SUCCESS);
 }
@@ -78,12 +70,18 @@ int		ft_parse(char *buf, t_list *env, t_list **pipe_list)
 {
 	if (add_pipe(pipe_list) == -1)
 		return (EXIT_FAILURE);
+
+	// pour print l'état initial du cmd->buf	
+	// t_list *cmd_list;
+	// t_list *p_list;
+	// t_cmd *cmd;
+	// p_list = *pipe_list;
+	// while (p_list->next)
+	// 	p_list = p_list->next;
+	// cmd_list = (t_list*)p_list->content;
+	// cmd = (t_cmd*)cmd_list->content;
+	// printf("initial buf: [%s]\n", cmd->buf);
 	
-	// t_pipeline *pipe;
-	// char	*pipe_buf;
-	// pipe = (t_pipeline*)(*pipe_list)->content;
-	// pipe_buf = pipe->pipe_buf;
-	// printf("p_buf: %s\n", pipe_buf);
 
 	if (parser(buf, env, pipe_list) == FAILURE)
 		return (EXIT_FAILURE);

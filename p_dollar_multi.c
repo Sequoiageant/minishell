@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_dollar.c                                         :+:      :+:    :+:   */
+/*   p_dollar_multi.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:58:58 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 10:56:05 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 15:30:02 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		dollar(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list
     key_val = find_key_val(env, str);
 	printf("[$%s] -> ENV ", str);
     if (key_val)
-        ft_join_str_to_pipe(key_val->val, *pipe_list);
+        ft_join_to_cmd_buf(ft_strdup(key_val->val), *pipe_list); // on envoie une copie de key_val->val, pour pouvoir la free sans modifier la t_list *env
     return(i + 1); // + 1 car il y a le '$'
 }
 
@@ -43,6 +43,6 @@ int		multi(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list)
     add_pipe(pipe_list);
 	while ((*pipe_list)->next)
 		*pipe_list = (*pipe_list)->next;
-	printf("[;] -> NEW PIPE ");
+	printf("[;] -> NEW PIPE \n");
     return (1);
 }
