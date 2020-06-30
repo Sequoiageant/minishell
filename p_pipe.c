@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/06/29 19:12:46 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 09:19:13 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int ft_join_str_to_pipe(char *str, t_list *pipe_list)
     pipe = (t_pipeline*)pipe_list->content;
     tmp = pipe->pipe_buf;
     pipe->pipe_buf = ft_strjoin(tmp, str);
-    free(tmp);
-    free(str);
+    free(tmp); // on ne free pas str car c'est un maillon de la t_list env
     return(1);
 }
 
