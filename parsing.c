@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 15:36:56 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 16:17:45 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	chose_state(char *buf, t_state_machine *machine)
 int		parser(char *buf, t_list *env, t_list **pipe_list)
 {
 	t_state_machine		machine;
-	static t_function	func[NB_STATE] = {letter, dollar, backslash, flag, multi};
+	static t_function	func[NB_STATE] = {fsm_letter, fsm_dollar, fsm_backslash, fsm_flag, fsm_multi};
 	int					ret;
 	
 	

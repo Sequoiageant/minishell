@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 15:39:34 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 16:16:15 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,16 @@ typedef struct s_state_machine
 
 typedef	int	(*t_function)(char *, t_state_machine *, t_list *, t_list **);
 
-int		dollar(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
-int		backslash(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
-int		flag(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
-int		letter(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
-int		multi(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		fsm_dollar(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		fsm_backslash(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		fsm_flag(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		fsm_letter(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		fsm_multi(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		fsm_pipe(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
 
 int     ft_parse(char *buf, t_list *env, t_list **pipe_list);
 int		add_pipe(t_list **pipe_list);
+int     add_cmd(t_list **pipe_list);
 int     ft_join_to_cmd_buf(char *str, t_list *pipe_list);
 char    *char_to_str(char c);
 int		ft_is_special(char c);

@@ -6,14 +6,14 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 15:30:48 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 16:20:07 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int		backslash(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list)
+int		fsm_backslash(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list)
 {
 	(void)machine;
 	(void)env;
@@ -22,7 +22,7 @@ int		backslash(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_l
 	return(2);
 }
 
-int		flag(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list)
+int		fsm_flag(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list)
 {
 	(void)env;
 	(void)pipe_list;
@@ -43,11 +43,31 @@ int		flag(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list)
 	return (1);
 }
 
-int		letter(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list)
+int		fsm_letter(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list)
 {
 	(void)machine;
 	(void)env;
 	printf("[%c] -> LETTER ", *buf);
 	ft_join_to_cmd_buf(char_to_str(*buf), *pipe_list);
 	return (1);
+}
+
+int		fsm_dollar(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list)
+{
+	int i;
+	char *str;
+    t_key_val *key_val;
+
+    (void)pipe_list;
+    (void)machine;
+	buf++;
+    i = 0;
+	while(buf[i] != 0 && !ft_is_special(buf[i]))
+		i++;
+	str = ft_substr(buf, 0, i);
+    key_val = find_key_val(env, str);
+	printf("[$%s] -> ENV ", str);
+    if (key_val)
+        ft_join_to_cmd_buf(ft_strdup(key_val->val), *pipe_list); // on envoie une copie de key_val->val, pour pouvoir la free sans modifier la t_list *env
+    return(i + 1); // + 1 car il y a le '$'
 }
