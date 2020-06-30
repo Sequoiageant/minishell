@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_flag_backslash_letter.c                          :+:      :+:    :+:   */
+/*   p_fsm_other.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 16:20:07 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 18:14:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int		fsm_dollar(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_
 	str = ft_substr(buf, 0, i);
     key_val = find_key_val(env, str);
 	printf("[$%s] -> ENV ", str);
+	free(str);
     if (key_val)
         ft_join_to_cmd_buf(ft_strdup(key_val->val), *pipe_list); // on envoie une copie de key_val->val, pour pouvoir la free sans modifier la t_list *env
     return(i + 1); // + 1 car il y a le '$'
