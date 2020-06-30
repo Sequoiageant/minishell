@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/06/29 19:15:31 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 10:38:21 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		backslash(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_l
 	(void)env;
 	(void)pipe_list;
 	ft_join_str_to_pipe(char_to_str(buf[1]), *pipe_list);
-	printf("[%c] -> LETTER (ESCAPED)\n", buf[1]);
+	printf("[%c] -> LETTER (ESCAPED) ", buf[1]);
 	return(2);
 }
 
@@ -49,6 +49,6 @@ int		letter(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list
 	(void)machine;
 	(void)env;
 	ft_join_str_to_pipe(char_to_str(*buf), *pipe_list);
-	printf("[%c] -> LETTER\n", *buf);
+	printf("[%c] -> LETTER ", *buf);
 	return (1);
 }

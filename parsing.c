@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 10:26:03 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 10:39:16 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,8 @@ int		parser(char *buf, t_list *env, t_list **pipe_list)
 	t_state_machine		machine;
 	static t_function	func[NB_STATE] = {letter, dollar, backslash, flag, multi};
 	int					ret;
+	t_pipeline 			*pipe;
 	
-	// juste pour faire des printf du pipe_buf
-	t_pipeline *pipe;
-	pipe = (t_pipeline*)(*pipe_list)->content;
-	//
 	
 	machine.flag_dquote = 0;
 	machine.flag_quote = 0;
@@ -68,12 +65,9 @@ int		parser(char *buf, t_list *env, t_list **pipe_list)
 	
 		// juste pour faire des printf du pipe_buf
 		while ((*pipe_list)->next)
-		{
 			*pipe_list = (*pipe_list)->next;
-			printf("avance d'un pipe\n");
-		}
 		pipe = (t_pipeline*)(*pipe_list)->content;
-		printf("pipe_buf: %s\n", pipe->pipe_buf);
+		printf(" pipe_buf: [%s]\n", pipe->pipe_buf);
 		//
 	}
 	// fill_pipe(pipe);
