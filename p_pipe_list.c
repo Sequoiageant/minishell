@@ -1,18 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_pipe.c                                           :+:      :+:    :+:   */
+/*   p_pipe_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 09:53:21 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 11:47:54 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
+
+// int     add_cmd(t_list **cmd_list)
+// {
+//     t_cmd   *cmd;
+
+//     *cmd_list = malloc(sizeof *cmd_list);
+//     cmd = malloc(sizeof *cmd);
+//     ft_lstadd_back(cmd_list, ft_lstnew(cmd));
+// }
+
+// int		add_pipe(t_list **pipe_list)
+// {
+//     t_list      *cmd_list;
+    
+//     add_cmd(&cmd_list);
+//     ft_lstadd_back(pipe_list, ft_lstnew(cmd_list));
+// 	return(0);
+// }
 int		add_pipe(t_list **pipe_list)
 {
 	t_pipeline *pipe;
@@ -25,7 +43,6 @@ int		add_pipe(t_list **pipe_list)
 	ft_lstadd_back(pipe_list, ft_lstnew(pipe));
 	return(0);
 }
-
 int     ft_join_str_to_pipe(char *str, t_list *pipe_list)
 {
     t_pipeline *pipe;

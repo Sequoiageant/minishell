@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 09:56:30 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 11:51:10 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct	s_pipeline
 
 typedef struct s_cmd
 {
+    char        *buf;
     char		**argv;
 	int		    argc;
     int         output_file; // >
@@ -63,7 +64,7 @@ enum	e_state
 	BACKSLASH,
 	FLAG,
 	MULTI,
-	PIPE
+    PIPE
 };
 
 typedef struct s_state_machine

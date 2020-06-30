@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 10:39:16 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 11:49:17 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int		parser(char *buf, t_list *env, t_list **pipe_list)
 		printf(" pipe_buf: [%s]\n", pipe->pipe_buf);
 		//
 	}
-	// fill_pipe(pipe);
 	return (SUCCESS);
 }
 
