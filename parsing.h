@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/06/29 19:12:58 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 09:56:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ enum	e_state
 	DOLLAR,
 	BACKSLASH,
 	FLAG,
-	PIPE,
-	REDIR,
-	MULTI
+	MULTI,
+	PIPE
 };
 
 typedef struct s_state_machine
@@ -76,13 +75,16 @@ typedef struct s_state_machine
 
 typedef	int	(*t_function)(char *, t_state_machine *, t_list *, t_list **);
 
-int     ft_parse(char *buf, t_list *env, t_list **pipe_list);
 int		dollar(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
 int		backslash(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
 int		flag(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
 int		letter(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		multi(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+
+int     ft_parse(char *buf, t_list *env, t_list **pipe_list);
 int		add_pipe(t_list **pipe_list);
 int     ft_join_str_to_pipe(char *str, t_list *pipe_list);
 char    *char_to_str(char c);
+int		ft_is_special(char c);
 
 #endif

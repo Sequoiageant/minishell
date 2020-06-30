@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 09:19:13 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 09:53:21 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		add_pipe(t_list **pipe_list)
 	return(0);
 }
 
-int ft_join_str_to_pipe(char *str, t_list *pipe_list)
+int     ft_join_str_to_pipe(char *str, t_list *pipe_list)
 {
     t_pipeline *pipe;
     char *tmp;
@@ -40,7 +40,7 @@ int ft_join_str_to_pipe(char *str, t_list *pipe_list)
     return(1);
 }
 
-char *char_to_str(char c)
+char    *char_to_str(char c)
 {
     char *str;
 
@@ -49,3 +49,10 @@ char *char_to_str(char c)
     str[1] = 0;
     return (str);
 }
+
+// int     fill_pipe(t_pipeline *pipe)
+// {
+//     // faire un split de pipe->buf avec '|' en séparateur
+//     // allouer autant d'element dans la t_list *pipe->cmd_list que de commandes
+//     // remplir chaque t_cmd commande, en commencant par gérer les redirections 
+// }

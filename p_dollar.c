@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:58:58 by grim              #+#    #+#             */
-/*   Updated: 2020/06/29 19:14:36 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 09:38:57 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ int		dollar(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list
 
     (void)pipe_list;
     (void)machine;
+	// print_env_elem(env, "PWD");
+    // ft_print_env(env);
 	buf++;
     i = 0;
-	while(buf[i] != ' ' && buf[i])
+	while(buf[i] != 0 && !ft_is_special(buf[i]))
 		i++;
 	str = ft_substr(buf, 0, i);
     key_val = find_key_val(env, str);

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/06/29 19:09:09 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 10:26:03 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	chose_state(char *buf, t_state_machine *machine)
 		machine->state = BACKSLASH;
 	else if (*buf == '$' && !machine->flag_quote)
 		machine->state = DOLLAR;
+	else if (*buf == ';' && !machine->flag_quote)
+		machine->state = MULTI;
 	else
 		machine->state = LETTER;
 }
@@ -44,7 +46,7 @@ void	chose_state(char *buf, t_state_machine *machine)
 int		parser(char *buf, t_list *env, t_list **pipe_list)
 {
 	t_state_machine		machine;
-	static t_function	func[NB_STATE] = {letter, dollar, backslash, flag};
+	static t_function	func[NB_STATE] = {letter, dollar, backslash, flag, multi};
 	int					ret;
 	
 	// juste pour faire des printf du pipe_buf
@@ -62,9 +64,19 @@ int		parser(char *buf, t_list *env, t_list **pipe_list)
 		if (ret == FAILURE)
 			return (FAILURE);
 		// printf("ret: %d\n", ret);
-		printf("pipe_buf: %s\n", pipe->pipe_buf);
 		buf += ret;
+	
+		// juste pour faire des printf du pipe_buf
+		while ((*pipe_list)->next)
+		{
+			*pipe_list = (*pipe_list)->next;
+			printf("avance d'un pipe\n");
+		}
+		pipe = (t_pipeline*)(*pipe_list)->content;
+		printf("pipe_buf: %s\n", pipe->pipe_buf);
+		//
 	}
+	// fill_pipe(pipe);
 	return (SUCCESS);
 }
 
@@ -80,8 +92,6 @@ int		ft_parse(char *buf, t_list *env, t_list **pipe_list)
 	// pipe_buf = pipe->pipe_buf;
 	// printf("p_buf: %s\n", pipe_buf);
 
-	// (void)env;
-	// (void)buf;
 	if (parser(buf, env, pipe_list) == FAILURE)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   other_utils.c                                      :+:      :+:    :+:   */
+/*   m_env_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/06/23 18:15:48 by grim             ###   ########.fr       */
+/*   Updated: 2020/06/30 09:33:25 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,6 @@ void	ft_print_env(t_list *env)
 		printf("clé: %s\n", elem->key);
 		printf("val: %s\n", elem->val);
 		env = env->next;
-	}
-}
-
-void	print_cmd(char **cmd)
-{
-	int i = 0;
-	while (cmd[i])
-	{
-		// ft_putnbr_fd(i, 1);
-		// ft_putstr_fd("\n", 1);
-		ft_putstr_fd(cmd[i], 1);
-		ft_putstr_fd("\n", 1);
-		i++;
 	}
 }
 
