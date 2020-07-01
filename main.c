@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 18:16:50 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/01 20:10:44 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		main()
 		printf("ret = %d\n", ret);
 		if (!ret)
 		{
-			ft_putstr_fd("exit", 1); // remplacer une fonction d'exit
+			ft_putendl_fd("exit", 1); // remplacer une fonction d'exit
 			exit(0);
 		}
 		// printf("ret: %d\n", ret);

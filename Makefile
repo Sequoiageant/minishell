@@ -1,23 +1,141 @@
-SRC = $(wildcard *.c)
-OBJ = $(SRC:%.c=%.o)
-FLAGS = -Werror -Wextra -Wall
-NAME = minishell
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2019/12/13 14:56:19 by julnolle          #+#    #+#              #
+#    Updated: 2020/07/01 20:27:46 by julnolle         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME	= minishell
+
+# ---------------- CC ---------------- #
+
+CC	= clang
+
+ifeq ($(err), no)
+	CFLAGS += -Wall
+	CFLAGS += -Wextra
+else
+	CFLAGS += -Wall
+	CFLAGS += -Wextra
+	CFLAGS += -Werror
+endif
+
+ifeq ($(debug), 0)
+	CFLAGS += -g3
+else ifeq ($(debug), 1)
+	CFLAGS += -fsanitize=address,undefined
+	CFLAGS += -g3
+else ifeq ($(debug), 2)
+	CFLAGS += -fsanitize=address,undefined
+	CFLAGS += -g3
+	CFLAGS += -ansi
+	CFLAGS += -pedantic
+else ifeq ($(debug), 3)
+	CFLAGS += -fsanitize=address,undefined
+	CFLAGS += -g3
+	CFLAGS += -ansi
+	CFLAGS += -pedantic
+	CFLAGS += -Wpadded
+else ifeq ($(debug), 4)
+	CFLAGS += -fsanitize=address,undefined
+	CFLAGS += -g3
+	CFLAGS += -ansi
+	CFLAGS += -pedantic
+	CFLAGS += -Wpadded
+	CFLAGS += -Weverything
+endif
+
+# ---------------- SRC --------------- #
+
+# Debug Sources
+SRCS += p_print_cmds.c
+
+# Parsing Sources
+SRCS += parsing.c
+SRCS += p_fsm_other.c
+SRCS += p_parsing_utils.c
+SRCS += p_filler.c
+SRCS += p_add_cmd.c
+SRCS += p_filler_redir_argv.c
+SRCS += p_add_pipe.c
+SRCS += p_fsm_multi.c
+
+# Built in Sources
+SRCS += built_cd.c
+SRCS += built_echo.c
+SRCS += built_in.c
+
+# Main Sources
+SRCS += main.c
+SRCS += m_del.c
+SRCS += m_signals.c
+SRCS += m_env_utils.c
+SRCS += m_traitement.c
+SRCS += m_fork.c
+SRCS += m_init.c
+
+vpath %.c /
+
+# ---------------- INC --------------- #
+
+INCLUDES 	=	./
+HEAD 		= $(INCLUDES)mshell.h $(INCLUDES)parsing.h
+ALL_INC		=  -I$(INCLUDES) -I$(LIBFT_DIR)
+
+# ---------------- OBJ --------------- #
+
+DIR_OBJS	= ./objs/
+OBJS		= $(patsubst %.c, $(DIR_OBJS)%.o, $(SRCS))
+
+# ---------------- LIB --------------- #
+
+LIBFT_DIR 	= ./libft/
+LIBFT 		= $(LIBFT_DIR)libft.a
+LIB_LINK	= -L$(LIBFT_DIR) -lft
+
+# --------- Compilation Rules -------- #
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	cd libft ; make
-	gcc $(OBJ) -o $(NAME) -Llibft -lft
+fast:
+	$(MAKE) re -j8
 
-%.o: %.c
-	gcc -c -g $(FLAGS) $^ -o $@
+$(NAME):	$(LIBFT) $(OBJS)
+			$(CC) $(CFLAGS) $(OBJS) $(ALL_INC) $(LIB_LINK) -o $@
+# 			@echo "$(_BOLD)$(_YELLOW)==> $@ linked$(_END)"
+
+$(OBJS): 	$(DIR_OBJS)%.o: %.c $(HEAD) Makefile | $(DIR_OBJS)
+			$(CC) $(CFLAGS) -c $< -o $@ $(ALL_INC)
+# 			@echo "$(_BOLD)$(_GREEN)--> $@ made$(_END)"
+
+$(DIR_OBJS):
+	mkdir -p $@
+
+$(LIBFT): FORCE
+# 	@echo "$(_BOLD)$(_GREEN)--> Creating $@...$(_END)"
+	$(MAKE) -C $(LIBFT_DIR)
+# 	@echo "$(_BOLD)$(_YELLOW)--> $@ made$(_END)"
+
+
+FORCE:
 
 clean:
-	cd libft ; make clean
-	rm -f $(OBJ)
+	$(MAKE) clean -C $(LIBFT_DIR)
+	$(RM) -R $(DIR_OBJS)
+# 	@echo "$(_BOLD)$(_RED)-> $@ made$(_END)"
 
 fclean: clean
-	cd libft ; make fclean
-	rm -f $(NAME)
+	$(MAKE) fclean -C $(LIBFT_DIR)
+	$(RM) $(NAME)
+# 	@echo "$(_BOLD)$(_RED)-> $@ made$(_END)"
 
-re: fclean all
+re: fclean
+	$(MAKE)
+
+.PHONY:		all exec clean fclean re bonus
+# .SILENT:	$(OBJS) $(DIR_OBJS) $(NAME) $(LIBFT)

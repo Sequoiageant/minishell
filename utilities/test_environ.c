@@ -6,9 +6,12 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 17:49:38 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/01 19:26:19 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/01 19:31:22 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// Compilation line :
+// gcc -Wall -Wextra -Werror test_environ.c -L../libft/ -lft -I../libft/
 
 #include <stdio.h>
 #include <stdlib.h>

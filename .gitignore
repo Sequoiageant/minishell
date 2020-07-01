@@ -1,6 +1,7 @@
 a.out*
 .DS_Store
 *.o
+objs/
 libft.a
 valgrind_log
 minishell
