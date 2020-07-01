@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 15:25:34 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/01 15:42:55 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	chose_state(char *buf, t_state_machine *machine)
 		machine->state = MULTI;
 	else if (*buf == '|' && !machine->flag_quote && !machine->flag_dquote)
 		machine->state = PIPE;
-	// else if ((*buf == '<' || *buf == '>') && !machine->flag_quote && !machine->flag_dquote)
-	// 	machine->state = REDIR;
 	else
 		machine->state = LETTER;
 }

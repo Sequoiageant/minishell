@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 14:31:24 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/01 15:33:41 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int		ft_handle(char *buf, t_list **env)
 	pipe_list = NULL;
 	if (ft_parse(buf, *env, &pipe_list) == ERROR)
 		return(ERROR);
-	// ft_traitement(cmd, env);
-	// ft_lstclear(&cmd, &del_cmd);
+	ft_traitement(pipe_list, env);
+	// ft_lstclear(&pipe_list, &del_cmd);
 	return (0);
 }
 

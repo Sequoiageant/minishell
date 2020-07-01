@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/06/25 13:47:50 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/01 15:44:34 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,34 @@ int		ft_check_built_in(char *cmd, int *index)
 	return (FALSE);
 }
 
-int		ft_traitement(t_list *cmd_list, t_list **env)
+int		ft_traitement(t_list *pipe_list, t_list **env)
 {
 	int	built_index;
 	t_cmd *cmd;
+	t_list *cmd_list;
 
-	while (cmd_list)
+	while (pipe_list)
 	{
-		cmd = (t_cmd*)cmd_list->content;
-		if (cmd->argc == 0) // cas ou la commande rentrée est vide ou n'est qu'une suite de ' ' --> a traiter à part car dans ce cas ft_split n'alloue aucune chaine de caractère
-			return (0);
-		if (ft_check_built_in(cmd->argv[0], &built_index) == TRUE)
+		cmd_list = (t_list*)pipe_list->content;
+		while (cmd_list)
 		{
-			ft_putstr_fd(">>built-in\n", 1);
-			ft_built_in(cmd->argv, cmd->argc, built_index, env);
-			// lance la fonction "cmd";
+			cmd = (t_cmd*)cmd_list->content;
+			if (cmd->argc == 0) // cas ou la commande rentrée est vide ou n'est qu'une suite de ' ' --> a traiter à part car dans ce cas ft_split n'alloue aucune chaine de caractère
+				return (0);
+			if (ft_check_built_in(cmd->argv[0], &built_index) == TRUE)
+			{
+				ft_putstr_fd(">>built-in\n", 1);
+				ft_built_in(cmd->argv, cmd->argc, built_index, env);
+				// lance la fonction "cmd";
+			}
+			else
+			{
+				ft_putstr_fd(">>fork\n", 1);
+				ft_fork(cmd->argv);
+			}
+			cmd_list = cmd_list->next;
 		}
-		else
-		{
-			ft_putstr_fd(">>fork\n", 1);
-			ft_fork(cmd->argv);
-		}
-		cmd_list = cmd_list->next;
+		pipe_list = pipe_list->next;
 	}
 	return (0);
 }
