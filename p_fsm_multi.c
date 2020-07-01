@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:58:58 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 18:35:07 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/01 16:52:49 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,3 @@ int		fsm_pipe(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_li
     printf("[|] -> NEW CMD \n");
     return (1);
 }
-
-// int		fsm_redir(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list)
-// {
-//     (void)env;
-//     (void)buf;
-//     (void)machine;
-//     (void)pipe_list;
-//     if (*buf == '>')
-//     {
-//         if (buf[1] == '>')
-//         {
-//             printf("[>>] -> REDIR \n");
-//             // fill_redir_append(pipe_list)
-//             return (2);
-//         }
-//         else
-//             printf("[>] -> REDIR \n");
-//     }
-//     else
-//         printf("[<] -> REDIR \n");
-//     return (1);
-// }

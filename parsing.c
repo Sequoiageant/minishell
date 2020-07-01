@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 15:42:55 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/01 17:21:59 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		parser(char *buf, t_list *env, t_list **pipe_list)
 
 int		ft_parse(char *buf, t_list *env, t_list **pipe_list)
 {
-	if (add_pipe(pipe_list) == -1)
+	if (add_pipe(pipe_list) == FAILURE)
 		return (EXIT_FAILURE);
 
 	// pour print l'état initial du cmd->buf	

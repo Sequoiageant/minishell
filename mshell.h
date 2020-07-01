@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 17:25:08 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/01 16:01:31 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		ft_print_env(t_list *env);
 void		print_cmd(char **cmd);
 t_key_val	*find_key_val(t_list *env, char *key);
 void		print_env_elem(t_list *env, char *key);
-void		del_cmd(void *elem);
 void		del_key_val(void *elem);
+void		del_pipe(void *elem);
 
 #endif

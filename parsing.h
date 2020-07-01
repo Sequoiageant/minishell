@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 15:19:45 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/01 16:59:23 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int		fsm_redir(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_l
 int     ft_parse(char *buf, t_list *env, t_list **pipe_list);
 int		add_pipe(t_list **pipe_list);
 int     add_cmd(t_list *pipe_list);
+void	ft_init_cmd(t_cmd *cmd);
 int     ft_join_to_cmd_buf(char *str, t_list *pipe_list);
 char    *char_to_str(char c);
 int		ft_is_special(char c);
