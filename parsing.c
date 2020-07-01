@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 10:09:51 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/01 15:25:34 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,11 @@ int		ft_parse(char *buf, t_list *env, t_list **pipe_list)
 	// cmd = (t_cmd*)cmd_list->content;
 	// printf("initial buf: [%s]\n", cmd->buf);
 	
-
 	if (parser(buf, env, pipe_list) == FAILURE)
 		return (EXIT_FAILURE);
-	
 	if (filler(*pipe_list) == FAILURE)
 		return (EXIT_FAILURE);
-	// fonction filler qui va parser le buf de chaque cmd
-	// 1) gérer les redirections
+	// print_commands(*pipe_list);
 
-//             // si il y a un / dans le nom, il va chercher un directory
-//             // si plus d'un mot (et pas de guillemet), seul le premier compte
-//             // certains charactères spéciaux collés au > peuvent causer une synthax error
-
-	// 2) faire le split des commandes
 	return (EXIT_SUCCESS);
 }
