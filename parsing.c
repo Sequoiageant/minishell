@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 18:35:30 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/01 10:09:51 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,9 @@ int		ft_parse(char *buf, t_list *env, t_list **pipe_list)
 
 	if (parser(buf, env, pipe_list) == FAILURE)
 		return (EXIT_FAILURE);
-
+	
+	if (filler(*pipe_list) == FAILURE)
+		return (EXIT_FAILURE);
 	// fonction filler qui va parser le buf de chaque cmd
 	// 1) gérer les redirections
 
