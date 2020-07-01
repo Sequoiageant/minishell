@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 16:42:54 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/01 16:50:01 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,11 @@ void	ctrlc_signal(int signum)
 		printf("pid = %d\n", new_pid);
 		kill(new_pid, signum);
 		new_pid = 0;
-		ft_putchar_fd('\n', 1);
-		ft_putstr_fd("new cmd: ", 1);
 	}
 	else
 	{
 		ft_putchar_fd('\n', 1);
-		ft_putstr_fd("new cmd: ", 1);
+		ft_putstr_fd("cmd: ", 1);
 	}
 }
 
@@ -65,7 +63,10 @@ int		main()
 		ret = read(1, buf, BUF_SIZE);
 		printf("ret = %d\n", ret);
 		if (!ret)
+		{
+			ft_putstr_fd("exit", 1); // remplacer une fonction d'exit
 			exit(0);
+		}
 		// printf("ret: %d\n", ret);
 		buf[ret - 1] = 0; // on a un \n qui s'ajoute à la fin du buffer, dont on ne veut pas
 		ft_handle(buf, &env);

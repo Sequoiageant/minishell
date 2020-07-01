@@ -1,13 +1,13 @@
-proteger les mallocs
-read du buffer: pour l'instant limité à 1000 char -> voir si meilleur methode
-exit du shell plus proprement (notamment bien faire le free de l'env)
-changer les headers "grim" ?
-parsing: à la fin d'un pipe, verifier que les flags ' et " soient desactivés
+- proteger les mallocs
+- read du buffer: pour l'instant limité à 1000 char -> voir si meilleur methode --> utiliser gnl ? Une boucle sur read ?
+- exit du shell plus proprement (notamment bien faire le free de l'env)
+- changer les headers "grim" ?
+- parsing: à la fin d'un pipe, verifier que les flags ' et " soient desactivés
 
-free de str dans dollar() ----> OK FAIT BASILE
-test sur "&& !machine->flag_dquote" avec le ";"
+- free de str dans dollar() ----> OK FAIT BASILE
+- test sur "&& !machine->flag_dquote" avec le ";"
 
-Rendre la variable pid globale pour pouvoir kill le processus avec ctrl-c ?
+- Rendre la variable pid globale pour pouvoir kill le processus avec ctrl-c ?
 
 $ENV:
     gérer les cas "non basiques" de substitution ?
@@ -20,3 +20,7 @@ $ENV:
     pour l'instant, après > ou >>, le parser lit tout ce qu'il trouve jusqu'à '/0' ou ';' ou '|', et le stock dans le filename (en elevant les espaces au début et à la fin si necessaire)
     ---> ne correspond pas toujours au comportement de bash, dans des cas comme:
         echo test > file divers [bash ignore le mot "divers" et créé le fichier "file" vs "file divers" pour nous]
+
+- Creer une fonction d'exit
+- Creer une fonction display_prompt() ?
+- Réarranger le Makefile afin d'enlever la wildcard
