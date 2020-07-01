@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 14:16:58 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/01 14:36:53 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,9 @@ int		ft_is_special(char c);
 int     filler(t_list *pipe_list);
 int		contains_redir(char *buf);
 int		fill_redir(t_cmd *cmd);
+int		fill_argv(t_cmd *cmd);
+void    print_pipe_redirs(t_list *pipe_list);
+void    print_pipe_bufs(t_list *pipe_list);
+void	print_pipe_argvs(t_list *pipe_list);
 
 #endif

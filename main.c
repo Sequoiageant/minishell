@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/06/29 18:19:48 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/01 14:31:24 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int		ft_handle(char *buf, t_list **env)
 {
 	t_list	*pipe_list;
 
-	// cmd = ft_split(buf, ' ');
-	// print_cmd(cmd);
 	pipe_list = NULL;
 	if (ft_parse(buf, *env, &pipe_list) == ERROR)
 		return(ERROR);

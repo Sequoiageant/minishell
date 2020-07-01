@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_filler_redir.c                                   :+:      :+:    :+:   */
+/*   p_filler_redir_argv.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 12:04:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 14:18:36 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/01 14:31:07 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,17 @@ int fill_redir(t_cmd *cmd)
     }
     cmd->buf = ft_substr(buf, 0, i);
     free(buf);
+    return (1);
+}
+
+int fill_argv(t_cmd *cmd)
+{
+    int i;
+    
+    cmd->argv = ft_split(cmd->buf, ' ');
+    i = 0;
+    while (cmd->argv[i])
+        i++;
+    cmd->argc = i;
     return (1);
 }
