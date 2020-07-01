@@ -38,13 +38,6 @@ PLAN
         else
             ft_fork
 
-    A insérer: 
-    - les "signaux" (CTRL + C et CTRL + D)
-    - le retour des fonctions
-    - set la variable $?
-    - les pipe / dup / open à faire en fonction des redirections (au début et à la fin)
-
-
 
 PARSING
 
