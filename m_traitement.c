@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_traitement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 15:44:34 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 11:21:17 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		ft_traitement(t_list *pipe_list, t_list **env)
 			else
 			{
 				ft_putstr_fd(">>fork\n", 1);
-				ft_fork(cmd->argv);
+				ft_fork(cmd->argv, env);
 			}
 			cmd_list = cmd_list->next;
 		}

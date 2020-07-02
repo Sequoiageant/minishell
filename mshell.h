@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 18:16:55 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 12:03:20 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <errno.h>
+#include <dirent.h>
 #include "parsing.h"
 
 #define TRUE 1
@@ -45,7 +46,7 @@ int			ms_export(int argc, char *argv[], t_list **env);
 int			ms_env(int argc, char *argv[], t_list **env);
 int			ms_unset(int argc, char *argv[], t_list **env);
 int			ms_exit(int argc, char *argv[], t_list **env);
-int			ft_fork(char **cmd);
+int			ft_fork(char **cmd, t_list **env);
 int			ft_built_in(char **cmd, int argc, int index, t_list **env);
 // int			ft_traitement(char **cmd, t_list **env);
 int			ft_traitement(t_list *cmd, t_list **env);

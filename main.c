@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 20:10:44 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/02 11:09:58 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,11 @@ int		main()
 			return (1);
 		ft_putstr_fd("cmd: ", 1);
 		ret = read(1, buf, BUF_SIZE);
-		printf("ret = %d\n", ret);
 		if (!ret)
 		{
-			ft_putendl_fd("exit", 1); // remplacer une fonction d'exit
-			exit(0);
+			ft_putendl_fd("exit", 1);
+			exit(0); // remplacer par une fonction d'exit qui free
 		}
-		// printf("ret: %d\n", ret);
 		buf[ret - 1] = 0; // on a un \n qui s'ajoute à la fin du buffer, dont on ne veut pas
 		ft_handle(buf, &env);
 		// i++;

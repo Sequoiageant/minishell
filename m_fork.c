@@ -6,15 +6,16 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:09 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 17:23:51 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/02 11:26:06 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int		ft_fork(char **cmd)
+int		ft_fork(char **cmd, t_list **env)
 {
+	(void)env;
 	int		status;
 	char	*filepath;
 	
