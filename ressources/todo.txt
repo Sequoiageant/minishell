@@ -10,9 +10,10 @@ A COMMENCER
 	--> Récupérer l'ensemble des fichiers contenus dans chaque directory du PATH avec readdir() (ceux-ci sont stockés dans une structure dirent.d_name)
 	--> Comparer les noms des binaires trouvés avec la commande rentrée dans notre shell
 	--> Si cmd/binaire_name matchent, alors fork()
-
+- Faire une fonction de conversion de la t_list env en char **
 - Coder la gestion des redirections > >> <
-- Coder les redirections de pipelone (et le fait que les commandes d'un pipeline s'executent simmultanément)
+- Coder les redirections de pipeline (et le fait que les commandes d'un pipeline s'executent simmultanément)
+- Coder les built ins
 
 
 CODE

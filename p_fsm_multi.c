@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:58:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 16:52:49 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 14:45:00 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ int		fsm_multi(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_l
     (void)env;
     (void)buf;
     (void)machine;
+	#ifdef DEBUG_PARSING
+        printf("[;] -> NEW PIPE \n");
+	#endif
     if (add_pipe(pipe_list) == FAILURE)
         return (FAILURE);
-    printf("[;] -> NEW PIPE \n");
     return (1);
 }
 
@@ -29,8 +31,10 @@ int		fsm_pipe(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_li
     (void)env;
     (void)buf;
     (void)machine;
+	#ifdef DEBUG_PARSING
+        printf("[|] -> NEW CMD \n");
+	#endif
     if (add_cmd(*pipe_list) == FAILURE)
         return (FAILURE);
-    printf("[|] -> NEW CMD \n");
     return (1);
 }
