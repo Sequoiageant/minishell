@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 17:49:38 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/02 13:31:14 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/02 14:44:48 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		ft_ckeck_bin(DIR *dir, char *cmd)
 	while ((dir_content = readdir(dir)))
 	{
 		if (ft_strcmp(dir_content->d_name, cmd) == 0)
-			printf("%s\n", dir_content->d_name);
+			printf("Cmd found: %s\n", dir_content->d_name);
 	}
 	return (0);
 }
@@ -89,7 +89,7 @@ int		main(int ac, char **av)
 			line = ft_split(__environ[i], '=');
 			if (ft_strcmp(line[0], "PATH") == 0)
 			{
-			ft_putendl_fd(line[1], 1);
+				ft_putendl_fd(line[1], 1);
 				path = ft_split(line[1], ':');
 				free_split(line);
 				break ;
