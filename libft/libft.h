@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 16:58:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/06/23 14:58:34 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 17:44:47 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 void (*del)(void *));
 void			ft_swap_i(int *a, int *b);
 void			ft_swap_f(float *a, float *b);
+char			*ft_strcat(char *s1, const char *s2);
+void			ft_strjoin_back(char *back, char **src);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100

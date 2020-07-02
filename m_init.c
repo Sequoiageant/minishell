@@ -6,27 +6,12 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:11 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 11:12:30 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/02 17:07:59 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
-
-void	free_split(char **tab)
-{
-	int i;
-
-	i = 0;
-	while (tab[i] != 0)
-	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
-	}
-	free(tab);
-	tab = NULL;
-}
 
 char	**ft_split_env(char *key_val)
 {
@@ -59,7 +44,7 @@ int		ft_init(t_list **env)
 		key_val->key = elem[0];
 		key_val->val = elem[1];
 		ft_lstadd_back(env, ft_lstnew(key_val));
-		free_split(elem);
+		free(elem);
 		i++;
 	}
 	return (0);
