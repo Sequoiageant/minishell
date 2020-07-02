@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 17:25:46 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 18:06:45 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int		fsm_backslash(char *buf, t_state_machine *m, t_list *e, t_list **p_list)
 	#ifdef DEBUG_PARSING
 		printf("[%c] -> LETTER ", *buf);
 	#endif
-	ft_join_to_cmd_buf(char_to_str(buf[1]), *p_list);
+	
+	if (ft_join_to_cmd_buf(char_to_str(buf[1]), *p_list) == FAILURE)
+		return (FAILURE);
 	return (2);
 }
 
@@ -52,7 +54,8 @@ int		fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	#ifdef DEBUG_PARSING
 		printf("[%c] -> LETTER ", *buf);
 	#endif
-	ft_join_to_cmd_buf(char_to_str(*buf), *p_list);
+	if ((ft_join_to_cmd_buf(char_to_str(*buf), *p_list) == FAILURE))
+		return (FAILURE);
 	return (1);
 }
 
@@ -75,6 +78,9 @@ int		fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	#endif
 	free(str);
 	if (key_val)
-		ft_join_to_cmd_buf(ft_strdup(key_val->val), *p_list); // on envoie une copie de key_val->val, pour pouvoir la free sans modifier la t_list *env
+	{
+		if ((ft_join_to_cmd_buf(ft_strdup(key_val->val), *p_list) == FAILURE)) // on envoie une copie de key_val->val, pour pouvoir la free sans modifier la t_list *env
+			return (FAILURE); 
+	}
 	return (i + 1); // + 1 car il y a le '$'
 }

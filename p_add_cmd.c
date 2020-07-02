@@ -1,23 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_add_pipe.c                                       :+:      :+:    :+:   */
+/*   p_add_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 17:09:32 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 18:07:20 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
-
-int		add_pipe(t_list **pipe_list)
-{
-	ft_lstadd_back(pipe_list, ft_lstnew(NULL));
-	return (0);
-}
 
 void	ft_init_cmd(t_cmd *cmd)
 {
@@ -39,7 +33,8 @@ int		add_cmd(t_list *pipe_list)
 	while (pipe_list->next)
 		pipe_list = pipe_list->next;
 	cmd_list = (t_list*)pipe_list->content;
-	cmd = malloc(sizeof(*cmd));
+	if ((cmd = malloc(sizeof(*cmd))) == NULL)
+		return (FAILURE);
 	ft_init_cmd(cmd);
 	ft_lstadd_back(&cmd_list, ft_lstnew(cmd));
 	if (pipe_list->content == NULL)

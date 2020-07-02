@@ -6,7 +6,7 @@
 #    By: grim <grim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/13 14:56:19 by julnolle          #+#    #+#              #
-#    Updated: 2020/07/02 16:55:37 by grim             ###   ########.fr        #
+#    Updated: 2020/07/02 17:55:33 by grim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ SRCS += p_fsm_other.c
 SRCS += p_parsing_utils.c
 SRCS += p_filler.c
 SRCS += p_filler_redir_argv.c
-SRCS += p_add_pipe.c
+SRCS += p_add_cmd.c
 SRCS += p_fsm_multi.c
 
 # Built in Sources

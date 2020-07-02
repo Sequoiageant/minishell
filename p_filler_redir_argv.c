@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 12:04:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 17:12:30 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 18:13:06 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,11 @@ int	fill_argv(t_cmd *cmd)
 	int i;
 
 	cmd->argv = ft_split(cmd->buf, ' ');
+	if (cmd->argv == NULL)
+		return (FAILURE);
 	i = 0;
 	while (cmd->argv[i])
 		i++;
 	cmd->argc = i;
-	return (1);
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 10:09:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 17:11:40 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 18:13:31 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	fill_cmd(t_cmd *cmd)
 	}
 	if (fill_argv(cmd) == FAILURE)
 		return (FAILURE);
-	return (1);
+	return (SUCCESS);
 }
 
 int	fill_pipe(t_list *pipe_list)

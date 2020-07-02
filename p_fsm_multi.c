@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:58:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 17:14:14 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 17:53:26 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int		fsm_multi(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	#ifdef DEBUG_PARSING
 		printf("[;] -> NEW PIPE \n");
 	#endif
-	if (add_pipe(p_list) == FAILURE)
-		return (FAILURE);
+	ft_lstadd_back(p_list, ft_lstnew(NULL));
 	if (add_cmd(*p_list) == FAILURE)
 		return (FAILURE);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 09:34:41 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 17:28:27 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 18:01:11 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int		ft_join_to_cmd_buf(char *str, t_list *pipe_list)
 		cmd_list = cmd_list->next;
 	cmd = (t_cmd*)cmd_list->content;
 	tmp = cmd->buf;
-	cmd->buf = ft_strjoin(tmp, str);
+	if ((cmd->buf = ft_strjoin(tmp, str)) == NULL)
+		return (FAILURE);
 	free(tmp);
 	free(str);
 	#ifdef DEBUG_PARSING
