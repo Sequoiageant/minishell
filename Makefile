@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+         #
+#    By: grim <grim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/13 14:56:19 by julnolle          #+#    #+#              #
-#    Updated: 2020/07/01 20:27:46 by julnolle         ###   ########.fr        #
+#    Updated: 2020/07/02 16:06:36 by grim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,10 @@ NAME	= minishell
 # ---------------- CC ---------------- #
 
 CC	= clang
+
+ifeq ($(PARSING), yes)
+	CFLAGS += -D DEBUG_PARSING
+endif
 
 ifeq ($(err), no)
 	CFLAGS += -Wall

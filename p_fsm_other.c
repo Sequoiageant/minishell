@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/06/30 18:14:30 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 14:37:12 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int		fsm_backslash(char *buf, t_state_machine *machine, t_list *env, t_list **pi
 {
 	(void)machine;
 	(void)env;
-	printf("[%c] -> LETTER (ESCAPED) ", buf[1]);
+	#ifdef DEBUG_PARSING
+		printf("[%c] -> LETTER ", *buf);
+	#endif
 	ft_join_to_cmd_buf(char_to_str(buf[1]), *pipe_list);
 	return(2);
 }
@@ -47,7 +49,9 @@ int		fsm_letter(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_
 {
 	(void)machine;
 	(void)env;
-	printf("[%c] -> LETTER ", *buf);
+	#ifdef DEBUG_PARSING
+		printf("[%c] -> LETTER ", *buf);
+	#endif
 	ft_join_to_cmd_buf(char_to_str(*buf), *pipe_list);
 	return (1);
 }
@@ -66,7 +70,9 @@ int		fsm_dollar(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_
 		i++;
 	str = ft_substr(buf, 0, i);
     key_val = find_key_val(env, str);
-	printf("[$%s] -> ENV ", str);
+	#ifdef DEBUG_PARSING
+		printf("[$%s] -> ENV ", str);
+	#endif
 	free(str);
     if (key_val)
         ft_join_to_cmd_buf(ft_strdup(key_val->val), *pipe_list); // on envoie une copie de key_val->val, pour pouvoir la free sans modifier la t_list *env
