@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 14:42:56 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 16:54:28 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,8 @@ int		ft_parse(char *buf, t_list *env, t_list **pipe_list)
 {
 	if (add_pipe(pipe_list) == FAILURE)
 		return (EXIT_FAILURE);
-
-	// pour print l'état initial du cmd->buf	
-	// t_list *cmd_list;
-	// t_list *p_list;
-	// t_cmd *cmd;
-	// p_list = *pipe_list;
-	// while (p_list->next)
-	// 	p_list = p_list->next;
-	// cmd_list = (t_list*)p_list->content;
-	// cmd = (t_cmd*)cmd_list->content;
-	// printf("initial buf: [%s]\n", cmd->buf);
-	
+	if (add_cmd(*pipe_list) == FAILURE)
+		return (EXIT_FAILURE);
 	if (parser(buf, env, pipe_list) == FAILURE)
 		return (EXIT_FAILURE);
 	if (filler(*pipe_list) == FAILURE)
@@ -91,6 +81,5 @@ int		ft_parse(char *buf, t_list *env, t_list **pipe_list)
 	#ifdef DEBUG_PARSING
 		print_commands(*pipe_list);
 	#endif
-
 	return (EXIT_SUCCESS);
 }
