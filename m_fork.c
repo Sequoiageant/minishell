@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:09 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 17:50:46 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/02 18:29:04 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,28 +100,32 @@ int		ft_fork(char **cmd, t_list **env)
 	char	**env_tab;
 	
 	env_tab = ft_list_to_tab(*env);
-	filepath = ft_is_in_path(*env, cmd[0]);
-	new_pid = fork();
-	if (new_pid == 0)
+	if ((filepath = ft_is_in_path(*env, cmd[0])))
 	{
+		new_pid = fork();
+		if (new_pid == 0)
+		{
 		// new process
 		// ft_putstr_fd(">>Inside new process\n", 1);
 		// va chercher ./cmd[0] pour l'executer
 		// il faudrait au préalable chercher dans PATH pour trouver l'executable correspondant à la commande. Puis donner le "chemin" de cet executable en input (à la place de cmd[0])
 		// ft_strlcat(filepath, "executables/", 100);
-		ft_strjoin_back(cmd[0], &filepath);
-		printf("filename: %s\n", filepath);
-		if (execve(filepath, cmd, env_tab) == -1)
-			printf(">>Exec failed\n");
-		free_tab2(env_tab);
+			ft_strjoin_back(cmd[0], &filepath);
+			printf("filename: %s\n", filepath);
+			if (execve(filepath, cmd, env_tab) == -1)
+				printf(">>Exec failed\n");
+			free_tab2(env_tab);
 		// else should not return
+		}
+		else
+		{
+		// old process
+			waitpid(new_pid, &status, 0);
+		// return (new_pid);
+		}
 	}
 	else
-	{
-		// old process
-		wait(&status);
-		// return (new_pid);
-	}
+		ft_putendl_fd("Command not found", 1);
 	free(filepath);
 	return (0);
 }
