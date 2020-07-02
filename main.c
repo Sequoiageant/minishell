@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 16:07:35 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 18:42:17 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int		ft_handle(char *buf, t_list **env)
 	t_list	*pipe_list;
 
 	pipe_list = NULL;
-	if (ft_parse(buf, *env, &pipe_list) == ERROR)
-		return(ERROR);
+	if (ft_parse(buf, *env, &pipe_list) == FAILURE)
+		return(FAILURE);
 	ft_traitement(pipe_list, env);
 	ft_lstclear(&pipe_list, &del_pipe);
-	return (0);
+	return (SUCCESS);
 }
 
 void	ctrlc_signal(int signum)

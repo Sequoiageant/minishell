@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 12:03:20 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/02 19:03:35 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 
 #define TRUE 1
 #define FALSE 0
-#define ERROR -1
 #define BUF_SIZE 1000
 
 extern	pid_t	new_pid;
@@ -48,7 +47,6 @@ int			ms_unset(int argc, char *argv[], t_list **env);
 int			ms_exit(int argc, char *argv[], t_list **env);
 int			ft_fork(char **cmd, t_list **env);
 int			ft_built_in(char **cmd, int argc, int index, t_list **env);
-// int			ft_traitement(char **cmd, t_list **env);
 int			ft_traitement(t_list *cmd, t_list **env);
 int			ft_init(t_list **env);
 void		ft_print_env(t_list *env);
@@ -57,5 +55,8 @@ t_key_val	*find_key_val(t_list *env, char *key);
 void		print_env_elem(t_list *env, char *key);
 void		del_key_val(void *elem);
 void		del_pipe(void *elem);
+int			ft_piped_cmd(t_list *pipe_list, t_list **env);
+int			contains_pipe(t_list *cmd_list);
+int			ft_check_built_in(char *cmd, int *index);
 
 #endif
