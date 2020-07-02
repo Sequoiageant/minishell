@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 16:54:28 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 17:31:32 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,22 @@ void	chose_state(char *buf, t_state_machine *machine)
 int		parser(char *buf, t_list *env, t_list **pipe_list)
 {
 	t_state_machine		machine;
-	static t_function	func[NB_STATE] = {fsm_letter, fsm_dollar, fsm_backslash, fsm_flag, fsm_multi, fsm_pipe};
+	static t_function	func[NB_STATE] = {fsm_letter, fsm_dollar,
+	fsm_backslash, fsm_flag, fsm_multi, fsm_pipe};
 	int					ret;
-	
-	
+
 	machine.flag_dquote = 0;
 	machine.flag_quote = 0;
 	while (*buf != '\0')
 	{
-		// printf("state: %d\n", machine.state);
 		chose_state(buf, &machine);
 		ret = func[machine.state](buf, &machine, env, pipe_list);
 		if (ret == FAILURE)
 			return (FAILURE);
-		// printf("ret: %d\n", ret);
 		buf += ret;
 	}
 	return (SUCCESS);
 }
-
 
 int		ft_parse(char *buf, t_list *env, t_list **pipe_list)
 {

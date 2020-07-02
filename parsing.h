@@ -6,14 +6,14 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 16:59:23 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 17:39:14 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-#include "libft.h"
+# include "libft.h"
 
 # define SUCCESS	0
 # define FAILURE	-1
@@ -24,57 +24,56 @@
 # define NB_FLAG		6
 # define NB_CONV		10
 
-
-typedef struct s_cmd
+typedef struct	s_cmd
 {
-    char        *buf;
-    char		**argv;
-	int		    argc;
-    int         output_file; // >
-    int         output_file_append; // >>
-    int         input_file; // <
-    char        *file; // pour >, >> et <
-}               t_cmd;
+	char	*buf;
+	char	**argv;
+	int		argc;
+	int		output_file;
+	int		output_file_append;
+	int		input_file;
+	char	*file;
+}				t_cmd;
 
-enum	e_state
+enum			e_state
 {
 	LETTER,
 	DOLLAR,
 	BACKSLASH,
 	FLAG,
 	MULTI,
-    PIPE,
+	PIPE,
 	REDIR
 };
 
-typedef struct s_state_machine
+typedef struct	s_state_machine
 {
-	enum e_state	state;	
+	enum e_state	state;
 	int				flag_dquote;
 	int				flag_quote;
 }				t_state_machine;
 
 typedef	int	(*t_function)(char *, t_state_machine *, t_list *, t_list **);
 
-int		fsm_dollar(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
-int		fsm_backslash(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
-int		fsm_flag(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
-int		fsm_letter(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
-int		fsm_multi(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
-int		fsm_pipe(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
-int		fsm_redir(char *buf, t_state_machine *machine, t_list *env, t_list **pipe_list);
+int		fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p);
+int		fsm_backslash(char *buf, t_state_machine *m, t_list *env, t_list **p);
+int		fsm_flag(char *buf, t_state_machine *m, t_list *env, t_list **p);
+int		fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p);
+int		fsm_multi(char *buf, t_state_machine *m, t_list *env, t_list **p);
+int		fsm_pipe(char *buf, t_state_machine *m, t_list *env, t_list **p);
+int		fsm_redir(char *buf, t_state_machine *m, t_list *env, t_list **p);
 
-int     ft_parse(char *buf, t_list *env, t_list **pipe_list);
-int		add_pipe(t_list **pipe_list);
-int     add_cmd(t_list *pipe_list);
+int		ft_parse(char *buf, t_list *env, t_list **pipe_list);
+int		add_pipe(t_list **pipe_lis);
+int		add_cmd(t_list *pipe_lis);
 void	ft_init_cmd(t_cmd *cmd);
-int     ft_join_to_cmd_buf(char *str, t_list *pipe_list);
-char    *char_to_str(char c);
+int		ft_join_to_cmd_buf(char *str, t_list *pipe_lis);
+char	*char_to_str(char c);
 int		ft_is_special(char c);
-int     filler(t_list *pipe_list);
+int		filler(t_list *pipe_lis);
 int		contains_redir(char *buf);
 int		fill_redir(t_cmd *cmd);
 int		fill_argv(t_cmd *cmd);
-void	print_commands(t_list *pipe_list);
+void	print_commands(t_list *pipe_lis);
 
 #endif

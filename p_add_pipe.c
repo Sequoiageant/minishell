@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 16:57:16 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/02 17:09:32 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,34 @@
 
 int		add_pipe(t_list **pipe_list)
 {
-   ft_lstadd_back(pipe_list, ft_lstnew(NULL));
-   return(0);
+	ft_lstadd_back(pipe_list, ft_lstnew(NULL));
+	return (0);
 }
 
-void     ft_init_cmd(t_cmd *cmd)
+void	ft_init_cmd(t_cmd *cmd)
 {
-    cmd->input_file = 0;
-    cmd->output_file = 0;
-    cmd->output_file_append = 0;
-    cmd->file = NULL;
-    cmd->argv = NULL;
-    cmd->argc = 0;
-    cmd->buf = malloc(1);
-    cmd->buf[0] = 0;
+	cmd->input_file = 0;
+	cmd->output_file = 0;
+	cmd->output_file_append = 0;
+	cmd->file = NULL;
+	cmd->argv = NULL;
+	cmd->argc = 0;
+	cmd->buf = malloc(1);
+	cmd->buf[0] = 0;
 }
 
-int     add_cmd(t_list *pipe_list)
+int		add_cmd(t_list *pipe_list)
 {
-    t_list  *cmd_list;
-    t_cmd   *cmd;
-    
-    while (pipe_list->next)
-        pipe_list = pipe_list->next;
-    cmd_list = (t_list*)pipe_list->content;
-    cmd = malloc(sizeof *cmd);
-    ft_init_cmd(cmd);
-    ft_lstadd_back(&cmd_list, ft_lstnew(cmd));
-    if (pipe_list->content == NULL)
-        pipe_list->content = cmd_list; 
-    return (0);
+	t_list	*cmd_list;
+	t_cmd	*cmd;
+
+	while (pipe_list->next)
+		pipe_list = pipe_list->next;
+	cmd_list = (t_list*)pipe_list->content;
+	cmd = malloc(sizeof(*cmd));
+	ft_init_cmd(cmd);
+	ft_lstadd_back(&cmd_list, ft_lstnew(cmd));
+	if (pipe_list->content == NULL)
+		pipe_list->content = cmd_list;
+	return (0);
 }
