@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/03 15:26:32 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/03 15:38:36 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		ft_fork_pipe(char **cmd1, char **cmd2, t_list **env) //test avec un pipe de
 			close(fd[0]);
 			dup2(fd[1], STDOUT_FILENO);
 			close(fd[1]);
-			if (execve("executables/ms_echo", cmd1, env_tab) == -1)
+			if (execve(filepath1, cmd1, env_tab) == -1)
 				printf(">>Exec failed\n");
 		}
 		else
@@ -78,10 +78,11 @@ int		ft_fork_pipe(char **cmd1, char **cmd2, t_list **env) //test avec un pipe de
 			waitpid(new_pid, &status, 0);
 			// (void)status;
 			printf("inside parent process\n");
+			ft_strjoin_back(cmd2[0], &filepath2);
 			close(fd[1]);
 			dup2(fd[0], STDIN_FILENO);
 			close(fd[0]);
-			if (execve("executables/wc", cmd2, env_tab) == -1)
+			if (execve(filepath2, cmd2, env_tab) == -1)
 				printf(">>Exec failed\n");
 			
 		// return (new_pid);
