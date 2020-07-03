@@ -24,6 +24,7 @@ CODE
 NORME
 
 - proteger les mallocs
+- proteger les pipe et les fork
 - read du buffer: pour l'instant limité à 1000 char -> voir si meilleur methode --> utiliser gnl ? Une boucle sur read ?
 - changer les headers "grim" ?
 - pid globale = OK norme ?

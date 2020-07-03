@@ -3,14 +3,18 @@
 #include <sys/types.h>
 #include <string.h>
 #include <stdlib.h>
+char	*ft_strdup(const char *src);
 
+// BUT: reproduire echo "test pipe" | wc
+// STDOUT of echo must be piped to STDIN of wc
+// 1. pipe to connect both commands, 
+// 2. duplicate (dup) output fd in echo to stdout 
+// 3. duplicate input fd in wc to stdin
 
 int main(void)
 {
-        int     fd[2], nbytes;
+        int     fd[2];
         pid_t   childpid;
-        char    string[] = "Hello, world!\n";
-        char    readbuffer[80];
 
         pipe(fd);
         // fd[0] is for input
@@ -23,6 +27,12 @@ int main(void)
                 perror("fork");
                 exit(1);
         }
+        // prepare execve of echo
+        char **argv;
+        argv = malloc(3 * sizeof(char*));
+        argv[0] = ft_strdup("ms_echo");
+        argv[1] = ft_strdup("test dup");
+        argv[2] = NULL;
 
         // after fork, fd[0] and fd[1] are also opened in child process
         // Here we chose to communicate from child to parent:
@@ -32,17 +42,23 @@ int main(void)
         {
                 /* Child process closes up input side of pipe */
                 close(fd[0]);
-                /* Send "string" through the output side of pipe */
-                write(fd[1], string, (strlen(string)+1));
+                dup2(fd[1], STDOUT_FILENO);
+                // STDOUT is now the output fd of the pipe. We dont need fd[1] anymore
+                close(fd[1]);
+                execve("../executables/ms_echo", argv, NULL);
         }
         else
         {
+                // prepare execve of wc
+                argv = malloc(2 * sizeof(char*));
+                argv[0] = ft_strdup("wc");
+                argv[1] = NULL;
+        
                 /* Parent process closes up output side of pipe */
                 close(fd[1]);
-
-                /* Read in a string from the pipe */
-                nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
-                printf("Received string: %s", readbuffer);
+                dup2(fd[0], STDIN_FILENO);
+                close(fd[0]);
+                execve("../executables/wc", argv, NULL);
         }
         
         return(0);
