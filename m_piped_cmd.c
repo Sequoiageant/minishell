@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_piped_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/03 15:38:36 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/04 12:42:09 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int		ft_fork_pipe(char **cmd1, char **cmd2, t_list **env) //test avec un pipe de
         // both are now open: fd[0] for reading and fd[1] for writing
         // [PROCESS : write(fd[1])] -> KERNEL -> [PROCESS : read(fd[0])]
 	
-	filepath1 = ft_is_in_path(*env, cmd1[0]);
-	filepath2 = ft_is_in_path(*env, cmd2[0]);
+	filepath1 = find_in_env_path(*env, cmd1[0]);
+	filepath2 = find_in_env_path(*env, cmd2[0]);
 	if (filepath1 && filepath2)
 	{
 		if ((new_pid = fork()) == -1)

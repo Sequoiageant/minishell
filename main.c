@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 18:42:17 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/04 12:46:37 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ int		ft_handle(char *buf, t_list **env)
 
 void	ctrlc_signal(int signum)
 {
+	int ret = 0;
 	// int new_pid = 0; // prendre le pid du fork, en var globale ?
 	if (new_pid)
 	{
 		ft_putchar_fd('\n', 1);
 		printf("pid = %d\n", new_pid);
-		kill(new_pid, signum);
+		ret = kill(new_pid, signum);
+		printf("killed with ret=%d\n", ret);
 		new_pid = 0;
 	}
 	else
