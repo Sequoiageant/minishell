@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/04 12:42:30 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/04 18:23:15 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 #define FALSE 0
 #define BUF_SIZE 1000
 
-extern	pid_t	new_pid;
+extern	pid_t	g_new_pid;
 
 typedef int (*t_built)(int argc, char *argv[], t_list **env);
 

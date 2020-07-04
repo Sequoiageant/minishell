@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/04 12:42:09 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/04 18:24:53 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ int		ft_fork_pipe(char **cmd1, char **cmd2, t_list **env) //test avec un pipe de
 	filepath2 = find_in_env_path(*env, cmd2[0]);
 	if (filepath1 && filepath2)
 	{
-		if ((new_pid = fork()) == -1)
+		if ((g_new_pid = fork()) == -1)
 		{
 			perror("fork");
 			return (FAILURE);
 		}
-		if (new_pid == 0)
+		if (g_new_pid == 0)
 		{
 			printf("inside child process\n");
 			ft_strjoin_back(cmd1[0], &filepath1);
@@ -75,7 +75,7 @@ int		ft_fork_pipe(char **cmd1, char **cmd2, t_list **env) //test avec un pipe de
 		else
 		{
 		// old process
-			waitpid(new_pid, &status, 0);
+			waitpid(g_new_pid, &status, 0);
 			// (void)status;
 			printf("inside parent process\n");
 			ft_strjoin_back(cmd2[0], &filepath2);
@@ -85,7 +85,7 @@ int		ft_fork_pipe(char **cmd1, char **cmd2, t_list **env) //test avec un pipe de
 			if (execve(filepath2, cmd2, env_tab) == -1)
 				printf(">>Exec failed\n");
 			
-		// return (new_pid);
+		// return (g_new_pid);
 		}
 	}
 	else

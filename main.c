@@ -6,14 +6,14 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/04 12:46:37 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/04 18:23:55 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-pid_t	new_pid;
+pid_t	g_new_pid;
 
 int		ft_handle(char *buf, t_list **env)
 {
@@ -30,14 +30,13 @@ int		ft_handle(char *buf, t_list **env)
 void	ctrlc_signal(int signum)
 {
 	int ret = 0;
-	// int new_pid = 0; // prendre le pid du fork, en var globale ?
-	if (new_pid)
+	if (g_new_pid)
 	{
 		ft_putchar_fd('\n', 1);
-		printf("pid = %d\n", new_pid);
-		ret = kill(new_pid, signum);
+		printf("pid = %d\n", g_new_pid);
+		ret = kill(g_new_pid, signum);
 		printf("killed with ret=%d\n", ret);
-		new_pid = 0;
+		g_new_pid = 0;
 	}
 	else
 	{
