@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/03 14:41:55 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/07 16:05:01 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 
 #define TRUE 1
 #define FALSE 0
+#define PIPE_WRITE 1
+#define PIPE_READ 0
 #define BUF_SIZE 1000
 
 extern	pid_t	new_pid;
