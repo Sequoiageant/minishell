@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/07 16:05:01 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/07 16:09:41 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 #define PIPE_READ 0
 #define BUF_SIZE 1000
 
-extern	pid_t	new_pid;
+extern	pid_t	g_new_pid;
 
 typedef int (*t_built)(int argc, char *argv[], t_list **env);
 
@@ -61,7 +61,7 @@ int			ft_piped_cmd(t_list *pipe_list, t_list **env);
 int			contains_pipe(t_list *cmd_list);
 int			ft_check_built_in(char *cmd, int *index);
 int			ft_fork_pipe(char **cmd1, char **cmd2, t_list **env); // test avec un pipe de seulement deux commandes
-char		*ft_is_in_path(t_list *env, char *cmd);
+char		*find_in_env_path(t_list *env, char *cmd);
 char		**ft_list_to_tab(t_list *env);
 void		free_tab2(char **tab);
 

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/07 16:05:58 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/07 16:10:56 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,24 @@ int		ft_fork_pipe(char **cmd_write, char **cmd_read, t_list **env) //test avec u
 		}
 		else
 		{
+<<<<<<< HEAD
 			close(fd[PIPE_WRITE]);
 			close(fd[PIPE_READ]);
 			wait(&status);
+=======
+		// old process
+			waitpid(g_new_pid, &status, 0);
+			// (void)status;
+			printf("inside parent process\n");
+			ft_strjoin_back(cmd2[0], &filepath2);
+			close(fd[1]);
+			dup2(fd[0], STDIN_FILENO);
+			close(fd[0]);
+			if (execve(filepath2, cmd2, env_tab) == -1)
+				printf(">>Exec failed\n");
+			
+		// return (g_new_pid);
+>>>>>>> 8ff23912dc41d4650c559d305a8955ea2f7c64e8
 		}
 	}
 	else
