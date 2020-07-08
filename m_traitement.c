@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 19:03:52 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/08 10:59:14 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_traitement_cmdlist(t_list *cmd_list, t_list **env)
 	t_cmd *cmd;
 	
 	if (contains_pipe(cmd_list))
-		ft_piped_cmd(cmd_list, env);
+		ft_piped_cmd(cmd_list, *env);
 	else
 	{
 		cmd = (t_cmd*)cmd_list->content;

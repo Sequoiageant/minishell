@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/07 16:09:41 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/08 10:59:44 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ t_key_val	*find_key_val(t_list *env, char *key);
 void		print_env_elem(t_list *env, char *key);
 void		del_key_val(void *elem);
 void		del_pipe(void *elem);
-int			ft_piped_cmd(t_list *pipe_list, t_list **env);
+int			ft_piped_cmd(t_list *pipe_list, t_list *env);
 int			contains_pipe(t_list *cmd_list);
 int			ft_check_built_in(char *cmd, int *index);
-int			ft_fork_pipe(char **cmd1, char **cmd2, t_list **env); // test avec un pipe de seulement deux commandes
+int			ft_fork_pipe(char **cmd1, char **cmd2, t_list *env); // test avec un pipe de seulement deux commandes
 char		*find_in_env_path(t_list *env, char *cmd);
 char		**ft_list_to_tab(t_list *env);
 void		free_tab2(char **tab);
