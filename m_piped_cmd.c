@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/07 16:10:56 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/08 09:39:15 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int		ft_fork_pipe(char **cmd_write, char **cmd_read, t_list **env) //test avec u
 	int		new_pid[2];
 	// cmd1 writes to STDOUT | reads from STDIN cmd 2	
 	env_tab = ft_list_to_tab(*env);
-	filepath[0] = ft_is_in_path(*env, cmd_write[0]);
-	filepath[1] = ft_is_in_path(*env, cmd_read[0]);
+	filepath[0] = find_in_env_path(*env, cmd_write[0]);
+	filepath[1] = find_in_env_path(*env, cmd_read[0]);
 	if (filepath[0] && filepath[1])
 	{
 		ft_strjoin_back(cmd_write[0], &filepath[0]);
@@ -86,24 +86,9 @@ int		ft_fork_pipe(char **cmd_write, char **cmd_read, t_list **env) //test avec u
 		}
 		else
 		{
-<<<<<<< HEAD
 			close(fd[PIPE_WRITE]);
 			close(fd[PIPE_READ]);
 			wait(&status);
-=======
-		// old process
-			waitpid(g_new_pid, &status, 0);
-			// (void)status;
-			printf("inside parent process\n");
-			ft_strjoin_back(cmd2[0], &filepath2);
-			close(fd[1]);
-			dup2(fd[0], STDIN_FILENO);
-			close(fd[0]);
-			if (execve(filepath2, cmd2, env_tab) == -1)
-				printf(">>Exec failed\n");
-			
-		// return (g_new_pid);
->>>>>>> 8ff23912dc41d4650c559d305a8955ea2f7c64e8
 		}
 	}
 	else
