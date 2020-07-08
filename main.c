@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/04 18:23:55 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/08 13:42:05 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,22 @@ int		ft_handle(char *buf, t_list **env)
 	return (SUCCESS);
 }
 
-void	ctrlc_signal(int signum)
+void	handle_signal(int signum)
 {
 	int ret = 0;
 	if (g_new_pid)
 	{
 		ft_putchar_fd('\n', 1);
-		printf("pid = %d\n", g_new_pid);
+		// printf("pid = %d\n", g_new_pid);
 		ret = kill(g_new_pid, signum);
-		printf("killed with ret=%d\n", ret);
+		if (signum == SIGQUIT)
+		{
+			// ft_putstr_fd("[1]	", 2);
+			// ft_putnbr_fd(g_new_pid, 2);
+			// ft_putstr_fd(" ", 2);
+			ft_putendl_fd("quit (core dumped)", 2);
+		}
+		// printf("killed with ret=%d\n", ret);
 		g_new_pid = 0;
 	}
 	else
@@ -58,7 +65,9 @@ int		main()
 	// while (i < 1)
 	while (1)
 	{
-		if (signal(SIGINT, ctrlc_signal) == SIG_ERR)
+		if (signal(SIGINT, handle_signal) == SIG_ERR)
+			return (1);
+		if (signal(SIGQUIT, handle_signal) == SIG_ERR)
 			return (1);
 		ft_putstr_fd("cmd: ", 1);
 		ret = read(1, buf, BUF_SIZE);
