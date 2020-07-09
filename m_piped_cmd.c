@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 10:01:07 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 11:56:10 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,28 +36,23 @@ void	dup_close_pipes(int *fd[2], int fd_in, int fd_out, int num)
 	}
 }
 
-// FILEPATH n'est pas FREE
-// faire un find_in_env_path version char **env_tab (pour éviter d'avoir les deux arguments)
-int		ft_exec_cmd(t_list *cmd_elem, char **env_tab, t_list *env)
+int		ft_exec_cmd(t_list *cmd_elem, char **env_tab)
 {
 	t_cmd	*cmd;
 	char	*filepath;
+	int		ret;
 
 	cmd = (t_cmd*)cmd_elem->content;
-	filepath = find_in_env_path(env, cmd->argv[0]);
-	if (!filepath)
+	filepath = cmd->cmd_path;
+	if ((ret = execve(filepath, cmd->argv, env_tab)) == -1)
 	{
-		ft_putstr_fd("Cmd not found:", 1);
-		ft_putendl_fd(cmd->argv[0], 1);
-		return(SUCCESS);
+		ft_putendl_fd("Command not found", 2);
+		exit(ret);
 	}
-	ft_strjoin_back(cmd->argv[0], &filepath);
-	if (execve(filepath, cmd->argv, env_tab) == -1)
-		printf(">>Exec failed\n");
 	return (SUCCESS);
 }
 
-int		ft_fork_exec_cmds(t_list *cmd_list, int **fd, char **env_tab, t_list *env, int num)
+int		ft_fork_exec_cmds(t_list *cmd_list, int **fd, char **env_tab, int num)
 {
 	int i;
 
@@ -65,7 +60,7 @@ int		ft_fork_exec_cmds(t_list *cmd_list, int **fd, char **env_tab, t_list *env, 
 	if (fork() == 0)
 	{
 		dup_close_pipes(fd, 0, fd[i][PIPE_WRITE], num);
-		ft_exec_cmd(cmd_list, env_tab, env);
+		ft_exec_cmd(cmd_list, env_tab);
 	}
 	cmd_list = cmd_list->next;
 	while (cmd_list->next)
@@ -73,13 +68,13 @@ int		ft_fork_exec_cmds(t_list *cmd_list, int **fd, char **env_tab, t_list *env, 
 		if (fork() == 0)
 		{
 			dup_close_pipes(fd, fd[i][PIPE_READ], fd[i + 1][PIPE_WRITE], num);
-			ft_exec_cmd(cmd_list, env_tab, env);
+			ft_exec_cmd(cmd_list, env_tab);
 		}
 		cmd_list = cmd_list->next;
 		i++;
 	}
 	dup_close_pipes(fd, fd[i][PIPE_READ], 0, num);
-	ft_exec_cmd(cmd_list, env_tab, env);
+	ft_exec_cmd(cmd_list, env_tab);
 	return (SUCCESS);	
 }
 
@@ -96,7 +91,7 @@ int		ft_piped_cmd(t_list *cmd_list, t_list *env)
 	{
 		num_pipe = ft_build_pipes(cmd_list, &fd);
 		// mieux de faire les pipes après le premier fork: si on le fait avant le fork, on doit fermer fd[P_W] et fd[P_R] dans le current shell
-		ft_fork_exec_cmds(cmd_list, fd, env_tab, env, num_pipe);	
+		ft_fork_exec_cmds(cmd_list, fd, env_tab, num_pipe);	
 	}
 	else
 	{
