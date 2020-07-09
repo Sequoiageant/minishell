@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:11 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 18:02:45 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/09 17:00:39 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		ft_init(t_list **env)
 	t_key_val	*key_val;
 	int			i;
 
-	ft_putstr_fd("Welcome to Bash\n", 1);
+	ft_putstr_fd("Welcome to Minishell\n", 1);
 	*env = NULL;
 	i = 0;
 	while(__environ[i])
