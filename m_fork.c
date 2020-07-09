@@ -3,30 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   m_fork.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:09 by grim              #+#    #+#             */
-/*   Updated: 2020/07/08 12:43:13 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/09 10:45:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
-
-void	free_tab2(char **tab)
-{
-	int i;
-
-	i = 0;
-	while (tab[i] != 0)
-	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
-	}
-	free(tab);
-	tab = NULL;
-}
 
 void	display_tab2(char **tab)
 {

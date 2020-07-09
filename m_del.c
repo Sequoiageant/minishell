@@ -6,12 +6,27 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/07/01 16:04:36 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 10:50:29 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
+
+void	free_tab2(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i] != 0)
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+		i++;
+	}
+	free(tab);
+	tab = NULL;
+}
 
 void	del_key_val(void *elem)
 {
@@ -26,22 +41,15 @@ void	del_key_val(void *elem)
 void    del_cmd(void *elem)
 {
     t_cmd	*cmd;
-    int		i;
-    char	**cmd_args;
 
     cmd = (t_cmd*)elem;
 	if (cmd->file)
     	free(cmd->file);
+	if (cmd->cmd_path)
+		free(cmd->cmd_path);
 	free(cmd->buf);
-	cmd_args = cmd->argv;
-    i = 0;
-	while (cmd_args[i])
-	{
-		free(cmd_args[i]);
-		i++;
-	}
-	free(cmd_args);
-    free(cmd);
+	free_tab2(cmd->argv);
+	free(cmd);
 }
 
 void	del_pipe(void *elem)

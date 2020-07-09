@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 17:39:14 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 10:43:28 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_cmd
 	int		output_file_append;
 	int		input_file;
 	char	*file;
+	char	*cmd_path;
 }				t_cmd;
 
 enum			e_state
