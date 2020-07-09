@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 17:09:21 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/09 17:53:38 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int		main()
 	t_list	*env;
 	char	*buf;
 
-	// buf = malloc(BUF_SIZE + 1);
 	ft_init(&env);
 	if (signal(SIGINT, handle_ctrlc) == SIG_ERR)
 		return (1);
@@ -72,12 +71,9 @@ int		main()
 	ft_putstr_fd("cmd: ", 1);
 	while (get_next_line(0, &buf) > 0)
 	{
-		// ret = read(1, buf, BUF_SIZE);
-		// buf[ret - 1] = 0; // on a un \n qui s'ajoute à la fin du buffer, dont on ne veut pas
-		if (ft_strcmp(buf, "\0") != 0)
-			ft_handle(buf, &env);
+		// if (ft_strcmp(buf, "\0") != 0)
+		ft_handle(buf, &env);
 		ft_putstr_fd("cmd: ", 1);
-		// i++;
 	}
 	ft_lstclear(&env, &del_key_val);
 	free(buf);

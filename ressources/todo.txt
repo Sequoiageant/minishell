@@ -17,7 +17,7 @@ CODE
 - finir les built ins:
     - cd
     - echo
-
+- utiliser le char **env argument du main plutot que __environ pour récupérer l'environnement ? 
 
 NORME
 
