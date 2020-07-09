@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 11:09:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 11:42:12 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 12:14:57 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*find_in_env_path(t_list *env, char *cmd)
 
 	path = ft_split(find_key_val(env, "PATH")->val, ':');
 	i = 0;
-	while(path[i])
+	while (path[i])
 	{
 		dir = opendir(path[i]);
 		if (dir)
@@ -57,13 +57,12 @@ char	*find_in_env_path(t_list *env, char *cmd)
 	return (NULL);
 }
 
-int	fill_cmd_path(t_cmd *cmd, t_list *env)
+int		fill_cmd_path(t_cmd *cmd, t_list *env)
 {
-	cmd->cmd_path = find_in_env_path(env,cmd->argv[0]);
+	cmd->cmd_path = find_in_env_path(env, cmd->argv[0]);
 	if (cmd->cmd_path == NULL)
 		cmd->cmd_path = ft_strdup(cmd->argv[0]);
 	else
 		ft_strjoin_back(cmd->argv[0], &(cmd->cmd_path));
 	return (SUCCESS);
 }
-	

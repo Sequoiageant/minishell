@@ -6,22 +6,22 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 09:15:15 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 09:19:38 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 12:18:48 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int     contains_pipe(t_list *cmd_list)
+int	contains_pipe(t_list *cmd_list)
 {
-    if (cmd_list->next)
-        return (TRUE);
-    else
-        return (FALSE);
+	if (cmd_list->next)
+		return (TRUE);
+	else
+		return (FALSE);
 }
 
-int		ft_build_pipes(t_list *cmd_list, int ***fd)
+int	ft_build_pipes(t_list *cmd_list, int ***fd)
 {
 	int num_cmd;
 	int i;
