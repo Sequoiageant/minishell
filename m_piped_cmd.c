@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 15:03:40 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 15:40:40 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	dup_close_pipes(int *fd[2], int fd_in, int fd_out, int num)
 	}
 }
 
-int		ft_exec_cmd(t_list *cmd_elem, char **env_tab)
+void	ft_exec_cmd(t_list *cmd_elem, char **env_tab)
 {
 	t_cmd	*cmd;
 	char	*filepath;
@@ -46,10 +46,10 @@ int		ft_exec_cmd(t_list *cmd_elem, char **env_tab)
 	filepath = cmd->cmd_path;
 	if ((ret = execve(filepath, cmd->argv, env_tab)) == -1)
 	{
-		ft_putendl_fd("Command not found", 2);
+		ft_putstr_fd("Command not found: ", 2);
+		ft_putendl_fd(cmd->argv[0], 2);
 		exit(ret);
 	}
-	return (SUCCESS);
 }
 
 int		ft_fork_exec_cmds(t_list *cmd_list, int **fd, char **env_tab, int num)

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:09 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 15:07:11 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 15:41:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ int		ft_simple_cmd_fork(char **cmd, t_list **env, char *filepath)
 	g_new_pid = fork();
 	if (g_new_pid == 0)
 	{
-		printf("filepath: %s\n", filepath);
+		// printf("cmdpath: %s\n", filepath);
 		if ((ret = execve(filepath, cmd, env_tab) == -1))
-			ft_putendl_fd("Command not found", 2);
+		{
+			ft_putstr_fd("Command not found: ", 2);
+			ft_putendl_fd(cmd[0], 2);
+		}
 		exit(ret); //Pour exit du processus dans la cas d'un fail de execve
 	}
 	else // pas necessaire je pense de mettre un else, car dans tous les cas le child process ne "sort" pas du if()
