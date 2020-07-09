@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:09 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 12:00:31 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 15:07:11 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		ft_simple_cmd_fork(char **cmd, t_list **env, char *filepath)
 			ft_putendl_fd("Command not found", 2);
 		exit(ret); //Pour exit du processus dans la cas d'un fail de execve
 	}
-	else
+	else // pas necessaire je pense de mettre un else, car dans tous les cas le child process ne "sort" pas du if()
 	{
 		waitpid(g_new_pid, &status, 0);
 		// Le code qui suit vient du man wait2, à visée de debug ou d'indication, à voir !

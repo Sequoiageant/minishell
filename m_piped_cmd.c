@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 12:17:45 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 15:03:40 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,17 @@ int		ft_piped_cmd(t_list *cmd_list, t_list *env)
 		// mieux de faire les pipes après le premier fork: si on le fait avant le fork, on doit fermer fd[P_W] et fd[P_R] dans le current shell
 		ft_fork_exec_cmds(cmd_list, fd, env_tab, num_pipe);
 	}
-	else
-	{
-		wait(&status); // doit attendre que la DERNIERE commande du pipe ait terminée // will wait for any child process -> il n'y en a juste 1 = premier fork (tous les autres fork sont faits à l'intérieur de ce child process)
-		free_tab2(env_tab);
+	wait(&status); // doit attendre que la DERNIERE commande du pipe ait terminée // will wait for any child process -> il n'y en a juste 1 = premier fork (tous les autres fork sont faits à l'intérieur de ce child process)
+	if (WIFEXITED(status)) {
+		printf("terminé, code=%d\n", WEXITSTATUS(status));
+	} else if (WIFSIGNALED(status)) {
+		printf("tué par le signal %d\n", WTERMSIG(status));
+	} else if (WIFSTOPPED(status)) {
+		printf("arrêté par le signal %d\n", WSTOPSIG(status));
+	} else if (WIFCONTINUED(status)) {
+		printf("relancé\n");
 	}
+	g_new_pid = 0;
+	free_tab2(env_tab);
 	return (SUCCESS);
 }
