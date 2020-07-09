@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:09 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 10:45:30 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 11:45:51 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,68 +52,18 @@ char		**ft_list_to_tab(t_list *env)
 	return (env_tab);
 }
 
-int		ft_ckeck_bin(DIR *dir, char *cmd)
-{
-	struct dirent	*dir_content;
-
-	while ((dir_content = readdir(dir)))
-	{
-		if (ft_strcmp(dir_content->d_name, cmd) == 0)
-		{
-			printf("Cmd found: %s\n", dir_content->d_name);
-			closedir(dir);
-			return (TRUE);
-		}
-	}
-	return (FALSE);
-}
-
-char	*find_in_env_path(t_list *env, char *cmd)
-{
-	DIR		*dir;
-	size_t	i;
-	char	**path;
-	char	*selected_path;
-
-	path = ft_split(find_key_val(env, "PATH")->val, ':');
-	i = 0;
-	while(path[i])
-	{
-		dir = opendir(path[i]);
-		if (dir)
-		{
-			if (ft_ckeck_bin(dir, cmd) == TRUE)
-			{
-				selected_path = ft_strjoin(path[i], "/");
-				free_tab2(path);
-				return (selected_path);
-			}
-			i++;
-			closedir(dir);
-		}
-	}
-	free_tab2(path);
-	return (NULL);
-}
-
-int		ft_fork(char **cmd, t_list **env)
+int		ft_simple_cmd_fork(char **cmd, t_list **env, char *filepath)
 {
 	int		status;
-	char	*filepath;
 	char	**env_tab;
 	int		ret;
 	
 	ret = 0;
 	env_tab = ft_list_to_tab(*env);
-	filepath = find_in_env_path(*env, cmd[0]);
-	if (filepath == NULL)
-		filepath = ft_strdup(cmd[0]);
-	else
-		ft_strjoin_back(cmd[0], &filepath); // cette fonction est dans la libft, elle free donc pas besoin de se soucier des leaks
 	g_new_pid = fork();
 	if (g_new_pid == 0)
 	{
-		printf("filename: %s\n", filepath);
+		printf("filepath: %s\n", filepath);
 		if ((ret = execve(filepath, cmd, env_tab) == -1))
 			ft_putendl_fd("Command not found", 2);
 		exit(ret); //Pour exit du processus dans la cas d'un fail de execve
@@ -134,6 +84,5 @@ int		ft_fork(char **cmd, t_list **env)
 		g_new_pid = 0;
 	}
 	free_tab2(env_tab); // a mettre en bas je pense, sinon ne sera pas exec
-	free(filepath);
 	return (0);
 }

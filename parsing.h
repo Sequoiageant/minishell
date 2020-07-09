@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 10:43:28 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 11:21:31 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,17 @@ int		fsm_pipe(char *buf, t_state_machine *m, t_list *env, t_list **p);
 int		fsm_redir(char *buf, t_state_machine *m, t_list *env, t_list **p);
 
 int		ft_parse(char *buf, t_list *env, t_list **pipe_list);
-int		add_pipe(t_list **pipe_lis);
-int		add_cmd(t_list *pipe_lis);
+int		add_pipe(t_list **pipe_list);
+int		add_cmd(t_list *pipe_list);
 void	ft_init_cmd(t_cmd *cmd);
-int		ft_join_to_cmd_buf(char *str, t_list *pipe_lis);
+int		ft_join_to_cmd_buf(char *str, t_list *pipe_list);
 char	*char_to_str(char c);
 int		ft_is_special(char c);
-int		filler(t_list *pipe_lis);
+int		filler(t_list *pipe_list, t_list *env);
 int		contains_redir(char *buf);
 int		fill_redir(t_cmd *cmd);
 int		fill_argv(t_cmd *cmd);
-void	print_commands(t_list *pipe_lis);
+int		fill_cmd_path(t_cmd *cmd, t_list *env);
+void	print_commands(t_list *pipe_list);
 
 #endif

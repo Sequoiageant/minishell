@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/07/08 10:59:14 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 11:35:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_simple_cmd(t_cmd *cmd, t_list **env)
 	else
 	{
 		ft_putstr_fd(">>fork\n", 1);
-		ft_fork(cmd->argv, env);
+		ft_simple_cmd_fork(cmd->argv, env, cmd->cmd_path);
 	}
 	return (SUCCESS);
 }
