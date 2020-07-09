@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grim <grim@student.42.fr>                  +#+  +:+       +#+         #
+#    By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/13 14:56:19 by julnolle          #+#    #+#              #
-#    Updated: 2020/07/09 11:47:37 by grim             ###   ########.fr        #
+#    Updated: 2020/07/09 16:07:18 by julnolle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,13 +85,17 @@ SRCS += m_init.c
 SRCS += m_piped_cmd.c
 SRCS += m_piped_utils.c
 
+# gnl
+SRCS += get_next_line.c
+
 vpath %.c /
+vpath %.c ./get_next_line/
 
 # ---------------- INC --------------- #
 
 INCLUDES 	=	./
 HEAD 		= $(INCLUDES)mshell.h $(INCLUDES)parsing.h
-ALL_INC		=  -I$(INCLUDES) -I$(LIBFT_DIR)
+ALL_INC		=  -I$(INCLUDES) -I$(LIBFT_DIR) -I./get_next_line/
 
 # ---------------- OBJ --------------- #
 
