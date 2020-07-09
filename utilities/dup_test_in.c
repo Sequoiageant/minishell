@@ -14,13 +14,13 @@ int main(void)
     // BUT: reproduire le comportement de wc < ressources.txt
     // pour cela on remplace le fd du fichier par STDIN
 
-    int fdd = open("../ressources.txt", O_RDONLY);
+    int fdd = open("../ressources/ressources.txt", O_RDONLY);
     
     close(0);
     // The new fd will be the lowest, unused fd. We close fd=0 so that 0 is unused, and can be returned by dup 
     dup(fdd);
     close(fdd);
-    if (execve("../executables/wc", cmd, NULL) == -1)
+    if (execve("/usr/bin/wc", cmd, NULL) == -1)
         printf("exec failed\n");
     printf("end\n");
 }

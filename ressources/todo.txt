@@ -2,23 +2,21 @@ A COMMENCER
 
 - Creer une fonction d'exit
 - Creer une fonction display_prompt() ?
-- Signal CTRL + \
 - Variable $? et retour des fonctions
-- Coder la partie 'recherche de l'executable dans le PATH'
-	--> Faire un split sur ':' des val de la key "PATH" de t_list env
-	--> boucler sur le tableau des path et ouvrir chaque dir avec opendir()
-	--> Récupérer l'ensemble des fichiers contenus dans chaque directory du PATH avec readdir() (ceux-ci sont stockés dans une structure dirent.d_name)
-	--> Comparer les noms des binaires trouvés avec la commande rentrée dans notre shell
-	--> Si cmd/binaire_name matchent, alors fork()
-- Faire une fonction de conversion de la t_list env en char **
-- Coder la gestion des redirections > >> <
-- Coder les redirections de pipeline (et le fait que les commandes d'un pipeline s'executent simmultanément)
-- Coder les built ins
-
+- Coder la gestion des redirections > >> <: EN COURS BASILE
+- Coder les built ins:
+    - pwd
+    - export
+    - unset
+    - env
+    - exit
 
 CODE
 
 - pid globale: voir s'il faut un tableau/liste de pid
+- finir les built ins:
+    - cd
+    - echo
 
 
 NORME
@@ -28,7 +26,6 @@ NORME
 - read du buffer: pour l'instant limité à 1000 char -> voir si meilleur methode --> utiliser gnl ? Une boucle sur read ?
 - changer les headers "grim" ?
 - pid globale = OK norme ?
-- Réarranger le Makefile afin d'enlever la wildcard
 
 
 PARSING
