@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 12:14:09 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/09 16:04:10 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		main()
 	int		ret;
 	char	*buf;
 
-	buf = malloc(BUF_SIZE + 1);
+	// buf = malloc(BUF_SIZE + 1);
 	ft_init(&env);
 	if (signal(SIGINT, handle_ctrlc) == SIG_ERR)
 		return (1);
@@ -68,11 +68,11 @@ int		main()
 	while (1)
 	{
 		ft_putstr_fd("cmd: ", 1);
-		// ret = get_next_line(1, &buf);
-		ret = read(1, buf, BUF_SIZE);
+		ret = get_next_line(0, &buf);
+		// ret = read(1, buf, BUF_SIZE);
 		if (!ret)
 			break ;
-		buf[ret - 1] = 0; // on a un \n qui s'ajoute à la fin du buffer, dont on ne veut pas
+		// buf[ret - 1] = 0; // on a un \n qui s'ajoute à la fin du buffer, dont on ne veut pas
 		ft_handle(buf, &env);
 		// i++;
 	}

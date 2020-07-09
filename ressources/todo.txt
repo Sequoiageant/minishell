@@ -25,7 +25,7 @@ NORME
 
 - proteger les mallocs
 - proteger les pipe et les fork
-- read du buffer: pour l'instant limité à 1000 char -> voir si meilleur methode --> utiliser gnl ? Une boucle sur read ?
+- read du buffer: pour l'instant limité à 1000 char -> voir si meilleur methode --> utiliser gnl ? Une boucle sur read ? ==> gnl retenu
 - changer les headers "grim" ?
 - pid globale = OK norme ?
 - Réarranger le Makefile afin d'enlever la wildcard
