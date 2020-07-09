@@ -1,56 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_fork.c                                           :+:      :+:    :+:   */
+/*   m_simple_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:09 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 11:45:51 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/09 12:00:31 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-void	display_tab2(char **tab)
-{
-	size_t i;
-
-	i = 0;
-	while (tab[i])
-	{
-		ft_putendl_fd(tab[i], 1);
-		i++;
-	}
-}
-
-char		**ft_list_to_tab(t_list *env)
-{
-	char		**env_tab;
-	t_key_val	*elem;
-	int			size;
-	int			i;
-
-	size = ft_lstsize(env);
-	env_tab = (char **)malloc(sizeof(char *) * (size + 1));
-	if (env_tab)
-	{
-		env_tab[size] = NULL;
-		i = 0;
-		while (env)
-		{
-			elem = (t_key_val *)(env->content);
-			env_tab[i] = ft_calloc(ft_strlen(elem->key) + ft_strlen(elem->val) + 2, 1);
-			ft_strcat(env_tab[i], elem->key);
-			ft_strcat(env_tab[i], "=");
-			ft_strcat(env_tab[i], elem->val);
-			env = env->next;
-			i++;
-		}
-	}
-	return (env_tab);
-}
 
 int		ft_simple_cmd_fork(char **cmd, t_list **env, char *filepath)
 {
