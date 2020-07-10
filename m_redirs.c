@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 11:31:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 11:32:01 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/10 13:48:55 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	ft_redir_output(char *file)
 {
 	int fd;
 
-	printf("redir out\n");
-	fd = open(file, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
@@ -27,7 +26,6 @@ void	ft_redir_output_append(char *file)
 {
 	int fd;
 
-	printf("redir out append\n");
 	fd = open(file, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
@@ -37,7 +35,6 @@ void	ft_redir_input(char *file)
 {
 	int fd;
 
-	printf("redir in\n");
 	fd = open(file, O_RDWR);
 	if (fd == -1)
 	{
