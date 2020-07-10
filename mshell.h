@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 14:38:38 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/10 15:45:52 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 #define PIPE_WRITE	1
 #define PIPE_READ	0
 // #define BUF_SIZE 1000
-#define NB_BLT		7
+#define NB_BLT		6
 
 extern	pid_t	g_new_pid;
 
@@ -52,7 +52,7 @@ int			ms_pwd(int argc, char *argv[], t_list **env);
 int			ms_export(int argc, char *argv[], t_list **env);
 int			ms_env(int argc, char *argv[], t_list **env);
 int			ms_unset(int argc, char *argv[], t_list **env);
-int			ms_exit(int argc, char *argv[], t_list **env);
+void		ms_exit(t_list *cmd_list, t_list **env);
 int			ft_simple_cmd_fork(char **cmd, t_list **env, char *cmd_path);
 int			ft_built_in(t_cmd *cmd, int index, t_list **env);
 int			ft_traitement(t_list *cmd, t_list **env);
