@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 18:07:20 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/10 09:47:53 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_init_cmd(t_cmd *cmd)
 	cmd->output_file_append = 0;
 	cmd->file = NULL;
 	cmd->argv = NULL;
+	cmd->cmd_path = NULL;
 	cmd->argc = 0;
 	cmd->buf = malloc(1);
 	cmd->buf[0] = 0;
