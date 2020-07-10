@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_piped_utils.c                                    :+:      :+:    :+:   */
+/*   m_executable_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 09:15:15 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 19:46:23 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/10 10:29:22 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,27 @@ int	ft_build_pipes(t_list *cmd_list, int ***fd)
 		i++;
 	}
 	return (i);
+}
+
+void	dup_close_pipes(int *fd[2], int fd_in, int fd_out, int num)
+{
+	int i;
+
+	if (fd_out)
+	{
+		dup2(fd_out, STDOUT_FILENO);
+		close(fd_out);
+	}
+	if (fd_in)
+	{
+		dup2(fd_in, STDIN_FILENO);
+		close(fd_in);
+	}
+	i = 0;
+	while (i < num)
+	{
+		close(fd[i][0]);
+		close(fd[i][1]);
+		i++;
+	}
 }

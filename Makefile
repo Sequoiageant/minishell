@@ -6,7 +6,7 @@
 #    By: grim <grim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/13 14:56:19 by julnolle          #+#    #+#              #
-#    Updated: 2020/07/09 20:12:41 by grim             ###   ########.fr        #
+#    Updated: 2020/07/10 11:32:42 by grim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ SRCS += m_init.c
 SRCS += m_executable_cmd.c
 SRCS += m_executable_utils.c
 SRCS += m_utils.c
+SRCS += m_redirs.c
 
 # gnl
 SRCS += get_next_line.c

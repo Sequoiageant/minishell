@@ -18,6 +18,7 @@ CODE
     - cd
     - echo
 - utiliser le char **env argument du main plutot que __environ pour récupérer l'environnement ? 
+- pourquoi valgrind donne un "still reachable" lié au get next line ?
 
 NORME
 

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 20:09:17 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/10 11:32:20 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ int			ft_check_built_in(char *cmd, int *index);
 char		*find_in_env_path(t_list *env, char *cmd);
 char		**ft_list_to_tab(t_list *env);
 void		free_tab2(char **tab);
+void		free_tab2_int(int **tab, int num);
 int			ft_build_pipes(t_list *cmd_list, int ***fd);
+void		dup_close_pipes(int *fd[2], int fd_in, int fd_out, int num);
 void		ft_print_status(int status);
+void		ft_redirs(t_cmd *cmd);
 
 #endif

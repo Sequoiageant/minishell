@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 12:04:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/02 18:13:06 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/10 10:53:41 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	fill_redir(t_cmd *cmd)
 		if (buf[i] == '>')
 			cmd->output_file = 1;
 		else
-			cmd->output_file = 1;
+			cmd->input_file = 1;
 		cmd->file = ft_substr(cmd->buf, i + 1, ft_strlen(cmd->buf) - i);
 	}
 	cmd->buf = ft_substr(buf, 0, i);

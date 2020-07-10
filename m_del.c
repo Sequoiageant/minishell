@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 10:50:29 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/10 10:17:31 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,27 @@ void	free_tab2(char **tab)
 {
 	int i;
 
+	if (tab == NULL)
+		return ;
 	i = 0;
 	while (tab[i] != 0)
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+		i++;
+	}
+	free(tab);
+	tab = NULL;
+}
+
+void	free_tab2_int(int **tab, int num)
+{
+	int i;
+
+	if (tab == NULL)
+		return ;
+	i = 0;
+	while (i < num)
 	{
 		free(tab[i]);
 		tab[i] = NULL;
