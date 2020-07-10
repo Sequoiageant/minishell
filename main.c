@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 09:49:16 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/10 11:44:42 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	handle_ctrlback(int signum)
 		ft_putstr_fd("cmd: ", 1);
 		g_new_pid = 0;
 	}
-	// else
-	// {
-	// 	ft_putchar_fd('\n', 1);
-	// 	ft_putstr_fd("cmd: ", 1);
-	// }
+	else
+	{
+		ft_putchar_fd('\n', 1);
+		ft_putstr_fd("cmd: ", 1);
+	}
 }
 
 int		main()

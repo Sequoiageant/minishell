@@ -1,46 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_environ2.c                                    :+:      :+:    :+:   */
+/*   built_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/02 11:29:53 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/09 17:26:58 by julnolle         ###   ########.fr       */
+/*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
+/*   Updated: 2020/07/10 10:52:31 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
+#include "mshell.h"
 
-size_t	ft_strlen(const char *s)
+int	ms_exit(int argc, char *argv[], t_list **env)
 {
-	int i;
-
-	if (s == NULL)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-void	ft_putendl_fd(char *s, int fd)
-{
-	if (s == 0)
-		return ;
-	write(fd, s, ft_strlen(s));
-	write(fd, "\n", 1);
-}
-
-int main(int argc, char **argv, char **env)
-{
-	int i;
-
-	i = 0;
-	while(env[i])
-	{
-		ft_putendl_fd(env[i], 1);
-		i++;
-	}
+	(void)argc;
+	(void)argv;
+	(void)env;
 	return (0);
 }

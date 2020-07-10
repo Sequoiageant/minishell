@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 11:32:20 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/10 12:10:27 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@
 #include <sys/stat.h>
 #include "parsing.h"
 
-#define TRUE 1
-#define FALSE 0
-#define PIPE_WRITE 1
-#define PIPE_READ 0
-#define BUF_SIZE 1000
+#define TRUE		1
+#define FALSE		0
+#define SUCCESS		0
+#define FAILURE		-1
+#define PIPE_WRITE	1
+#define PIPE_READ	0
+// #define BUF_SIZE 1000
+#define NB_BLT		7
 
 extern	pid_t	g_new_pid;
 
@@ -71,5 +74,6 @@ int			ft_build_pipes(t_list *cmd_list, int ***fd);
 void		dup_close_pipes(int *fd[2], int fd_in, int fd_out, int num);
 void		ft_print_status(int status);
 void		ft_redirs(t_cmd *cmd);
+void		display_tab2(char **tab);
 
 #endif

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grim <grim@student.42.fr>                  +#+  +:+       +#+         #
+#    By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/13 14:56:19 by julnolle          #+#    #+#              #
-#    Updated: 2020/07/10 11:32:42 by grim             ###   ########.fr        #
+#    Updated: 2020/07/10 12:08:50 by julnolle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,9 +70,12 @@ SRCS += p_add_cmd.c
 SRCS += p_fsm_multi.c
 
 # Built in Sources
+SRCS += built_in.c
 SRCS += built_cd.c
 SRCS += built_echo.c
-SRCS += built_in.c
+SRCS += built_pwd.c
+SRCS += built_env.c
+SRCS += built_exit.c
 
 # Main Sources
 SRCS += main.c
