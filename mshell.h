@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 19:19:38 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/10 19:36:29 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			ft_simple_cmd_fork(char **cmd, t_list **env, char *cmd_path);
 int			ft_built_in(t_cmd *cmd, int index, t_list **env);
 int			ft_traitement(t_list *cmd, t_list **env);
 int			ft_init(t_list **env);
-void		ft_print_env(t_list *env);
+void		ft_print_env(t_list *env, int declare);
 void		print_cmd(char **cmd);
 t_key_val	*find_key_val(t_list *env, char *key);
 void		print_env_elem(t_list *env, char *key);

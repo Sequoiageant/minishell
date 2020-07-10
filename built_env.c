@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/10 19:20:21 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/10 19:43:23 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ms_env(int argc, char *argv[], t_list **env)
 {
 	(void)argc;
 	(void)argv;
-	ft_print_env(*env);
+	ft_print_env(*env, FALSE);
 	return (SUCCESS);
 }
 
@@ -49,9 +49,7 @@ int	ms_export(int argc, char *argv[], t_list **env)
 		}
 	}
 	else
-	{
-		printf("%s\n", "export sans arg à gérer");
-	}
+		ft_print_env(*env, TRUE);
 	return (SUCCESS);
 }
 

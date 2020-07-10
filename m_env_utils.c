@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 19:19:21 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/10 19:39:03 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,29 @@ char		**ft_list_to_tab(t_list *env)
 	return (env_tab);
 }
 
-void	ft_print_env(t_list *env)
+void	ft_print_env(t_list *env, int declare)
 {
 	t_key_val	*elem;
 
 	while (env)
 	{
 		elem = (t_key_val *)(env->content);
-		ft_putstr_fd(elem->key, 1);
-		ft_putchar_fd('=', 1);
-		ft_putendl_fd(elem->val, 1);
+		if (declare == TRUE)
+		{
+			// La list doit être triée dans ce cas
+			ft_putstr_fd("declare -x ", 1);
+			ft_putstr_fd(elem->key, 1);
+			ft_putchar_fd('=', 1);
+			ft_putchar_fd('"', 1);
+			ft_putstr_fd(elem->val, 1);
+			ft_putendl_fd("\"", 1);
+		}
+		else
+		{
+			ft_putstr_fd(elem->key, 1);
+			ft_putchar_fd('=', 1);
+			ft_putendl_fd(elem->val, 1);
+		}
 		env = env->next;
 	}
 }
