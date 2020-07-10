@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_cd.c                                            :+:      :+:    :+:   */
+/*   built_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/06/24 09:18:51 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/10 18:13:13 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,13 @@
 
 // https://man7.org/linux/man-pages/man1/cd.1p.html
 // pas d'argument à gérer puisque -L et -P ne servent qu'à gerer ou non des cd vers des liens symboliques
+// pas à gérer le cd - (back to OLD_PWD) puisque ca n'est pas un chemin relatif ou absolu ?
+// pas gerer le cas ou cdvars est activé car cette option ne semble pas dispo dans bash
+// 		(doit remplacer l'argument par sa valeur si celui ci est une variable)
  // TO DO:
-	// 1) gerer le cas ou cdvars est activé (doit remplacer l'argument par sa valeur si celui ci est une variable)
-	// 2) gerer la recherche dans cdpath
+	// 1) gerer la recherche dans cdpath
 	//      Attention: printer le cwd une fois trouvé
-	// 3) changer la valeur de PWD et de OLD_PWD = OK fait mais utiliser set dans le cas ou PWD/OLDPWD n'est pas set (plutot que de le faire à la main)
-	//      Remarque: après un chdir, $PATH reste inchangé (En revanche, getcwd() renvoie bien le nouveau cwd) -> il faut donc le changer "à la main"
-	// 4) gerer le "cd -": go back to OLD_PWD
-	//      Attention: printer le cwd une fois trouvé
-	// 5) gerer les redirections
+	//		Attention: cherche dans cdpath avant de chercher dans le current dir
 
 
 void ft_cd_change_env(t_list **env, char *oldpwd)
@@ -54,37 +52,53 @@ void ft_cd_change_env(t_list **env, char *oldpwd)
 
 void	ft_cd_perror(char **argv)
 {
-	ft_putstr_fd("bash: cd: ", 1);
-	ft_putstr_fd(argv[1], 1);
-	ft_putstr_fd(": ", 1);
-	ft_putstr_fd(strerror(errno), 1);
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("bash: cd: ", STDERR_FILENO);
+	ft_putstr_fd(argv[1], STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(strerror(errno), STDERR_FILENO);
+}
+
+int		handle_cd(char *dir, t_list *env)
+{
+	t_key_val	*key;
+	
+	if ((key = find_key_val(env, "CDPATH")))
+	{
+		(void)dir;
+		(void)env;
+		// cheche "dir" dans chaque element du CDPATH
+		// si ne trouve pas, va à ./dir
+	}
+	return (chdir(dir));
 }
 
 int		ms_cd(int argc, char **argv, t_list **env)
 {
 	int		ret;
 	char	*old_pwd;
+	t_key_val	*key;
 
 	old_pwd = getcwd(NULL, 0);
-	if (argc == 1)
-	{
-		if (getenv("HOME") == NULL || ft_strcmp(getenv("HOME"), "") == 0)
-			return (1);
-		ret = chdir(getenv("HOME"));
-	}
 	if (argc > 2)
 	{
 		ft_putstr_fd("bash: cd: too many arguments\n", 1);
-		return (1);
+		return (FAILURE);
+	}
+	if (argc == 1)
+	{
+		if ((key = find_key_val(*env, "HOME")) == NULL || ft_strcmp(key->val, "") == 0)
+			return (SUCCESS);
+		ret = chdir(key->val);
 	}
 	if (argc == 2)
-		ret = chdir(argv[1]);
-	if (ret)
+		ret = handle_cd(argv[1], *env);
+
+	if (ret == FAILURE)
+	{
 		ft_cd_perror(argv);
-	else
-		ft_cd_change_env(env, old_pwd);
+		return (FAILURE);
+	}
+	ft_cd_change_env(env, old_pwd);
 	print_env_elem(*env, "PWD");
-	print_env_elem(*env, "OLDPWD");
-	return (ret);
+	return (SUCCESS);
 }
