@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+         #
+#    By: grim <grim@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/13 14:56:19 by julnolle          #+#    #+#              #
-#    Updated: 2020/07/10 12:08:50 by julnolle         ###   ########.fr        #
+#    Updated: 2020/07/10 14:35:04 by grim             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,6 @@ SRCS += m_del.c
 SRCS += m_signals.c
 SRCS += m_env_utils.c
 SRCS += m_traitement.c
-# SRCS += m_simple_cmd.c
 SRCS += m_init.c
 SRCS += m_executable_cmd.c
 SRCS += m_executable_utils.c

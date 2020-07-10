@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 12:10:27 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/10 14:38:38 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			ms_env(int argc, char *argv[], t_list **env);
 int			ms_unset(int argc, char *argv[], t_list **env);
 int			ms_exit(int argc, char *argv[], t_list **env);
 int			ft_simple_cmd_fork(char **cmd, t_list **env, char *cmd_path);
-int			ft_built_in(char **cmd, int argc, int index, t_list **env);
+int			ft_built_in(t_cmd *cmd, int index, t_list **env);
 int			ft_traitement(t_list *cmd, t_list **env);
 int			ft_init(t_list **env);
 void		ft_print_env(t_list *env);

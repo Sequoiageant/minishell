@@ -3,7 +3,6 @@ A COMMENCER
 - Creer une fonction d'exit
 - Creer une fonction display_prompt() ?
 - Variable $? et retour des fonctions
-- Coder la gestion des redirections > >> <: EN COURS BASILE
 - Coder les built ins:
     - pwd
     - export
