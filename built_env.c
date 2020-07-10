@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/10 12:00:41 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/10 12:27:44 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	ms_export(int argc, char *argv[], t_list **env)
 	(void)argc;
 	(void)argv;
 	(void)env;
+	ft_putendl_fd(argv[1], 1);
 	return (0);
 }
 

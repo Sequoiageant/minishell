@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:06 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 14:33:39 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/10 15:41:43 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int		ft_built_in(t_cmd *cmd, int index, t_list **env)
 {
 	t_built	built_func[NB_BLT] = {ms_echo, ms_cd, ms_pwd, ms_export,
-		ms_unset, ms_env, ms_exit};
+		ms_unset, ms_env};
 	int		ret;
 	int		new_stdout;
 	int		new_stdin;
@@ -39,7 +39,7 @@ int		ft_built_in(t_cmd *cmd, int index, t_list **env)
 
 int		ft_check_built_in(char *cmd, int *index)
 {
-	char	*built[NB_BLT] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
+	char	*built[NB_BLT] = {"echo", "cd", "pwd", "export", "unset", "env"};
 	int		i;
 	int		res;
 
