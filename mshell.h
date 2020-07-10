@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 15:45:52 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/10 19:19:38 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,9 @@ void		dup_close_pipes(int *fd[2], int fd_in, int fd_out, int num);
 void		ft_print_status(int status);
 void		ft_redirs(t_cmd *cmd);
 void		display_tab2(char **tab);
+int			lst_delone_env(t_list *env, char *key);
+char		**ft_split_env(char *key_val);
+int			is_key_in_env(t_list *env, char *key);
+void		change_env_val(t_list *env, char **key_val);
 
 #endif

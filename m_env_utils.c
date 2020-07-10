@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_env_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 12:00:52 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/10 19:19:21 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,25 @@ void	ft_print_env(t_list *env)
 	while (env)
 	{
 		elem = (t_key_val *)(env->content);
-		printf("clé: %s\n", elem->key);
-		printf("val: %s\n", elem->val);
+		ft_putstr_fd(elem->key, 1);
+		ft_putchar_fd('=', 1);
+		ft_putendl_fd(elem->val, 1);
 		env = env->next;
 	}
+}
+
+int		is_key_in_env(t_list *env, char *key)
+{
+	t_key_val *elem;
+
+	while (env)
+	{
+		elem = (t_key_val *)env->content;
+		if (ft_strcmp(elem->key, key) == 0)
+			return (TRUE); 
+		env = env->next;
+	}
+	return (FALSE);
 }
 
 t_key_val	*find_key_val(t_list *env, char *key)
@@ -76,7 +91,48 @@ t_key_val	*find_key_val(t_list *env, char *key)
 			return (env->content); 
 		env = env->next;
 	}
-	return(NULL);
+	return (NULL);
+}
+
+void	change_env_val(t_list *env, char **key_val)
+{
+	t_key_val *elem;
+
+	while (env)
+	{
+		elem = (t_key_val *)env->content;
+		if (ft_strcmp(elem->key, key_val[0]) == 0)
+		{
+			free(elem->val);
+			elem->val = NULL;
+			elem->val = key_val[1]; 
+		}
+		env = env->next;
+	}
+}
+
+int		lst_delone_env(t_list *env, char *key)
+{
+	t_list		*tmp;
+	t_key_val	*elem;
+
+	tmp = env;
+	while (env)
+	{
+		elem = (t_key_val *)env->content;
+		if (ft_strcmp(elem->key, key) == 0)
+		{
+			tmp->next = env->next;
+			free(elem->key);
+			free(elem->val);
+			free(elem);
+			// env->next = tmp->next;
+			return (SUCCESS); 
+		}
+		tmp = tmp->next;
+		env = env->next;
+	}
+	return (FAILURE);
 }
 
 void	print_env_elem(t_list *env, char *key)
@@ -87,9 +143,8 @@ void	print_env_elem(t_list *env, char *key)
 	if (elem)
 	{
 		ft_putstr_fd(elem->key, 1);
-		ft_putstr_fd("=", 1);
-		ft_putstr_fd(elem->val, 1);
-		ft_putstr_fd("\n", 1);
+		ft_putchar_fd('=', 1);
+		ft_putendl_fd(elem->val, 1);
 	}
 	else
 		ft_putstr_fd("Unknown env variable\n", 1);

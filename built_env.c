@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/10 12:27:44 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/10 19:20:21 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,42 @@ int	ms_env(int argc, char *argv[], t_list **env)
 {
 	(void)argc;
 	(void)argv;
-	char	**tab_env;
-
-	tab_env = ft_list_to_tab(*env);
-	if (tab_env)
-	{
-		display_tab2(tab_env);
-		free(tab_env);
-	}
-	else
-	{
-		ft_putendl_fd("Environment variables are not accessible", 2);
-		return (FAILURE);
-	}
+	ft_print_env(*env);
 	return (SUCCESS);
 }
 
 int	ms_export(int argc, char *argv[], t_list **env)
 {
 	(void)argc;
-	(void)argv;
-	(void)env;
-	ft_putendl_fd(argv[1], 1);
-	return (0);
+	t_key_val	*key_val;
+	char		**tab;
+	// t_key_val	*elem;
+	size_t		i;
+
+	if (argv[1])
+	{
+		i = 1;
+		while(argv[i])
+		{
+			tab = ft_split_env(argv[i]);
+			if (is_key_in_env(*env, tab[0]))
+				change_env_val(*env, tab);
+			else
+			{
+				key_val = malloc(sizeof(t_key_val));
+				key_val->key = tab[0];
+				key_val->val = tab[1];
+				ft_lstadd_back(env, ft_lstnew(key_val));
+			}
+			free(tab);
+			i++;
+		}
+	}
+	else
+	{
+		printf("%s\n", "export sans arg à gérer");
+	}
+	return (SUCCESS);
 }
 
 int	ms_unset(int argc, char *argv[], t_list **env)
@@ -47,5 +60,22 @@ int	ms_unset(int argc, char *argv[], t_list **env)
 	(void)argc;
 	(void)argv;
 	(void)env;
-	return (0);
+	size_t	i;
+
+	if (argv[1])
+	{
+		i = 1;
+		while (argv[i])
+		{
+			if (lst_delone_env(*env, argv[i]) == SUCCESS)
+				printf("%s unset\n", argv[i]);
+			i++;
+		}
+	}
+	else
+	{
+		ft_putendl_fd("unset: not enough arguments", 2);
+		return (FAILURE);
+	}
+	return (SUCCESS);
 }
