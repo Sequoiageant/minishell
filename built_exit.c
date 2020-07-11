@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/10 16:15:17 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/11 16:30:05 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 
 void	ms_exit(t_list *cmd_list, t_list **env)
 {
-	(void)cmd_list;
-	(void)env;
-
-	// ft_lstclear(&cmd_list, ft_lstdelone);
-	ft_putendl_fd("La fonction doit tout free, elle ne le fait pas encore", 2);
+	ft_lstclear(&cmd_list, &del_cmd);
+	ft_lstclear(env, &del_key_val);
+	ft_putendl_fd("La fonction doit tout free, vérifier que ce soit le cas", 2);
 	exit(SUCCESS);
 }
