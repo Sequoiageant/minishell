@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 19:39:03 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/11 12:19:39 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,41 @@ char		**ft_list_to_tab(t_list *env)
 	return (env_tab);
 }
 
+size_t	ft_strnlen(char *str, char stop)
+{
+	size_t	len;
+
+	len = 0;
+	while (str[len])
+	{
+		if (str[len] == stop)
+			return (len);
+		len++;
+	}
+	return (len);
+}
+
+void	ft_n_sort_string_tab(char **tab, char stop)
+{
+	size_t	i;
+	size_t	len;
+	char	*temp;
+
+	i = 0;
+	while (tab[i + 1])
+	{
+		len = ft_strnlen(tab[i], stop);
+		if (ft_strncmp(tab[i], tab[i + 1], len) > 0)
+		{
+			temp = tab[i];
+			tab[i] = tab[i + 1];
+			tab[i + 1] = temp;
+			i = 0;
+		}
+		i++;
+	}
+}
+
 void	ft_print_env(t_list *env, int declare)
 {
 	t_key_val	*elem;
@@ -64,8 +99,7 @@ void	ft_print_env(t_list *env, int declare)
 			// La list doit être triée dans ce cas
 			ft_putstr_fd("declare -x ", 1);
 			ft_putstr_fd(elem->key, 1);
-			ft_putchar_fd('=', 1);
-			ft_putchar_fd('"', 1);
+			ft_putstr_fd("=\"", 1);
 			ft_putstr_fd(elem->val, 1);
 			ft_putendl_fd("\"", 1);
 		}
@@ -139,10 +173,9 @@ int		lst_delone_env(t_list *env, char *key)
 			free(elem->key);
 			free(elem->val);
 			free(elem);
-			// env->next = tmp->next;
 			return (SUCCESS); 
 		}
-		tmp = tmp->next;
+		tmp = env;
 		env = env->next;
 	}
 	return (FAILURE);
@@ -160,5 +193,5 @@ void	print_env_elem(t_list *env, char *key)
 		ft_putendl_fd(elem->val, 1);
 	}
 	else
-		ft_putstr_fd("Unknown env variable\n", 1);
+		ft_putstr_fd("Unknown env variable\n", 2);
 }

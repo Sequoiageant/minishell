@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/10 19:43:23 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/11 12:24:13 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,40 @@ int	ms_env(int argc, char *argv[], t_list **env)
 	return (SUCCESS);
 }
 
-int	ms_export(int argc, char *argv[], t_list **env)
+t_list	*sort_list_by_key(t_list *env)
 {
-	(void)argc;
-	t_key_val	*key_val;
-	char		**tab;
-	// t_key_val	*elem;
+	t_list		*sorted_env;
+	t_key_val	*new;
+	char		**env_tab;
+	char		**elem;
 	size_t		i;
 
-	if (argv[1])
+	env_tab = ft_list_to_tab(env);
+	ft_n_sort_string_tab(env_tab, '=');
+	i = 0;
+	sorted_env = NULL;
+	while(env_tab[i])
+	{
+		elem = ft_split_env(env_tab[i]);
+		new = malloc(sizeof(t_key_val));
+		new->key = elem[0];
+		new->val = elem[1];
+		ft_lstadd_back(&sorted_env, ft_lstnew(new));
+		free(elem);
+		i++;
+	}
+	free_tab2(env_tab);
+	return (sorted_env);
+}
+
+int	ms_export(int argc, char *argv[], t_list **env)
+{
+	t_key_val	*key_val;
+	t_list		*sorted_env;
+	char		**tab;
+	size_t		i;
+
+	if (argc > 1)
 	{
 		i = 1;
 		while(argv[i])
@@ -49,24 +74,24 @@ int	ms_export(int argc, char *argv[], t_list **env)
 		}
 	}
 	else
-		ft_print_env(*env, TRUE);
+	{
+		sorted_env = sort_list_by_key(*env);
+		ft_print_env(sorted_env, TRUE);
+		ft_lstclear(&sorted_env, &del_key_val);
+	}
 	return (SUCCESS);
 }
 
 int	ms_unset(int argc, char *argv[], t_list **env)
 {
-	(void)argc;
-	(void)argv;
-	(void)env;
 	size_t	i;
 
-	if (argv[1])
+	if (argc > 1)
 	{
 		i = 1;
 		while (argv[i])
 		{
-			if (lst_delone_env(*env, argv[i]) == SUCCESS)
-				printf("%s unset\n", argv[i]);
+			lst_delone_env(*env, argv[i]);
 			i++;
 		}
 	}
