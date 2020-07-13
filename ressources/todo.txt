@@ -2,13 +2,13 @@ A COMMENCER
 
 - Creer une fonction d'exit
 - Creer une fonction display_prompt() ?
-- Variable $? et retour des fonctions
+- Variable $? et retour des fonctions --> faire du retour des focntions une variable globale ?
 - Coder les built ins:
     - pwd
     - export
     - unset
     - env
-    - exit
+    - exit --> fonctionne mal après avoir executé un pipe
 
 CODE
 

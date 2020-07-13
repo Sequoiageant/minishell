@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/13 10:54:05 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/13 16:51:38 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ int	ms_export(int argc, char *argv[], t_list **env)
 			tab = ft_split_env(argv[i]);
 			if (is_key_in_env(*env, tab[0]))
 				change_env_val(*env, tab);
-			else
+			else if (tab[1])
 			{
+				printf("tab1:%s\n", tab[1]);
 				key_val = malloc(sizeof(t_key_val));
 				key_val->key = tab[0];
 				key_val->val = tab[1];
