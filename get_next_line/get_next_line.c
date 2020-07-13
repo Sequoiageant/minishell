@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:41:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/04/30 15:51:48 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/13 18:45:57 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,7 @@ static	int		ft_fill_line(char **line, char **str)
 	}
 	else
 	{
-		*line = ft_strdup(*str);
-		free(*str);
-		*str = NULL;
+		*line = *str;
 		return (END);
 	}
 	return (FAILURE);
