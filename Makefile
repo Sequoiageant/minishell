@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/12/13 14:56:19 by julnolle          #+#    #+#              #
-#    Updated: 2020/07/13 18:29:34 by julnolle         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 NAME	= minishell
 
@@ -42,8 +31,8 @@ else ifeq ($(debug), 2)
 else ifeq ($(debug), 3)
 	CFLAGS += -fsanitize=address,undefined
 	CFLAGS += -g3
-# 	CFLAGS += -ansi
-# 	CFLAGS += -pedantic
+	CFLAGS += -ansi
+	CFLAGS += -pedantic
 	CFLAGS += -Wpadded
 else ifeq ($(debug), 4)
 	CFLAGS += -fsanitize=address,undefined
