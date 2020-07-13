@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/13 17:47:25 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/13 20:40:20 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	ft_exec_cmd(t_list *cmd_elem, char **env_tab)
 	ft_redirs(cmd);
 	if ((ret = execve(cmd->cmd_path, cmd->argv, env_tab)) == -1)
 	{
-		ft_putendl_fd(cmd->argv[0], 2);
-		ft_putstr_fd(": command not found", 2);
+		ft_putstr_fd(cmd->argv[0], 2);
+		ft_putendl_fd(": command not found", 2);
 		exit(ret);
 	}
 }
