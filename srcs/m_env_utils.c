@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/07/11 12:19:39 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/13 10:53:52 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@ void	display_tab2(char **tab)
 	i = 0;
 	while (tab[i])
 	{
+		ft_putendl_fd(tab[i], 1);
+		i++;
+	}
+}
+
+
+void	display_tab2_export(char **tab)
+{
+	size_t i;
+
+	i = 0;
+	while (tab[i])
+	{
+		ft_putstr_fd("declare -x ", 1);
 		ft_putendl_fd(tab[i], 1);
 		i++;
 	}
@@ -83,7 +97,8 @@ void	ft_n_sort_string_tab(char **tab, char stop)
 			tab[i + 1] = temp;
 			i = 0;
 		}
-		i++;
+		else
+			i++;
 	}
 }
 

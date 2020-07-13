@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/11 12:24:13 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/13 10:54:05 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ms_env(int argc, char *argv[], t_list **env)
 	ft_print_env(*env, FALSE);
 	return (SUCCESS);
 }
-
+/*
 t_list	*sort_list_by_key(t_list *env)
 {
 	t_list		*sorted_env;
@@ -46,11 +46,21 @@ t_list	*sort_list_by_key(t_list *env)
 	free_tab2(env_tab);
 	return (sorted_env);
 }
+*/
+void	print_sorted_list(t_list *env)
+{
+	char		**env_tab;
+
+	env_tab = ft_list_to_tab(env);
+	ft_n_sort_string_tab(env_tab, '=');
+	display_tab2_export(env_tab);
+	free_tab2(env_tab);
+}
 
 int	ms_export(int argc, char *argv[], t_list **env)
 {
 	t_key_val	*key_val;
-	t_list		*sorted_env;
+	// t_list		*sorted_env;
 	char		**tab;
 	size_t		i;
 
@@ -75,9 +85,10 @@ int	ms_export(int argc, char *argv[], t_list **env)
 	}
 	else
 	{
-		sorted_env = sort_list_by_key(*env);
-		ft_print_env(sorted_env, TRUE);
-		ft_lstclear(&sorted_env, &del_key_val);
+		print_sorted_list(*env);
+		// sorted_env = sort_list_by_key(*env);
+		// ft_print_env(sorted_env, TRUE);
+		// ft_lstclear(&sorted_env, &del_key_val);
 	}
 	return (SUCCESS);
 }
