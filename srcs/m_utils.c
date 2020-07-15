@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 19:53:25 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 19:53:37 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/15 16:00:37 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,15 @@ void    ft_print_status(int status)
 	} else if (WIFCONTINUED(status)) {
 		printf("relancé\n");
 	}
+}
+
+void	put_err(char *cmd, char *arg, char *last)
+{
+	ft_putstr_fd("minishell: ", 2);
+	if (cmd)
+		ft_putstr_fd(cmd, 2);
+	if (arg)
+		ft_putstr_fd(arg, 2);
+	if (last)
+		ft_putendl_fd(last, 2);
 }

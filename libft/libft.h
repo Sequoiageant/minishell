@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 16:58:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/07/15 11:02:27 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/15 15:23:45 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define AGAIN		1
 # define SUCCESS	0
 # define FAILURE	-1
+# define TRUE		1
+# define FALSE		0
 
 typedef struct	s_list
 {
@@ -100,5 +102,6 @@ int				get_next_line(int fd, char **line);
 // int				ft_cat(char **str, char *buf, int ret);
 // int				ft_clean(int ret, t_fd **begin, t_fd **elem, int error);
 char			*ft_str_del_1_sur_2(char *a);
+int				ft_isalnum_str(char *str);
 
 #endif

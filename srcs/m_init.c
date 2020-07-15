@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:11 by grim              #+#    #+#             */
-/*   Updated: 2020/07/13 17:01:49 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/15 16:18:11 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,23 @@ char	**ft_split_env(char *key_val)
 	return (elem);
 }
 
+void	add_keyval_to_env(char **elem, t_list **env)
+{
+	t_key_val *key_val;
+
+	key_val = NULL;
+	key_val = malloc(sizeof(t_key_val));
+	if (key_val)
+	{
+		key_val->key = elem[0];
+		key_val->val = elem[1];
+		ft_lstadd_back(env, ft_lstnew(key_val));
+	}
+}
+
 int		ft_init(t_list **env)
 {
 	char		**elem;
-	t_key_val	*key_val;
 	int			i;
 
 	ft_putstr_fd("Welcome to Minishell\n", 1);
@@ -55,12 +68,8 @@ int		ft_init(t_list **env)
 	i = 0;
 	while(__environ[i])
 	{
-		// printf("%s\n", __environ[i]);
 		elem = ft_split_env(__environ[i]);
-		key_val = malloc(sizeof(t_key_val));
-		key_val->key = elem[0];
-		key_val->val = elem[1];
-		ft_lstadd_back(env, ft_lstnew(key_val));
+		add_keyval_to_env(elem, env);
 		free(elem);
 		i++;
 	}

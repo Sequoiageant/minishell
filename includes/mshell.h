@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/13 15:22:31 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/15 16:17:55 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int			lst_delone_env(t_list *env, char *key);
 void		change_env_val(t_list *env, char **key_val);
 char		**ft_split_env(char *key_val);
 char		**ft_list_to_tab(t_list *env);
+void		put_err(char *cmd, char *arg, char *last);
+void		add_keyval_to_env(char **elem, t_list **env);
 
 #endif
 
