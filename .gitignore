@@ -6,3 +6,4 @@ libft.a
 valgrind_log
 minishell
 *.json
+test

@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 19:53:25 by grim              #+#    #+#             */
-/*   Updated: 2020/07/15 16:00:37 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/15 18:00:10 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void    ft_print_status(int status)
 
 void	put_err(char *cmd, char *arg, char *last)
 {
-	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	if (cmd)
-		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(cmd, STDERR_FILENO);
 	if (arg)
-		ft_putstr_fd(arg, 2);
+		ft_putstr_fd(arg, STDERR_FILENO);
 	if (last)
-		ft_putendl_fd(last, 2);
+		ft_putendl_fd(last, STDERR_FILENO);
 }

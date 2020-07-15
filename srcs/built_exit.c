@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/15 16:51:03 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/15 19:24:33 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,24 @@ static	int		is_int(char *str, char sign)
 	return (TRUE);
 }
 
-/*static	int		manage_ret(int ret)
-{
-	if (ret < 0)
-		ret = 256 + ret;
-	else if (ret > 256)
-		ret = ret - 256;
-	return (ret);
-}*/
-
 static	void	ft_free_all(t_list *pipe_list, t_list **env)
 {
 	ft_lstclear(env, &del_key_val);
 	ft_lstclear(&pipe_list, &del_pipe);
 }
 
-void			ms_exit(t_list *pipe_list, char **argv, t_list **env)
+void			ms_exit(t_list *pipe_list, int ac, char **argv, t_list **env)
 {
 	int	ret;
 
 	ret = 0;
 	ft_putendl_fd("exit", 1);
-	if (argv[1] && argv[2])
+	if (ac > 2)
 	{
 		// printf("%s\n", argv[2]);
-		put_err("exit: ", NULL, ": too many arguments");
+		put_err("exit: ", NULL, "too many arguments");
 	}
-	else if (argv[1])
+	else if (ac == 2)
 	{
 		if (is_int(argv[1], '-'))
 			ret = ft_atoi(argv[1]);

@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/07/15 16:48:34 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/15 19:23:34 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		ft_traitement(t_list *pipe_list, t_list **env)
 		cmd_list = (t_list*)pipe_list->content;
 		cmd = (t_cmd*)cmd_list->content;
 		if (ft_traitement_cmdlist(cmd_list, env) == FAILURE)
-			ms_exit(pipe_list, cmd->argv, env);
+			ms_exit(pipe_list, cmd->argc, cmd->argv, env);
 		pipe_list = pipe_list->next;
 	}
 	return (SUCCESS);
