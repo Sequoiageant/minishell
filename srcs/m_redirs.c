@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 11:31:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 13:48:55 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/15 12:46:22 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_redir_input(char *file)
 	if (fd == -1)
 	{
 		perror(file);
-		exit(0);
+		exit(0); // ok ? pas de pb de free ? exit(ERRNO) ou exit(FAILURE) ?
 	}
 	else
 	{
