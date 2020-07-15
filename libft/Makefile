@@ -39,6 +39,7 @@ SRCS += ft_memchr.c
 SRCS += ft_strdup.c
 SRCS += ft_toupper.c
 SRCS += ft_isdigit_str.c
+SRCS +=	ft_isalnum_str.c
 SRCS += ft_memcmp.c
 SRCS += ft_strjoin_back.c
 SRCS += ft_isprint.c
@@ -59,6 +60,7 @@ SRCS += ft_strmapi.c
 SRCS += ft_lstclear.c
 SRCS += ft_putnbr_fd.c
 SRCS += ft_strncmp.c
+SRCS += get_next_line.c
 # SRCS += get_next_line_save.c
 # SRCS += get_next_line_utils_save.c
 

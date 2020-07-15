@@ -77,17 +77,13 @@ SRCS += m_executable_utils.c
 SRCS += m_utils.c
 SRCS += m_redirs.c
 
-# gnl
-SRCS += get_next_line.c
-
 vpath %.c ./srcs/
-vpath %.c ./get_next_line/
 
 # ---------------- INC --------------- #
 
 INCLUDES 	=	./includes/
 HEAD 		= $(INCLUDES)mshell.h $(INCLUDES)parsing.h
-ALL_INC		=  -I$(INCLUDES) -I$(LIBFT_DIR) -I./get_next_line/
+ALL_INC		=  -I$(INCLUDES) -I$(LIBFT_DIR)
 
 # ---------------- OBJ --------------- #
 

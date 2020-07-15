@@ -6,13 +6,13 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:41:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/13 20:16:44 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/15 11:04:04 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-static	void	ft_strjoin_back(char *back, char **src)
+static	void	ft_strjoin_back2(char *back, char **src)
 {
 	char *tmp;
 
@@ -59,7 +59,7 @@ static	int		ft_read_line(char **str, int fd)
 		if ((ret = read(fd, buf, BUFFER_SIZE)) > 0)
 		{
 			buf[ret] = '\0';
-			ft_strjoin_back(buf, str);
+			ft_strjoin_back2(buf, str);
 		}
 	}
 	return (ret);

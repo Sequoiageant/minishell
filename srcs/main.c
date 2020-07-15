@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/13 11:08:08 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/15 12:07:34 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	handle_ctrlback(int signum)
 	if (g_new_pid && signum == SIGQUIT)
 	{
 		kill(g_new_pid, signum);
-		ft_putendl_fd("quit (core dumped)", 2);
+		ft_putendl_fd("Quit (core dumped)", 2);
 		ft_putstr_fd("cmd: ", 1);
 		g_new_pid = 0;
 	}
