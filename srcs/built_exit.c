@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/15 16:01:44 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/15 16:51:03 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ static	int		is_int(char *str, char sign)
 	return (ret);
 }*/
 
-static	void	ft_free_all(t_list *cmd_list, t_list **env)
+static	void	ft_free_all(t_list *pipe_list, t_list **env)
 {
-	ft_lstclear(&cmd_list, &del_cmd);
 	ft_lstclear(env, &del_key_val);
+	ft_lstclear(&pipe_list, &del_pipe);
 }
 
-void			ms_exit(t_list *cmd_list, char **argv, t_list **env)
+void			ms_exit(t_list *pipe_list, char **argv, t_list **env)
 {
 	int	ret;
 
@@ -72,12 +72,12 @@ void			ms_exit(t_list *cmd_list, char **argv, t_list **env)
 			put_err("exit: ", argv[1], ": numeric argument required");
 			ret = 2;
 		}
-		ft_free_all(cmd_list, env);
+		ft_free_all(pipe_list, env);
 		exit(ret);
 	}
 	else
 	{
-		ft_free_all(cmd_list, env);
+		ft_free_all(pipe_list, env);
 		exit(ret);
 	}
 }

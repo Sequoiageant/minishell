@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/15 16:17:55 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/15 16:49:26 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			ms_pwd(int argc, char *argv[], t_list **env);
 int			ms_export(int argc, char *argv[], t_list **env);
 int			ms_env(int argc, char *argv[], t_list **env);
 int			ms_unset(int argc, char *argv[], t_list **env);
-void		ms_exit(t_list *cmd_list, char **argv, t_list **env);
+void		ms_exit(t_list *pipe_list, char **argv, t_list **env);
 int			ft_check_built_in(char *cmd, int *index);
 
 /*
