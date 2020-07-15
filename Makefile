@@ -1,14 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: grim <grim@student.42.fr>                  +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/12/13 14:56:19 by julnolle          #+#    #+#              #
-#    Updated: 2020/07/10 14:35:04 by grim             ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
 
 NAME	= minishell
 
@@ -80,7 +69,6 @@ SRCS += built_exit.c
 # Main Sources
 SRCS += main.c
 SRCS += m_del.c
-SRCS += m_signals.c
 SRCS += m_env_utils.c
 SRCS += m_traitement.c
 SRCS += m_init.c
@@ -92,12 +80,12 @@ SRCS += m_redirs.c
 # gnl
 SRCS += get_next_line.c
 
-vpath %.c /
+vpath %.c ./srcs/
 vpath %.c ./get_next_line/
 
 # ---------------- INC --------------- #
 
-INCLUDES 	=	./
+INCLUDES 	=	./includes/
 HEAD 		= $(INCLUDES)mshell.h $(INCLUDES)parsing.h
 ALL_INC		=  -I$(INCLUDES) -I$(LIBFT_DIR) -I./get_next_line/
 

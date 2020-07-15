@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 11:41:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/04/30 15:51:48 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/13 20:16:44 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,16 @@ static	void	ft_strjoin_back(char *back, char **src)
 {
 	char *tmp;
 
-	if (back == NULL || *src == NULL)
+	if (back == NULL)
 		return ;
-	tmp = ft_strdup(*src);
-	free(*src);
-	*src = NULL;
+	if (*src)
+	{
+		tmp = ft_strdup(*src);
+		free(*src);
+		*src = NULL;
+	}
+	else
+		tmp = ft_strdup("");
 	*src = ft_strjoin(tmp, back);
 	free(tmp);
 	tmp = NULL;
@@ -30,6 +35,8 @@ static	int		ft_strchr_pos(const char *s, int c)
 {
 	size_t pos;
 
+	if (!s)
+		return (FAILURE);
 	pos = 0;
 	while (*s != c)
 	{
@@ -73,14 +80,12 @@ static	int		ft_fill_line(char **line, char **str)
 		*str = ft_strdup(tmp + pos + 1);
 		free(tmp);
 		tmp = NULL;
-		return (SUCCESS);
+		return (AGAIN);
 	}
 	else
 	{
-		*line = ft_strdup(*str);
-		free(*str);
-		*str = NULL;
-		return (END);
+		*line = *str;
+		return (SUCCESS);
 	}
 	return (FAILURE);
 }
@@ -90,19 +95,11 @@ int				get_next_line(int fd, char **line)
 	static char	*str;
 	int			ret;
 
-	ret = -1;
+	ret = FAILURE;
 	if (fd < 0 || line == NULL || BUFFER_SIZE <= 0)
 		return (FAILURE);
-	if (!str)
-	{
-		str = (char *)malloc(sizeof(char) * 1);
-		str[0] = '\0';
-	}
-	if (str)
-	{
-		ret = ft_read_line(&str, fd);
-		if (ret != FAILURE)
-			ret = ft_fill_line(line, &str);
-	}
+	ret = ft_read_line(&str, fd);
+	if (ret != FAILURE)
+		ret = ft_fill_line(line, &str);
 	return (ret);
 }

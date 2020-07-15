@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_exit.c                                       :+:      :+:    :+:   */
+/*   test_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/10 15:45:21 by julnolle         ###   ########.fr       */
+/*   Created: 2020/07/13 17:27:59 by julnolle          #+#    #+#             */
+/*   Updated: 2020/07/13 17:31:02 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "mshell.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
-void	ms_exit(t_list *cmd_list, t_list **env)
+int	main(void)
 {
-	(void)cmd_list;
-	(void)env;
+	char *str;
 
-	ft_putendl_fd("La fonction doit tout free, elle ne le fait pas encore", 2);
-	exit(SUCCESS);
+	str = strdup("test");
+	free(str);
+	str = NULL;
+	printf("%s\n", str);
+	return (0);
 }

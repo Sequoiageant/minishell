@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 14:47:17 by julnolle          #+#    #+#             */
-/*   Updated: 2020/04/30 15:49:00 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/13 20:34:38 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 # endif
 
-# define END		0
-# define SUCCESS	1
+# define AGAIN		1
+# define SUCCESS	0
 # define FAILURE	-1
 # include <stdlib.h>
 # include <unistd.h>

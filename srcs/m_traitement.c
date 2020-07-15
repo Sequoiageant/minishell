@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 15:44:38 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/13 14:52:54 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_traitement_cmdlist(t_list *cmd_list, t_list **env)
 		if (ft_check_built_in(cmd->argv[0], &index) == TRUE)
 			ft_built_in(cmd, index, env);
 		else if (ft_strcmp(cmd->argv[0], "exit") == 0)
-			ms_exit(cmd_list, env);
+			ms_exit(cmd_list, cmd->argv, env);
 		else
 			ft_executable_cmd(cmd_list, *env);
 	}

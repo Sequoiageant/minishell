@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 11:44:42 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/13 11:08:08 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	handle_ctrlback(int signum)
 	}
 }
 
-int		main()
+int		main(void)
 {
 	t_list	*env;
 	char	*buf;
