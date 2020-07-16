@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/16 11:37:05 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/16 16:28:02 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,5 @@ int		main(void)
 	}
 	ft_lstclear(&env, &del_key_val);
 	ft_putendl_fd("exit", 1);
-	return (0);
+	return (g_glob.ret);
 }
