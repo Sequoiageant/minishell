@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:06 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 15:41:43 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/16 12:04:35 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_built_in(t_cmd *cmd, int index, t_list **env)
 	int		new_stdout;
 	int		new_stdin;
 	
-	printf(">>built in\n");
+	// printf(">>built in\n");
 	/* save STDOUT and STDIN */
 	new_stdout = dup(STDOUT_FILENO);
 	new_stdin = dup(STDIN_FILENO);
@@ -29,6 +29,10 @@ int		ft_built_in(t_cmd *cmd, int index, t_list **env)
 	ft_redirs(cmd);
 	/* use this new STDOUT or STDIN */
 	ret = built_func[index](cmd->argc, cmd->argv, env);
+	if (ret == FAILURE)
+		g_glob.ret = 1;
+	else
+		g_glob.ret = 0;
 	/* restore STDOUT and STDIN */
 	dup2(new_stdout, STDOUT_FILENO);
 	dup2(new_stdin, STDIN_FILENO);

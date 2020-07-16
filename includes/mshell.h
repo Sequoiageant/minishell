@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/16 09:09:02 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/16 12:49:20 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,33 @@
 #include <sys/stat.h>
 #include "parsing.h"
 
-#define TRUE		1
-#define FALSE		0
-#define SUCCESS		0
-#define FAILURE		-1
-#define EXIT_CODE	2
-#define PIPE_WRITE	1
-#define PIPE_READ	0
-// #define BUF_SIZE 1000
-#define NB_BLT		6
-
-extern	pid_t	g_new_pid;
+#define TRUE			1
+#define FALSE			0
+#define SUCCESS			0
+#define FAILURE			-1
+#define PIPE_WRITE		1
+#define PIPE_READ		0
+#define CTRLC_RET		130
+#define CTRLBACK_RET	131
+#define NB_BLT			6
+#define EXIT_CODE		2
 
 typedef int (*t_built)(int argc, char *argv[], t_list **env);
 
-typedef struct	s_key_val
+typedef struct		s_key_val
 {
 	char			*key;
 	char			*val;
-}				t_key_val;
+}					t_key_val;
+
+typedef struct		s_globale
+{
+	pid_t			pid;
+	int				ret;
+}					t_globale;
+
+extern	t_globale	g_glob;
+
 
 /*
 ** ----------------------------- Built-in -----------------------------

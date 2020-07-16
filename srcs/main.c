@@ -6,14 +6,14 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/15 12:07:34 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/16 11:37:05 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-pid_t	g_new_pid;
+t_globale	g_glob;
 
 int		ft_handle(char *buf, t_list **env)
 {
@@ -27,29 +27,39 @@ int		ft_handle(char *buf, t_list **env)
 	return (SUCCESS);
 }
 
-void	handle_ctrlc(int signum)
+void	signal_handler(int signum)
 {
-	if (g_new_pid && signum == SIGINT)
+	if (g_glob.pid && signum == SIGINT)
 	{
-		kill(g_new_pid, signum);
+		kill(g_glob.pid, signum);
 		ft_putchar_fd('\n', 1);
-		g_new_pid = 0;
+		g_glob.pid = 0;
+	}
+	else if (g_glob.pid && signum == SIGQUIT)
+	{
+		kill(g_glob.pid, signum);
+		ft_putendl_fd("Quit (core dumped)", 2);
+		g_glob.pid = 0;
 	}
 	else
 	{
 		ft_putchar_fd('\n', 1);
 		ft_putstr_fd("cmd: ", 1);
 	}
+	if (signum == SIGINT)
+		g_glob.ret = CTRLC_RET;
+	if (signum == SIGQUIT)
+		g_glob.ret = CTRLBACK_RET;
 }
 
-void	handle_ctrlback(int signum)
+/*void	handle_ctrlback(int signum)
 {
-	if (g_new_pid && signum == SIGQUIT)
+	if (g_glob.pid && signum == SIGQUIT)
 	{
-		kill(g_new_pid, signum);
+		kill(g_glob.pid, signum);
 		ft_putendl_fd("Quit (core dumped)", 2);
 		ft_putstr_fd("cmd: ", 1);
-		g_new_pid = 0;
+		g_glob.pid = 0;
 	}
 	else
 	{
@@ -57,16 +67,16 @@ void	handle_ctrlback(int signum)
 		ft_putstr_fd("cmd: ", 1);
 	}
 }
-
+*/
 int		main(void)
 {
 	t_list	*env;
 	char	*buf;
 
 	ft_init(&env);
-	if (signal(SIGINT, handle_ctrlc) == SIG_ERR)
+	if (signal(SIGINT, signal_handler) == SIG_ERR)
 		return (1);
-	if (signal(SIGQUIT, handle_ctrlback) == SIG_ERR)
+	if (signal(SIGQUIT, signal_handler) == SIG_ERR)
 		return (1);
 	ft_putstr_fd("cmd: ", 1);
 	while (get_next_line(0, &buf) > 0)
