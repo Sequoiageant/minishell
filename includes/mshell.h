@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/15 19:25:08 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/16 09:09:02 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 #define FALSE		0
 #define SUCCESS		0
 #define FAILURE		-1
+#define EXIT_CODE	2
 #define PIPE_WRITE	1
 #define PIPE_READ	0
 // #define BUF_SIZE 1000

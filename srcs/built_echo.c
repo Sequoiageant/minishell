@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:34 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 16:14:49 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/16 11:02:14 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		ms_echo(int argc, char *argv[], t_list **env)
 	if (argc == 1)
 	{
 		ft_putstr_fd("\n", 1);
-		return (0);
+		return (SUCCESS);
 	}
 	if (ft_strncmp(argv[1], "-n", 2) == 0)
 	{
@@ -45,7 +45,7 @@ int		ms_echo(int argc, char *argv[], t_list **env)
 		n_opt = TRUE;
 	}
 	if (n_opt && argc == 2)
-		return (0);
+		return (SUCCESS);
 	ms_echo_suite(argc, argv, i, n_opt);
-	return (1);
+	return (SUCCESS);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_traitement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/07/15 19:23:34 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/16 09:09:17 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_traitement_cmdlist(t_list *cmd_list, t_list **env)
 		if (ft_check_built_in(cmd->argv[0], &index) == TRUE)
 			ft_built_in(cmd, index, env);
 		else if (ft_strcmp(cmd->argv[0], "exit") == 0)
-			return (FAILURE);
+			return (EXIT_CODE);
 		else
 			ft_executable_cmd(cmd_list, *env);
 	}
@@ -44,7 +44,7 @@ int		ft_traitement(t_list *pipe_list, t_list **env)
 	{
 		cmd_list = (t_list*)pipe_list->content;
 		cmd = (t_cmd*)cmd_list->content;
-		if (ft_traitement_cmdlist(cmd_list, env) == FAILURE)
+		if (ft_traitement_cmdlist(cmd_list, env) == EXIT_CODE)
 			ms_exit(pipe_list, cmd->argc, cmd->argv, env);
 		pipe_list = pipe_list->next;
 	}
