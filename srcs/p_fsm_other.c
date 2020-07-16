@@ -6,27 +6,27 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/07/16 11:51:47 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/16 17:00:30 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int		fsm_backslash(char *buf, t_state_machine *m, t_list *e, t_list **p_list)
+int			fsm_backslash(char *buf, t_state_machine *m, t_list *e, t_list **p_list)
 {
 	(void)m;
 	(void)e;
 	#ifdef DEBUG_PARSING
 	printf("[%c] -> LETTER ", *buf);
 	#endif
-	
+
 	if (ft_join_to_cmd_buf(char_to_str(buf[1]), *p_list) == FAILURE)
 		return (FAILURE);
 	return (2);
 }
 
-int		fsm_flag(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
+int			fsm_flag(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 {
 	(void)env;
 	(void)p_list;
@@ -47,7 +47,7 @@ int		fsm_flag(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	return (1);
 }
 
-int		fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
+int			fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 {
 	(void)m;
 	(void)env;
@@ -59,7 +59,17 @@ int		fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	return (1);
 }
 
-int		fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
+static	int	variable_substitution(t_list **p_list, t_key_val *key_val)
+{
+	if (key_val)
+	{
+		if ((ft_join_to_cmd_buf(ft_strdup(key_val->val), *p_list) == FAILURE))
+			return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+int			fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 {
 	int			i;
 	char		*str;
@@ -74,21 +84,16 @@ int		fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	str = ft_substr(buf, 0, i);
 	if (str[0] == '?')
 	{
-		if ((ft_join_to_cmd_buf(ft_itoa(g_glob.ret), *p_list) == FAILURE)) // on envoie une copie de key_val->val, pour pouvoir la free sans modifier la t_list *env
-				return (FAILURE); 
+		free(str);
+		if ((ft_join_to_cmd_buf(ft_itoa(g_glob.ret), *p_list) == FAILURE))
+			return (FAILURE);
 	}
 	else
 	{
 		key_val = find_key_val(env, str);
-	#ifdef DEBUG_PARSING
-		printf("[$%s] -> ENV ", str);
-	#endif
 		free(str);
-		if (key_val)
-		{
-			if ((ft_join_to_cmd_buf(ft_strdup(key_val->val), *p_list) == FAILURE)) // on envoie une copie de key_val->val, pour pouvoir la free sans modifier la t_list *env
-				return (FAILURE); 
-		}
+		if (variable_substitution(p_list, key_val) == FAILURE)
+			return (FAILURE);
 	}
 	return (i + 1); // + 1 car il y a le '$'
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_redirs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 11:31:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/16 15:50:43 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/16 18:38:24 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_redir_input(char *file)
 	fd = open(file, O_RDWR);
 	if (fd == -1)
 	{
+		ft_putstr_fd("minishell: ", 2);
 		perror(file);
 		exit(1);
 	}

@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/15 16:20:20 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/16 18:49:45 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ int	ms_export(int argc, char *argv[], t_list **env)
 				else if (tab[1] && is_valid_identifier(tab[0]))
 					add_keyval_to_env(tab, env);
 				else
-					put_err("export: `", argv[i], "': not a valid identifier");
+				{
+					if (!is_valid_identifier(tab[0]))
+						put_err("export: `", argv[i], "': not a valid identifier");
+				}
 				free(tab);
 			}
 			i++;
@@ -73,11 +76,19 @@ int	ms_unset(int argc, char *argv[], t_list **env)
 
 	if (argc > 1)
 	{
-		i = 1;
-		while (argv[i])
 		{
-			lst_delone_env(*env, argv[i]);
-			i++;
+			i = 1;
+			while (argv[i])
+			{
+				if (is_valid_identifier(argv[i]))
+					lst_delone_env(*env, argv[i]);
+				else
+				{
+					put_err("export: `", argv[i], "': not a valid identifier");
+					return	(FAILURE);
+				}
+				i++;
+			}
 		}
 	}
 	else
