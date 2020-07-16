@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/13 20:40:20 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/16 11:53:28 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_exec_cmd(t_list *cmd_elem, char **env_tab)
 	{
 		ft_putstr_fd(cmd->argv[0], 2);
 		ft_putendl_fd(": command not found", 2);
-		exit(ret);
+		exit(127);
 	}
 }
 
@@ -73,10 +73,10 @@ int		ft_executable_cmd(t_list *cmd_list, t_list *env)
 
 	env_tab = ft_list_to_tab(env);
 	fd = NULL;
-	g_new_pid = fork();
+	g_glob.pid = fork();
 	num_pipe = ft_build_pipes(cmd_list, &fd);
 		// mieux de faire les pipes après le premier fork: si on le fait avant le fork, on doit fermer fd[P_W] et fd[P_R] dans le current shell
-	if (g_new_pid == 0)
+	if (g_glob.pid == 0)
 	{
 		if (num_pipe)
 			ft_fork_exec_cmds(cmd_list, fd, env_tab, num_pipe);
@@ -85,8 +85,9 @@ int		ft_executable_cmd(t_list *cmd_list, t_list *env)
 	}
 	wait(&status); // doit attendre que la DERNIERE commande du pipe ait terminée // will wait for any child process -> il n'y en a juste 1 = premier fork (tous les autres fork sont faits à l'intérieur de ce child process)
 	free_tab2_int(fd, num_pipe);
-	ft_print_status(status);
-	g_new_pid = 0;
+	// ft_print_status(status);
+	g_glob.ret = WEXITSTATUS(status);
+	g_glob.pid = 0;
 	free_tab2(env_tab);
 	return (SUCCESS);
 }
