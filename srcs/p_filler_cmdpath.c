@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_filler_cmdpath.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 11:09:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 12:14:57 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/16 16:13:05 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ int		fill_cmd_path(t_cmd *cmd, t_list *env)
 {
 	cmd->cmd_path = find_in_env_path(env, cmd->argv[0]);
 	if (cmd->cmd_path == NULL)
-		cmd->cmd_path = ft_strdup(cmd->argv[0]);
+	{
+		if (ft_strchr(cmd->argv[0], '/') != NULL)
+			cmd->cmd_path = ft_strdup(cmd->argv[0]);
+	}
 	else
 		ft_strjoin_back(cmd->argv[0], &(cmd->cmd_path));
 	return (SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_executable_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/16 12:49:49 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/16 16:19:16 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,22 @@ void	ft_exec_cmd(t_list *cmd_elem, char **env_tab)
 {
 	t_cmd	*cmd;
 
+	errno = 0;
 	cmd = (t_cmd*)cmd_elem->content;
 	ft_redirs(cmd);
-	if (execve(cmd->cmd_path, cmd->argv, env_tab) == -1)
+	if (cmd->cmd_path)
+		execve(cmd->cmd_path, cmd->argv, env_tab);
+	if (!cmd->cmd_path || errno == 2)
 	{
-		if (errno == 13)
-		{
-			ft_putstr_fd(cmd->argv[0], 2);
-			ft_putendl_fd(": Permission denied", 2);
-			exit(126);
-		}
-		if (errno == 2)
-		{
-			ft_putstr_fd(cmd->argv[0], 2);
-			ft_putendl_fd(": command not found", 2);
-			exit(127);
-		}
+		ft_putstr_fd(cmd->argv[0], 2);
+		ft_putendl_fd(": command not found", 2);
+		exit(127);
+	}
+	if (errno == 13)
+	{
+		ft_putstr_fd(cmd->argv[0], 2);
+		ft_putendl_fd(": Permission denied", 2);
+		exit(126);
 	}
 }
 

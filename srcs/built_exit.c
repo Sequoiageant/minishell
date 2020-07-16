@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/16 16:25:51 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/16 16:29:09 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ void			ms_exit(t_list *pipe_list, int ac, char **argv, t_list **env)
 	ret = 0;
 	ft_putendl_fd("exit", 1);
 	if (ac > 2)
-	{
-		// printf("%s\n", argv[2]);
 		put_err("exit: ", NULL, "too many arguments");
-	}
 	else if (ac == 2)
 	{
 		if (is_int(argv[1], '-'))
