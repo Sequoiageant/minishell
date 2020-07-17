@@ -51,3 +51,5 @@ PARSING
         echo test > file divers [bash ignore le mot "divers" et créé le fichier "file" vs "file divers" pour nous]
 
 - parsing: à la fin d'un pipe, verifier que les flags ' et " soient desactivés --> si les quote n'est pas fermé, c'est du MULTILINE -> pas à gérer donc on fait comme on veut
+
+- Dans parsing.c, fonction ft_parse(), une erreur doit retourner FAILURE et non EXIT_FAILURE ?

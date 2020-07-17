@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/07/16 17:00:30 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/17 12:06:59 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ int			fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	str = ft_substr(buf, 0, i);
 	if (str[0] == '?')
 	{
+		#ifdef DEBUG_PARSING
+		printf("[$%s] -> ENV ", str);
+		#endif
 		free(str);
 		if ((ft_join_to_cmd_buf(ft_itoa(g_glob.ret), *p_list) == FAILURE))
 			return (FAILURE);
@@ -91,6 +94,9 @@ int			fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	else
 	{
 		key_val = find_key_val(env, str);
+		#ifdef DEBUG_PARSING
+		printf("[$%s] -> ENV ", str);
+		#endif
 		free(str);
 		if (variable_substitution(p_list, key_val) == FAILURE)
 			return (FAILURE);

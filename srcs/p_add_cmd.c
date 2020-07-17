@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_add_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 09:47:53 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/17 11:18:33 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,5 @@ int		add_cmd(t_list *pipe_list)
 	ft_lstadd_back(&cmd_list, ft_lstnew(cmd));
 	if (pipe_list->content == NULL)
 		pipe_list->content = cmd_list;
-	return (0);
+	return (SUCCESS);
 }

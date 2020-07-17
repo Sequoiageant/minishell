@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/16 18:49:45 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/17 11:51:09 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ms_env(int argc, char *argv[], t_list **env)
 {
 	(void)argc;
 	(void)argv;
-	ft_print_env(*env, FALSE);
+	ft_print_env(*env);
 	return (SUCCESS);
 }
 
@@ -55,11 +55,8 @@ int	ms_export(int argc, char *argv[], t_list **env)
 					change_env_val(*env, tab);
 				else if (tab[1] && is_valid_identifier(tab[0]))
 					add_keyval_to_env(tab, env);
-				else
-				{
-					if (!is_valid_identifier(tab[0]))
+				else if (!is_valid_identifier(tab[0]))
 						put_err("export: `", argv[i], "': not a valid identifier");
-				}
 				free(tab);
 			}
 			i++;

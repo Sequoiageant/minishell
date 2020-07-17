@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/10 11:59:53 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/17 11:40:12 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ms_pwd(int argc, char *argv[], t_list **env)
 	}
 	else
 	{
-		ft_putendl_fd("Current directory not found", 2);
+		put_err("pwd: ", NULL, "Current directory not found");
 		ret = FAILURE;
 	}
 	return (ret);
