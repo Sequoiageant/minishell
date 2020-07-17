@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/17 14:40:15 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/17 14:44:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ int		ft_parse(char *buf, t_list *env, t_list **pipe_list)
 {
 	ft_lstadd_back(pipe_list, ft_lstnew(NULL));
 	if (add_cmd(*pipe_list) == FAILURE)
-		return (EXIT_FAILURE);
+		return (EXIT_FAILURE);	//pour moi on doit return (FAILURE) ici
 	if (parser(buf, env, pipe_list) == FAILURE)
-		return (EXIT_FAILURE);
+		return (EXIT_FAILURE);	//pour moi on doit return (FAILURE) ici
 	if (filler(*pipe_list, env) == FAILURE)
-		return (EXIT_FAILURE);
+		return (EXIT_FAILURE);	//pour moi on doit return (FAILURE) ici
 	#ifdef DEBUG_PARSING
 		print_commands(*pipe_list);
 	#endif
