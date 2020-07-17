@@ -13,8 +13,6 @@ BUILT INS
 
 AUTRE
 
-- problème: quand on appelle un executable qui est dans le current folder, si on fait cmd: ./nom_executable c'est sensé marcher mais si on fait cmd: nom_executable c'est pas sensé marcher. or nous ca marche aussi dans le 2em cas
-    -> lié à cmdpath ?
 - pid globale: voir s'il faut un tableau/liste de pid
 - ctrl c marche sur une commande du pipe, autre que la dernière ? -> a priori le cas ne risque pas de se présenter
 - utiliser le char **env argument du main plutot que __environ pour récupérer l'environnement ? 
@@ -44,6 +42,12 @@ NORME
 PARSING
 
 - Gérer les erreurs de synthaxe ?
+
+- Problèmes avec le PARSING: les redirs sont gérés après, donc problème notamment quand:
+    - redir entre guillemet: devrait être ignoré
+    - si plusieurs mots après la redir (ex: echo > abc def), seul le premier doit être pris en compte pour le nom du fichier. Sauf si guillemets
+
+- gérer les commandes avec plusieurs redirs (?)
 
 - > FILE:
     pour l'instant, après > ou >>, le parser lit tout ce qu'il trouve jusqu'à '/0' ou ';' ou '|', et le stock dans le filename (en elevant les espaces au début et à la fin si necessaire)

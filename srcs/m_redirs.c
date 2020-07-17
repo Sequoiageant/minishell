@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 11:31:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/16 15:50:43 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/17 12:20:42 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ void	ft_redir_output(char *file)
 	int fd;
 
 	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+	if (fd == -1)
+	{
+		ft_putendl_fd("can't open file", 2);
+		exit(1);
+	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
@@ -27,6 +32,11 @@ void	ft_redir_output_append(char *file)
 	int fd;
 
 	fd = open(file, O_RDWR | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR);
+	if (fd == -1)
+	{
+		ft_putendl_fd("can't open file", 2);
+		exit(1);
+	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }

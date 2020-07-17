@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_fsm_other.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/07/16 11:51:47 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/17 14:40:03 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		fsm_backslash(char *buf, t_state_machine *m, t_list *e, t_list **p_list)
 	(void)m;
 	(void)e;
 	#ifdef DEBUG_PARSING
-	printf("[%c] -> LETTER ", *buf);
+		printf("[%c] -> ESCAPED LETTER ", buf[1]);
 	#endif
 	
 	if (ft_join_to_cmd_buf(char_to_str(buf[1]), *p_list) == FAILURE)
@@ -52,7 +52,7 @@ int		fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	(void)m;
 	(void)env;
 	#ifdef DEBUG_PARSING
-	printf("[%c] -> LETTER ", *buf);
+		printf("[%c] -> LETTER ", *buf);
 	#endif
 	if ((ft_join_to_cmd_buf(char_to_str(*buf), *p_list) == FAILURE))
 		return (FAILURE);
@@ -89,6 +89,11 @@ int		fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 			if ((ft_join_to_cmd_buf(ft_strdup(key_val->val), *p_list) == FAILURE)) // on envoie une copie de key_val->val, pour pouvoir la free sans modifier la t_list *env
 				return (FAILURE); 
 		}
+		#ifdef DEBUG_PARSING
+			if (key_val == NULL)
+				printf("buf: unchanged\n");
+		#endif
+		
 	}
 	return (i + 1); // + 1 car il y a le '$'
 }
