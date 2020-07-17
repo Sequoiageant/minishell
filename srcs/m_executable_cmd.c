@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/16 16:19:16 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/17 16:50:20 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,25 @@ void	ft_exec_cmd(t_list *cmd_elem, char **env_tab)
 
 	errno = 0;
 	cmd = (t_cmd*)cmd_elem->content;
-	ft_redirs(cmd);
-	if (cmd->cmd_path)
-		execve(cmd->cmd_path, cmd->argv, env_tab);
-	if (!cmd->cmd_path || errno == 2)
+	if (ft_redirs(cmd) != FAILURE)
 	{
-		ft_putstr_fd(cmd->argv[0], 2);
-		ft_putendl_fd(": command not found", 2);
-		exit(127);
+		if (cmd->cmd_path)
+			execve(cmd->cmd_path, cmd->argv, env_tab);
+		if (!cmd->cmd_path || errno == 2)
+		{
+			ft_putstr_fd(cmd->argv[0], 2);
+			ft_putendl_fd(": command not found", 2);
+			exit(127);
+		}
+		if (errno == 13)
+		{
+			ft_putstr_fd(cmd->argv[0], 2);
+			ft_putendl_fd(": Permission denied", 2);
+			exit(126);
+		}
 	}
-	if (errno == 13)
-	{
-		ft_putstr_fd(cmd->argv[0], 2);
-		ft_putendl_fd(": Permission denied", 2);
-		exit(126);
-	}
+	else
+		exit(g_glob.ret);
 }
 
 int		ft_fork_exec_cmds(t_list *cmd_list, int **fd, char **env_tab, int num)
