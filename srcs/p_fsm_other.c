@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/07/17 14:48:10 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/17 19:47:14 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ int			fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	(void)p_list;
 	(void)m;
 	buf++;
-	i = 0;
-	while (buf[i] && !ft_is_special(buf[i]))
-		i++;
+	i = count_dollar_char(buf);
 	str = ft_substr(buf, 0, i);
 	if (str[0] == '?')
 	{

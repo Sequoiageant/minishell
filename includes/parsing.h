@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 11:21:31 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/17 19:51:14 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int		add_cmd(t_list *pipe_list);
 void	ft_init_cmd(t_cmd *cmd);
 int		ft_join_to_cmd_buf(char *str, t_list *pipe_list);
 char	*char_to_str(char c);
-int		ft_is_special(char c);
+int		ft_is_dollar_start(char c);
+int		count_dollar_char(char *buf);
 int		filler(t_list *pipe_list, t_list *env);
 int		contains_redir(char *buf);
 int		fill_redir(t_cmd *cmd);

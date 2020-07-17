@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/10 18:13:13 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/17 17:22:29 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ int		ms_cd(int argc, char **argv, t_list **env)
 		return (FAILURE);
 	}
 	ft_cd_change_env(env, old_pwd);
-	print_env_elem(*env, "PWD");
+	// print_env_elem(*env, "PWD");
 	return (SUCCESS);
 }

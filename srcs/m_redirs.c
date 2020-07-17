@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   m_redirs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 11:31:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/17 16:42:51 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/17 18:58:02 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int		ft_redir_output(char *file)
+static int	ft_redir_output(char *file)
 {
 	int fd;
 
@@ -32,7 +32,7 @@ int		ft_redir_output(char *file)
 	return (SUCCESS);
 }
 
-int		ft_redir_output_append(char *file)
+static int	ft_redir_output_append(char *file)
 {
 	int fd;
 
@@ -51,25 +51,26 @@ int		ft_redir_output_append(char *file)
 	return (SUCCESS);
 }
 
-void	ft_redir_input(char *file)
+static int	ft_redir_input(char *file)
 {
 	int fd;
 
 	fd = open(file, O_RDWR);
 	if (fd == -1)
 	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(file);
-		exit(1);
+		put_err(file, ": ", strerror(errno));
+		g_glob.ret = 1;
+		return (FAILURE);
 	}
 	else
 	{
 		dup2(fd, STDIN_FILENO);
 		close(fd);
 	}
+	return (SUCCESS);
 }
 
-int		ft_redirs(t_cmd *cmd)
+int			ft_redirs(t_cmd *cmd)
 {
 	int	ret;
 
@@ -79,6 +80,6 @@ int		ft_redirs(t_cmd *cmd)
 	if (cmd->output_file_append)
 		ret = ft_redir_output_append(cmd->file);
 	if (cmd->input_file)
-		ft_redir_input(cmd->file);
+		ret = ft_redir_input(cmd->file);
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/17 14:44:30 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/17 19:33:18 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	chose_state(char *buf, t_state_machine *machine)
 		machine->state = FLAG;
 	else if (*buf == '\\' && backslash_activated(buf, machine))
 		machine->state = BACKSLASH;
-	else if (*buf == '$' && !machine->flag_quote && !ft_is_special(buf[1]))
+	else if (*buf == '$' && !machine->flag_quote && ft_is_dollar_start(buf[1]))
 		machine->state = DOLLAR;
 	else if (*buf == ';' && !machine->flag_quote && !machine->flag_dquote)
 		machine->state = MULTI;

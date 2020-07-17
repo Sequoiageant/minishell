@@ -1,7 +1,7 @@
 A COMMENCER
 
 - Creer une fonction display_prompt() ?
-- Exit status de minishell (Bash itself returns the exit status of the last command executed, unless a syntax error occurs, in which case it exits with a non-zero value)
+- gérer les built ins au sein des pipe
 
 BUILT INS
 
@@ -41,13 +41,17 @@ NORME
 
 PARSING
 
-- Gérer les erreurs de synthaxe ?
+- Gérer les erreurs de synthaxe (?)
+    -> pas de commande vide avant / après un pipe
 
 - Problèmes avec le PARSING: les redirs sont gérés après, donc problème notamment quand:
     - redir entre guillemet: devrait être ignoré
     - si plusieurs mots après la redir (ex: echo > abc def), seul le premier doit être pris en compte pour le nom du fichier. Sauf si guillemets
 
-- gérer les commandes avec plusieurs redirs (?)
+- gérer les commandes avec plusieurs redirs
+
+- gerer les situations ou l'espace est echappé:
+    ex: echo bonjour > test\ 1 --> normalemnt l'espace arrête le nom du fichier, qui s'appelerait "test". Avec le '\' le fichier s'appelle "test 1"
 
 - > FILE:
     pour l'instant, après > ou >>, le parser lit tout ce qu'il trouve jusqu'à '/0' ou ';' ou '|', et le stock dans le filename (en elevant les espaces au début et à la fin si necessaire)
