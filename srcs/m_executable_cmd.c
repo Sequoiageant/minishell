@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/17 16:50:20 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/18 10:01:08 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,10 @@ int		ft_executable_cmd(t_list *cmd_list, t_list *env)
 			ft_exec_cmd(cmd_list, env_tab);	
 	}
 	wait(&status); // doit attendre que la DERNIERE commande du pipe ait terminée // will wait for any child process -> il n'y en a juste 1 = premier fork (tous les autres fork sont faits à l'intérieur de ce child process)
-	free_tab2_int(fd, num_pipe);
-	// ft_print_status(status);
-	g_glob.ret = WEXITSTATUS(status);
+	if (WIFEXITED(status))
+		g_glob.ret = WEXITSTATUS(status);
 	g_glob.pid = 0;
+	free_tab2_int(fd, num_pipe);
 	free_tab2(env_tab);
 	return (SUCCESS);
 }
