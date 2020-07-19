@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/19 18:11:16 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/19 19:15:56 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab)
 				dup2(p[1], 1);
 			close(p[0]);
 			ft_choose_builtin_or_bin(cmd_list, env, env_tab);
-			exit(EXIT_FAILURE);
+			exit(g_glob.ret);
 		}
 		else
 		{
