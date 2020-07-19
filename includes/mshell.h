@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/17 16:43:30 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/19 18:03:08 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,15 @@ int			ft_check_built_in(char *cmd, int *index);
 int			ft_init(t_list **env);
 int			ft_simple_cmd_fork(char **cmd, t_list **env, char *cmd_path);
 int			ft_traitement(t_list *cmd, t_list **env);
-int			ft_executable_cmd(t_list *pipe_list, t_list *env);
+int			ft_executable_cmd(t_list *cmd_list, t_list *env);
 int			contains_pipe(t_list *cmd_list);
 int			ft_build_pipes(t_list *cmd_list, int ***fd);
 void		dup_close_pipes(int *fd[2], int fd_in, int fd_out, int num);
 int			ft_redirs(t_cmd *cmd);
+void		ft_exec_cmd(t_list *cmd_elem, char **env_tab);
+void		ft_exec_solo_cmd(t_list *cmd_elem, char **env_tab);
+int			ft_choose_builtin_or_bin(t_list *cmd_list, t_list **env, char **env_tab);
+void		ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab);
 
 /*
 ** ------------------------------- Utils ------------------------------
@@ -105,7 +109,7 @@ int			lst_delone_env(t_list *env, char *key);
 void		change_env_val(t_list *env, char **key_val);
 char		**ft_split_env(char *key_val);
 char		**ft_list_to_tab(t_list *env);
-void		put_err(char *cmd, char *arg, char *last);
+void		put_err(char *cmd, char *arg, char *last, int minishell);
 void		add_keyval_to_env(char **elem, t_list **env);
 
 #endif

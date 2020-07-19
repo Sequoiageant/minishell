@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_redirs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 11:31:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/17 18:58:02 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/18 12:10:13 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	ft_redir_output(char *file)
 	}
 	else
 	{
-		put_err(file, ": ", strerror(errno));
+		put_err(file, ": ", strerror(errno), TRUE);
 		g_glob.ret = 1;
 		return (FAILURE);
 	}
@@ -44,7 +44,7 @@ static int	ft_redir_output_append(char *file)
 	}
 	else
 	{
-		put_err(file, ": ", strerror(errno));
+		put_err(file, ": ", strerror(errno), TRUE);
 		g_glob.ret = 1;
 		return (FAILURE);
 	}
@@ -58,7 +58,7 @@ static int	ft_redir_input(char *file)
 	fd = open(file, O_RDWR);
 	if (fd == -1)
 	{
-		put_err(file, ": ", strerror(errno));
+		put_err(file, ": ", strerror(errno), TRUE);
 		g_glob.ret = 1;
 		return (FAILURE);
 	}

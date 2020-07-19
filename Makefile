@@ -68,14 +68,16 @@ SRCS += built_exit.c
 
 # Main Sources
 SRCS += main.c
+SRCS += m_init.c
 SRCS += m_del.c
 SRCS += m_env_utils.c
-SRCS += m_traitement.c
-SRCS += m_init.c
-SRCS += m_executable_cmd.c
 SRCS += m_executable_utils.c
 SRCS += m_utils.c
 SRCS += m_redirs.c
+# SRCS += m_traitement.c
+# SRCS += m_executable_cmd.c
+SRCS += m_traitement_test.c
+SRCS += m_executable_cmd_test.c
 
 vpath %.c ./srcs/
 
