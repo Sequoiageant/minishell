@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/19 19:15:56 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/20 12:04:46 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,11 @@ void	ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab)
 	int		p[2];
 	int		fd_in = 0;
 	int		i;
+	int		nb_cmd;
 	int		status;
 
-	i = ft_lstsize(cmd_list);
+	nb_cmd = ft_lstsize(cmd_list);
+	i = nb_cmd;
 	while (i > 0)
 	{
 		pipe(p);
@@ -102,15 +104,21 @@ void	ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab)
 		}
 		else
 		{
-			wait(&status);
-			if (WIFEXITED(status))
-				g_glob.ret = WEXITSTATUS(status);
-			g_glob.pid = 0;
 			close(p[1]);
 			fd_in = p[0]; //save the input for the next command
 			cmd_list = cmd_list->next;
 			i--;
 		}
+	}
+	i = 0;
+	// g_glob.pid = 0;
+	while (i < nb_cmd)
+	{
+		wait(&status);
+		ft_putendl_fd("TOTO", 2);
+		if (WIFEXITED(status))
+			g_glob.ret = WEXITSTATUS(status);
+		i++;
 	}
 }
 
