@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/20 16:12:39 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:27:12 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,11 +165,11 @@ int		ft_executable_cmd(t_list *cmd_list, t_list *env)
 		close(fd[i][1]);
 		close(fd[i][0]);
 		wait(&status);
+		if (WIFEXITED(status))
+			g_glob.ret = WEXITSTATUS(status);
 		i++;
 	}
 	wait(&status);
-	if (WIFEXITED(status))
-		g_glob.ret = WEXITSTATUS(status);
 	g_glob.pid = 0;
 	free_tab2_int(fd, num_pipe);
 	free_tab2(env_tab);

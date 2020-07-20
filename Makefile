@@ -64,6 +64,7 @@ SRCS += built_cd.c
 SRCS += built_echo.c
 SRCS += built_pwd.c
 SRCS += built_env.c
+SRCS += built_export.c
 SRCS += built_exit.c
 
 # Main Sources

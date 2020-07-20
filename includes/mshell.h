@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/19 18:03:08 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/20 17:16:11 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int			ms_env(int argc, char *argv[], t_list **env);
 int			ms_unset(int argc, char *argv[], t_list **env);
 void		ms_exit(t_list *pipe_list, int ac, char **argv, t_list **env);
 int			ft_check_built_in(char *cmd, int *index);
+int			is_valid_identifier(char *str);
 
 /*
 ** ----------------------------- Executes -----------------------------
