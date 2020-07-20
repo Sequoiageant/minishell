@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/20 16:05:32 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/20 16:12:39 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,35 +122,56 @@ void	ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab)
 	}
 }
 */
-void		ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab)
+
+int		ft_executable_cmd(t_list *cmd_list, t_list *env)
 {
 	int		status;
 	int		**fd;
+	char	**env_tab;
 	int		num_pipe;
 	int		i = 0;
 
+	env_tab = ft_list_to_tab(env);
 	fd = NULL;
 	num_pipe = ft_build_pipes(cmd_list, &fd);
 	if ((g_glob.pid = fork()) == 0)
 	{
-		dup_close_pipes(fd, 0, fd[i][PIPE_WRITE], num_pipe);
-		ft_choose_builtin_or_bin(cmd_list, env, env_tab);
+		if (cmd_list->next)
+			dup_close_pipes(fd, 0, fd[i][PIPE_WRITE], num_pipe);
+		ft_choose_builtin_or_bin(cmd_list, &env, env_tab);
 	}
-	if (cmd_list->next != NULL)
+	cmd_list = cmd_list->next;
+	if (cmd_list)
 	{
-		cmd_list = cmd_list->next;
+		while (cmd_list->next)
+		{
+			if ((g_glob.pid = fork()) == 0)
+			{
+				dup_close_pipes(fd, fd[i][PIPE_READ], fd[i + 1][PIPE_WRITE], num_pipe);
+				ft_choose_builtin_or_bin(cmd_list, &env, env_tab);
+			}
+			cmd_list = cmd_list->next;
+			i++;
+		}
 		if ((g_glob.pid = fork()) == 0)
 		{
 			dup_close_pipes(fd, fd[i][PIPE_READ], 0, num_pipe);
-			ft_choose_builtin_or_bin(cmd_list, env, env_tab);
+			ft_choose_builtin_or_bin(cmd_list, &env, env_tab);
 		}
 	}
-	close(fd[0][1]);
-	close(fd[0][0]);
-	wait(&status); // doit attendre que la DERNIERE commande du pipe ait terminée // will wait for any child process -> il n'y en a juste 1 = premier fork (tous les autres fork sont faits à l'intérieur de ce child process)
+	i = 0;
+	while (i < num_pipe)
+	{
+		close(fd[i][1]);
+		close(fd[i][0]);
+		wait(&status);
+		i++;
+	}
 	wait(&status);
 	if (WIFEXITED(status))
 		g_glob.ret = WEXITSTATUS(status);
 	g_glob.pid = 0;
 	free_tab2_int(fd, num_pipe);
+	free_tab2(env_tab);
+	return (SUCCESS);
 }
