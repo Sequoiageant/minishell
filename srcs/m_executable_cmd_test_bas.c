@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/20 12:57:29 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/20 15:21:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,22 @@ int		ft_executable_cmd(t_list *cmd_list, t_list *env)
 	cmd_list = cmd_list->next;
 	if ((g_glob.pid = fork()) == 0)
 	{
+		dup_close_pipes(fd, fd[i][PIPE_READ], fd[i + 1][PIPE_WRITE], num_pipe);
+		ft_exec_cmd(cmd_list, env_tab);
+	}
+	cmd_list = cmd_list->next;
+	i++;
+	if ((g_glob.pid = fork()) == 0)
+	{
 		dup_close_pipes(fd, fd[i][PIPE_READ], 0, num_pipe);
 		ft_exec_cmd(cmd_list, env_tab);
 	}
 	close(fd[0][1]);
 	close(fd[0][0]);
+	close(fd[1][0]);
+	close(fd[1][1]);
 	wait(&status); // doit attendre que la DERNIERE commande du pipe ait terminée // will wait for any child process -> il n'y en a juste 1 = premier fork (tous les autres fork sont faits à l'intérieur de ce child process)
+	wait(&status);
 	wait(&status);
 	if (WIFEXITED(status))
 		g_glob.ret = WEXITSTATUS(status);
