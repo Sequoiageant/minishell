@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/07/17 11:21:20 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/21 12:20:25 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,20 @@ int		is_key_in_env(t_list *env, char *key)
 	return (FALSE);
 }
 
+char	*find_env_val(t_list *env, char *key)
+{
+	t_key_val *elem;
+
+	while (env)
+	{
+		elem = (t_key_val *)env->content;
+		if (ft_strcmp(elem->key, key) == 0)
+			return (elem->val); 
+		env = env->next;
+	}
+	return (NULL);
+}
+
 t_key_val	*find_key_val(t_list *env, char *key)
 {
 	t_key_val *elem;
@@ -144,18 +158,18 @@ t_key_val	*find_key_val(t_list *env, char *key)
 	return (NULL);
 }
 
-void	change_env_val(t_list *env, char **key_val)
+void	change_env_val(t_list *env, char *key, char *val)
 {
 	t_key_val *elem;
 
 	while (env)
 	{
 		elem = (t_key_val *)env->content;
-		if (ft_strcmp(elem->key, key_val[0]) == 0)
+		if (ft_strcmp(elem->key, key) == 0)
 		{
 			free(elem->val);
 			elem->val = NULL;
-			elem->val = key_val[1]; 
+			elem->val = val; 
 		}
 		env = env->next;
 	}
