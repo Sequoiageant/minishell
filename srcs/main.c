@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/18 10:14:42 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/21 12:34:49 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,34 @@ void	signal_handler(int signum)
 	}
 }
 */
+
+void	ft_shell_init(t_list **env)
+{
+	char	*tmp;
+	char	*path;
+	int		nb;
+
+	tmp = NULL;
+	path = getcwd(NULL, 0);
+	if (path)
+		change_env_val(*env, "SHELL", path);
+	else
+		put_err(NULL, NULL, "Shell directory not found", TRUE);
+	if ((tmp = find_env_val(*env, "SHLVL")))
+		nb = ft_atoi(tmp) + 1;
+	else
+		nb = 1;
+	tmp = ft_itoa(nb);
+	change_env_val(*env, "SHLVL", tmp);
+}
+
 int		main(void)
 {
 	t_list	*env;
 	char	*buf;
 
 	ft_init(&env);
+	ft_shell_init(&env);
 	if (signal(SIGINT, signal_handler) == SIG_ERR)
 		return (1);
 	if (signal(SIGQUIT, signal_handler) == SIG_ERR)

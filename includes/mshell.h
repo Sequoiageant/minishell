@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/20 17:16:11 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/21 12:20:39 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void   		del_cmd(void *elem);
 void		del_pipe(void *elem);
 char		*find_in_env_path(t_list *env, char *cmd);
 t_key_val	*find_key_val(t_list *env, char *key);
+char		*find_env_val(t_list *env, char *key);
 void		ft_print_env(t_list *env);
 void		print_env_elem(t_list *env, char *key);
 void		print_cmd(char **cmd);
@@ -107,7 +108,7 @@ void		free_tab2_int(int **tab, int num);
 void		ft_n_sort_string_tab(char **tab, char stop);
 int			is_key_in_env(t_list *env, char *key);
 int			lst_delone_env(t_list *env, char *key);
-void		change_env_val(t_list *env, char **key_val);
+void		change_env_val(t_list *env, char *key, char *val);
 char		**ft_split_env(char *key_val);
 char		**ft_list_to_tab(t_list *env);
 void		put_err(char *cmd, char *arg, char *last, int minishell);
