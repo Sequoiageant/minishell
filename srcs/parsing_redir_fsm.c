@@ -6,23 +6,38 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 18:21:28 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/21 19:14:52 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
+int ft_join_to_buf(char *added_str, char **initial_str)
+{
+    char *tmp;
+    
+    tmp = *initial_str;
+	if ((*initial_str = ft_strjoin(tmp, added_str)) == NULL)
+		return (FAILURE);
+    free(tmp);
+    free(added_str);
+    #ifdef DEBUG_PARSING
+		printf("buf: [%s]\n", *initial_str);
+	#endif
+    return (SUCCESS);
+}
+
+
 int red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd)
 {
 	(void)m;
 	(void)cmd;
 	#ifdef DEBUG_PARSING
-		printf("[%c] -> ESCAPED LETTER \n", buf[1]);
+		printf("[%c] -> ESCAPED LETTER ", buf[1]);
 	#endif
-    (void)buf;
-	// if (ft_join_to_cmd_buf(char_to_str(buf[1]), *p_list) == FAILURE)
-	// 	return (FAILURE);
+	if (ft_join_to_buf(char_to_str(buf[1]), &cmd->buf) == FAILURE)
+		return (FAILURE);
 	return (2);
 }
 
@@ -51,18 +66,19 @@ int red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	(void)m;
 	(void)cmd;
 	#ifdef DEBUG_PARSING
-		printf("[%c] -> LETTER \n", *buf);
+		printf("[%c] -> LETTER ", *buf);
 	#endif
-    (void)buf;
-	// if ((ft_join_to_cmd_buf(char_to_str(*buf), *p_list) == FAILURE))
-	// 	return (FAILURE);
+	if ((ft_join_to_buf(char_to_str(*buf), &cmd->buf) == FAILURE))
+		return (FAILURE);
 	return (1);
 }
 
 int red_redir(t_fsm_redir *m, char *buf, t_cmd *cmd)
 {
    (void)m;
-   (void)buf;
    (void)cmd;
+	#ifdef DEBUG_PARSING
+		printf("[%c] -> REDIR \n", *buf);
+	#endif
    return (1);
 }

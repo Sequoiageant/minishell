@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 17:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 17:19:19 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/21 19:13:06 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ static void		chose_state(char *buf, t_fsm_redir *machine)
 		machine->state = R_FLAG;
 	else if (*buf == '\\' && backslash_activated(buf, machine))
 		machine->state = R_BACKSLASH;
-	// else if (ft_redir_state(buf, machine))
-	// 	machine->state = R_REDIR;
+	else if ((*buf == '>' || *buf == '<') &&
+	!machine->flag_quote && !machine->flag_dquote)
+		machine->state = R_REDIR;
 	else
 		machine->state = R_LETTER;
 }
@@ -49,7 +50,10 @@ int				parse_cmd_redir(t_cmd *cmd)
 	int					ret;
 	char				*buf;
 	
-	buf = ft_strdup(cmd->buf); // c'est le nouveau cmd->buf, qu'on va remplir au fur et à mesure
+	buf = ft_strdup(cmd->buf); // on initialise buf, que l'on va parser
+	free(cmd->buf); // on free cmd->buf et on lui donne une chaine vide. 
+	// on remplira cmd->buf au fur et a mesure du parsing de "buf"
+	cmd->buf = ft_strdup("");
 	machine.flag_dquote = 0;
 	machine.flag_quote = 0;
 	while (*buf != '\0')
@@ -60,8 +64,8 @@ int				parse_cmd_redir(t_cmd *cmd)
 			return (FAILURE);
 		buf += ret;
 	}
-	// free(cmd->buf); // on free cmd->buf et on le remplace par le "nouveau" buf
-	// cmd->buf = buf;
+	// printf("buf: %s\n", buf);
+	// free(buf); ne pas free car cause des segfault --> voir à quel moment est free !
 	return (SUCCESS);
 }
 

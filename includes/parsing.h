@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 17:09:11 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/21 18:40:53 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ typedef	int	(*t_function)(char *, t_state_machine *, t_list *, t_list **);
 enum			e_state_redir
 {
 	R_LETTER,
+	R_REDIR,
 	R_BACKSLASH,
 	R_FLAG,
-	R_REDIR,
 };
 
 typedef struct	s_fms_redir
