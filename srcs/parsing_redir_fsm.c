@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 17:20:21 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/21 18:21:28 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	#ifdef DEBUG_PARSING
 		printf("[%c] -> ESCAPED LETTER \n", buf[1]);
 	#endif
-
+    (void)buf;
 	// if (ft_join_to_cmd_buf(char_to_str(buf[1]), *p_list) == FAILURE)
 	// 	return (FAILURE);
 	return (2);
@@ -53,6 +53,7 @@ int red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	#ifdef DEBUG_PARSING
 		printf("[%c] -> LETTER \n", *buf);
 	#endif
+    (void)buf;
 	// if ((ft_join_to_cmd_buf(char_to_str(*buf), *p_list) == FAILURE))
 	// 	return (FAILURE);
 	return (1);
