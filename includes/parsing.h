@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/17 19:51:14 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/21 17:09:11 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,32 @@
 # define TRUE		1
 # define FALSE		0
 
-# define NB_STATE		7
-# define NB_FLAG		6
-# define NB_CONV		10
+# define NB_STATE		6
+# define NB_STATE_REDIR	4
+
+# define REDIR_OUT		1
+# define REDIR_APPEND	2
+# define REDIR_IN		3
+
 
 typedef struct	s_cmd
 {
 	char	*buf;
 	char	**argv;
 	int		argc;
+	t_list	*redir;
 	int		output_file;
 	int		output_file_append;
 	int		input_file;
 	char	*file;
 	char	*cmd_path;
 }				t_cmd;
+
+typedef struct	s_redir
+{
+	int		state;
+	char	*file;
+}				t_redir;
 
 enum			e_state
 {
@@ -44,7 +55,6 @@ enum			e_state
 	FLAG,
 	MULTI,
 	PIPE,
-	REDIR
 };
 
 typedef struct	s_state_machine
@@ -56,13 +66,34 @@ typedef struct	s_state_machine
 
 typedef	int	(*t_function)(char *, t_state_machine *, t_list *, t_list **);
 
+enum			e_state_redir
+{
+	R_LETTER,
+	R_BACKSLASH,
+	R_FLAG,
+	R_REDIR,
+};
+
+typedef struct	s_fms_redir
+{
+	enum e_state_redir	state;
+	int					flag_dquote;
+	int					flag_quote;
+}				t_fsm_redir;
+
+typedef	int	(*t_func_redir)(t_fsm_redir *, char *, t_cmd *);
+
 int		fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p);
 int		fsm_backslash(char *buf, t_state_machine *m, t_list *env, t_list **p);
 int		fsm_flag(char *buf, t_state_machine *m, t_list *env, t_list **p);
 int		fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p);
 int		fsm_multi(char *buf, t_state_machine *m, t_list *env, t_list **p);
 int		fsm_pipe(char *buf, t_state_machine *m, t_list *env, t_list **p);
-int		fsm_redir(char *buf, t_state_machine *m, t_list *env, t_list **p);
+
+int		red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd);
+int		red_flag(t_fsm_redir *m, char *buf, t_cmd *cmd);
+int		red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd);
+int		red_redir(t_fsm_redir *m, char *buf, t_cmd *cmd);
 
 int		ft_parse(char *buf, t_list *env, t_list **pipe_list);
 int		add_pipe(t_list **pipe_list);
@@ -78,5 +109,6 @@ int		fill_redir(t_cmd *cmd);
 int		fill_argv(t_cmd *cmd);
 int		fill_cmd_path(t_cmd *cmd, t_list *env);
 void	print_commands(t_list *pipe_list);
+int		parser_redir(t_list *pipe_list);
 
 #endif

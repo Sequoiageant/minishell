@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 10:09:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 17:54:18 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/21 18:15:03 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ int	fill_cmd(t_cmd *cmd, t_list *env)
 {
 	char *file;
 
+	// a supprimer une fois parsing_redir fini
+	cmd->buf = ft_str_delchar(cmd->buf, '\'');
+	cmd->buf = ft_str_delchar(cmd->buf, '\\');
+	cmd->buf = ft_str_delchar(cmd->buf, '"');
 	if (contains_redir(cmd->buf))
 	{
 		fill_redir(cmd);

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/07/17 19:47:14 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/21 11:53:35 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int			fsm_backslash(char *buf, t_state_machine *m, t_list *e, t_list **p_list)
 		printf("[%c] -> ESCAPED LETTER ", buf[1]);
 	#endif
 
+	if (ft_join_to_cmd_buf(char_to_str(buf[0]), *p_list) == FAILURE)
+		return (FAILURE);
 	if (ft_join_to_cmd_buf(char_to_str(buf[1]), *p_list) == FAILURE)
 		return (FAILURE);
 	return (2);
@@ -44,6 +46,8 @@ int			fsm_flag(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 		else
 			m->flag_quote = 1;
 	}
+	if (ft_join_to_cmd_buf(char_to_str(buf[0]), *p_list) == FAILURE)
+		return (FAILURE);
 	return (1);
 }
 
