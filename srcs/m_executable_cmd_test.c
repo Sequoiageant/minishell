@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 09:26:44 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/21 09:55:42 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,11 +130,15 @@ int		ft_executable_cmd(t_list *cmd_list, t_list *env)
 	char	**env_tab;
 	int		num_pipe;
 	int		i = 0;
+	int		firtst_pid;
 
 	env_tab = ft_list_to_tab(env);
 	fd = NULL;
 	num_pipe = ft_build_pipes(cmd_list, &fd);
-	if ((g_glob.pid = fork()) == 0)
+	firtst_pid = fork();
+	if (cmd_list->next == NULL)
+		g_glob.pid = firtst_pid;
+	if (firtst_pid == 0)
 	{
 		if (cmd_list->next)
 			dup_close_pipes(fd, 0, fd[i][PIPE_WRITE], num_pipe);
@@ -145,7 +149,7 @@ int		ft_executable_cmd(t_list *cmd_list, t_list *env)
 	{
 		while (cmd_list->next)
 		{
-			if ((g_glob.pid = fork()) == 0)
+			if (fork() == 0)
 			{
 				dup_close_pipes(fd, fd[i][PIPE_READ], fd[i + 1][PIPE_WRITE], num_pipe);
 				ft_choose_builtin_or_bin(cmd_list, &env, env_tab);
@@ -169,9 +173,9 @@ int		ft_executable_cmd(t_list *cmd_list, t_list *env)
 	i = 0;
 	while (i < num_pipe + 1)
 	{
-		wait(&status);
-		if (WIFEXITED(status))
-			g_glob.ret = WEXITSTATUS(status);
+		if (wait(&status) == g_glob.pid)
+			if (WIFEXITED(status))
+				g_glob.ret = WEXITSTATUS(status);
 		i++;
 	}
 	g_glob.pid = 0;
