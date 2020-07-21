@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 12:36:47 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/21 17:16:27 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		ft_choose_builtin_or_bin(t_list *cmd_list, t_list **env, char **env_tab)
 			exit(0);
 	}
 	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
-		return (EXIT_CODE);
+		ms_exit(NULL, cmd->argc, cmd->argv, env);
 	else
 	{
 		// ft_putendl_fd("binary", 2);
