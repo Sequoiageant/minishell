@@ -21,22 +21,22 @@ endif
 ifeq ($(debug), 0)
 	CFLAGS += -g3
 else ifeq ($(debug), 1)
-	CFLAGS += -fsanitize=address,undefined
 	CFLAGS += -g3
+	CFLAGS += -fsanitize=address,undefined
 else ifeq ($(debug), 2)
-	CFLAGS += -fsanitize=address,undefined
 	CFLAGS += -g3
+	CFLAGS += -fsanitize=address,undefined
 	CFLAGS += -ansi
 	CFLAGS += -pedantic
 else ifeq ($(debug), 3)
-	CFLAGS += -fsanitize=address,undefined
 	CFLAGS += -g3
+	CFLAGS += -fsanitize=address,undefined
 	CFLAGS += -ansi
 	CFLAGS += -pedantic
 	CFLAGS += -Wpadded
 else ifeq ($(debug), 4)
-	CFLAGS += -fsanitize=address,undefined
 	CFLAGS += -g3
+	CFLAGS += -fsanitize=address,undefined
 	CFLAGS += -ansi
 	CFLAGS += -pedantic
 	CFLAGS += -Wpadded

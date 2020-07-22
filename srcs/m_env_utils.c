@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 12:20:25 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/22 16:20:00 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,27 +175,35 @@ void	change_env_val(t_list *env, char *key, char *val)
 	}
 }
 
-int		lst_delone_env(t_list *env, char *key)
+void	lst_delone_env(t_list **env, char *key)
 {
 	t_list		*tmp;
+	t_list		*before;
 	t_key_val	*elem;
+	int			i;
 
-	tmp = env;
-	while (env)
+	before = *env;
+	tmp = *env;
+	i = 0;
+	while (tmp)
 	{
-		elem = (t_key_val *)env->content;
+		elem = (t_key_val *)tmp->content;
 		if (ft_strcmp(elem->key, key) == 0)
 		{
-			tmp->next = env->next;
-			free(elem->key);
-			free(elem->val);
-			free(elem);
-			return (SUCCESS); 
+			if (i != 0)
+				before->next = tmp->next;
+			else
+			{
+				before = tmp->next;
+				*env = before;
+			}
+			del_env_node(&tmp);
+			return ; 
 		}
-		tmp = env;
-		env = env->next;
+		before = tmp;
+		i++;
+		tmp = tmp->next;
 	}
-	return (FAILURE);
 }
 
 void	print_env_elem(t_list *env, char *key)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_fsm_other.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 11:53:35 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/22 17:27:42 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int			fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 		printf("[$%s] -> ENV ", str);
 		#endif
 		free(str);
-		if ((ft_join_to_cmd_buf(ft_itoa(g_glob.ret), *p_list) == FAILURE))
+		if ((ft_join_to_cmd_buf(ft_strdup("?"), *p_list) == FAILURE))
 			return (FAILURE);
 	}
 	else

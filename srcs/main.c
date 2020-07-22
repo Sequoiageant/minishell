@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 15:54:40 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/22 19:26:43 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,10 @@ int		main(void)
 	while (get_next_line(0, &buf) > 0)
 	{
 		ft_handle(buf, &env);
-		free(buf);
+		ft_str_free(&buf);
 		ft_putstr_fd("cmd: ", 1);
 	}
+	ft_str_free(&buf);
 	ft_lstclear(&env, &del_key_val);
 	ft_putendl_fd("exit", 1);
 	return (g_glob.ret);

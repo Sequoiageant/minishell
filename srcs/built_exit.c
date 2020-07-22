@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/21 17:29:00 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/21 18:42:18 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,53 @@ static	void	ft_free_all(t_list *pipe_list, t_list **env)
 	ft_lstclear(&pipe_list, &del_pipe);
 }
 
-void			ms_exit(t_list *pipe_list, int ac, char **argv, t_list **env)
+static	int		ft_exit_error1(char *arg)
+{
+	int	ret;
+
+	ret = 1;
+	if (is_int(arg, '-'))
+		put_err("exit: ", NULL, "too many arguments", TRUE);
+	else
+	{
+		put_err("exit: ", arg, ": numeric argument required", TRUE);
+		ret = 2;
+	}
+	return (ret);
+}
+
+static	int		ft_exit_error2(char *arg)
 {
 	int	ret;
 
 	ret = 0;
+	if (is_int(arg, '-'))
+		ret = ft_atoi(arg);
+	else
+	{
+		put_err("exit: ", arg, ": numeric argument required", TRUE);
+		ret = 2;
+	}
+	return (ret);
+}
+
+void			ms_exit(t_list *pipe_list, int ac, char **argv, t_list **env)
+{
 	if (pipe_list)
 		ft_putendl_fd("exit", 1);
 	if (ac > 2)
 	{
-		put_err("exit: ", NULL, "too many arguments", TRUE);
-		g_glob.ret = 127;
+		g_glob.ret = ft_exit_error1(argv[1]);
+		if (g_glob.ret == 2)
+			exit(g_glob.ret);
 		if (!pipe_list)
-			exit(1);
+			exit(g_glob.ret);
 	}
 	else if (ac == 2)
 	{
-		if (is_int(argv[1], '-'))
-			ret = ft_atoi(argv[1]);
-		else
-		{
-			put_err("exit: ", argv[1], ": numeric argument required", TRUE);
-			ret = 2;
-		}
+		g_glob.ret = ft_exit_error2(argv[1]);
 		ft_free_all(pipe_list, env);
-		exit(ret);
+		exit(g_glob.ret);
 	}
 	else
 	{

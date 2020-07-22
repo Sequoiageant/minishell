@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 19:12:43 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/22 19:26:23 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	free_tab2(char **tab)
 	if (tab == NULL)
 		return ;
 	i = 0;
-	while (tab[i] != 0)
+	while (tab[i])
 	{
 		free(tab[i]);
 		tab[i] = NULL;
@@ -29,6 +29,24 @@ void	free_tab2(char **tab)
 	free(tab);
 	tab = NULL;
 }
+
+void	free_tab2_stop(char **tab, size_t stop)
+{
+	size_t i;
+
+	if (tab == NULL)
+		return ;
+	i = 0;
+	while (i < stop)
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+		i++;
+	}
+	free(tab);
+	tab = NULL;
+}
+
 
 void	free_tab2_int(int **tab, int num)
 {
@@ -69,6 +87,14 @@ void	del_redir(void *elem)
 	redir->file = NULL;
 	free(redir);
 }
+
+void	del_env_node(t_list **env)
+{
+	del_key_val((*env)->content);
+	free(*env);
+	*env = NULL;
+}
+
 
 void    del_cmd(void *elem)
 {
