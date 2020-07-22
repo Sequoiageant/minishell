@@ -1,7 +1,6 @@
 A COMMENCER
 
 - Creer une fonction display_prompt() ?
-- gérer les built ins au sein des pipe
 
 BUILT INS
 
@@ -40,6 +39,10 @@ NORME
 - mettre des "static"
 
 PARSING
+
+- strimer les tab en plus des espaces
+
+- free cmd->redir
 
 - Gérer les erreurs de synthaxe (?)
     -> pas de commande vide avant / après un pipe

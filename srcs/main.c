@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 19:14:16 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/22 15:54:40 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ int		ft_handle(char *buf, t_list **env)
 	pipe_list = NULL;
 	if (ft_parse(buf, *env, &pipe_list) == FAILURE)
 		return(FAILURE);
-	// printf("BUF: %s\n", buf);
-	// free(buf); // ne pas free car cause des segfault --> voir à quel moment est free !
 	ft_traitement(pipe_list, env);
 	ft_lstclear(&pipe_list, &del_pipe);
 	return (SUCCESS);

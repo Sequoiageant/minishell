@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 17:29:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/09 11:28:15 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/22 09:48:59 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	print_commands(t_list *pipe_list)
 	int i;
 
 	i = 0;
+	printf("PRINTING COMMAND\n");
 	while (pipe_list)
 	{
 		printf("PIPE %d >> \n", i);

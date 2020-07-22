@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 18:40:53 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/22 15:51:15 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define FALSE		0
 
 # define NB_STATE		6
-# define NB_STATE_REDIR	4
+# define NB_STATE_REDIR	5
 
 # define REDIR_OUT		1
 # define REDIR_APPEND	2
@@ -69,9 +69,9 @@ typedef	int	(*t_function)(char *, t_state_machine *, t_list *, t_list **);
 enum			e_state_redir
 {
 	R_LETTER,
-	R_REDIR,
 	R_BACKSLASH,
 	R_FLAG,
+	R_FLAG_REDIR,
 };
 
 typedef struct	s_fms_redir
@@ -79,6 +79,7 @@ typedef struct	s_fms_redir
 	enum e_state_redir	state;
 	int					flag_dquote;
 	int					flag_quote;
+	int					flag_redir;
 }				t_fsm_redir;
 
 typedef	int	(*t_func_redir)(t_fsm_redir *, char *, t_cmd *);
@@ -92,8 +93,8 @@ int		fsm_pipe(char *buf, t_state_machine *m, t_list *env, t_list **p);
 
 int		red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd);
 int		red_flag(t_fsm_redir *m, char *buf, t_cmd *cmd);
+int		red_flag_redir(t_fsm_redir *m, char *buf, t_cmd *cmd);
 int		red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd);
-int		red_redir(t_fsm_redir *m, char *buf, t_cmd *cmd);
 
 int		ft_parse(char *buf, t_list *env, t_list **pipe_list);
 int		add_pipe(t_list **pipe_list);

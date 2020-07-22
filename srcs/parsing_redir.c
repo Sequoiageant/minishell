@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 17:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 19:13:06 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/22 15:49:02 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,26 @@ static int		backslash_activated(char *buf, t_fsm_redir *machine)
 	return (1);
 }
 
+int red_flag_redir(t_fsm_redir *m, char *buf, t_cmd *cmd)
+{
+	int		ret;
+	t_redir	*redir;
+	
+	// init le t_redir suivant de la chaine et set l'int en fonction du signe < > ou >>
+	redir = malloc(sizeof(t_redir));
+	redir->state = REDIR_OUT; // a modifier
+	redir->file = ft_strdup(""); // pour permettre les str_join
+	ft_lstadd_back(&cmd->redir, ft_lstnew(redir));
+	if (buf[0] == '>' && buf[1] == '>')
+		ret = 2;
+	else
+		ret = 1;
+	while (buf[ret] == 9 || buf[ret] == 32)
+		ret++;
+	m->flag_redir = 1;
+	return (ret);
+}
+
 static void		chose_state(char *buf, t_fsm_redir *machine)
 {
 	if (*buf == '"' && !machine->flag_quote)
@@ -37,7 +57,7 @@ static void		chose_state(char *buf, t_fsm_redir *machine)
 		machine->state = R_BACKSLASH;
 	else if ((*buf == '>' || *buf == '<') &&
 	!machine->flag_quote && !machine->flag_dquote)
-		machine->state = R_REDIR;
+		machine->state = R_FLAG_REDIR;
 	else
 		machine->state = R_LETTER;
 }
@@ -45,27 +65,31 @@ static void		chose_state(char *buf, t_fsm_redir *machine)
 int				parse_cmd_redir(t_cmd *cmd)
 {
 	t_fsm_redir			machine;
-	static t_func_redir	func[NB_STATE_REDIR] = {red_letter, red_redir,
-	red_backslash, red_flag};
+	static t_func_redir	func[NB_STATE_REDIR] = {red_letter, red_backslash,
+	red_flag, red_flag_redir};
 	int					ret;
 	char				*buf;
+	char				*save;
 	
 	buf = ft_strdup(cmd->buf); // on initialise buf, que l'on va parser
-	free(cmd->buf); // on free cmd->buf et on lui donne une chaine vide. 
-	// on remplira cmd->buf au fur et a mesure du parsing de "buf"
-	cmd->buf = ft_strdup("");
+	save = buf; // on save buf pour pouvoir le free à la fin
+	free(cmd->buf); // on free cmd->buf 
+	cmd->buf = ft_strdup(""); // on initialise cmd->buf avec une chaine vide (pour ne pas avoir de problème avec les ft_strjoin)
+	// on remplira cmd->buf au fur et a mesure du parsing de "buf", avec des ft_strjoin
 	machine.flag_dquote = 0;
 	machine.flag_quote = 0;
+	machine.flag_redir = 0;
 	while (*buf != '\0')
 	{
 		chose_state(buf, &machine);
+		if (machine.flag_redir)
+			printf("redir activated\n");
 		ret = func[machine.state](&machine, buf, cmd);
 		if (ret == FAILURE)
 			return (FAILURE);
 		buf += ret;
 	}
-	// printf("buf: %s\n", buf);
-	// free(buf); ne pas free car cause des segfault --> voir à quel moment est free !
+	free(save);
 	return (SUCCESS);
 }
 

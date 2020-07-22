@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_add_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/07/17 11:18:33 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/22 15:36:48 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_init_cmd(t_cmd *cmd)
 	cmd->argc = 0;
 	cmd->buf = malloc(1);
 	cmd->buf[0] = 0;
+	cmd->redir = NULL;
 }
 
 int		add_cmd(t_list *pipe_list)
