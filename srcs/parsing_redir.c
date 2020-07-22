@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 17:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 15:49:02 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/22 16:06:28 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,6 @@ static int		backslash_activated(char *buf, t_fsm_redir *machine)
 			return (0);
 	}
 	return (1);
-}
-
-int red_flag_redir(t_fsm_redir *m, char *buf, t_cmd *cmd)
-{
-	int		ret;
-	t_redir	*redir;
-	
-	// init le t_redir suivant de la chaine et set l'int en fonction du signe < > ou >>
-	redir = malloc(sizeof(t_redir));
-	redir->state = REDIR_OUT; // a modifier
-	redir->file = ft_strdup(""); // pour permettre les str_join
-	ft_lstadd_back(&cmd->redir, ft_lstnew(redir));
-	if (buf[0] == '>' && buf[1] == '>')
-		ret = 2;
-	else
-		ret = 1;
-	while (buf[ret] == 9 || buf[ret] == 32)
-		ret++;
-	m->flag_redir = 1;
-	return (ret);
 }
 
 static void		chose_state(char *buf, t_fsm_redir *machine)
@@ -82,8 +62,6 @@ int				parse_cmd_redir(t_cmd *cmd)
 	while (*buf != '\0')
 	{
 		chose_state(buf, &machine);
-		if (machine.flag_redir)
-			printf("redir activated\n");
 		ret = func[machine.state](&machine, buf, cmd);
 		if (ret == FAILURE)
 			return (FAILURE);

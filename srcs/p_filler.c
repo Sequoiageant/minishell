@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 10:09:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 18:15:03 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/22 18:57:25 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,23 @@
 
 int	fill_cmd(t_cmd *cmd, t_list *env)
 {
-	char *file;
+	// char *file;
 
-	// a supprimer une fois parsing_redir fini
-	cmd->buf = ft_str_delchar(cmd->buf, '\'');
-	cmd->buf = ft_str_delchar(cmd->buf, '\\');
-	cmd->buf = ft_str_delchar(cmd->buf, '"');
-	if (contains_redir(cmd->buf))
-	{
-		fill_redir(cmd);
-		file = cmd->file;
-		cmd->file = ft_strtrim(file, " ");
-		free(file);
-	}
+	// if (contains_redir(cmd->buf))
+	// {
+	// 	fill_redir(cmd);
+	// 	file = cmd->file;
+	// 	cmd->file = ft_strtrim(file, " ");
+	// 	free(file);
+	// }
 	if (fill_argv(cmd) == FAILURE)
 		return (FAILURE);
 	if (cmd->argv[0]) // si NULL cause un segfault
 	{	if (fill_cmd_path(cmd, env) == FAILURE)
 			return (FAILURE);
 	}
+	if (cmd->redir)
+		printf("!!!! redirs en travaux :) !!!\n");
 	return (SUCCESS);
 }
 

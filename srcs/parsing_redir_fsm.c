@@ -6,47 +6,34 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 15:52:48 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/22 19:23:11 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int ft_join_to_buf(char *added_str, char **initial_str)
+int red_flag_redir(t_fsm_redir *m, char *buf, t_cmd *cmd)
 {
-    char *tmp;
-    
-    tmp = *initial_str;
-	if ((*initial_str = ft_strjoin(tmp, added_str)) == NULL)
-		return (FAILURE);
-    free(tmp);
-    free(added_str);
-    #ifdef DEBUG_PARSING
-		printf("buf: [%s]\n", *initial_str);
-	#endif
-    return (SUCCESS);
-}
-
-int ft_join_to_redir(char *added_str, t_list *redir_list)
-{
-    char	*tmp;
+	int		offset;
 	t_redir	*redir;
- 
-	while (redir_list->next)
-		redir_list = redir_list->next;
-	redir = (t_redir*)redir_list->content;
-    tmp = redir->file;
-	if ((redir->file = ft_strjoin(tmp, added_str)) == NULL)
-		return (FAILURE);
-    free(tmp);
-    free(added_str);
-    #ifdef DEBUG_PARSING
-		printf("file: [%s]\n", redir->file);
+	
+	// init le t_redir suivant de la chaine et set l'int en fonction du signe < > ou >>
+	redir = malloc(sizeof(t_redir));
+	redir->file = ft_strdup(""); // pour permettre les str_join
+	offset = set_redir_state(buf, &redir->state);
+	#ifdef DEBUG_PARSING
+		if (redir->state == REDIR_OUT)
+			printf("--REDIR > ACTIVATED \n");
+		if (redir->state == REDIR_APPEND)
+			printf("--REDIR >> ACTIVATED \n");
+		if (redir->state == REDIR_IN)
+			printf("--REDIR < ACTIVATED \n");
 	#endif
-    return (SUCCESS);
+	m->flag_redir = 1;
+	ft_lstadd_back(&cmd->redir, ft_lstnew(redir));
+	return (offset);
 }
-
 
 int red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd)
 {
@@ -86,14 +73,18 @@ int red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd)
 {
 	(void)m;
 	(void)cmd;
-	#ifdef DEBUG_PARSING
-		printf("[%c] -> LETTER ", *buf);
-	#endif
 	// on desactive le flag redir lorsqu'on rencontre un espace ou un tab non "escapés"
 	if (m->flag_redir && !m->flag_quote && !m->flag_dquote &&
 	(*buf == 9 || *buf == 32))
+	{
 		m->flag_redir = 0;
-	
+		#ifdef DEBUG_PARSING
+			printf("--REDIR OFF \n");
+		#endif
+	}	
+	#ifdef DEBUG_PARSING
+		printf("[%c] -> LETTER ", *buf);
+	#endif
 	if (m->flag_redir)
 		ft_join_to_redir(char_to_str(buf[0]), cmd->redir);
 	else

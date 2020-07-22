@@ -40,9 +40,16 @@ NORME
 
 PARSING
 
-- strimer les tab en plus des espaces
+- strimer les tab en plus des espaces ?
+    --> le tab est un séparateur, de la meme manière que l'espace. quand on fait le split pour "remplir" cmd, on le fait avec ' ' comme séparateur, mais il faudrait le faire avec ' ' et tab
 
 - free cmd->redir
+
+- renvoyer une erreur de synthaxe quand il n'y a "rien" derrière le redir
+
+- à ajouter: '' et "" = chaines de caractères vides
+
+- a ajouter: si l'espace est escaped (\ ), il n'est plus un séparateur !
 
 - Gérer les erreurs de synthaxe (?)
     -> pas de commande vide avant / après un pipe
