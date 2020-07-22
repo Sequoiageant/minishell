@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 16:58:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/07/15 15:23:45 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/22 17:04:22 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void			ft_swap_i(int *a, int *b);
 void			ft_swap_f(float *a, float *b);
 char			*ft_strcat(char *s1, const char *s2);
 void			ft_strjoin_back(char *back, char **src);
+void			ft_str_free(char **str);
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
