@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 17:28:43 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/22 10:50:27 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,11 @@ int		main(void)
 	{
 		ft_handle(buf, &env);
 		free(buf);
+		buf = NULL;
 		ft_putstr_fd("cmd: ", 1);
 	}
+	free(buf);
+	buf = NULL;
 	ft_lstclear(&env, &del_key_val);
 	ft_putendl_fd("exit", 1);
 	return (g_glob.ret);

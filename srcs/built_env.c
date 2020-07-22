@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/20 17:22:38 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/22 15:35:31 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ int	ms_unset(int argc, char *argv[], t_list **env)
 			while (argv[i])
 			{
 				if (is_valid_identifier(argv[i]))
-					lst_delone_env(*env, argv[i]);
+					lst_delone_env(env, argv[i]);
 				else
 				{
-					put_err("export: `", argv[i], "': not a valid identifier", TRUE);
+					put_err("unset: `", argv[i], "': not a valid identifier", TRUE);
 					return (FAILURE);
 				}
 				i++;
