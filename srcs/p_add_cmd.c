@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 18:53:27 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/23 18:56:10 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_init_cmd(t_cmd *cmd)
 	cmd->buf = malloc(1);
 	cmd->buf[0] = 0;
 	cmd->redir = NULL;
+	cmd->flag = NULL;
 }
 
 int		add_cmd(t_list *pipe_list)

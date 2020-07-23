@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_fsm_other.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 17:27:42 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/23 19:25:50 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int			fsm_backslash(char *buf, t_state_machine *m, t_list *e, t_list **p_list)
 	#ifdef DEBUG_PARSING
 		printf("[%c] -> ESCAPED LETTER ", buf[1]);
 	#endif
-
+	
+	if (buf[1] == '$')
+		ft_set_env_flag(*p_list, FALSE);
 	if (ft_join_to_cmd_buf(char_to_str(buf[0]), *p_list) == FAILURE)
 		return (FAILURE);
 	if (ft_join_to_cmd_buf(char_to_str(buf[1]), *p_list) == FAILURE)
@@ -58,54 +60,72 @@ int			fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	#ifdef DEBUG_PARSING
 		printf("[%c] -> LETTER ", *buf);
 	#endif
+	if (*buf == '$')
+		ft_set_env_flag(*p_list, FALSE);
 	if ((ft_join_to_cmd_buf(char_to_str(*buf), *p_list) == FAILURE))
 		return (FAILURE);
 	return (1);
 }
 
-static	int	variable_substitution(t_list **p_list, t_key_val *key_val)
-{
-	if (key_val)
-	{
-		if ((ft_join_to_cmd_buf(ft_strdup(key_val->val), *p_list) == FAILURE))
-			return (FAILURE);
-	}
-	return (SUCCESS);
-}
+// static	int	variable_substitution(t_list **p_list, t_key_val *key_val)
+// {
+// 	if (key_val)
+// 	{
+// 		if ((ft_join_to_cmd_buf(ft_strdup(key_val->val), *p_list) == FAILURE))
+// 			return (FAILURE);
+// 	}
+// 	return (SUCCESS);
+// }
+
+// int			fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
+// {
+// 	int			i;
+// 	char		*str;
+// 	t_key_val	*key_val;
+
+// 	(void)p_list;
+// 	(void)m;
+// 	buf++;
+// 	i = count_dollar_char(buf);
+// 	str = ft_substr(buf, 0, i);
+// 	if (str[0] == '?')
+// 	{
+// 		#ifdef DEBUG_PARSING
+// 		printf("[$%s] -> ENV ", str);
+// 		#endif
+// 		free(str);
+// 		if ((ft_join_to_cmd_buf(ft_strdup("?"), *p_list) == FAILURE))
+// 			return (FAILURE);
+// 	}
+// 	else
+// 	{
+// 		key_val = find_key_val(env, str);
+// 		#ifdef DEBUG_PARSING
+// 		printf("[$%s] -> ENV ", str);
+// 		#endif
+// 		free(str);
+// 		if (variable_substitution(p_list, key_val) == FAILURE)
+// 			return (FAILURE);
+// 		#ifdef DEBUG_PARSING
+// 			if (key_val == NULL)
+// 				printf("buf: unchanged\n");
+// 		#endif
+// 	}
+// 	return (i + 1); // + 1 car il y a le '$'
+// }
 
 int			fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 {
-	int			i;
-	char		*str;
-	t_key_val	*key_val;
+	int		i;
+	char	*str;
 
-	(void)p_list;
 	(void)m;
-	buf++;
+	(void)env;
+	ft_set_env_flag(*p_list, TRUE);
 	i = count_dollar_char(buf);
 	str = ft_substr(buf, 0, i);
-	if (str[0] == '?')
-	{
-		#ifdef DEBUG_PARSING
-		printf("[$%s] -> ENV ", str);
-		#endif
-		free(str);
-		if ((ft_join_to_cmd_buf(ft_strdup("?"), *p_list) == FAILURE))
-			return (FAILURE);
-	}
-	else
-	{
-		key_val = find_key_val(env, str);
-		#ifdef DEBUG_PARSING
-		printf("[$%s] -> ENV ", str);
-		#endif
-		free(str);
-		if (variable_substitution(p_list, key_val) == FAILURE)
-			return (FAILURE);
-		#ifdef DEBUG_PARSING
-			if (key_val == NULL)
-				printf("buf: unchanged\n");
-		#endif
-	}
+	if ((ft_join_to_cmd_buf(str, *p_list) == FAILURE))
+		return (FAILURE);
+	// free(str);
 	return (i + 1); // + 1 car il y a le '$'
 }

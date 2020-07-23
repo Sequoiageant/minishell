@@ -43,8 +43,6 @@ PARSING
 - strimer les tab en plus des espaces ?
     --> le tab est un séparateur, de la meme manière que l'espace. quand on fait le split pour "remplir" cmd, on le fait avec ' ' comme séparateur, mais il faudrait le faire avec ' ' et tab
 
-- free cmd->redir
-
 - renvoyer une erreur de synthaxe quand il n'y a "rien" derrière le redir
 
 - à ajouter: '' et "" = chaines de caractères vides
@@ -57,16 +55,6 @@ PARSING
 - Problèmes avec le PARSING: les redirs sont gérés après, donc problème notamment quand:
     - redir entre guillemet: devrait être ignoré
     - si plusieurs mots après la redir (ex: echo > abc def), seul le premier doit être pris en compte pour le nom du fichier. Sauf si guillemets
-
-- gérer les commandes avec plusieurs redirs
-
-- gerer les situations ou l'espace est echappé:
-    ex: echo bonjour > test\ 1 --> normalemnt l'espace arrête le nom du fichier, qui s'appelerait "test". Avec le '\' le fichier s'appelle "test 1"
-
-- > FILE:
-    pour l'instant, après > ou >>, le parser lit tout ce qu'il trouve jusqu'à '/0' ou ';' ou '|', et le stock dans le filename (en elevant les espaces au début et à la fin si necessaire)
-    ---> ne correspond pas toujours au comportement de bash, dans des cas comme:
-        echo test > file divers [bash ignore le mot "divers" et créé le fichier "file" vs "file divers" pour nous]
 
 - parsing: à la fin d'un pipe, verifier que les flags ' et " soient desactivés --> si les quote n'est pas fermé, c'est du MULTILINE -> pas à gérer donc on fait comme on veut
 

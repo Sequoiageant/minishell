@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 10:27:38 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/23 16:24:56 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int		ms_cd(int argc, char **argv, t_list **env)
 	{
 		ft_putstr_fd("bash: cd: too many arguments\n", 1);
 		free(old_pwd);
+		old_pwd = NULL;
 		return (FAILURE);
 	}
 	if (argc == 1)
@@ -90,6 +91,7 @@ int		ms_cd(int argc, char **argv, t_list **env)
 		if ((key = find_key_val(*env, "HOME")) == NULL || ft_strcmp(key->val, "") == 0)
 		{
 			free(old_pwd);
+			old_pwd = NULL;
 			return (SUCCESS);
 		}
 		ret = chdir(key->val);

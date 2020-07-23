@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 19:26:23 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/23 19:28:47 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void    del_cmd(void *elem)
    	cmd->buf = NULL;
 	free_tab2(cmd->argv);
 	ft_lstclear(&cmd->redir, &del_redir);
+	ft_lstclear(&cmd->flag, NULL);
 	free(cmd);
 	cmd = NULL;
 }

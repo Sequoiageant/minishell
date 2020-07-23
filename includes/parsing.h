@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 12:11:30 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/23 18:56:52 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_cmd
 	int		argc;
 	t_list	*redir;
 	char	*cmd_path;
+	t_list	*flag;
 }				t_cmd;
 
 typedef struct	s_redir
@@ -99,6 +100,7 @@ char	*char_to_str(char c);
 int		ft_join_to_cmd_buf(char *str, t_list *pipe_list);
 int		ft_is_dollar_start(char c);
 int		count_dollar_char(char *buf);
+int		ft_set_env_flag(t_list *pipe_list, int val);
 
 /*
 ** ------------------------------- Parser Redir ------------------------------
