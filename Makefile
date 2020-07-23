@@ -56,8 +56,7 @@ SRCS += parsing_redir_utils.c
 SRCS += p_fsm_other.c
 SRCS += p_parsing_utils.c
 SRCS += p_filler.c
-SRCS += p_filler_redir_argv.c
-SRCS += p_filler_cmdpath.c
+SRCS += p_filler_cmdpath_argv.c
 SRCS += p_add_cmd.c
 SRCS += p_fsm_multi.c
 

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 18:50:29 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/23 12:11:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,6 @@ typedef struct	s_cmd
 	char	**argv;
 	int		argc;
 	t_list	*redir;
-	// int		output_file;
-	// int		output_file_append;
-	// int		input_file;
-	// char	*file;
 	char	*cmd_path;
 }				t_cmd;
 

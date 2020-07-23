@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 19:23:11 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/23 12:13:36 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,37 +91,3 @@ int red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd)
 		ft_join_to_buf(char_to_str(buf[0]), &cmd->buf);
 	return (1);
 }
-
-// void	count_redir_char(int *start, int *len, char *str)
-// {
-// 	int ret;
-
-// 	if (str[0] == '>' && str[1] == '>')
-// 		ret = 2;
-// 	else
-// 		ret = 1;
-// 	while (str[ret] == 0 || str[ret] == 9 || str[ret] == 32)
-// 		ret++;
-// 	*start = ret;
-// 	printf("c: %c\n", str[ret]);
-// 	while (str[ret] != 9 && str[ret] != 32 && str[ret] != '>' && str[ret] != '<' && str[ret] != 0) // space et tab, les deux "IFS" par défaut (avec le \n, mais NA)
-// 		ret++;
-// 	*len = ret - *start;
-// }
-
-// int red_redir(t_fsm_redir *m, char *buf, t_cmd *cmd)
-// {
-// 	int len;
-// 	int	start;
-	
-// 	(void)m;
-// 	(void)cmd;
-// 	#ifdef DEBUG_PARSING
-// 		printf("[%c] -> REDIR \n", *buf);
-// 	#endif
-// 	count_redir_char(&start, &len, buf);
-// 	printf("len: %d\n", len);
-// 	printf("start: %d\n", start);
-// 	printf("redir path: [%s]\n", ft_substr(buf, start, len));
-// 	return (start + len);
-// }
