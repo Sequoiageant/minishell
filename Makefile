@@ -79,7 +79,7 @@ SRCS += m_utils.c
 SRCS += m_redirs.c
 SRCS += m_traitement.c
 SRCS += m_executable_cmd.c
-SRCS += m_fill_env.c
+SRCS += m_substitution.c
 # SRCS += m_traitement_test.c		# pour tests pipes ju
 # SRCS += m_executable_cmd_test.c # pour tests pipes ju
 
