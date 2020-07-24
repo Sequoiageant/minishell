@@ -48,17 +48,30 @@ endif
 # Debug Sources
 SRCS += p_print_cmds.c
 
-# Parsing Sources
-SRCS += parsing.c
-SRCS += parsing_redir.c
-SRCS += parsing_redir_fsm.c
-SRCS += parsing_redir_utils.c
-SRCS += p_fsm_other.c
-SRCS += p_parsing_utils.c
-SRCS += p_filler.c
-SRCS += p_filler_cmdpath_argv.c
-SRCS += p_add_cmd.c
-SRCS += p_fsm_multi.c
+# # Parsing Sources
+# SRCS += parsing.c
+# SRCS += parsing_redir.c
+# SRCS += parsing_redir_fsm.c
+# SRCS += parsing_redir_utils.c
+# SRCS += p_fsm_other.c
+# SRCS += p_parsing_utils.c
+# SRCS += p_filler.c
+# SRCS += p_filler_cmdpath_argv.c
+# SRCS += p_add_cmd.c
+# SRCS += p_fsm_multi.c
+
+# Parsing Sources TEST
+SRCS += parsing_test.c
+SRCS += parsing_redir_test.c
+SRCS += parsing_redir_fsm_test.c
+SRCS += parsing_redir_utils_test.c
+SRCS += p_fsm_other_test.c
+SRCS += p_parsing_utils_test.c
+SRCS += p_filler_test.c
+SRCS += p_filler_cmdpath_argv_test.c
+SRCS += p_add_cmd_test.c
+SRCS += p_fsm_multi_test.c
+# _______________________________
 
 # Built in Sources
 SRCS += built_in.c
@@ -83,6 +96,7 @@ SRCS += m_executable_cmd.c
 # SRCS += m_executable_cmd_test.c # pour tests pipes ju
 
 vpath %.c ./srcs/
+vpath %.c ./parsing/
 # vpath %.c ./old/
 
 # ---------------- INC --------------- #
