@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 12:21:27 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 15:21:42 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_init_cmd(t_cmd *cmd)
 	cmd->redir = NULL;
 	cmd->flag = NULL;
 	cmd->flag_redir = NULL;
+	cmd->argv_list = NULL;
+	ft_lstadd_back(&cmd->argv_list, ft_lstnew(NULL)); // on prépare le premier maillon de la chaine des argv
 }
 
 int		add_cmd(t_list *pipe_list)

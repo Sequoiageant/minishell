@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 11:33:10 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 17:03:11 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct	s_cmd
 	char	**argv;
 	int		argc;
 	t_list	*redir;
+	t_list	*argv_list;
 	char	*cmd_path;
 	t_list	*flag;
 	t_list	*flag_redir;
@@ -116,9 +117,10 @@ int		red_dollar(t_fsm_redir *m, char *buf, t_cmd *cmd);
 
 int		parser_redir(t_list *pipe_list);
 int		ft_join_to_redir(char *added_str, t_list *redir_list);
-int		ft_join_to_buf(char *added_str, char **initial_str);
+int		ft_join_to_str(char *added_str, char **initial_str);
 int		set_redir_state(char *buf, int *state);
 int		ft_set_env_flag(t_cmd *cmd, int val, int where);
+int		ft_join_to_argv(char *added_str, t_cmd *cmd);
 
 /*
 ** ------------------------------- Filler ------------------------------

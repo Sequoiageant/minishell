@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 11:42:26 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 16:59:54 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	}
 	else
 	{
-		ft_join_to_buf(char_to_str(buf[1]), &cmd->buf);
+		ft_join_to_argv(char_to_str(buf[1]), cmd);
 		if (buf[1] == '$')
 			ft_set_env_flag(cmd, FALSE, ARGV);
 	}
@@ -80,15 +80,22 @@ int red_flag(t_fsm_redir *m, char *buf, t_cmd *cmd)
 int red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd)
 {
 	(void)m;
-	(void)cmd;
 	// on desactive le flag redir lorsqu'on rencontre un espace ou un tab non "escapés"
-	if (m->flag_redir && !m->flag_quote && !m->flag_dquote &&
-	(*buf == 9 || *buf == 32))
+	// on ajoute un argv lorsqu'on rencontre un espace ou un tab non "escapé"
+	if (!m->flag_quote && !m->flag_dquote && (*buf == 9 || *buf == 32))
 	{
-		m->flag_redir = 0;
+		if (m->flag_redir)
+		{
+			m->flag_redir = 0;
+			#ifdef DEBUG_PARSING
+				printf("--REDIR OFF \n");
+			#endif
+		}
+		ft_lstadd_back(&cmd->argv_list, ft_lstnew(NULL));
 		#ifdef DEBUG_PARSING
-			printf("--REDIR OFF \n");
+			printf("--NEW ARGV \n");
 		#endif
+		
 	}	
 	#ifdef DEBUG_PARSING
 		printf("[%c] -> LETTER ", *buf);
@@ -101,7 +108,7 @@ int red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	}
 	else
 	{
-		ft_join_to_buf(char_to_str(buf[0]), &cmd->buf);
+		ft_join_to_argv(char_to_str(buf[0]), cmd);
 		if (buf[0] == '$')
 			ft_set_env_flag(cmd, FALSE, ARGV);
 	}
@@ -123,7 +130,7 @@ int 		red_dollar(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	}
 	else
 	{
-		ft_join_to_buf(str, &cmd->buf);
+		ft_join_to_argv(str, cmd);
 		ft_set_env_flag(cmd, TRUE, ARGV);
 	}
 	return (i);
