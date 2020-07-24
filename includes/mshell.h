@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 09:50:22 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 11:40:20 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void		ft_exec_cmd(t_list *cmd_elem, char **env_tab);
 void		ft_exec_solo_cmd(t_list *cmd_elem, char **env_tab);
 int			ft_choose_builtin_or_bin(t_list *cmd_list, t_list **env, char **env_tab);
 void		ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab);
-int			fill_env(t_list *pipe, t_list *env, int exit_code);
+int			ft_substitution(t_list *pipe, t_list *env);
 
 /*
 ** ------------------------------- Utils ------------------------------
