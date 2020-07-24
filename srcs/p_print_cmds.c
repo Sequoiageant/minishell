@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 17:29:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 19:27:05 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 12:02:01 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,18 @@ void	ft_print_redir(t_list *redir_list)
 	
 }
 
+void	ft_print_flag_redir(t_list *flag)
+{
+	int *val;
+	
+	while (flag)
+	{
+		val = (int *)flag->content;
+		printf(" flag_$_redir: %d\n", *val);	
+		flag = flag->next;
+	}
+}
+
 void	ft_print_flag(t_list *flag)
 {
 	int *val;
@@ -64,7 +76,7 @@ void	ft_print_flag(t_list *flag)
 	while (flag)
 	{
 		val = (int *)flag->content;
-		printf(" flag_redir: %d\n", *val);	
+		printf(" flag_$_argv: %d\n", *val);	
 		flag = flag->next;
 	}
 }
@@ -88,10 +100,12 @@ void	print_pipe_argv_redirs(t_list *pipe_list)
 			printf(" argv[%d]: [%s]\n", i, cmd->argv[i]);
 			i++;
 		}
-		if (cmd->redir)
-			ft_print_redir(cmd->redir);
 		if (cmd->flag)
 			ft_print_flag(cmd->flag);
+		if (cmd->redir)
+			ft_print_redir(cmd->redir);
+		if (cmd->flag_redir)
+			ft_print_flag_redir(cmd->flag_redir);
 		printf(" cmdpath: %s\n", cmd->cmd_path);
 		num++;
 		cmd_list = cmd_list->next;

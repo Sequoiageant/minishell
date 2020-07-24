@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 12:13:36 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 11:42:26 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,17 @@ int red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd)
 		printf("[%c] -> ESCAPED LETTER ", buf[1]);
 	#endif
 	if (m->flag_redir)
+	{
 		ft_join_to_redir(char_to_str(buf[1]), cmd->redir);
+		if (buf[1] == '$')
+			ft_set_env_flag(cmd, FALSE, REDIR);
+	}
 	else
+	{
 		ft_join_to_buf(char_to_str(buf[1]), &cmd->buf);
+		if (buf[1] == '$')
+			ft_set_env_flag(cmd, FALSE, ARGV);
+	}
 	return (2);
 }
 
@@ -86,8 +94,37 @@ int red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd)
 		printf("[%c] -> LETTER ", *buf);
 	#endif
 	if (m->flag_redir)
+	{
 		ft_join_to_redir(char_to_str(buf[0]), cmd->redir);
+		if (buf[0] == '$')
+			ft_set_env_flag(cmd, FALSE, REDIR);
+	}
 	else
+	{
 		ft_join_to_buf(char_to_str(buf[0]), &cmd->buf);
+		if (buf[0] == '$')
+			ft_set_env_flag(cmd, FALSE, ARGV);
+	}
 	return (1);
+}
+
+int 		red_dollar(t_fsm_redir *m, char *buf, t_cmd *cmd)
+{
+	int		i;
+	char	*str;
+
+	(void)m;
+	i = count_dollar_char(buf);
+	str = ft_substr(buf, 0, i);
+	if (m->flag_redir)
+	{
+		ft_join_to_redir(str, cmd->redir);
+		ft_set_env_flag(cmd, TRUE, REDIR);
+	}
+	else
+	{
+		ft_join_to_buf(str, &cmd->buf);
+		ft_set_env_flag(cmd, TRUE, ARGV);
+	}
+	return (i);
 }

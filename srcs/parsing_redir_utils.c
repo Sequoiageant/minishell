@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:19 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 16:18:58 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 12:22:13 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,17 @@ int ft_join_to_redir(char *added_str, t_list *redir_list)
 		printf("file: [%s]\n", redir->file);
 	#endif
     return (SUCCESS);
+}
+
+int		ft_set_env_flag(t_cmd *cmd, int val, int where)
+{
+	int		*ptr_val;
+
+	ptr_val = malloc(sizeof(int));
+	*ptr_val = val;
+	if (where == ARGV)
+		ft_lstadd_back(&cmd->flag, ft_lstnew(ptr_val));
+	if (where == REDIR)
+		ft_lstadd_back(&cmd->flag_redir, ft_lstnew(ptr_val));
+	return (SUCCESS);
 }

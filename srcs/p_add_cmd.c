@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 18:56:10 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 12:21:27 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 
 void	ft_init_cmd(t_cmd *cmd)
 {
-	// cmd->input_file = 0;
-	// cmd->output_file = 0;
-	// cmd->output_file_append = 0;
-	// cmd->file = NULL;
 	cmd->argv = NULL;
 	cmd->cmd_path = NULL;
 	cmd->argc = 0;
@@ -26,6 +22,7 @@ void	ft_init_cmd(t_cmd *cmd)
 	cmd->buf[0] = 0;
 	cmd->redir = NULL;
 	cmd->flag = NULL;
+	cmd->flag_redir = NULL;
 }
 
 int		add_cmd(t_list *pipe_list)

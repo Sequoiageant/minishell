@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 09:34:41 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 19:26:17 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 12:20:34 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		count_dollar_char(char *buf)
 
 	i = 1;
 	if (buf[i] == '?')
-		i = 1;
+		return (2);
 	else
 	{
 		while (ft_isalnum(buf[i]) || buf[i] == '_')
@@ -47,24 +47,6 @@ int		count_dollar_char(char *buf)
 // }
 
 
-int		ft_set_env_flag(t_list *pipe_list, int val)
-{
-	t_list	*cmd_list;
-	t_cmd	*cmd;
-	int		*ptr_val;
-	// t_list	*flag;
-
-	ptr_val = malloc(sizeof(int));
-	*ptr_val = val;
-	while (pipe_list->next)
-		pipe_list = pipe_list->next;
-	cmd_list = (t_list*)pipe_list->content;
-	while (cmd_list->next)
-		cmd_list = cmd_list->next;
-	cmd = (t_cmd*)cmd_list->content;
-	ft_lstadd_back(&cmd->flag, ft_lstnew(ptr_val));
-	return (SUCCESS);
-}
 
 int		ft_join_to_cmd_buf(char *str, t_list *pipe_list)
 {

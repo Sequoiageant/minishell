@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 19:28:47 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 12:10:07 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,15 @@ void	del_redir(void *elem)
 	free(redir);
 }
 
+void	del_flag(void *elem)
+{
+	int	*flag;
+
+	flag = (int*)elem;
+	free(flag);
+	flag = NULL;
+}
+
 void	del_env_node(t_list **env)
 {
 	del_key_val((*env)->content);
@@ -115,7 +124,8 @@ void    del_cmd(void *elem)
    	cmd->buf = NULL;
 	free_tab2(cmd->argv);
 	ft_lstclear(&cmd->redir, &del_redir);
-	ft_lstclear(&cmd->flag, NULL);
+	ft_lstclear(&cmd->flag, &del_flag);
+	ft_lstclear(&cmd->flag_redir, &del_flag);
 	free(cmd);
 	cmd = NULL;
 }

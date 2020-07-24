@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 18:56:52 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 11:33:10 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@
 # define TRUE		1
 # define FALSE		0
 
-# define NB_STATE		6
-# define NB_STATE_REDIR	5
+# define NB_STATE		5
+# define NB_STATE_REDIR	6
 
 # define REDIR_OUT		1
 # define REDIR_APPEND	2
 # define REDIR_IN		3
 
+#define REDIR	1
+#define ARGV	2
 
 typedef struct	s_cmd
 {
@@ -36,6 +38,7 @@ typedef struct	s_cmd
 	t_list	*redir;
 	char	*cmd_path;
 	t_list	*flag;
+	t_list	*flag_redir;
 }				t_cmd;
 
 typedef struct	s_redir
@@ -47,7 +50,6 @@ typedef struct	s_redir
 enum			e_state
 {
 	LETTER,
-	DOLLAR,
 	BACKSLASH,
 	FLAG,
 	MULTI,
@@ -69,6 +71,7 @@ enum			e_state_redir
 	R_BACKSLASH,
 	R_FLAG,
 	R_FLAG_REDIR,
+	R_DOLLAR,
 };
 
 typedef struct	s_fms_redir
@@ -100,7 +103,6 @@ char	*char_to_str(char c);
 int		ft_join_to_cmd_buf(char *str, t_list *pipe_list);
 int		ft_is_dollar_start(char c);
 int		count_dollar_char(char *buf);
-int		ft_set_env_flag(t_list *pipe_list, int val);
 
 /*
 ** ------------------------------- Parser Redir ------------------------------
@@ -110,11 +112,13 @@ int		red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd);
 int		red_flag(t_fsm_redir *m, char *buf, t_cmd *cmd);
 int		red_flag_redir(t_fsm_redir *m, char *buf, t_cmd *cmd);
 int		red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd);
+int		red_dollar(t_fsm_redir *m, char *buf, t_cmd *cmd);
 
 int		parser_redir(t_list *pipe_list);
 int		ft_join_to_redir(char *added_str, t_list *redir_list);
 int		ft_join_to_buf(char *added_str, char **initial_str);
 int		set_redir_state(char *buf, int *state);
+int		ft_set_env_flag(t_cmd *cmd, int val, int where);
 
 /*
 ** ------------------------------- Filler ------------------------------

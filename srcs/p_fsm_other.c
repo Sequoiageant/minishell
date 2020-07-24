@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 11:16:38 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 11:41:08 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int			fsm_backslash(char *buf, t_state_machine *m, t_list *e, t_list **p_list)
 		printf("[%c] -> ESCAPED LETTER ", buf[1]);
 	#endif
 	
-	if (buf[1] == '$')
-		ft_set_env_flag(*p_list, FALSE);
 	if (ft_join_to_cmd_buf(char_to_str(buf[0]), *p_list) == FAILURE)
 		return (FAILURE);
 	if (ft_join_to_cmd_buf(char_to_str(buf[1]), *p_list) == FAILURE)
@@ -60,8 +58,6 @@ int			fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	#ifdef DEBUG_PARSING
 		printf("[%c] -> LETTER ", *buf);
 	#endif
-	if (*buf == '$')
-		ft_set_env_flag(*p_list, FALSE);
 	if ((ft_join_to_cmd_buf(char_to_str(*buf), *p_list) == FAILURE))
 		return (FAILURE);
 	return (1);
@@ -113,19 +109,3 @@ int			fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 // 	}
 // 	return (i + 1); // + 1 car il y a le '$'
 // }
-
-int			fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
-{
-	int		i;
-	char	*str;
-
-	(void)m;
-	(void)env;
-	ft_set_env_flag(*p_list, TRUE);
-	i = count_dollar_char(buf);
-	str = ft_substr(buf, 0, i);
-	if ((ft_join_to_cmd_buf(str, *p_list) == FAILURE))
-		return (FAILURE);
-	// free(str);
-	return (i); // + 1 car il y a le '$'
-}

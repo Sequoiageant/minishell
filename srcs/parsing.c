@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 18:08:50 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 11:21:31 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ static void	chose_state(char *buf, t_state_machine *machine)
 		machine->state = FLAG;
 	else if (*buf == '\\' && backslash_activated(buf, machine))
 		machine->state = BACKSLASH;
-	else if (*buf == '$' && !machine->flag_quote && ft_is_dollar_start(buf[1]))
-		machine->state = DOLLAR;
 	else if (*buf == ';' && !machine->flag_quote && !machine->flag_dquote)
 		machine->state = MULTI;
 	else if (*buf == '|' && !machine->flag_quote && !machine->flag_dquote)
@@ -48,7 +46,7 @@ static void	chose_state(char *buf, t_state_machine *machine)
 int			parser(char *buf, t_list *env, t_list **pipe_list)
 {
 	t_state_machine		machine;
-	static t_function	func[NB_STATE] = {fsm_letter, fsm_dollar,
+	static t_function	func[NB_STATE] = {fsm_letter,
 	fsm_backslash, fsm_flag, fsm_multi, fsm_pipe};
 	int					ret;
 
