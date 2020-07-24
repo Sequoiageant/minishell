@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 11:21:31 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 12:28:11 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,20 +67,19 @@ int			ft_parse(char *buf, t_list *env, t_list **pipe_list)
 {
 	ft_lstadd_back(pipe_list, ft_lstnew(NULL));
 	if (add_cmd(*pipe_list) == FAILURE)
-		return (EXIT_FAILURE);	//pour moi on doit return (FAILURE) ici
+		return (FAILURE);
 	#ifdef DEBUG_PARSING
 		printf("1ST PARSING \n");
 	#endif
-	// parser: différence avec la version précédente: conserve les guillemets ('' "") et les '\', afin de pouvoir refaire un parsing
 	if (parser(buf, env, pipe_list) == FAILURE)
-		return (EXIT_FAILURE);	//pour moi on doit return (FAILURE) ici
+		return (FAILURE);
 	#ifdef DEBUG_PARSING
 		printf("\nPARSING REDIR \n");
 	#endif
 	if (parser_redir(*pipe_list) == FAILURE)
-		return (EXIT_FAILURE);	//pour moi on doit return (FAILURE) ici
+		return (FAILURE);
 	if (filler(*pipe_list, env) == FAILURE)
-		return (EXIT_FAILURE);	//pour moi on doit return (FAILURE) ici
+		return (FAILURE);
 	#ifdef DEBUG_PARSING
 		print_commands(*pipe_list);
 	#endif
