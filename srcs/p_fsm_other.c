@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 19:25:50 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 11:16:38 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,5 @@ int			fsm_dollar(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	if ((ft_join_to_cmd_buf(str, *p_list) == FAILURE))
 		return (FAILURE);
 	// free(str);
-	return (i + 1); // + 1 car il y a le '$'
+	return (i); // + 1 car il y a le '$'
 }

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 09:51:31 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 10:06:45 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		ft_traitement(t_list *pipe_list, t_list **env)
 	while (pipe_list)
 	{
 		cmd_list = (t_list*)pipe_list->content;
-		fill_env(pipe_list, *env, g_glob.ret);
+		// fill_env(pipe_list, *env, g_glob.ret);
 		cmd = (t_cmd*)cmd_list->content;
 		if (ft_traitement_cmdlist(cmd_list, env) == EXIT_CODE)
 			ms_exit(pipe_list, cmd->argc, cmd->argv, env);
