@@ -3,6 +3,16 @@
 #include "mshell.h"
 
 
+size_t	ft_strchr_pos(const char *s, int c)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len] && s[len] != c)
+		len++;
+	return (len);
+}
+
 void	ft_realloc(char **new, char **src)
 {
 	if (new == NULL)
@@ -14,7 +24,6 @@ void	ft_realloc(char **new, char **src)
 		*src = *new;
 	}
 }
-
 
 int		substitute_dollar(char **str, t_list *env)
 {
@@ -35,31 +44,52 @@ int		substitute_dollar(char **str, t_list *env)
 			if (key_val)
 				ret = ft_strdup(key_val->val);
 			else
-				ret = ft_strdup("");
+				ret = ft_strdup(""); //donne une erreur Invalid read of size 1 avec valgrind
 		}
 		ft_realloc(&ret, str);
 		free(tmp);
 	}
-	return (SUCCESS);
+	return (i);
 }
 
 void	ft_substitute(char **str, t_list *env, t_list *flag)
 {
 	size_t	i;
+	size_t	len;
+	char	*tmp;
+	char	*final;
 
 	i = 0;
+	len = 0;
+	tmp = NULL;
+	final = NULL;
 	while ((*str)[i])
 	{
 		if ((*str)[i] == '$')
 		{
+			tmp = ft_substr(*str, i, ft_strchr_pos(*str + 1, '$') + 1);
+			// ft_putendl_fd(tmp, 2);
 			if (*(int *)flag->content == TRUE)
 			{
-				substitute_dollar(str, env);
+				len = substitute_dollar(&tmp, env);
+				ft_strjoin_back(tmp, &final);
+			}
+			else
+			{
+				// ft_putendl_fd(tmp, 2);
+				len = ft_strlen(tmp) - 1;
+				ft_strjoin_back(tmp, &final);
 			}
 			flag = flag->next;
 		}
-		i++;
+		i+=(len + 1);
 	}
+	if (final)
+	{
+		// ft_strjoin_back(*str + i, &final);
+		ft_realloc(&final, str);
+	}
+	free(tmp);
 }
 
 int substitute_cmd(char **argv, t_list	*flag, t_list *env)

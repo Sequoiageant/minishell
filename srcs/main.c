@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 19:26:43 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 18:02:29 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_shell_init(t_list **env)
 		change_env_val(*env, "SHELL", path);
 	else
 		put_err(NULL, NULL, "Shell directory not found", TRUE);
-	if ((tmp = find_env_val(*env, "SHLVL")))
+	if ((tmp = find_key_val(*env, "SHLVL")->val))
 		nb = ft_atoi(tmp) + 1;
 	else
 		nb = 1;
