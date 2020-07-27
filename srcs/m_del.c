@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 12:10:07 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 09:45:59 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,11 +110,6 @@ void    del_cmd(void *elem)
     t_cmd	*cmd;
 
     cmd = (t_cmd*)elem;
-	// if (cmd->file)
-	// {
-    // 	free(cmd->file);
-    // 	cmd->file = NULL;
-	// }
 	if (cmd->cmd_path)
 	{
 		free(cmd->cmd_path);
@@ -126,6 +121,7 @@ void    del_cmd(void *elem)
 	ft_lstclear(&cmd->redir, &del_redir);
 	ft_lstclear(&cmd->flag, &del_flag);
 	ft_lstclear(&cmd->flag_redir, &del_flag);
+	ft_lstclear(&cmd->argv_list, NULL); // pas la peine de free les argv_list->content: ce sont les memes char* que les cmd->argv[i]
 	free(cmd);
 	cmd = NULL;
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_filler_cmdpath.c                                 :+:      :+:    :+:   */
+/*   p_filler_cmdpath_argv.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 11:09:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 12:12:31 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 09:40:42 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,26 @@ int	fill_argv(t_cmd *cmd)
 		i++;
 	cmd->argc = i;
 	return (SUCCESS);
+}
+
+char		**ft_list_to_tab_argv(t_list *argv)
+{
+	char		**argv_tab;
+	int			size;
+	int			i;
+
+	size = ft_lstsize(argv);
+	argv_tab = (char **)malloc(sizeof(char *) * (size + 1));
+	if (argv_tab)
+	{
+		argv_tab[size] = NULL;
+		i = 0;
+		while (argv)
+		{
+			argv_tab[i] = (char *)(argv->content);
+			argv = argv->next;
+			i++;
+		}
+	}
+	return (argv_tab);
 }

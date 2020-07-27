@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 17:03:11 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 09:37:53 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,7 @@ int		fill_redir(t_cmd *cmd);
 int		fill_argv(t_cmd *cmd);
 int		fill_cmd_path(t_cmd *cmd, t_list *env);
 void	print_commands(t_list *pipe_list);
+char	**ft_list_to_tab_argv(t_list *argv);
+
 
 #endif

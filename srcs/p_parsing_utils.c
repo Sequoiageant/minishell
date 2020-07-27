@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_parsing_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 09:34:41 by grim              #+#    #+#             */
-/*   Updated: 2020/07/25 17:02:18 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/27 09:29:34 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int		count_dollar_char(char *buf)
 
 	i = 1;
 	if (buf[i] == '?')
-		return (1);
+		return (2);
 	else
 	{
 		while (ft_isalnum(buf[i]) || buf[i] == '_')
 			i++;
 	}
-	return (i - 1);
+	return (i);
 }
 
 

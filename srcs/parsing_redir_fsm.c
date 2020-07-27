@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 16:59:54 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 09:54:01 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,9 @@ int 		red_dollar(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	(void)m;
 	i = count_dollar_char(buf);
 	str = ft_substr(buf, 0, i);
+	#ifdef DEBUG_PARSING
+		printf("[%s] -> SUBST ", str);
+	#endif
 	if (m->flag_redir)
 	{
 		ft_join_to_redir(str, cmd->redir);

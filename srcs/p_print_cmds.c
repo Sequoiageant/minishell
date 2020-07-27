@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 17:29:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 15:32:29 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 09:39:25 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	ft_print_argv_list(t_list *argv_list)
 	while (argv_list)
 	{
 		argv = (char *)argv_list->content;
-		printf(" list_argv[%d]: %s\n", i, argv);	
+		printf(" list_argv[%d]: [%s]\n", i, argv);	
 		argv_list = argv_list->next;
 		i++;
 	}
@@ -109,6 +109,8 @@ void	print_pipe_argv_redirs(t_list *pipe_list)
 	{
 		printf("CMD %d > \n", num);
 		cmd = (t_cmd*)cmd_list->content;
+		if (cmd->argv_list)
+			ft_print_argv_list(cmd->argv_list);
 		i = 0;
 		while (cmd->argv[i])
 		{
@@ -121,8 +123,6 @@ void	print_pipe_argv_redirs(t_list *pipe_list)
 			ft_print_redir(cmd->redir);
 		if (cmd->flag_redir)
 			ft_print_flag_redir(cmd->flag_redir);
-		if (cmd->argv_list)
-			ft_print_argv_list(cmd->argv_list);
 		printf(" cmdpath: %s\n", cmd->cmd_path);
 		num++;
 		cmd_list = cmd_list->next;

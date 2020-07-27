@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:19 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 17:04:42 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 09:44:18 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int set_redir_state(char *buf, int *state)
 		ret++;
     return (ret);
 }
-
-// int	ft_join_to_cmd
 
 int ft_join_to_str(char *added_str, char **initial_str)
 {
