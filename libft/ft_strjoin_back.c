@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 18:44:39 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/25 12:27:37 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/27 15:11:08 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_strjoin_back(char *back, char **src)
 {
 	char *tmp;
 
-	if (back == NULL)
+	if (back == NULL || src == NULL)
 		return ;
 	if (*src)
 	{

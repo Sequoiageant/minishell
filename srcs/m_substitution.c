@@ -25,9 +25,9 @@ void	ft_realloc(char **new, char **src)
 	}
 }
 
-int		substitute_dollar(char **str, t_list *env)
+size_t	substitute_dollar(char **str, t_list *env)
 {
-	int			i;
+	size_t		i;
 	char		*tmp;
 	t_key_val	*key_val;
 	char		*ret;
@@ -67,34 +67,24 @@ void	ft_substitute(char **str, t_list *env, t_list *flag)
 	{
 		if ((*str)[i] == '$')
 		{
-			tmp = ft_substr(*str, i, ft_strchr_pos(*str + 1, '$') + 1);
-			// ft_putendl_fd(tmp, 2);
+			tmp = ft_substr(*str, i, ft_strchr_pos(*str + i + 1, '$') + 1);
 			if (*(int *)flag->content == TRUE)
-			{
 				len = substitute_dollar(&tmp, env);
-				ft_strjoin_back(tmp, &final);
-			}
 			else
-			{
-				// ft_putendl_fd(tmp, 2);
 				len = ft_strlen(tmp) - 1;
-				ft_strjoin_back(tmp, &final);
-			}
+			ft_strjoin_back(tmp, &final);
+			free(tmp);
 			flag = flag->next;
 		}
 		i+=(len + 1);
 	}
 	if (final)
-	{
-		// ft_strjoin_back(*str + i, &final);
 		ft_realloc(&final, str);
-	}
-	free(tmp);
 }
 
 int substitute_cmd(char **argv, t_list	*flag, t_list *env)
 {
-	int		i;
+	size_t	i;
 
 	i = 0;
 	while (argv[i])
