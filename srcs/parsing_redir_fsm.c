@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 09:54:01 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 10:02:42 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int 		red_dollar(t_fsm_redir *m, char *buf, t_cmd *cmd)
 
 	(void)m;
 	i = count_dollar_char(buf);
-	str = ft_substr(buf, 0, i);
+	str = ft_substr(buf, 0, i + 1); // +1 car on compte le $
 	#ifdef DEBUG_PARSING
 		printf("[%s] -> SUBST ", str);
 	#endif
@@ -136,5 +136,5 @@ int 		red_dollar(t_fsm_redir *m, char *buf, t_cmd *cmd)
 		ft_join_to_argv(str, cmd);
 		ft_set_env_flag(cmd, TRUE, ARGV);
 	}
-	return (i);
+	return (i + 1); // +1 car on compte le $
 }

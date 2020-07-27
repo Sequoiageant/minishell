@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 09:34:41 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 09:29:34 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 10:01:45 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ int		count_dollar_char(char *buf)
 	int i;
 
 	i = 1;
-	if (buf[i] == '?')
-		return (2);
+	if (buf[1] == '?')
+		return (1);
 	else
 	{
 		while (ft_isalnum(buf[i]) || buf[i] == '_')
 			i++;
 	}
-	return (i);
+	return (i - 1);
 }
 
 
