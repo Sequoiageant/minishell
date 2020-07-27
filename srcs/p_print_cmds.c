@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 17:29:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 09:39:25 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 10:53:52 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void	print_pipe_argv_redirs(t_list *pipe_list)
 		cmd = (t_cmd*)cmd_list->content;
 		if (cmd->argv_list)
 			ft_print_argv_list(cmd->argv_list);
+		printf(" argc: %d\n",cmd->argc);
 		i = 0;
 		while (cmd->argv[i])
 		{

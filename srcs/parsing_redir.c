@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 17:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 11:19:09 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 10:39:24 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ static void		chose_state(char *buf, t_fsm_redir *machine)
 		machine->state = R_FLAG_REDIR;
 	else if (*buf == '$' && !machine->flag_quote && ft_is_dollar_start(buf[1]))
 		machine->state = R_DOLLAR;
+	else if (!machine->flag_quote && !machine->flag_dquote && !machine->flag_redir //pour l'instant les whitespace dans les redir sont gérés a part
+	&& (*buf == 9 || *buf == 32))
+		machine->state = R_WHITESPACE;
 	else
 		machine->state = R_LETTER;
 }
@@ -48,7 +51,7 @@ int				parse_cmd_redir(t_cmd *cmd)
 {
 	t_fsm_redir			machine;
 	static t_func_redir	func[NB_STATE_REDIR] = {red_letter, red_backslash,
-	red_flag, red_flag_redir, red_dollar};
+	red_flag, red_flag_redir, red_dollar, red_whitespace};
 	int					ret;
 	char				*buf;
 	char				*save;

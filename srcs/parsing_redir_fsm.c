@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 10:02:42 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 11:16:35 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,27 @@ int red_flag(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	return (1);
 }
 
+int red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd)
+{
+	int ret;
+	
+	(void)m;
+	(void)cmd;
+	ret = 0;
+	while (buf[ret] == 9 || buf[ret] == 32)
+	{
+		ret++;
+	}
+	if (buf[ret] != 0) // on ajoute un arg sauf: si ce sont des whitespaces à la fin de la commande
+	{
+		ft_lstadd_back(&cmd->argv_list, ft_lstnew(NULL)); 
+		#ifdef DEBUG_PARSING
+			printf("--NEW ARGV \n");
+		#endif
+	}
+	return (ret);
+}
+
 int red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd)
 {
 	(void)m;
@@ -91,11 +112,6 @@ int red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd)
 				printf("--REDIR OFF \n");
 			#endif
 		}
-		ft_lstadd_back(&cmd->argv_list, ft_lstnew(NULL));
-		#ifdef DEBUG_PARSING
-			printf("--NEW ARGV \n");
-		#endif
-		
 	}	
 	#ifdef DEBUG_PARSING
 		printf("[%c] -> LETTER ", *buf);

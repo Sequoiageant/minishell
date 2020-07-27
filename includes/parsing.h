@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 09:37:53 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 10:36:23 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define FALSE		0
 
 # define NB_STATE		5
-# define NB_STATE_REDIR	6
+# define NB_STATE_REDIR	7
 
 # define REDIR_OUT		1
 # define REDIR_APPEND	2
@@ -73,6 +73,7 @@ enum			e_state_redir
 	R_FLAG,
 	R_FLAG_REDIR,
 	R_DOLLAR,
+	R_WHITESPACE,
 };
 
 typedef struct	s_fms_redir
@@ -114,6 +115,7 @@ int		red_flag(t_fsm_redir *m, char *buf, t_cmd *cmd);
 int		red_flag_redir(t_fsm_redir *m, char *buf, t_cmd *cmd);
 int		red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd);
 int		red_dollar(t_fsm_redir *m, char *buf, t_cmd *cmd);
+int		red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd);
 
 int		parser_redir(t_list *pipe_list);
 int		ft_join_to_redir(char *added_str, t_list *redir_list);
