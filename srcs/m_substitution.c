@@ -15,7 +15,7 @@ size_t	ft_strchr_pos(const char *s, int c)
 
 void	ft_realloc(char **new, char **src)
 {
-	if (new == NULL)
+	if (new == NULL || src == NULL)
 		return ;
 	if (*src)
 	{
@@ -29,9 +29,10 @@ size_t	substitute_dollar(char **str, t_list *env)
 {
 	size_t		i;
 	char		*tmp;
-	t_key_val	*key_val;
 	char		*ret;
+	t_key_val	*key_val;
 
+	ret = NULL;
 	i = count_dollar_char(*str);
 	tmp = ft_substr(*str, 1, i);
 	if (tmp)
@@ -44,12 +45,31 @@ size_t	substitute_dollar(char **str, t_list *env)
 			if (key_val)
 				ret = ft_strdup(key_val->val);
 			else
-				ret = ft_strdup(""); //donne une erreur Invalid read of size 1 avec valgrind
+				ret = ft_strdup("");
 		}
-		ft_realloc(&ret, str);
+		if (ret)
+			ft_realloc(&ret, str);
 		free(tmp);
 	}
 	return (i);
+}
+
+int	ft_handle_argv(char **tmp, t_list *env, t_list **flag, char c)
+{
+	size_t	len;
+
+	len = 0;
+	if (c == '$')
+	{
+		if (*(int *)(*flag)->content == TRUE)
+			len = substitute_dollar(tmp, env);
+		else
+			len = ft_strlen(*tmp) - 1;
+		(*flag) = (*flag)->next;
+	}
+	else
+		len = ft_strlen(*tmp) - 1;
+	return (len);
 }
 
 void	ft_substitute(char **str, t_list *env, t_list *flag)
@@ -60,21 +80,17 @@ void	ft_substitute(char **str, t_list *env, t_list *flag)
 	char	*final;
 
 	i = 0;
-	len = 0;
 	tmp = NULL;
 	final = NULL;
 	while ((*str)[i])
 	{
-		if ((*str)[i] == '$')
+		len = 0;
+		tmp = ft_substr(*str, i, ft_strchr_pos(*str + i + 1, '$') + 1);
+		if (tmp)
 		{
-			tmp = ft_substr(*str, i, ft_strchr_pos(*str + i + 1, '$') + 1);
-			if (*(int *)flag->content == TRUE)
-				len = substitute_dollar(&tmp, env);
-			else
-				len = ft_strlen(tmp) - 1;
+			len = ft_handle_argv(&tmp, env, &flag, (*str)[i]);
 			ft_strjoin_back(tmp, &final);
 			free(tmp);
-			flag = flag->next;
 		}
 		i+=(len + 1);
 	}
@@ -115,8 +131,8 @@ int ft_substitution(t_list *cmd_list, t_list *env)
 	while (cmd_list)
 	{
 		cmd = (t_cmd*)cmd_list->content;
-		substitute_cmd(cmd->argv, cmd->flag, env); // on fill chaque cmd du pipe
-		substitute_redirs(cmd->redir, cmd->flag_redir, env); // on fill chaque cmd du pipe
+		substitute_cmd(cmd->argv, cmd->flag, env);
+		substitute_redirs(cmd->redir, cmd->flag_redir, env);
 		cmd_list = cmd_list->next;
 	}
 	return (SUCCESS);
