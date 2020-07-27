@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 12:25:53 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 12:43:02 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,8 @@ void    del_cmd(void *elem)
 	ft_lstclear(&cmd->redir, &del_redir);
 	ft_lstclear(&cmd->flag, &del_flag);
 	ft_lstclear(&cmd->flag_redir, &del_flag);
-	free_tab2(cmd->argv);
-	// ft_lstclear(&cmd->argv_list, &del_argv_list_elem); // pas la peine de free les argv_list->content: ce sont les memes char* que les cmd->argv[i]
-	ft_lstclear(&cmd->argv_list, NULL);
-	// free(cmd->argv);
+	ft_lstclear(&cmd->argv_list, &del_argv_list_elem);
+	free(cmd->argv); // pas la peine de free les cmd->argv[i]: cmd->argv[i] = content des cmd->argv_list = free au dessus
 	free(cmd);
 	cmd = NULL;
 }
