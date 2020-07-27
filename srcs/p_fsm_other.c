@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 11:41:08 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 16:44:26 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@ int			fsm_backslash(char *buf, t_state_machine *m, t_list *e, t_list **p_list)
 	
 	if (ft_join_to_cmd_buf(char_to_str(buf[0]), *p_list) == FAILURE)
 		return (FAILURE);
-	if (ft_join_to_cmd_buf(char_to_str(buf[1]), *p_list) == FAILURE)
+	if (buf[1] && ft_join_to_cmd_buf(char_to_str(buf[1]), *p_list) == FAILURE)
 		return (FAILURE);
-	return (2);
+	if (buf[1])
+		return (2);
+	else
+		return (1); // si on a un backslash en fin de commande, pour ne pas causer de "invalid read"
 }
 
 int			fsm_flag(char *buf, t_state_machine *m, t_list *env, t_list **p_list)

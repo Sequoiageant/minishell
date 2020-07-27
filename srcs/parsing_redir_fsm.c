@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 11:55:07 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 16:50:13 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	#ifdef DEBUG_PARSING
 		printf("[%c] -> ESCAPED LETTER ", buf[1]);
 	#endif
+	if (buf[1] == 0) // cas ou on a un / en fin de commande
+		return (1);
 	if (m->flag_redir)
 	{
 		ft_join_to_redir(char_to_str(buf[1]), cmd->redir);
@@ -102,7 +104,6 @@ int red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd)
 {
 	(void)m;
 	// on desactive le flag redir lorsqu'on rencontre un espace ou un tab non "escapés"
-	// on ajoute un argv lorsqu'on rencontre un espace ou un tab non "escapé"
 	if (!m->flag_quote && !m->flag_dquote && (*buf == 9 || *buf == 32))
 	{
 		if (m->flag_redir)
