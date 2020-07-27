@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 11:16:35 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 11:55:07 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	}
 	if (buf[ret] != 0) // on ajoute un arg sauf: si ce sont des whitespaces à la fin de la commande
 	{
-		ft_lstadd_back(&cmd->argv_list, ft_lstnew(NULL)); 
+		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
 		#ifdef DEBUG_PARSING
 			printf("--NEW ARGV \n");
 		#endif

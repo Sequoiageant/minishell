@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:19 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 11:16:50 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 11:55:58 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_join_to_argv(char *added_str, t_cmd *cmd)
 	
 	t_list	*tmp;
 	if (ft_lstsize(cmd->argv_list) == 0) // = on a pas encore rencontré de whitespace
-		ft_lstadd_back(&cmd->argv_list, ft_lstnew(NULL)); // on prépare le premier maillon de la chaine
+		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); // on prépare le premier maillon de la chaine
 	tmp = cmd->argv_list;
 	while (tmp->next)
 		tmp = tmp->next;

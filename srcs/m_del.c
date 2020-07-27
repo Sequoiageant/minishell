@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 09:45:59 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 12:25:53 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,15 @@ void	del_flag(void *elem)
 	flag = NULL;
 }
 
+void	del_argv_list_elem(void *elem)
+{
+	char	*str;
+
+	str = (char*)elem;
+	free(str);
+	str = NULL;
+}
+
 void	del_env_node(t_list **env)
 {
 	del_key_val((*env)->content);
@@ -117,11 +126,13 @@ void    del_cmd(void *elem)
 	}
 	free(cmd->buf);
    	cmd->buf = NULL;
-	free_tab2(cmd->argv);
 	ft_lstclear(&cmd->redir, &del_redir);
 	ft_lstclear(&cmd->flag, &del_flag);
 	ft_lstclear(&cmd->flag_redir, &del_flag);
-	ft_lstclear(&cmd->argv_list, NULL); // pas la peine de free les argv_list->content: ce sont les memes char* que les cmd->argv[i]
+	free_tab2(cmd->argv);
+	// ft_lstclear(&cmd->argv_list, &del_argv_list_elem); // pas la peine de free les argv_list->content: ce sont les memes char* que les cmd->argv[i]
+	ft_lstclear(&cmd->argv_list, NULL);
+	// free(cmd->argv);
 	free(cmd);
 	cmd = NULL;
 }
