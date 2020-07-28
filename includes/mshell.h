@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 11:40:20 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/28 12:13:27 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,16 @@ typedef struct		s_globale
 extern	t_globale	g_glob;
 
 
+
+
+/*
+** ---------------------- Pour test (à supprimer) ---------------------
+*/
+
+void	ft_print_argv_list(t_list *argv_list);
+
+// ====================================================================
+
 /*
 ** ----------------------------- Built-in -----------------------------
 */
@@ -76,7 +86,7 @@ int			is_valid_identifier(char *str);
 
 int			ft_init(t_list **env);
 int			ft_simple_cmd_fork(char **cmd, t_list **env, char *cmd_path);
-int			ft_traitement(t_list *cmd, t_list **env);
+int			ft_traitement(t_list *pipe_list, t_list **env);
 int			ft_executable_cmd(t_list *cmd_list, t_list *env);
 int			contains_pipe(t_list *cmd_list);
 int			ft_build_pipes(t_list *cmd_list, int ***fd);
@@ -86,7 +96,7 @@ void		ft_exec_cmd(t_list *cmd_elem, char **env_tab);
 void		ft_exec_solo_cmd(t_list *cmd_elem, char **env_tab);
 int			ft_choose_builtin_or_bin(t_list *cmd_list, t_list **env, char **env_tab);
 void		ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab);
-int			ft_substitution(t_list *pipe, t_list *env);
+int			ft_substitution(t_list *cmd_list, t_list *env);
 
 /*
 ** ------------------------------- Utils ------------------------------

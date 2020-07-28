@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 17:38:02 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 17:53:06 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,10 @@ int			ft_parse(char *buf, t_list *env, t_list **pipe_list)
 	#endif
 	if (parser_redir(*pipe_list) == FAILURE)
 		return (FAILURE);
-	if (filler(*pipe_list, env) == FAILURE)
-		return (FAILURE);
-	#ifdef DEBUG_PARSING
-		print_commands(*pipe_list);
-	#endif
+	// if (filler(*pipe_list, env) == FAILURE)
+	// 	return (FAILURE);
+	// #ifdef DEBUG_PARSING
+	// 	print_commands(*pipe_list);
+	// #endif
 	return (EXIT_SUCCESS);
 }

@@ -20,8 +20,8 @@ void	ft_realloc(char **new, char **src)
 	if (*src)
 	{
 		free(*src);
-		*src = NULL;
-		*src = *new;
+		// *src = NULL;
+		*src = ft_strdup(*new);
 	}
 }
 
@@ -96,9 +96,10 @@ void	ft_substitute(char **str, t_list *env, t_list *flag)
 	}
 	if (final)
 		ft_realloc(&final, str);
+		// *str = final;
 }
 
-int substitute_cmd(char **argv, t_list	*flag, t_list *env)
+/*int substitute_cmd(char **argv, t_list	*flag, t_list *env)
 {
 	size_t	i;
 
@@ -109,7 +110,23 @@ int substitute_cmd(char **argv, t_list	*flag, t_list *env)
 		i++;
 	}
 	return (SUCCESS);
+}*/
+
+int substitute_cmd(t_list *argv_list, t_list	*flag, t_list *env)
+{
+	char	*argv;
+	t_list	*tmp;
+
+	tmp = argv_list;
+	while (tmp)
+	{
+		argv = (char *)tmp->content;
+		ft_substitute(&argv, env, flag);
+		tmp = tmp->next;
+	}
+	return (SUCCESS);
 }
+
 
 int substitute_redirs(t_list *redir_lst, t_list	*flag, t_list *env)
 {
@@ -124,6 +141,21 @@ int substitute_redirs(t_list *redir_lst, t_list	*flag, t_list *env)
 	return (SUCCESS);
 }
 
+/*t_list	*tab_to_list(char **argv)
+{
+	t_list	*argv_list;
+	size_t	i;
+
+	i = 0;
+	argv_list = NULL;
+	while (argv[i])
+	{
+		ft_lstadd_back(&argv_list, ft_lstnew(ft_strdup(argv[i])));
+		i++;
+	}
+	return (argv_list);
+}*/
+
 int ft_substitution(t_list *cmd_list, t_list *env)
 {
 	t_cmd	*cmd;
@@ -131,8 +163,15 @@ int ft_substitution(t_list *cmd_list, t_list *env)
 	while (cmd_list)
 	{
 		cmd = (t_cmd*)cmd_list->content;
-		substitute_cmd(cmd->argv, cmd->flag, env);
+		substitute_cmd(cmd->argv_list, cmd->flag, env);
 		substitute_redirs(cmd->redir, cmd->flag_redir, env);
+		cmd->argv = ft_list_to_tab_argv(cmd->argv_list);
+		cmd->argc = ft_lstsize(cmd->argv_list);
+		if (cmd->argv[0]) // si NULL cause un segfault
+		{
+			if (fill_cmd_path(cmd, env) == FAILURE)
+				return (FAILURE);
+		}
 		cmd_list = cmd_list->next;
 	}
 	return (SUCCESS);
