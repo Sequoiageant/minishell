@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 17:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 11:06:42 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 12:32:11 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ static void		chose_state(char *buf, t_fsm_redir *machine)
 		machine->state = R_FLAG;
 	else if (*buf == '\\' && backslash_activated(buf, machine))
 		machine->state = R_BACKSLASH;
-	else if ((*buf == '>' || *buf == '<') &&
+	else if ((*buf == '>' || *buf == '<') && // activer le flag
+	!machine->flag_quote && !machine->flag_dquote)
+		machine->state = R_FLAG_REDIR;
+	else if ((*buf == 9 || *buf == 32) && machine->flag_redir &&// desactiver le flag redir lorsqu'on rencontre un espace ou un tab non "escapés"
 	!machine->flag_quote && !machine->flag_dquote)
 		machine->state = R_FLAG_REDIR;
 	else if (*buf == '$' && !machine->flag_quote && ft_is_dollar_start(buf[1]))

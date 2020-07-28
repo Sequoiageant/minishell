@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 11:51:55 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 12:32:31 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,24 @@ int red_flag_redir(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	t_redir	*redir;
 	
 	// init le t_redir suivant de la chaine et set le redir->state en fonction du signe < > ou >>
+	if (m->flag_redir == 1)
+	{
+		m->flag_redir = 0;
+		#ifdef DEBUG_PARSING
+			printf("--REDIR OFF \n");
+		#endif
+		return (0);
+	}
 	redir = malloc(sizeof(t_redir));
 	redir->file = ft_strdup(""); // pour permettre les str_join
 	offset = set_redir_state(buf, &redir->state);
 	#ifdef DEBUG_PARSING
 		if (redir->state == REDIR_OUT)
-			printf("--REDIR > ACTIVATED \n");
+			printf("--REDIR OUT ACTIVATED \n");
 		if (redir->state == REDIR_APPEND)
-			printf("--REDIR >> ACTIVATED \n");
+			printf("--REDIR APPEND ACTIVATED \n");
 		if (redir->state == REDIR_IN)
-			printf("--REDIR < ACTIVATED \n");
+			printf("--REDIR IN ACTIVATED \n");
 	#endif
 	// set le flag redir à 1
 	m->flag_redir = 1;
@@ -69,7 +77,7 @@ int red_flag(t_fsm_redir *m, char *buf, t_cmd *cmd)
 		{
 			ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
 			#ifdef DEBUG_PARSING
-				printf("--NEW ARGV \n");
+				printf("[""] -->NEW ARGV \n");
 			#endif
 		}
 		if (m->flag_dquote)
@@ -83,7 +91,7 @@ int red_flag(t_fsm_redir *m, char *buf, t_cmd *cmd)
 		{
 			ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
 			#ifdef DEBUG_PARSING
-				printf("--NEW ARGV \n");
+				printf("[''] -->NEW ARGV \n");
 			#endif
 		}
 		if (m->flag_quote)
@@ -107,7 +115,8 @@ int red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	{
 		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
 		#ifdef DEBUG_PARSING
-			printf("--NEW ARGV \n");
+			printf("[ ] -> %d WHITESPACE(S) ", ret);
+			printf("--> NEW ARGV \n");
 		#endif
 	}
 	return (ret);
@@ -116,17 +125,6 @@ int red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd)
 int red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd)
 {
 	(void)m;
-	// on desactive le flag redir lorsqu'on rencontre un espace ou un tab non "escapés"
-	if (!m->flag_quote && !m->flag_dquote && (*buf == 9 || *buf == 32))
-	{
-		if (m->flag_redir)
-		{
-			m->flag_redir = 0;
-			#ifdef DEBUG_PARSING
-				printf("--REDIR OFF \n");
-			#endif
-		}
-	}	
 	#ifdef DEBUG_PARSING
 		printf("[%c] -> LETTER ", *buf);
 	#endif
