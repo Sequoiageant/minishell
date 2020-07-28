@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:19 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 11:55:58 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 11:51:33 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ int ft_join_to_str(char *added_str, char **initial_str)
 		return (FAILURE);
     free(tmp);
     free(added_str);
-    #ifdef DEBUG_PARSING
-		printf("argv: [%s]\n", *initial_str);
-	#endif
     return (SUCCESS);
 }
 
@@ -77,12 +74,12 @@ int	ft_join_to_argv(char *added_str, t_cmd *cmd)
 	if (tmp->content == NULL)
 	{
 		tmp->content = (char*)added_str;
-		#ifdef DEBUG_PARSING
-			printf("argv: [%s]\n", tmp->content);
-		#endif
 	}
 	else
 		ft_join_to_str(added_str, (char **)&tmp->content);
+    #ifdef DEBUG_PARSING
+		printf("argv: [%s]\n", tmp->content);
+	#endif
 	return (SUCCESS);
 }
 

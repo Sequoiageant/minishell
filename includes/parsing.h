@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 10:36:23 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 11:38:04 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ char	*char_to_str(char c);
 int		ft_join_to_cmd_buf(char *str, t_list *pipe_list);
 int		ft_is_dollar_start(char c);
 int		count_dollar_char(char *buf);
+int		ft_is_special(char c);
 
 /*
 ** ------------------------------- Parser Redir ------------------------------

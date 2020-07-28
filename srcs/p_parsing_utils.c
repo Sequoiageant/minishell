@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 09:34:41 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 10:01:45 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 11:37:37 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int		count_dollar_char(char *buf)
 }
 
 
-// int		ft_is_special(char c)
-// {
-// 	if (c == '\\' || c == '\'' || c == '"' || c == ';' || c == '>'
-// 	|| c == '<' || c == ' ' || c == '|' || c == '$' || c == 0)
-// 		return (TRUE);
-// 	else
-// 		return (FALSE);
-// }
+int		ft_is_special(char c)
+{
+	if (c == '\\' || c == '\'' || c == '"' || c == ';' || c == '>'
+	|| c == '<' || c == ' ' || c == '|' || c == '$' || c == 0)
+		return (TRUE);
+	else
+		return (FALSE);
+}
 
 
 

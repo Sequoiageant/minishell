@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 11:22:51 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 11:51:55 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int red_flag_redir(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	int		offset;
 	t_redir	*redir;
 	
-	// init le t_redir suivant de la chaine et set l'int en fonction du signe < > ou >>
+	// init le t_redir suivant de la chaine et set le redir->state en fonction du signe < > ou >>
 	redir = malloc(sizeof(t_redir));
 	redir->file = ft_strdup(""); // pour permettre les str_join
 	offset = set_redir_state(buf, &redir->state);
@@ -30,6 +30,7 @@ int red_flag_redir(t_fsm_redir *m, char *buf, t_cmd *cmd)
 		if (redir->state == REDIR_IN)
 			printf("--REDIR < ACTIVATED \n");
 	#endif
+	// set le flag redir à 1
 	m->flag_redir = 1;
 	ft_lstadd_back(&cmd->redir, ft_lstnew(redir));
 	return (offset);
@@ -102,7 +103,7 @@ int red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	ret = 0;
 	while (buf[ret] == 9 || buf[ret] == 32)
 		ret++;
-	if (buf[ret] != 0) // on ajoute un arg sauf: si ce sont des whitespaces à la fin de la commande
+	if (ft_is_special(buf[ret]) == FALSE) // on ajoute un arg sauf si après l'espace c'est la fin de la commande, ou un caractère de redir...
 	{
 		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
 		#ifdef DEBUG_PARSING
