@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_executable_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/07/21 16:54:53 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/28 17:14:43 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_exec_cmd(t_list *cmd_elem, char **env_tab)
 	cmd = (t_cmd*)cmd_elem->content;
 	if (ft_redirs(cmd) != FAILURE)
 	{
+		if (cmd->argc == 0)
+			exit(0);
 		if (cmd->cmd_path)
 			execve(cmd->cmd_path, cmd->argv, env_tab);
 		if (!cmd->cmd_path || errno == 2)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_traitement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 15:50:52 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/28 17:11:51 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int		ft_choose_builtin_or_bin(t_list *cmd_list, t_list **env, char **env_tab)
 
 	ret = FAILURE;
 	cmd = (t_cmd*)cmd_list->content;
-	if (cmd->argc == 0)
-		return (SUCCESS);
+	// if (cmd->argc == 0) plus besoin, cas géré dans ft_exec_cmd
+	// 	return (SUCCESS);
 	if (ft_check_built_in(cmd->argv[0], &index) == TRUE)
 	{
 		ret = ft_built_in(cmd, index, env);
@@ -48,8 +48,8 @@ int		ft_traitement_cmdlist(t_list *cmd_list, t_list **env)
 	else
 	{
 		cmd = (t_cmd*)cmd_list->content;
-		if (cmd->argc == 0)
-			return (SUCCESS);
+		// if (cmd->argc == 0) cas géré dans ft_executable_cmd
+		// 	return (SUCCESS);
 		if (ft_check_built_in(cmd->argv[0], &index) == TRUE)
 			ft_built_in(cmd, index, env);
 		else if (ft_strcmp(cmd->argv[0], "exit") == 0)
