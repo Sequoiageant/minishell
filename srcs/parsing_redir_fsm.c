@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 16:50:13 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 11:22:51 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,15 @@ int red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd)
 int red_flag(t_fsm_redir *m, char *buf, t_cmd *cmd)
 {
 	(void)cmd;
-    if (*buf == '"')
+    if (buf[0] == '"')
 	{
+		if (buf[1] == '"' && buf[2] == ' ') // cas particulier d'un "" en début de commande
+		{
+			ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
+			#ifdef DEBUG_PARSING
+				printf("--NEW ARGV \n");
+			#endif
+		}
 		if (m->flag_dquote)
 			m->flag_dquote = 0;
 		else
@@ -71,6 +78,13 @@ int red_flag(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	}
 	else
 	{
+		if (buf[1] == '\'' && buf[2] == ' ') // cas particulier d'un '' en début de commande
+		{
+			ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
+			#ifdef DEBUG_PARSING
+				printf("--NEW ARGV \n");
+			#endif
+		}
 		if (m->flag_quote)
 			m->flag_quote = 0;
 		else
@@ -87,9 +101,7 @@ int red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	(void)cmd;
 	ret = 0;
 	while (buf[ret] == 9 || buf[ret] == 32)
-	{
 		ret++;
-	}
 	if (buf[ret] != 0) // on ajoute un arg sauf: si ce sont des whitespaces à la fin de la commande
 	{
 		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
