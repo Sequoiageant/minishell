@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 15:00:30 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 15:17:12 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ int red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	ret = 0;
 	while (buf[ret] == 9 || buf[ret] == 32)
 		ret++;
+	#ifdef DEBUG_PARSING
+		printf("[ ] -> %d WHITESPACE(S) ", ret);
+	#endif
 	if (ft_is_special(buf[ret]) == FALSE) // on ajoute un arg sauf si après l'espace c'est la fin de la commande, ou un caractère de redir...
 	{
 		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
 		#ifdef DEBUG_PARSING
-			printf("[ ] -> %d WHITESPACE(S) ", ret);
 			printf("--> NEW ARGV \n");
 		#endif
 	}
