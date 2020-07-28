@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 09:34:41 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 11:37:37 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 15:04:03 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int		count_dollar_char(char *buf)
 	return (i - 1);
 }
 
-
 int		ft_is_special(char c)
 {
 	if (c == '\\' || c == '\'' || c == '"' || c == ';' || c == '>'
@@ -45,8 +44,6 @@ int		ft_is_special(char c)
 	else
 		return (FALSE);
 }
-
-
 
 int		ft_join_to_cmd_buf(char *str, t_list *pipe_list)
 {

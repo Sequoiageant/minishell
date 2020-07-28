@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 11:38:04 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 12:36:26 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define FALSE		0
 
 # define NB_STATE		5
-# define NB_STATE_REDIR	7
+# define NB_STATE_REDIR	9
 
 # define REDIR_OUT		1
 # define REDIR_APPEND	2
@@ -70,8 +70,10 @@ enum			e_state_redir
 {
 	R_LETTER,
 	R_BACKSLASH,
-	R_FLAG,
-	R_FLAG_REDIR,
+	R_FLAG_QUOTE,
+	R_FLAG_DQUOTE,
+	R_FLAG_REDIR_ON,
+	R_FLAG_REDIR_OFF,
 	R_DOLLAR,
 	R_WHITESPACE,
 };
@@ -112,8 +114,10 @@ int		ft_is_special(char c);
 */
 
 int		red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd);
-int		red_flag(t_fsm_redir *m, char *buf, t_cmd *cmd);
-int		red_flag_redir(t_fsm_redir *m, char *buf, t_cmd *cmd);
+int		red_flag_quote(t_fsm_redir *m, char *buf, t_cmd *cmd);
+int		red_flag_dquote(t_fsm_redir *m, char *buf, t_cmd *cmd);
+int		red_flag_redir_on(t_fsm_redir *m, char *buf, t_cmd *cmd);
+int		red_flag_redir_off(t_fsm_redir *m, char *buf, t_cmd *cmd);
 int		red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd);
 int		red_dollar(t_fsm_redir *m, char *buf, t_cmd *cmd);
 int		red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd);
