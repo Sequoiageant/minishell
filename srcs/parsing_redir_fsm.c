@@ -6,27 +6,19 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 12:32:31 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 12:44:42 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int red_flag_redir(t_fsm_redir *m, char *buf, t_cmd *cmd)
+int red_flag_redir_on(t_fsm_redir *m, char *buf, t_cmd *cmd)
 {
 	int		offset;
 	t_redir	*redir;
 	
 	// init le t_redir suivant de la chaine et set le redir->state en fonction du signe < > ou >>
-	if (m->flag_redir == 1)
-	{
-		m->flag_redir = 0;
-		#ifdef DEBUG_PARSING
-			printf("--REDIR OFF \n");
-		#endif
-		return (0);
-	}
 	redir = malloc(sizeof(t_redir));
 	redir->file = ft_strdup(""); // pour permettre les str_join
 	offset = set_redir_state(buf, &redir->state);
@@ -42,6 +34,20 @@ int red_flag_redir(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	m->flag_redir = 1;
 	ft_lstadd_back(&cmd->redir, ft_lstnew(redir));
 	return (offset);
+}
+
+int red_flag_redir_off(t_fsm_redir *m, char *buf, t_cmd *cmd)
+{
+	
+	(void)m;
+	(void)buf;
+	(void)cmd;
+	
+	m->flag_redir = 0;
+	#ifdef DEBUG_PARSING
+		printf("--REDIR OFF \n");
+	#endif
+	return (0);
 }
 
 int red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd)
@@ -68,37 +74,37 @@ int red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	return (2);
 }
 
-int red_flag(t_fsm_redir *m, char *buf, t_cmd *cmd)
+int red_flag_quote(t_fsm_redir *m, char *buf, t_cmd *cmd)
 {
 	(void)cmd;
-    if (buf[0] == '"')
+	if (buf[1] == '\'' && buf[2] == ' ') // cas particulier d'un '' en début de commande
 	{
-		if (buf[1] == '"' && buf[2] == ' ') // cas particulier d'un "" en début de commande
-		{
-			ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
-			#ifdef DEBUG_PARSING
-				printf("[""] -->NEW ARGV \n");
-			#endif
-		}
-		if (m->flag_dquote)
-			m->flag_dquote = 0;
-		else
-			m->flag_dquote = 1;
+		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
+		#ifdef DEBUG_PARSING
+			printf("[''] -->NEW ARGV \n");
+		#endif
 	}
+	if (m->flag_quote)
+		m->flag_quote = 0;
 	else
+		m->flag_quote = 1;
+	return (1);
+}
+
+int red_flag_dquote(t_fsm_redir *m, char *buf, t_cmd *cmd)
+{
+	(void)cmd;
+	if (buf[1] == '"' && buf[2] == ' ') // cas particulier d'un "" en début de commande
 	{
-		if (buf[1] == '\'' && buf[2] == ' ') // cas particulier d'un '' en début de commande
-		{
-			ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
-			#ifdef DEBUG_PARSING
-				printf("[''] -->NEW ARGV \n");
-			#endif
-		}
-		if (m->flag_quote)
-			m->flag_quote = 0;
-		else
-			m->flag_quote = 1;
+		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
+		#ifdef DEBUG_PARSING
+			printf("[""] -->NEW ARGV \n");
+		#endif
 	}
+	if (m->flag_dquote)
+		m->flag_dquote = 0;
+	else
+		m->flag_dquote = 1;
 	return (1);
 }
 
