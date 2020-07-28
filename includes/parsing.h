@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 12:36:26 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 17:21:49 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 
 #define REDIR	1
 #define ARGV	2
+
+#define ON		1
+#define OFF		0
 
 typedef struct	s_cmd
 {

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 15:17:12 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 17:40:43 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int red_flag_redir_on(t_fsm_redir *m, char *buf, t_cmd *cmd)
 		if (redir->state == REDIR_IN)
 			printf("--REDIR IN ACTIVATED \n");
 	#endif
-	// set le flag redir à 1
-	m->flag_redir = 1;
+	// active le flag_redir
+	m->flag_redir = ON;
 	ft_lstadd_back(&cmd->redir, ft_lstnew(redir));
 	return (offset);
 }
@@ -43,7 +43,7 @@ int red_flag_redir_off(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	(void)buf;
 	(void)cmd;
 	
-	m->flag_redir = 0;
+	m->flag_redir = OFF;
 	#ifdef DEBUG_PARSING
 		printf("--REDIR OFF \n");
 	#endif

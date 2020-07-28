@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 12:28:11 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 17:38:02 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static int	backslash_activated(char *buf, t_state_machine *machine)
 	if (machine->flag_dquote)
 	{
 		if (buf[1] == '$' || buf[1] == '"' || buf[1] == '\\')
-			return (1);
+			return (TRUE);
 		else
-			return (0);
+			return (FALSE);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 16:44:26 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/28 17:39:17 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ int			fsm_flag(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	(void)p_list;
 	if (*buf == '"')
 	{
-		if (m->flag_dquote)
-			m->flag_dquote = 0;
+		if (m->flag_dquote == ON)
+			m->flag_dquote = OFF;
 		else
-			m->flag_dquote = 1;
+			m->flag_dquote = ON;
 	}
 	else
 	{
-		if (m->flag_quote)
-			m->flag_quote = 0;
+		if (m->flag_quote == ON)
+			m->flag_quote = OFF;
 		else
-			m->flag_quote = 1;
+			m->flag_quote = ON;
 	}
 	if (ft_join_to_cmd_buf(char_to_str(buf[0]), *p_list) == FAILURE)
 		return (FAILURE);
