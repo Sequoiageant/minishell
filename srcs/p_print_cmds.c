@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 17:29:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 10:53:52 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 09:58:22 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,22 @@ void	ft_print_argv_list(t_list *argv_list)
 	}
 }
 
+void	ft_print_argv(char **argv)
+{
+	int i;
+	
+	i = 0;
+	while (argv[i])
+	{
+		printf(" argv[%d]: [%s]\n", i, argv[i]);
+		i++;
+	}
+}
+
 void	print_pipe_argv_redirs(t_list *pipe_list)
 {
 	t_list	*cmd_list;
 	t_cmd	*cmd;
-	int		i;
 	int		num;
 
 	num = 0;
@@ -112,12 +123,8 @@ void	print_pipe_argv_redirs(t_list *pipe_list)
 		if (cmd->argv_list)
 			ft_print_argv_list(cmd->argv_list);
 		printf(" argc: %d\n",cmd->argc);
-		i = 0;
-		while (cmd->argv[i])
-		{
-			printf(" argv[%d]: [%s]\n", i, cmd->argv[i]);
-			i++;
-		}
+		if (cmd->argv)
+			ft_print_argv(cmd->argv);
 		if (cmd->flag)
 			ft_print_flag(cmd->flag);
 		if (cmd->redir)
@@ -139,9 +146,9 @@ void	print_commands(t_list *pipe_list)
 	while (pipe_list)
 	{
 		printf("PIPE %d >> \n", i);
-		// print_pipe_bufs(pipe_list);
 		print_pipe_argv_redirs(pipe_list);
 		pipe_list = pipe_list->next;
 		i++;
 	}
+	printf("---------------------------------\n");
 }

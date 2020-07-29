@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 17:19:34 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 09:53:26 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ int		ft_traitement(t_list *pipe_list, t_list **env)
 	{
 		cmd_list = (t_list*)pipe_list->content;
 		ft_substitution(cmd_list, *env);
+		#ifdef DEBUG_PARSING
+			printf("\n--SUBST DONE--\n");
+			print_commands(pipe_list);
+		#endif
 		cmd = (t_cmd*)cmd_list->content;
 		if (ft_traitement_cmdlist(cmd_list, env) == EXIT_CODE)
 			ms_exit(pipe_list, cmd->argc, cmd->argv, env);
