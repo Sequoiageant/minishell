@@ -106,14 +106,14 @@ void	ft_substitute(char **str, t_list *env, t_list *flag)
 	}
 }
 
-void	lst_delone_argv(t_list **argv_list)
+void	lst_del_node(t_list **list)
 {
 	t_list		*tmp;
 	t_list		*before;
 	int			i;
 
-	before = *argv_list;
-	tmp = *argv_list;
+	before = *list;
+	tmp = *list;
 	i = 0;
 	while (tmp)
 	{
@@ -122,7 +122,7 @@ void	lst_delone_argv(t_list **argv_list)
 			if (i == 0)
 			{
 				before = tmp->next;
-				*argv_list = before;
+				*list = before;
 			}
 			else
 				before->next = tmp->next;
@@ -135,12 +135,12 @@ void	lst_delone_argv(t_list **argv_list)
 	}
 }
 
-int substitute_cmd(t_list *argv_list, t_list	*flag, t_list *env)
+int substitute_cmd(t_list **argv_list, t_list	*flag, t_list *env)
 {
 	char	**argv;
 	t_list	*tmp;
 
-	tmp = argv_list;
+	tmp = *argv_list;
 	while (tmp)
 	{
 		argv = (char **)&tmp->content;
@@ -148,11 +148,10 @@ int substitute_cmd(t_list *argv_list, t_list	*flag, t_list *env)
 		tmp = tmp->next;
 	}
 	// ft_print_argv_list(argv_list);
-	lst_delone_argv(&argv_list);
+	lst_del_node(argv_list);
 	// ft_print_argv_list(argv_list);
 	return (SUCCESS);
 }
-
 
 int substitute_redirs(t_list *redir_lst, t_list	*flag, t_list *env)
 {
@@ -164,6 +163,7 @@ int substitute_redirs(t_list *redir_lst, t_list	*flag, t_list *env)
 		ft_substitute(&redir->file, env, flag);
 		redir_lst = redir_lst->next;
 	}
+	lst_del_node(&redir_lst);
 	return (SUCCESS);
 }
 
@@ -189,10 +189,9 @@ int ft_substitution(t_list *cmd_list, t_list *env)
 	while (cmd_list)
 	{
 		cmd = (t_cmd*)cmd_list->content;
-		substitute_cmd(cmd->argv_list, cmd->flag, env);
+		substitute_cmd(&cmd->argv_list, cmd->flag, env);
 		substitute_redirs(cmd->redir, cmd->flag_redir, env);
-		if (cmd->argv_list)
-			cmd->argv = ft_list_to_tab_argv(cmd->argv_list);
+		cmd->argv = ft_list_to_tab_argv(cmd->argv_list);
 		cmd->argc = ft_lstsize(cmd->argv_list);
 		if (cmd->argv[0]) // si NULL cause un segfault
 		{
