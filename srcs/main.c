@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 18:37:48 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:39:28 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,6 @@ int		main(void)
 	while (get_next_line(0, &buf) > 0)
 	{
 		ft_handle(buf, &env);
-		if (buf)
-			ft_str_free(&buf);
 		ft_putstr_fd("cmd: ", 1);
 	}
 	ft_str_free(&buf);
