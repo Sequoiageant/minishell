@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_del.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 14:34:47 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/29 15:06:44 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,9 +142,7 @@ void    del_cmd(void *elem)
 	ft_lstclear(&cmd->flag, &del_flag);
 	ft_lstclear(&cmd->flag_redir, &del_flag);
 	free_tab2(cmd->argv);
-	ft_lstclear(&cmd->argv_list, &del_only_t_list); // on free juste les t_list pour chaque maillon (les t_list->content ont déja été free par le free_tab2)
-	// ft_lstclear(&cmd->argv_list, &del_argv_list_elem);
-	// free(cmd->argv); // pas la peine de free les cmd->argv[i]: cmd->argv[i] = content des cmd->argv_list = free au dessus
+	ft_lstclear(&cmd->argv_list, &del_argv_list_elem);
 	free(cmd);
 	cmd = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 11:09:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 09:40:42 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 14:59:18 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char		**ft_list_to_tab_argv(t_list *argv)
 		i = 0;
 		while (argv)
 		{
-			argv_tab[i] = (char *)(argv->content);
+			argv_tab[i] = ft_strdup((char *)(argv->content));
 			argv = argv->next;
 			i++;
 		}

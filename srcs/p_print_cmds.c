@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 17:29:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 09:58:22 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 14:14:23 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,11 @@ void	print_pipe_argv_redirs(t_list *pipe_list)
 		cmd = (t_cmd*)cmd_list->content;
 		if (cmd->argv_list)
 			ft_print_argv_list(cmd->argv_list);
-		printf(" argc: %d\n",cmd->argc);
 		if (cmd->argv)
+		{
 			ft_print_argv(cmd->argv);
+			printf(" argc: %d\n",cmd->argc); // argc est set en meme temps que argv, après le subst
+		}
 		if (cmd->flag)
 			ft_print_flag(cmd->flag);
 		if (cmd->redir)
