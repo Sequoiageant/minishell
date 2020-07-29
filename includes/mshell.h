@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 10:33:17 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/29 11:52:10 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int			ft_substitution(t_list *cmd_list, t_list *env);
 
 void		del_key_val(void *elem);
 void		del_env_node(t_list **env);
+void		del_argv_node(t_list **argv);
 void   		del_cmd(void *elem);
 void		del_pipe(void *elem);
 char		*find_in_env_path(t_list *env, char *cmd);
