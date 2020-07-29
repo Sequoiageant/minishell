@@ -65,6 +65,7 @@ SRCS += p_lexer.c
 # Built in Sources
 SRCS += built_in.c
 SRCS += built_cd.c
+SRCS += built_cd_utils.c
 SRCS += built_echo.c
 SRCS += built_pwd.c
 SRCS += built_env.c

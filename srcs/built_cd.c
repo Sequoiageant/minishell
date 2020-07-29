@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 18:08:42 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 18:25:04 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void ft_cd_change_env(t_list **env, char *oldpwd)
 {
 	t_key_val *env_pwd;
 	t_key_val *env_oldpwd;
+
 	if ((env_oldpwd = find_key_val(*env, "OLDPWD")) == NULL) //cas où OLDPWD n'est pas set
 	{
 		env_oldpwd = malloc(sizeof(t_key_val));
@@ -49,7 +50,6 @@ void ft_cd_change_env(t_list **env, char *oldpwd)
 	env_pwd->val = getcwd(NULL, 0);
 }
 
-
 void	ft_cd_perror(char **argv)
 {
 	ft_putstr_fd("bash: cd: ", STDERR_FILENO);
@@ -61,7 +61,7 @@ void	ft_cd_perror(char **argv)
 int		handle_cd(char *dir, t_list *env)
 {
 	t_key_val	*key;
-	
+
 	if ((key = find_key_val(env, "CDPATH")))
 	{
 		(void)dir;
@@ -80,27 +80,11 @@ int		ms_cd(int argc, char **argv, t_list **env)
 
 	old_pwd = getcwd(NULL, 0);
 	if (argc > 2)
-	{
-		ft_putstr_fd("bash: cd: too many arguments\n", 1);
-		free(old_pwd);
-		old_pwd = NULL;
-		return (FAILURE);
-	}
+		return (cd_too_many_args(old_pwd));
 	if (argc == 1)
 	{
-		if ((key = find_key_val(*env, "HOME")) == NULL || ft_strcmp(key->val, "") == 0)
-		{
-			free(old_pwd);
-			old_pwd = NULL;
-			if (key)
-				return (SUCCESS);
-			else
-			{
-				ft_putstr_fd("cd: HOME not set\n", 2);
-				return (FAILURE);
-			}
-			
-		}
+		if ((key = find_key_val(*env, "HOME")) == NULL || !ft_strcmp(key->val, ""))
+			return (cd_handle_home(key, old_pwd));
 		ret = chdir(key->val);
 	}
 	if (argc == 2)
