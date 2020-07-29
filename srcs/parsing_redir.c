@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 17:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 12:37:51 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 12:01:57 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ static void		chose_state(char *buf, t_fsm_redir *machine)
 	else if ((*buf == '>' || *buf == '<') && // activer le flag
 	!machine->flag_quote && !machine->flag_dquote)
 		machine->state = R_FLAG_REDIR_ON;
-	else if ((*buf == 9 || *buf == 32) && machine->flag_redir &&// desactiver le flag redir lorsqu'on rencontre un espace ou un tab non "escapés"
+	else if ((*buf == TAB || *buf == SPACE) && machine->flag_redir &&// desactiver le flag redir lorsqu'on rencontre un espace ou un tab non "escapés"
 	!machine->flag_quote && !machine->flag_dquote)
 		machine->state = R_FLAG_REDIR_OFF;
 	else if (*buf == '$' && !machine->flag_quote && ft_is_dollar_start(buf[1]))
 		machine->state = R_DOLLAR;
 	else if (!machine->flag_quote && !machine->flag_dquote && !machine->flag_redir // les whitespace dans les redir sont gérés a part
-	&& (*buf == 9 || *buf == 32))
+	&& (*buf == TAB || *buf == SPACE))
 		machine->state = R_WHITESPACE;
 	else
 		machine->state = R_LETTER;

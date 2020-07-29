@@ -56,10 +56,11 @@ SRCS += parsing_redir_fsm2.c
 SRCS += parsing_redir_utils.c
 SRCS += p_fsm_other.c
 SRCS += p_parsing_utils.c
-SRCS += p_filler.c
+# SRCS += p_filler.c
 SRCS += p_filler_cmdpath_argv.c
 SRCS += p_add_cmd.c
 SRCS += p_fsm_multi.c
+SRCS += p_lexer.c
 
 # Built in Sources
 SRCS += built_in.c

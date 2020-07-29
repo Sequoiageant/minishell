@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 15:06:44 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 16:35:28 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,11 @@ void	del_redir(void *elem)
 	redir = (t_redir *)elem;
 	free(redir->file);
 	redir->file = NULL;
+	if (redir->original)
+	{
+		free(redir->original);
+		redir->original = NULL;
+	}
 	free(redir);
 }
 

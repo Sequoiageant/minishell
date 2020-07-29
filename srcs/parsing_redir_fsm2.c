@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 17:40:43 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 16:34:38 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int red_flag_redir_on(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	// init le t_redir suivant de la chaine et set le redir->state en fonction du signe < > ou >>
 	redir = malloc(sizeof(t_redir));
 	redir->file = ft_strdup(""); // pour permettre les str_join
+	redir->original = NULL;
 	offset = set_redir_state(buf, &redir->state);
 	#ifdef DEBUG_PARSING
 		if (redir->state == REDIR_OUT)
@@ -57,7 +58,7 @@ int red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	(void)m;
 	(void)cmd;
 	ret = 0;
-	while (buf[ret] == 9 || buf[ret] == 32)
+	while (buf[ret] == TAB || buf[ret] == SPACE)
 		ret++;
 	#ifdef DEBUG_PARSING
 		printf("[ ] -> %d WHITESPACE(S) ", ret);

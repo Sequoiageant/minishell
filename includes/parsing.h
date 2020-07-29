@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 17:21:49 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 16:32:47 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 #define ON		1
 #define OFF		0
 
+#define SPACE	32
+#define TAB		9
+
 typedef struct	s_cmd
 {
 	char	*buf;
@@ -49,6 +52,7 @@ typedef struct	s_redir
 {
 	int		state;
 	char	*file;
+	char	*original; //nom du fichier avant substitution (pour les cas de ambiguous redir)
 }				t_redir;
 
 enum			e_state
@@ -90,6 +94,12 @@ typedef struct	s_fms_redir
 }				t_fsm_redir;
 
 typedef	int	(*t_func_redir)(t_fsm_redir *, char *, t_cmd *);
+
+/*
+** ------------------------------- Lexer ------------------------------
+*/
+
+int		lexer(char *buf);
 
 /*
 ** ------------------------------- Parser ------------------------------

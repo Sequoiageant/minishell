@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 17:29:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 14:14:23 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 16:44:11 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,22 @@ void	ft_print_redir(t_list *redir_list)
 		{
 			printf(" Redir_IN");
 			printf(" file: [%s]\n", redir->file);
+			if (redir->original)
+				printf("original: %s\n", redir->original);
 		}
 		if (redir->state == REDIR_OUT)
 		{
 			printf(" Redir_OUT");
 			printf(" file: [%s]\n", redir->file);
+			if (redir->original)
+				printf("original: %s\n", redir->original);
 		}
 		if (redir->state == REDIR_APPEND)
 		{
 			printf(" Redir_APPEND");
 			printf(" file: [%s]\n", redir->file);
+			if (redir->original)
+				printf("original: %s\n", redir->original);
 		}
 		i++;
 		redir_list = redir_list->next;
