@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/28 18:29:06 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/29 11:19:55 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_handle(char *buf, t_list **env)
 	if (ft_parse(buf, *env, &pipe_list) == FAILURE)
 		return(FAILURE);
 	ft_traitement(pipe_list, env);
-	// ft_lstclear(&pipe_list, &del_pipe);
+	ft_lstclear(&pipe_list, &del_pipe);
 	return (SUCCESS);
 }
 

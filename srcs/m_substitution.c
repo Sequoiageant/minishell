@@ -20,8 +20,8 @@ void	ft_realloc(char **new, char **src)
 	if (*src)
 	{
 		free(*src);
-		// *src = NULL;
-		*src = ft_strdup(*new);
+		*src = NULL;
+		*src = *new;
 	}
 }
 
@@ -96,7 +96,6 @@ void	ft_substitute(char **str, t_list *env, t_list *flag)
 	}
 	if (final)
 		ft_realloc(&final, str);
-		// *str = final;
 }
 
 /*int substitute_cmd(char **argv, t_list	*flag, t_list *env)
@@ -114,16 +113,15 @@ void	ft_substitute(char **str, t_list *env, t_list *flag)
 
 int substitute_cmd(t_list *argv_list, t_list	*flag, t_list *env)
 {
-	char	*argv;
-	t_list	*tmp;
+	char	**argv;
 
-	tmp = argv_list;
-	while (tmp)
+	while (argv_list)
 	{
-		argv = (char *)tmp->content;
-		ft_substitute(&argv, env, flag);
-		tmp = tmp->next;
+		argv = (char **)&argv_list->content;
+		ft_substitute(argv, env, flag);
+		argv_list = argv_list->next;
 	}
+
 	return (SUCCESS);
 }
 
