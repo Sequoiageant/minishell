@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 16:24:56 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 18:08:42 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int		handle_cd(char *dir, t_list *env)
 
 int		ms_cd(int argc, char **argv, t_list **env)
 {
-	int		ret;
-	char	*old_pwd;
+	int			ret;
+	char		*old_pwd;
 	t_key_val	*key;
 
 	old_pwd = getcwd(NULL, 0);
@@ -92,13 +92,19 @@ int		ms_cd(int argc, char **argv, t_list **env)
 		{
 			free(old_pwd);
 			old_pwd = NULL;
-			return (SUCCESS);
+			if (key)
+				return (SUCCESS);
+			else
+			{
+				ft_putstr_fd("cd: HOME not set\n", 2);
+				return (FAILURE);
+			}
+			
 		}
 		ret = chdir(key->val);
 	}
 	if (argc == 2)
 		ret = handle_cd(argv[1], *env);
-
 	if (ret == FAILURE)
 	{
 		ft_cd_perror(argv);
