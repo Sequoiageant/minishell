@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 17:38:29 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/29 18:27:48 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ int		ft_handle(char *buf, t_list **env)
 
 	pipe_list = NULL;
 	if (ft_parse(buf, *env, &pipe_list) == FAILURE)
+	{
+		ft_str_free(&buf);
 		return(FAILURE);
+	}
+	ft_str_free(&buf);
 	ft_traitement(pipe_list, env);
 	ft_lstclear(&pipe_list, &del_pipe);
 	return (SUCCESS);
@@ -51,23 +55,6 @@ void	signal_handler(int signum)
 	if (signum == SIGQUIT)
 		g_glob.ret = CTRLBACK_RET;
 }
-
-/*void	handle_ctrlback(int signum)
-{
-	if (g_glob.pid && signum == SIGQUIT)
-	{
-		kill(g_glob.pid, signum);
-		ft_putendl_fd("Quit (core dumped)", 2);
-		ft_putstr_fd("cmd: ", 1);
-		g_glob.pid = 0;
-	}
-	else
-	{
-		ft_putchar_fd('\n', 1);
-		ft_putstr_fd("cmd: ", 1);
-	}
-}
-*/
 
 void	ft_shell_init(t_list **env)
 {
@@ -107,7 +94,6 @@ int		main(void)
 	while (get_next_line(0, &buf) > 0)
 	{
 		ft_handle(buf, &env);
-		ft_str_free(&buf);
 		ft_putstr_fd("cmd: ", 1);
 	}
 	ft_str_free(&buf);
