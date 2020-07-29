@@ -156,11 +156,16 @@ int substitute_cmd(t_list **argv_list, t_list	*flag, t_list *env)
 int substitute_redirs(t_list *redir_lst, t_list	*flag, t_list *env)
 {
 	t_redir	*redir;
+	char	*original;
 
 	while (redir_lst)
 	{
 		redir = (t_redir *)redir_lst->content;
+		original = ft_strdup(redir->file);
 		ft_substitute(&redir->file, env, flag);
+		if (redir->file == NULL)
+			redir->original = ft_strdup(original);
+		free(original);
 		redir_lst = redir_lst->next;
 	}
 	lst_del_node(&redir_lst);

@@ -6,14 +6,14 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 11:31:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 10:41:58 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 16:42:58 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-static int	ft_redir_out(char *file)
+static int	ft_redir_out(char *file, char *original)
 {
 	int fd;
 
@@ -25,14 +25,17 @@ static int	ft_redir_out(char *file)
 	}
 	else
 	{
-		put_err(file, ": ", strerror(errno), TRUE);
+		if (file == NULL)
+			put_err(original, ": ", "ambiguous redir", TRUE);
+		else
+			put_err(file, ": ", strerror(errno), TRUE);
 		g_glob.ret = 1;
 		return (FAILURE);
 	}
 	return (SUCCESS);
 }
 
-static int	ft_redir_append(char *file)
+static int	ft_redir_append(char *file, char *original)
 {
 	int fd;
 
@@ -44,21 +47,27 @@ static int	ft_redir_append(char *file)
 	}
 	else
 	{
-		put_err(file, ": ", strerror(errno), TRUE);
+		if (file == NULL)
+			put_err(original, ": ", "ambiguous redir", TRUE);
+		else
+			put_err(file, ": ", strerror(errno), TRUE);
 		g_glob.ret = 1;
 		return (FAILURE);
 	}
 	return (SUCCESS);
 }
 
-static int	ft_redir_in(char *file)
+static int	ft_redir_in(char *file, char *original)
 {
 	int fd;
 
 	fd = open(file, O_RDWR);
 	if (fd == -1)
 	{
-		put_err(file, ": ", strerror(errno), TRUE);
+		if (file == NULL)
+			put_err(original, ": ", "ambiguous redir", TRUE);
+		else
+			put_err(file, ": ", strerror(errno), TRUE);
 		g_glob.ret = 1;
 		return (FAILURE);
 	}
@@ -73,13 +82,13 @@ static int	ft_redir_in(char *file)
 int			ft_handle_redir(t_redir *redir)
 {
 	if (redir->state == REDIR_OUT)
-		if (ft_redir_out(redir->file) == FAILURE)
+		if (ft_redir_out(redir->file, redir->original) == FAILURE)
 			return (FAILURE);
 	if (redir->state == REDIR_APPEND)
-		if (ft_redir_append(redir->file) == FAILURE)
+		if (ft_redir_append(redir->file, redir->original) == FAILURE)
 			return (FAILURE);
 	if (redir->state == REDIR_IN)
-		if (ft_redir_in(redir->file) == FAILURE)
+		if (ft_redir_in(redir->file, redir->original) == FAILURE)
 			return (FAILURE);
 	return (SUCCESS);
 }
@@ -88,7 +97,7 @@ int			ft_handle_redir(t_redir *redir)
 int			ft_redirs(t_cmd *cmd)
 {
 	t_list	*redir_list;
-	
+
 	redir_list = cmd->redir;
 	while (redir_list)
 	{

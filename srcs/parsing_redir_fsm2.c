@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 12:02:24 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 16:34:38 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int red_flag_redir_on(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	// init le t_redir suivant de la chaine et set le redir->state en fonction du signe < > ou >>
 	redir = malloc(sizeof(t_redir));
 	redir->file = ft_strdup(""); // pour permettre les str_join
+	redir->original = NULL;
 	offset = set_redir_state(buf, &redir->state);
 	#ifdef DEBUG_PARSING
 		if (redir->state == REDIR_OUT)

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 12:01:38 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 16:32:47 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct	s_redir
 {
 	int		state;
 	char	*file;
+	char	*original; //nom du fichier avant substitution (pour les cas de ambiguous redir)
 }				t_redir;
 
 enum			e_state
