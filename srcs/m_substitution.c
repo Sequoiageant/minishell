@@ -25,6 +25,17 @@ void	ft_realloc(char **new, char **src)
 	}
 }
 
+void	ft_realloc_or_free(char **final, char **src)
+{
+	if (ft_strlen(*final) == 0)
+	{
+		ft_str_free(src);
+		ft_str_free(final);
+	}
+	else
+		ft_realloc(final, src);
+}
+
 size_t	substitute_dollar(char **str, t_list *env)
 {
 	size_t		i;
@@ -95,15 +106,7 @@ void	ft_substitute(char **str, t_list *env, t_list *flag)
 		i+=(len + 1);
 	}
 	if (final)
-	{
-		if (ft_strlen(final) == 0)
-		{
-			ft_str_free(str);
-			ft_str_free(&final);
-		}
-		else
-			ft_realloc(&final, str);
-	}
+		ft_realloc_or_free(&final, str);
 }
 
 void	lst_del_node(t_list **list)
@@ -147,40 +150,25 @@ int substitute_cmd(t_list **argv_list, t_list	*flag, t_list *env)
 		ft_substitute(argv, env, flag);
 		tmp = tmp->next;
 	}
-	// ft_print_argv_list(argv_list);
 	lst_del_node(argv_list);
-	// ft_print_argv_list(argv_list);
 	return (SUCCESS);
 }
 
-int substitute_redirs(t_list *redir_lst, t_list	*flag, t_list *env)
+int substitute_redirs(t_list **redir_lst, t_list	*flag, t_list *env)
 {
 	t_redir	*redir;
+	t_list	*tmp;
 
-	while (redir_lst)
+	tmp = *redir_lst;
+	while (tmp)
 	{
-		redir = (t_redir *)redir_lst->content;
+		redir = (t_redir *)tmp->content;
 		ft_substitute(&redir->file, env, flag);
-		redir_lst = redir_lst->next;
+		tmp = tmp->next;
 	}
-	lst_del_node(&redir_lst);
+	lst_del_node(redir_lst);
 	return (SUCCESS);
 }
-
-/*t_list	*tab_to_list(char **argv)
-{
-	t_list	*argv_list;
-	size_t	i;
-
-	i = 0;
-	argv_list = NULL;
-	while (argv[i])
-	{
-		ft_lstadd_back(&argv_list, ft_lstnew(ft_strdup(argv[i])));
-		i++;
-	}
-	return (argv_list);
-}*/
 
 int ft_substitution(t_list *cmd_list, t_list *env)
 {
@@ -190,10 +178,10 @@ int ft_substitution(t_list *cmd_list, t_list *env)
 	{
 		cmd = (t_cmd*)cmd_list->content;
 		substitute_cmd(&cmd->argv_list, cmd->flag, env);
-		substitute_redirs(cmd->redir, cmd->flag_redir, env);
+		substitute_redirs(&cmd->redir, cmd->flag_redir, env);
 		cmd->argv = ft_list_to_tab_argv(cmd->argv_list);
 		cmd->argc = ft_lstsize(cmd->argv_list);
-		if (cmd->argv[0]) // si NULL cause un segfault
+		if (cmd->argv[0])
 		{
 			if (fill_cmd_path(cmd, env) == FAILURE)
 				return (FAILURE);

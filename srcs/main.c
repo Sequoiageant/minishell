@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 11:19:55 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/29 17:03:07 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,20 @@ void	ft_shell_init(t_list **env)
 	tmp = NULL;
 	path = getcwd(NULL, 0);
 	if (path)
-		change_env_val(*env, "SHELL", path);
+		change_env_val(env, "SHELL", path);
 	else
 		put_err(NULL, NULL, "Shell directory not found", TRUE);
-	if ((tmp = find_key_val(*env, "SHLVL")->val))
+	if ((tmp = find_env_val(*env, "SHLVL")))
 		nb = ft_atoi(tmp) + 1;
 	else
 		nb = 1;
 	tmp = ft_itoa(nb);
-	change_env_val(*env, "SHLVL", tmp);
+	if (is_key_in_env(*env, "SHLVL"))
+		change_env_val(env, "SHLVL", tmp);
+	else
+		add_keyval_to_env(ft_strdup("SHLVL"), tmp, env);
+	if (!is_key_in_env(*env, "PWD"))
+		add_keyval_to_env(ft_strdup("PWD"), ft_strdup(path), env);
 }
 
 int		main(void)

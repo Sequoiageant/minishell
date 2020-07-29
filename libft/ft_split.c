@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/17 23:35:07 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/06/23 18:39:16 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 15:48:18 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ char		**ft_split(const char *s, char c)
 	int		num;
 	int		i;
 
-	if (s == 0)
+	if (s == NULL)
 		return (NULL);
 	num = ft_num(s, c);
 	if (!(ptab = malloc((num + 1) * sizeof(*ptab))))
-		return (0);
+		return (NULL);
 	i = 0;
 	while (i < num)
 	{
@@ -113,20 +113,6 @@ char		**ft_split(const char *s, char c)
 			ft_free(ptab, i);
 		i++;
 	}
-	ptab[num] = 0;
+	ptab[num] = NULL;
 	return (ptab);
 }
-
-// int main()
-// {
-// 	char **s;
-
-// 	s = ft_split("  ", ' ');
-// 	int i = 0;
-// 	while (s[i])
-// 	{
-// 		printf("i: %d\n", i);
-// 		printf("str: %s\n", s[i]);
-// 		i++;
-// 	}
-// }

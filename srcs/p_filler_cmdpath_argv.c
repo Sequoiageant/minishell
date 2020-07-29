@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_filler_cmdpath_argv.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 11:09:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 14:59:18 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/29 15:54:29 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,25 @@ char	*find_in_env_path(t_list *env, char *cmd)
 	char	**path;
 	char	*selected_path;
 
-	path = ft_split(find_key_val(env, "PATH")->val, ':');
-	i = 0;
-	while (path[i])
+	if ((path = ft_split(find_env_val(env, "PATH"), ':')))
 	{
-		dir = opendir(path[i]);
-		if (dir)
+		i = 0;
+		while (path[i])
 		{
-			if (ft_ckeck_bin(dir, cmd) == TRUE)
+			if ((dir = opendir(path[i])))
 			{
-				selected_path = ft_strjoin(path[i], "/");
-				free_tab2(path);
-				return (selected_path);
+				if (ft_ckeck_bin(dir, cmd) == TRUE)
+				{
+					selected_path = ft_strjoin(path[i], "/");
+					free_tab2(path);
+					return (selected_path);
+				}
+				i++;
+				closedir(dir);
 			}
-			i++;
-			closedir(dir);
 		}
+		free_tab2(path);
 	}
-	free_tab2(path);
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/07/24 18:04:53 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/29 16:51:40 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ void	ft_print_env(t_list *env)
 	while (env)
 	{
 		elem = (t_key_val *)(env->content);
-			ft_putstr_fd(elem->key, 1);
-			ft_putchar_fd('=', 1);
-			ft_putendl_fd(elem->val, 1);
+		ft_putstr_fd(elem->key, 1);
+		ft_putchar_fd('=', 1);
+		ft_putendl_fd(elem->val, 1);
 		env = env->next;
 	}
 }
@@ -130,7 +130,7 @@ int		is_key_in_env(t_list *env, char *key)
 	return (FALSE);
 }
 
-/*char	*find_env_val(t_list *env, char *key)
+char	*find_env_val(t_list *env, char *key)
 {
 	t_key_val *elem;
 
@@ -142,7 +142,7 @@ int		is_key_in_env(t_list *env, char *key)
 		env = env->next;
 	}
 	return (NULL);
-}*/
+}
 
 t_key_val	*find_key_val(t_list *env, char *key)
 {
@@ -158,21 +158,29 @@ t_key_val	*find_key_val(t_list *env, char *key)
 	return (NULL);
 }
 
-void	change_env_val(t_list *env, char *key, char *val)
+void	change_env_val(t_list **env, char *key, char *val)
 {
-	t_key_val *elem;
+	t_key_val	*elem;
+	t_list		*tmp;
 
-	while (env)
+	tmp = *env;
+	if (tmp)
 	{
-		elem = (t_key_val *)env->content;
-		if (ft_strcmp(elem->key, key) == 0)
+		while (tmp)
 		{
-			free(elem->val);
-			elem->val = NULL;
-			elem->val = val; 
+			elem = (t_key_val *)tmp->content;
+			if (ft_strcmp(elem->key, key) == 0)
+			{
+				free(elem->val);
+				elem->val = NULL;
+				elem->val = val; 
+				return ;
+			}
+			tmp = tmp->next;
 		}
-		env = env->next;
 	}
+	else
+		add_keyval_to_env(ft_strdup(key), val, env);
 }
 
 void	lst_delone_env(t_list **env, char *key)
