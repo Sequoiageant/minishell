@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/22 15:35:31 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/30 12:11:46 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,36 +20,36 @@ int	is_valid_identifier(char *str)
 	return (TRUE);
 }
 
-int	ms_env(int argc, char *argv[], t_list **env)
+int	ms_env(int argc, char **av, t_list **env)
 {
 	(void)argc;
-	(void)argv;
+	(void)av;
 	ft_print_env(*env);
 	return (SUCCESS);
 }
 
-int	ms_unset(int argc, char *argv[], t_list **env)
+int	ms_unset(int argc, char **av, t_list **env)
 {
 	size_t	i;
+	int		ret;
 
+	ret = SUCCESS;
 	if (argc > 1)
 	{
 		{
 			i = 1;
-			while (argv[i])
+			while (av[i])
 			{
-				if (is_valid_identifier(argv[i]))
-					lst_delone_env(env, argv[i]);
+				if (is_valid_identifier(av[i]))
+					lst_delone_env(env, av[i]);
 				else
 				{
-					put_err("unset: `", argv[i], "': not a valid identifier", TRUE);
-					return (FAILURE);
+					put_err("unset: `", av[i], "': not a valid identifier", 1);
+					ret = FAILURE;
 				}
 				i++;
 			}
 		}
 	}
-	else
-		return (FAILURE);
-	return (SUCCESS);
+	return (ret);
 }
