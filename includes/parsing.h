@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/30 15:04:25 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/30 15:06:15 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@
 typedef struct	s_cmd
 {
 	char	*buf;
+	char	*cmd_path;
 	char	**argv;
 	int		argc;
+	char	pad[4];
 	t_list	*redir;
 	t_list	*argv_list;
-	char	*cmd_path;
 	t_list	*flag;
 	t_list	*flag_redir;
 }				t_cmd;
@@ -52,6 +53,7 @@ typedef struct	s_cmd
 typedef struct	s_redir
 {
 	int		state;
+	char	pad[4];
 	char	*file;
 	char	*original; //nom du fichier avant substitution (pour les cas de ambiguous redir)
 }				t_redir;
@@ -88,7 +90,7 @@ enum			e_state
 	BACKSLASH,
 	FLAG,
 	MULTI,
-	PIPE,
+	PIPE
 };
 
 typedef struct	s_state_machine
@@ -113,7 +115,7 @@ enum			e_state_redir
 	R_FLAG_REDIR_ON,
 	R_FLAG_REDIR_OFF,
 	R_DOLLAR,
-	R_WHITESPACE,
+	R_WHITESPACE
 };
 
 typedef struct	s_fms_redir

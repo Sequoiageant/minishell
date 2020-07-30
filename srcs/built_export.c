@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/29 16:38:11 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/30 11:52:33 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	print_sorted_list(t_list *env)
 	free_tab2(env_tab);
 }
 
-static	int	handle_env(t_list **env, char **tab, char *arg)
+static	int	handle_env(t_list **env, char **tab, char *arg, int ret)
 {
 	if (is_key_in_env(*env, tab[0]) && tab[1])
 		change_env_val(env, tab[0], tab[1]);
@@ -36,7 +36,7 @@ static	int	handle_env(t_list **env, char **tab, char *arg)
 	}
 	else if (!tab[1])
 		return (FAILURE);
-	return (SUCCESS);
+	return (ret == FAILURE ? FAILURE : SUCCESS);
 }
 
 int			ms_export(int argc, char *argv[], t_list **env)
@@ -53,7 +53,7 @@ int			ms_export(int argc, char *argv[], t_list **env)
 		{
 			if ((tab = ft_split_env(argv[i])))
 			{
-				if ((ret = handle_env(env, tab, argv[i])) == FAILURE)
+				if ((ret = handle_env(env, tab, argv[i], ret)) == FAILURE)
 					free_tab2(tab);
 				else
 					free(tab);
