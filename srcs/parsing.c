@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 11:33:27 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/30 12:29:01 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ int			parser(char *buf, t_list *env, t_list **pipe_list)
 
 int			ft_parse(char *buf, t_list *env, t_list **pipe_list)
 {
+	#ifdef DEBUG_PARSING
+		printf("LEXER \n");
+	#endif
 	if (lexer(buf) == FAILURE)
 	{
 		g_glob.ret = 2;
@@ -75,7 +78,7 @@ int			ft_parse(char *buf, t_list *env, t_list **pipe_list)
 	if (add_cmd(*pipe_list) == FAILURE)
 		return (FAILURE);
 	#ifdef DEBUG_PARSING
-		printf("1ST PARSING \n");
+		printf("\n1ST PARSING \n");
 	#endif
 	if (parser(buf, env, pipe_list) == FAILURE)
 		return (FAILURE);

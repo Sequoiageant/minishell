@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 16:32:47 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/30 15:04:25 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # define NB_STATE		5
 # define NB_STATE_REDIR	9
+# define NB_STATE_LEX	5
 
 # define REDIR_OUT		1
 # define REDIR_APPEND	2
@@ -55,6 +56,32 @@ typedef struct	s_redir
 	char	*original; //nom du fichier avant substitution (pour les cas de ambiguous redir)
 }				t_redir;
 
+/*
+** ------------------------------- FSM LEXER ------------------------------
+*/
+
+enum			e_state_lexer
+{
+	L_LETTER,
+	L_BACKSLASH,
+	L_FLAG,
+	L_CHECK_APRES,
+	L_CHECK_AVANT,
+};
+
+typedef struct	s_fsm_lexer
+{
+	enum e_state_lexer	state;
+	int					flag_dquote;
+	int					flag_quote;
+}				t_fsm_lexer;
+
+typedef	int	(*t_func_lex)(t_fsm_lexer *, char *, int);
+
+/*
+** ------------------------------- FSM PARSING ------------------------------
+*/
+
 enum			e_state
 {
 	LETTER,
@@ -72,6 +99,10 @@ typedef struct	s_state_machine
 }				t_state_machine;
 
 typedef	int	(*t_function)(char *, t_state_machine *, t_list *, t_list **);
+
+/*
+** ------------------------------- FSM PARSING_REDIR ------------------------------
+*/
 
 enum			e_state_redir
 {
@@ -100,6 +131,11 @@ typedef	int	(*t_func_redir)(t_fsm_redir *, char *, t_cmd *);
 */
 
 int		lexer(char *buf);
+int		lex_check_apres(t_fsm_lexer *m, char *buf, int i);
+int		lex_check_avant(t_fsm_lexer *m, char *buf, int i);
+int		lex_flag(t_fsm_lexer *m, char *buf, int i);
+int		lex_letter(t_fsm_lexer *m, char *buf, int i);
+int		lex_backslash(t_fsm_lexer *m, char *buf, int i);
 
 /*
 ** ------------------------------- Parser ------------------------------

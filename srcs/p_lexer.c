@@ -6,111 +6,80 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 11:29:23 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 15:54:04 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/30 12:25:12 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-static int	rien_avant(char *avant)
-{
-	int i;
 
-	#ifdef DEBUG_PARSING
-		printf("avant: [%s]\n", avant);
-	#endif
-	if (ft_strlen(avant) == 0)
+
+// int			lexer(char *buf)
+// {
+// 	(void)buf;
+// 	#ifdef DEBUG_PARSING
+// 		printf("LEXER \n");
+// 	#endif
+// 	if (check_apres(buf) == FAILURE)
+// 		return (FAILURE);
+// 	if (check_avant(buf) == FAILURE)
+// 		return (FAILURE);
+// 	else
+// 		return (SUCCESS);
+// }
+
+
+static int	backslash_activated(char *buf, t_fsm_lexer *machine, int i)
+{
+	if (machine->flag_quote)
+		return (0);
+	if (machine->flag_dquote)
 	{
-		free(avant);
-		return (TRUE);
+		if (buf[i + 1] == '$' || buf[i + 1] == '"' || buf[i + 1] == '\\')
+			return (TRUE);
+		else
+			return (FALSE);
 	}
-	i = ft_strlen(avant) - 1;
-	while (avant[i] == SPACE || avant[i] == TAB)
-		i--;
-	#ifdef DEBUG_PARSING
-		printf("char checked: [%c]\n", avant[i]);
-	#endif
-	if (ft_is_special(avant[i]))
-	{
-		free(avant);
-		return (TRUE);
-	}
-	free(avant);
-	return (FALSE);
+	return (1);
 }
 
-static int	rien_apres(char *apres)
+static void	chose_state(char *buf, t_fsm_lexer *machine, int i)
 {
-	int i;
-
-	#ifdef DEBUG_PARSING
-		printf("apres: [%s]\n", apres);
-	#endif
-	i = 0;
-	while (apres[i] == SPACE || apres[i] == TAB)
-		i++;
-	#ifdef DEBUG_PARSING
-		printf("char checked: [%c]\n", apres[i]);
-	#endif
-	if (ft_is_special(apres[i]))
-	{
-		free(apres);
-		return (TRUE);
-	}
-	free(apres);
-	return (FALSE);
-}
-
-static int	check_avant(char *buf)
-{
-	int i;
-
-	i = 0;
-	while (buf[i])
-	{
-		if (buf[i] == ';' || buf[i] == '|')
-		{
-			if (rien_avant(ft_substr(buf, 0, i)) == TRUE)
-				return (FAILURE);
-		}
-		i++;
-	}
-	return (SUCCESS);
-}
-
-static int	check_apres(char *buf)
-{
-	int i;
-
-	i = 0;
-	while (buf[i])
-	{
-		if (buf[i] == '<')
-			if (rien_apres(ft_substr(buf, i + 1, ft_strlen(buf))) == TRUE)
-				return (FAILURE);
-		if (buf[i] == '>')
-		{
-			if (buf[i + 1] == '>')
-				i++;
-			if (rien_apres(ft_substr(buf, i + 1, ft_strlen(buf))) == TRUE)
-				return (FAILURE);
-		}
-		i++;
-	}
-	return (SUCCESS);
-}
-
-int			lexer(char *buf)
-{
-	(void)buf;
-	#ifdef DEBUG_PARSING
-		printf("LEXER \n");
-	#endif
-	if (check_apres(buf) == FAILURE)
-		return (FAILURE);
-	if (check_avant(buf) == FAILURE)
-		return (FAILURE);
+	if (buf[i] == '"' && !machine->flag_quote)
+		machine->state = L_FLAG;
+	else if (buf[i] == '\'' && !machine->flag_dquote)
+		machine->state = L_FLAG;
+	else if (buf[i] == '\\' && backslash_activated(buf, machine, i))
+		machine->state = L_BACKSLASH;
+	else if ((buf[i] == ';' || buf[i] == '|')
+	&& !machine->flag_quote && !machine->flag_dquote)
+		machine->state = L_CHECK_AVANT;
+	else if ((buf[i] == '>' || buf[i] == '<')
+	&& !machine->flag_quote && !machine->flag_dquote)
+		machine->state = L_CHECK_APRES;
 	else
-		return (SUCCESS);
+		machine->state = L_LETTER;
+}
+
+int	lexer(char *buf)
+{
+	t_fsm_lexer			machine;
+	static t_func_lex	func[NB_STATE_LEX] = {lex_letter,
+	lex_backslash, lex_flag, lex_check_apres, lex_check_avant};
+	int					ret;
+	int					i;
+	
+	i = 0;
+	machine.flag_dquote = 0;
+	machine.flag_quote = 0;
+	while (buf[i])
+	{
+		chose_state(buf, &machine, i);
+		ret = func[machine.state](&machine, buf, i);
+		if (ret == FAILURE)
+			return (FAILURE);
+		i += ret;
+	}
+	return (SUCCESS);
 }

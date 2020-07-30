@@ -61,6 +61,8 @@ SRCS += p_filler_cmdpath_argv.c
 SRCS += p_add_cmd.c
 SRCS += p_fsm_multi.c
 SRCS += p_lexer.c
+SRCS += p_lexer_fsm.c
+SRCS += p_lexer_fsm2.c
 
 # Built in Sources
 SRCS += built_in.c
