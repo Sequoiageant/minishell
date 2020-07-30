@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/30 15:06:15 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/30 18:05:32 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define FALSE		0
 
 # define NB_STATE		5
-# define NB_STATE_REDIR	9
+# define NB_STATE_CMD	9
 # define NB_STATE_LEX	5
 
 # define REDIR_OUT		1
@@ -62,13 +62,14 @@ typedef struct	s_redir
 ** ------------------------------- FSM LEXER ------------------------------
 */
 
+
 enum			e_state_lexer
 {
 	L_LETTER,
 	L_BACKSLASH,
 	L_FLAG,
 	L_CHECK_APRES,
-	L_CHECK_AVANT,
+	L_CHECK_AVANT
 };
 
 typedef struct	s_fsm_lexer
@@ -103,10 +104,10 @@ typedef struct	s_state_machine
 typedef	int	(*t_function)(char *, t_state_machine *, t_list *, t_list **);
 
 /*
-** ------------------------------- FSM PARSING_REDIR ------------------------------
+** ------------------------------- FSM PARSING_CMD ------------------------------
 */
 
-enum			e_state_redir
+enum			e_state_cmd
 {
 	R_LETTER,
 	R_BACKSLASH,
@@ -118,15 +119,15 @@ enum			e_state_redir
 	R_WHITESPACE
 };
 
-typedef struct	s_fms_redir
+typedef struct	s_fsm_cmd
 {
-	enum e_state_redir	state;
+	enum e_state_cmd	state;
 	int					flag_dquote;
 	int					flag_quote;
 	int					flag_redir;
-}				t_fsm_redir;
+}				t_fsm_cmd;
 
-typedef	int	(*t_func_redir)(t_fsm_redir *, char *, t_cmd *);
+typedef	int	(*t_func_redir)(t_fsm_cmd *, char *, t_cmd *);
 
 /*
 ** ------------------------------- Lexer ------------------------------
@@ -159,21 +160,23 @@ int		ft_join_to_cmd_buf(char *str, t_list *pipe_list);
 int		ft_is_dollar_start(char c);
 int		count_dollar_char(char *buf);
 int		ft_is_special(char c);
+void	print_pipe_bufs(t_list *pipe_list);
 
 /*
-** ------------------------------- Parser Redir ------------------------------
+** ------------------------------- Parser CMD ------------------------------
 */
 
-int		red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd);
-int		red_flag_quote(t_fsm_redir *m, char *buf, t_cmd *cmd);
-int		red_flag_dquote(t_fsm_redir *m, char *buf, t_cmd *cmd);
-int		red_flag_redir_on(t_fsm_redir *m, char *buf, t_cmd *cmd);
-int		red_flag_redir_off(t_fsm_redir *m, char *buf, t_cmd *cmd);
-int		red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd);
-int		red_dollar(t_fsm_redir *m, char *buf, t_cmd *cmd);
-int		red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd);
+int		cmd_backslash(t_fsm_cmd *m, char *buf, t_cmd *cmd);
+int		cmd_flag_quote(t_fsm_cmd *m, char *buf, t_cmd *cmd);
+int		cmd_flag_dquote(t_fsm_cmd *m, char *buf, t_cmd *cmd);
+int		cmd_flag_redir_on(t_fsm_cmd *m, char *buf, t_cmd *cmd);
+int		cmd_flag_redir_off(t_fsm_cmd *m, char *buf, t_cmd *cmd);
+int		cmd_letter(t_fsm_cmd *m, char *buf, t_cmd *cmd);
+int		cmd_dollar(t_fsm_cmd *m, char *buf, t_cmd *cmd);
+int		cmd_whitespace(t_fsm_cmd *m, char *buf, t_cmd *cmd);
 
-int		parser_redir(t_list *pipe_list);
+// int		parser_redir(t_list *pipe_list);
+int		parsing_cmd(t_list *cmd_list);
 int		ft_join_to_redir(char *added_str, t_list *redir_list);
 int		ft_join_to_str(char *added_str, char **initial_str);
 int		set_redir_state(char *buf, int *state);

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_redir_fsm2.c                               :+:      :+:    :+:   */
+/*   parsing_cmd_fsm2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 16:34:38 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/30 17:48:07 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int red_flag_redir_on(t_fsm_redir *m, char *buf, t_cmd *cmd)
+int cmd_flag_redir_on(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 	int		offset;
 	t_redir	*redir;
@@ -37,7 +37,7 @@ int red_flag_redir_on(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	return (offset);
 }
 
-int red_flag_redir_off(t_fsm_redir *m, char *buf, t_cmd *cmd)
+int cmd_flag_redir_off(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 	
 	(void)m;
@@ -51,7 +51,7 @@ int red_flag_redir_off(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	return (0);
 }
 
-int red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd)
+int cmd_whitespace(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 	int ret;
 	
@@ -73,7 +73,7 @@ int red_whitespace(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	return (ret);
 }
 
-int	red_dollar(t_fsm_redir *m, char *buf, t_cmd *cmd)
+int	cmd_dollar(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 	int		i;
 	char	*str;

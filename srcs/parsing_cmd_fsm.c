@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_redir_fsm.c                                :+:      :+:    :+:   */
+/*   parsing_cmd_fsm.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 16:57:07 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 09:56:56 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/30 17:48:07 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd)
+int cmd_backslash(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 	(void)m;
 	(void)cmd;
@@ -37,7 +37,7 @@ int red_backslash(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	return (2);
 }
 
-int red_flag_quote(t_fsm_redir *m, char *buf, t_cmd *cmd)
+int cmd_flag_quote(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 	if (buf[1] == '\'')
 	{
@@ -67,7 +67,7 @@ int red_flag_quote(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	return (1);
 }
 
-int red_flag_dquote(t_fsm_redir *m, char *buf, t_cmd *cmd)
+int cmd_flag_dquote(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 	if (buf[1] == '"')
 	{
@@ -97,7 +97,7 @@ int red_flag_dquote(t_fsm_redir *m, char *buf, t_cmd *cmd)
 	return (1);
 }
 
-int red_letter(t_fsm_redir *m, char *buf, t_cmd *cmd)
+int cmd_letter(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 	(void)m;
 	#ifdef DEBUG_PARSING

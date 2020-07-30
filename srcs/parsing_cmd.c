@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_redir.c                                    :+:      :+:    :+:   */
+/*   parsing_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 17:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 12:01:57 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/30 18:08:42 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-static int		backslash_activated(char *buf, t_fsm_redir *machine)
+static int		backslash_activated(char *buf, t_fsm_cmd *machine)
 {
 	if (machine->flag_quote)
 		return (0);
@@ -27,7 +27,7 @@ static int		backslash_activated(char *buf, t_fsm_redir *machine)
 	return (1);
 }
 
-static void		chose_state(char *buf, t_fsm_redir *machine)
+static void		chose_state(char *buf, t_fsm_cmd *machine)
 {
 	if (*buf == '"' && !machine->flag_quote)
 		machine->state = R_FLAG_DQUOTE;
@@ -52,9 +52,9 @@ static void		chose_state(char *buf, t_fsm_redir *machine)
 
 int				parse_cmd_redir(t_cmd *cmd)
 {
-	t_fsm_redir			machine;
-	static t_func_redir	func[NB_STATE_REDIR] = {red_letter, red_backslash,
-	red_flag_quote, red_flag_dquote, red_flag_redir_on, red_flag_redir_off, red_dollar, red_whitespace};
+	t_fsm_cmd			machine;
+	static t_func_redir	func[NB_STATE_CMD] = {cmd_letter, cmd_backslash,
+	cmd_flag_quote, cmd_flag_dquote, cmd_flag_redir_on, cmd_flag_redir_off, cmd_dollar, cmd_whitespace};
 	int					ret;
 	char				*buf;
 	char				*save;
@@ -79,29 +79,16 @@ int				parse_cmd_redir(t_cmd *cmd)
 	return (SUCCESS);
 }
 
-int			parse_pipe_redir(t_list *pipe_list)
+int			parsing_cmd(t_list *cmd_list)
 {
-	t_list	*cmd_list;
 	t_cmd	*cmd;
 
-	cmd_list = (t_list*)pipe_list->content;
 	while (cmd_list)
 	{
 		cmd = (t_cmd*)cmd_list->content;
 		if (parse_cmd_redir(cmd) == FAILURE)
 			return (FAILURE);
 		cmd_list = cmd_list->next;
-	}
-	return (SUCCESS);
-}
-
-int			parser_redir(t_list *pipe_list)
-{
-	while (pipe_list)
-	{
-		if (parse_pipe_redir(pipe_list) == FAILURE)
-			return (FAILURE);
-		pipe_list = pipe_list->next;
 	}
 	return (SUCCESS);
 }

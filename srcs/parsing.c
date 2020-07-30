@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/30 12:29:01 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/30 18:01:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ int			ft_parse(char *buf, t_list *env, t_list **pipe_list)
 	#endif
 	if (parser(buf, env, pipe_list) == FAILURE)
 		return (FAILURE);
-	#ifdef DEBUG_PARSING
-		printf("\nPARSING REDIR \n");
-	#endif
-	if (parser_redir(*pipe_list) == FAILURE)
-		return (FAILURE);
+	// #ifdef DEBUG_PARSING
+	// 	printf("\nPARSING REDIR \n");
+	// #endif
+	// if (parser_redir(*pipe_list) == FAILURE)
+	// 	return (FAILURE);
 	#ifdef DEBUG_PARSING
 		print_commands(*pipe_list);
 	#endif

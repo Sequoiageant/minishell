@@ -50,10 +50,10 @@ SRCS += p_print_cmds.c
 
 # Parsing Sources
 SRCS += parsing.c
-SRCS += parsing_redir.c
-SRCS += parsing_redir_fsm.c
-SRCS += parsing_redir_fsm2.c
-SRCS += parsing_redir_utils.c
+SRCS += parsing_cmd.c
+SRCS += parsing_cmd_fsm.c
+SRCS += parsing_cmd_fsm2.c
+SRCS += parsing_cmd_utils.c
 SRCS += p_fsm_other.c
 SRCS += p_parsing_utils.c
 # SRCS += p_filler.c

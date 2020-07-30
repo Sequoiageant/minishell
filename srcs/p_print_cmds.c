@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 17:29:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 16:44:11 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/30 18:10:20 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_pipe_bufs(t_list *pipe_list)
 	while (cmd_list)
 	{
 		cmd = (t_cmd*)cmd_list->content;
-		printf("buf: [%s]\n", cmd->buf);
+		printf(" buf: [%s]\n", cmd->buf);
 		cmd_list = cmd_list->next;
 	}
 }
@@ -155,6 +155,7 @@ void	print_commands(t_list *pipe_list)
 	{
 		printf("PIPE %d >> \n", i);
 		print_pipe_argv_redirs(pipe_list);
+		print_pipe_bufs(pipe_list);
 		pipe_list = pipe_list->next;
 		i++;
 	}
