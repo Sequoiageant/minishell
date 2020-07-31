@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 09:55:37 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 14:20:48 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/31 16:47:41 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,32 @@ int		sp_backslash(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 	#ifdef DEBUG_PARSING
 		printf("[%c] -> ESCAPED LETTER ", buf[1]);
 	#endif
-	if (buf[1] == 0) // cas ou on a un / en fin de commande
-		return (1);
 	if (m->flag_redir)
-		ft_join_to_redir(char_to_str(buf[1]), cmd->redir);
+		ft_join_to_redir(char_to_str(buf[0]), cmd->redir);
 	else
-		ft_join_to_argv(char_to_str(buf[1]), cmd);
-	return (2);
+		ft_join_to_argv(char_to_str(buf[0]), cmd);
+	if (buf[1])
+	{
+		if (m->flag_redir)
+			ft_join_to_redir(char_to_str(buf[1]), cmd->redir);
+		else
+			ft_join_to_argv(char_to_str(buf[1]), cmd);
+		return (2);
+	}
+	return (1);
 }
 
 int		sp_flag_quote(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 {
-	if (buf[1] == '\'')
-	{
-		#ifdef DEBUG_PARSING
-			printf("[\"\"] ");
-		#endif
-		ft_join_to_argv(ft_strdup(""), cmd);
-		return(2);
-	}
+	// if (buf[1] == '\'')
+	// {
+	// 	#ifdef DEBUG_PARSING
+	// 		printf("[\"\"] ");
+	// 	#endif
+	// 	ft_join_to_argv(ft_strdup(""), cmd);
+	// 	return(2);
+	// }
 	#ifdef DEBUG_PARSING
 		printf("['] ");
 	#endif
@@ -57,20 +63,24 @@ int		sp_flag_quote(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 			printf("-> QUOTE ON\n");
 		#endif
 	}
+	if (m->flag_redir)
+		ft_join_to_redir(char_to_str(buf[0]), cmd->redir);
+	else
+		ft_join_to_argv(char_to_str(buf[0]), cmd);
 	return (1);
 }
 
 }
 int		sp_flag_dquote(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
-	if (buf[1] == '"')
-	{
-		#ifdef DEBUG_PARSING
-			printf("[\"\"] ");
-		#endif
-		ft_join_to_argv(ft_strdup(""), cmd);
-		return(2);
-	}
+	// if (buf[1] == '"')
+	// {
+	// 	#ifdef DEBUG_PARSING
+	// 		printf("[\"\"] ");
+	// 	#endif
+	// 	ft_join_to_argv(ft_strdup(""), cmd);
+	// 	return(2);
+	// }
 	#ifdef DEBUG_PARSING
 		printf("[\"] ");
 	#endif
@@ -88,6 +98,10 @@ int		sp_flag_dquote(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 			printf("-> DQUOTE ON\n");
 		#endif
 	}
+	if (m->flag_redir)
+		ft_join_to_redir(char_to_str(buf[0]), cmd->redir);
+	else
+		ft_join_to_argv(char_to_str(buf[0]), cmd);
 	return (1);
 }
 
