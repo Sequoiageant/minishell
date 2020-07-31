@@ -51,18 +51,23 @@ SRCS += p_print_cmds.c
 # Parsing Sources
 SRCS += parsing.c
 SRCS += parsing_cmd.c
-SRCS += parsing_cmd_fsm.c
-SRCS += parsing_cmd_fsm2.c
-SRCS += parsing_cmd_utils.c
-SRCS += p_fsm_other.c
-SRCS += p_parsing_utils.c
-# SRCS += p_filler.c
-SRCS += p_filler_cmdpath_argv.c
-SRCS += p_add_cmd.c
 SRCS += p_fsm_multi.c
+SRCS += p_fsm_multi_utils.c
+SRCS += p_fsm_split.c
+SRCS += p_fsm_split2.c
+SRCS += p_fsm_subst.c
+SRCS += p_fsm_subst2.c
+SRCS += p_fsm_subst_utils.c
 SRCS += p_lexer.c
 SRCS += p_lexer_fsm.c
 SRCS += p_lexer_fsm2.c
+SRCS += p_parsing_utils.c
+SRCS += p_filler_cmdpath_argv.c
+# SRCS += parsing_cmd_fsm.c
+# SRCS += parsing_cmd_fsm2.c
+# SRCS += parsing_cmd_utils.c
+# SRCS += p_fsm_other.c
+# SRCS += p_filler.c
 
 # Built in Sources
 SRCS += built_in.c

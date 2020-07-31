@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 18:21:27 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/31 11:36:59 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,8 @@ char		**ft_list_to_tab(t_list *env);
 void		put_err(char *cmd, char *arg, char *last, int minishell);
 void		add_keyval_to_env(char *key, char *val, t_list **env);
 
+
+// pour fsm_subst (a besoin que t_key_val soit défini)
+int     variable_substitution(t_cmd *cmd, t_key_val *key_val);
 #endif
 

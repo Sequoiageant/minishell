@@ -6,88 +6,37 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 17:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/30 18:08:42 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/31 11:32:19 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-static int		backslash_activated(char *buf, t_fsm_cmd *machine)
-{
-	if (machine->flag_quote)
-		return (0);
-	if (machine->flag_dquote)
-	{
-		if (buf[1] == '$' || buf[1] == '"' || buf[1] == '\\')
-			return (1);
-		else
-			return (0);
-	}
-	return (1);
-}
 
-static void		chose_state(char *buf, t_fsm_cmd *machine)
+int	fill_cmd(t_cmd *cmd, t_list *env)
 {
-	if (*buf == '"' && !machine->flag_quote)
-		machine->state = R_FLAG_DQUOTE;
-	else if (*buf == '\'' && !machine->flag_dquote)
-		machine->state = R_FLAG_QUOTE;
-	else if (*buf == '\\' && backslash_activated(buf, machine))
-		machine->state = R_BACKSLASH;
-	else if ((*buf == '>' || *buf == '<') && // activer le flag
-	!machine->flag_quote && !machine->flag_dquote)
-		machine->state = R_FLAG_REDIR_ON;
-	else if ((*buf == TAB || *buf == SPACE) && machine->flag_redir &&// desactiver le flag redir lorsqu'on rencontre un espace ou un tab non "escapés"
-	!machine->flag_quote && !machine->flag_dquote)
-		machine->state = R_FLAG_REDIR_OFF;
-	else if (*buf == '$' && !machine->flag_quote && ft_is_dollar_start(buf[1]))
-		machine->state = R_DOLLAR;
-	else if (!machine->flag_quote && !machine->flag_dquote && !machine->flag_redir // les whitespace dans les redir sont gérés a part
-	&& (*buf == TAB || *buf == SPACE))
-		machine->state = R_WHITESPACE;
-	else
-		machine->state = R_LETTER;
-}
-
-int				parse_cmd_redir(t_cmd *cmd)
-{
-	t_fsm_cmd			machine;
-	static t_func_redir	func[NB_STATE_CMD] = {cmd_letter, cmd_backslash,
-	cmd_flag_quote, cmd_flag_dquote, cmd_flag_redir_on, cmd_flag_redir_off, cmd_dollar, cmd_whitespace};
-	int					ret;
-	char				*buf;
-	char				*save;
-	
-	buf = ft_strdup(cmd->buf); // on initialise buf, que l'on va parser
-	save = buf; // on save buf pour pouvoir le free à la fin
-	free(cmd->buf); // on free cmd->buf 
-	cmd->buf = ft_strdup(""); // on initialise cmd->buf avec une chaine vide (pour ne pas avoir de problème avec les ft_strjoin)
-	// on remplira cmd->buf au fur et a mesure du parsing de "buf", avec des ft_strjoin
-	machine.flag_dquote = 0;
-	machine.flag_quote = 0;
-	machine.flag_redir = 0;
-	while (*buf != '\0')
-	{
-		chose_state(buf, &machine);
-		ret = func[machine.state](&machine, buf, cmd);
-		if (ret == FAILURE)
+	cmd->argv = ft_list_to_tab_argv(cmd->argv_list);
+	cmd->argc = ft_lstsize(cmd->argv_list);
+	if (cmd->argv[0]) // si NULL cause un segfault
+	{	if (fill_cmd_path(cmd, env) == FAILURE)
 			return (FAILURE);
-		buf += ret;
 	}
-	free(save);
 	return (SUCCESS);
 }
 
-int			parsing_cmd(t_list *cmd_list)
+int			parsing_cmd(t_list *cmd_list, t_list *env)
 {
 	t_cmd	*cmd;
 
 	while (cmd_list)
 	{
 		cmd = (t_cmd*)cmd_list->content;
-		if (parse_cmd_redir(cmd) == FAILURE)
+		if (parse_cmd_subst(cmd, env) == FAILURE)
 			return (FAILURE);
+		// if (parse_cmd_split(cmd) == FAILURE)
+		// 	return (FAILURE);
+		// fill_cmd(cmd, env);
 		cmd_list = cmd_list->next;
 	}
 	return (SUCCESS);
