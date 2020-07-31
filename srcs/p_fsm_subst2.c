@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_fsm_subst2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 09:54:48 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 12:25:13 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/31 14:48:48 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,14 @@ int		su_backslash(t_fsm_cmd *m, char *buf, t_cmd *cmd, t_list *env)
 		printf("[%c] -> ESCAPED LETTER ", buf[1]);
 	#endif
 	
+	ft_join_to_cmd_buf2(char_to_str(buf[0]), cmd);
 	if (buf[1])
 	{
 		ft_join_to_cmd_buf2(char_to_str(buf[1]), cmd);
 		return (2);
 	}
 	else
-	{
-		ft_join_to_cmd_buf2(char_to_str(buf[0]), cmd);
 		return (1); // si on a un backslash en fin de commande, pour ne pas causer de "invalid read"
-	}
 }
 
 int		su_flag_quote(t_fsm_cmd *m, char *buf, t_cmd *cmd, t_list *env)
