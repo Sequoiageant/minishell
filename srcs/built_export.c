@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/30 11:52:33 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/30 17:04:29 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,26 @@
 static void	print_sorted_list(t_list *env)
 {
 	char	**env_tab;
+	char	**tab;
+	size_t	i;
 
 	env_tab = ft_list_to_tab(env);
 	ft_n_sort_string_tab(env_tab, '=');
-	display_tab2_export(env_tab);
+	i = 0;
+	while (env_tab[i])
+	{
+		tab = ft_split_env(env_tab[i]);
+		if (tab && (ft_strcmp(tab[0], "_") != 0))
+		{
+			ft_putstr_fd("declare -x ", 1);
+			ft_putstr_fd(tab[0], 1);
+			ft_putstr_fd("=\"", 1);
+			ft_putstr_fd(tab[1], 1);
+			ft_putendl_fd("\"", 1);
+			free_tab2(tab);
+		}
+		i++;
+	}
 	free_tab2(env_tab);
 }
 

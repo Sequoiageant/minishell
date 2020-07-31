@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_fsm_subst2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 09:54:48 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 11:46:07 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/31 12:25:13 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int		su_subst(t_fsm_cmd *m, char *buf, t_cmd *cmd, t_list *env )
 		printf("[$%s] -> ENV ", str);
 		#endif
 		free(str);
-		ft_join_to_cmd_buf2(ft_strdup("?"), cmd);
+		ft_join_to_cmd_buf2(ft_itoa(g_glob.ret), cmd);
 	}
 	else
 	{

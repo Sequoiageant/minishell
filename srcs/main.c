@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 18:39:28 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/30 18:11:00 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		main(void)
 	if (signal(SIGQUIT, signal_handler) == SIG_ERR)
 		return (1);
 	ft_putstr_fd("cmd: ", 1);
-	while (get_next_line(0, &buf) > 0)
+	while (get_next_line(STDIN_FILENO, &buf) > 0)
 	{
 		ft_handle(buf, &env);
 		ft_putstr_fd("cmd: ", 1);
