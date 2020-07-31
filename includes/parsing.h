@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 11:52:33 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/31 14:20:11 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ enum			e_state_split
 	SP_BACKSLASH,
 	SP_FLAG_QUOTE,
 	SP_FLAG_DQUOTE,
-	SP_WHITESPACE,
 	SP_REDIR_ON,
-	SP_REDIR_OFF
+	SP_REDIR_OFF,
+	SP_WHITESPACE
 };
 
 typedef struct	s_fsm_cmd
@@ -213,8 +213,9 @@ int		set_redir_state(char *buf, int *state);
 int		ft_set_env_flag(t_cmd *cmd, int val, int where);
 // int		parser_redir(t_list *pipe_list);
 
-void	print_pipe_bufs(t_list *pipe_list);
-void	print_commands(t_list *pipe_list);
+void	print_pipe_list(t_list *pipe_list);
+void	print_cmd_list(t_list *cmd_list);
+void	print_cmd(t_cmd *cmd);
 
 /*
 ** ------------------------------- Filler ------------------------------

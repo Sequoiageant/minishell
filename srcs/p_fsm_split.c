@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 09:55:37 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 11:43:57 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/31 14:20:43 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,6 @@ int				parse_cmd_split(t_cmd *cmd)
 	
 	buf = ft_strdup(cmd->buf); // on initialise buf, que l'on va parser
 	save = buf; // on save buf pour pouvoir le free à la fin
-	free(cmd->buf); // on free cmd->buf 
-	cmd->buf = ft_strdup(""); // on initialise cmd->buf avec une chaine vide (pour ne pas avoir de problème avec les ft_strjoin)
-	// on remplira cmd->buf au fur et a mesure du parsing de "buf", avec des ft_strjoin
 	machine.flag_dquote = 0;
 	machine.flag_quote = 0;
 	machine.flag_redir = 0;

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 11:36:59 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/31 14:23:51 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ t_key_val	*find_key_val(t_list *env, char *key);
 char		*find_env_val(t_list *env, char *key);
 void		ft_print_env(t_list *env);
 void		print_env_elem(t_list *env, char *key);
-void		print_cmd(char **cmd);
 void		ft_print_status(int status);
 void		display_tab2(char **tab);
 void		display_tab2_export(char **tab);

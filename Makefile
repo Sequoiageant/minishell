@@ -55,6 +55,7 @@ SRCS += p_fsm_multi.c
 SRCS += p_fsm_multi_utils.c
 SRCS += p_fsm_split.c
 SRCS += p_fsm_split2.c
+SRCS += p_fsm_split_utils.c
 SRCS += p_fsm_subst.c
 SRCS += p_fsm_subst2.c
 SRCS += p_fsm_subst_utils.c

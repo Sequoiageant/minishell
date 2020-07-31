@@ -6,26 +6,13 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 17:29:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/30 18:10:20 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/31 14:25:07 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-void	print_pipe_bufs(t_list *pipe_list)
-{
-	t_list	*cmd_list;
-	t_cmd	*cmd;
-
-	cmd_list = (t_list*)pipe_list->content;
-	while (cmd_list)
-	{
-		cmd = (t_cmd*)cmd_list->content;
-		printf(" buf: [%s]\n", cmd->buf);
-		cmd_list = cmd_list->next;
-	}
-}
 
 void	ft_print_redir(t_list *redir_list)
 {
@@ -114,18 +101,9 @@ void	ft_print_argv(char **argv)
 	}
 }
 
-void	print_pipe_argv_redirs(t_list *pipe_list)
+void	print_cmd(t_cmd *cmd)
 {
-	t_list	*cmd_list;
-	t_cmd	*cmd;
-	int		num;
-
-	num = 0;
-	cmd_list = (t_list*)pipe_list->content;
-	while (cmd_list)
-	{
-		printf("CMD %d > \n", num);
-		cmd = (t_cmd*)cmd_list->content;
+		printf(" buf: [%s]\n", cmd->buf);
 		if (cmd->argv_list)
 			ft_print_argv_list(cmd->argv_list);
 		if (cmd->argv)
@@ -137,27 +115,40 @@ void	print_pipe_argv_redirs(t_list *pipe_list)
 			ft_print_flag(cmd->flag);
 		if (cmd->redir)
 			ft_print_redir(cmd->redir);
-		if (cmd->flag_redir)
-			ft_print_flag_redir(cmd->flag_redir);
-		printf(" cmdpath: %s\n", cmd->cmd_path);
-		num++;
+		if (cmd->cmd_path)
+			printf(" cmdpath: %s\n", cmd->cmd_path);
+		printf("---------------------------------\n");
+	
+}
+
+void	print_cmd_list(t_list *cmd_list)
+{
+	t_cmd	*cmd;
+	int		num;
+
+	num = 0;
+	while (cmd_list)
+	{
+		printf("CMD %d > \n", num);
+		cmd = (t_cmd*)cmd_list->content;
+		print_cmd(cmd);
 		cmd_list = cmd_list->next;
+		num++;
 	}
 }
 
-void	print_commands(t_list *pipe_list)
+void	print_pipe_list(t_list *pipe_list)
 {
 	int i;
+	t_list	*cmd_list;
 
 	i = 0;
-	printf("\nPRINTING COMMAND\n");
 	while (pipe_list)
 	{
 		printf("PIPE %d >> \n", i);
-		print_pipe_argv_redirs(pipe_list);
-		print_pipe_bufs(pipe_list);
+		cmd_list = (t_list*)pipe_list->content;
+		print_cmd_list(cmd_list);
 		pipe_list = pipe_list->next;
 		i++;
 	}
-	printf("---------------------------------\n");
 }
