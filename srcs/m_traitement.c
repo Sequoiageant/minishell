@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 16:05:50 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 16:20:10 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int		ft_traitement_cmdlist(t_list *cmd_list, t_list **env)
 	else
 	{
 		cmd = (t_cmd*)cmd_list->content;
-		if (cmd->argc == 0) // pour eviter les "still reachable" si on lance un fork()
-			return (SUCCESS);
+		// if (cmd->argc == 0) // géré au niveau du ft_exec_cmd, car il faut faire les redirs meme s'il n'y a pas d'argument (-> donc génère un still reachable car on fait un fork())
+		// 	return (SUCCESS);
 		if (ft_check_built_in(cmd->argv[0], &index) == TRUE)
 			ft_built_in(cmd, index, env);
 		else if (ft_strcmp(cmd->argv[0], "exit") == 0)
