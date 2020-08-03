@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 09:35:10 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 14:08:18 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define NB_STATE_SUBST	5
 # define NB_STATE_SPLIT	8
 # define NB_STATE_LEX	5
+# define NB_STATE_CLEAN	4
 
 # define REDIR_OUT		1
 # define REDIR_APPEND	2
@@ -142,6 +143,21 @@ typedef	int	(*t_func_subst)(t_fsm_cmd *, char *buf, t_cmd *cmd, t_list *env);
 typedef	int	(*t_func_split)(t_fsm_cmd *, char *buf, t_cmd *cmd);
 
 /*
+** ------------------------------- FSM Clean ------------------------------
+*/
+
+enum			e_state_clean
+{
+	CL_LETTER,
+	CL_BACKSLASH,
+	CL_FLAG_QUOTE,
+	CL_FLAG_DQUOTE,
+};
+
+typedef	int	(*t_func_clean)(t_fsm_cmd *, char *buf, char **clean_str);
+
+
+/*
 ** ------------------------------- Lexer ------------------------------
 */
 
@@ -197,6 +213,16 @@ int		sp_flag_redir_off(t_fsm_cmd *m, char *buf, t_cmd *cmd);
 int		sp_letter(t_fsm_cmd *m, char *buf, t_cmd *cmd);
 int		sp_whitespace(t_fsm_cmd *m, char *buf, t_cmd *cmd);
 int		sp_dollar(t_fsm_cmd *m, char *buf, t_cmd *cmd);
+
+/*
+** ------------------------------- Parser CLEAN ------------------------------
+*/
+
+int		clean_quotes(t_list *cmd_list);
+int		cl_letter(t_fsm_cmd *m, char *buf, char **cleaned);
+int		cl_flag_quote(t_fsm_cmd *m, char *buf, char **cleaned);
+int		cl_flag_dquote(t_fsm_cmd *m, char *buf, char **cleaned);
+int		cl_backslash(t_fsm_cmd *m, char *buf, char **cleaned);
 
 /*
 ** ------------------------------- OTHER ------------------------------

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 09:55:37 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 09:45:52 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 12:45:17 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int		sp_backslash(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 
 int		sp_flag_quote(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
-{
 	// if (buf[1] == '\'')
 	// {
 	// 	#ifdef DEBUG_PARSING
@@ -78,7 +77,6 @@ int		sp_flag_quote(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 	return (1);
 }
 
-}
 int		sp_flag_dquote(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 	// if (buf[1] == '"')

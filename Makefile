@@ -62,13 +62,10 @@ SRCS += p_fsm_subst_utils.c
 SRCS += p_lexer.c
 SRCS += p_lexer_fsm.c
 SRCS += p_lexer_fsm2.c
+SRCS += p_clean_quotes.c
+SRCS += p_fsm_clean_quotes.c
 SRCS += p_parsing_utils.c
 SRCS += p_filler_cmdpath_argv.c
-# SRCS += parsing_cmd_fsm.c
-# SRCS += parsing_cmd_fsm2.c
-# SRCS += parsing_cmd_utils.c
-# SRCS += p_fsm_other.c
-# SRCS += p_filler.c
 
 # Built in Sources
 SRCS += built_in.c
