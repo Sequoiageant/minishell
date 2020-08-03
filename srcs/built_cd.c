@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 18:25:04 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 18:55:49 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ int		handle_cd(char *dir, t_list *env)
 {
 	t_key_val	*key;
 
-	if ((key = find_key_val(env, "CDPATH")))
+	if (ft_strcmp(dir, "-") == 0)
+		return (cd_back_to_oldpwd(env));
+	if ((key = find_key_val(env, "CDPATH"))) // si CD PATH est set
 	{
 		(void)dir;
 		(void)env;
@@ -84,14 +86,15 @@ int		ms_cd(int argc, char **argv, t_list **env)
 	if (argc == 1)
 	{
 		if ((key = find_key_val(*env, "HOME")) == NULL || !ft_strcmp(key->val, ""))
-			return (cd_handle_home(key, old_pwd));
+			return (cd_home_not_set(key, old_pwd));
 		ret = chdir(key->val);
 	}
 	if (argc == 2)
 		ret = handle_cd(argv[1], *env);
 	if (ret == FAILURE)
 	{
-		ft_cd_perror(argv);
+		if (!(argc == 2 && ft_strcmp(argv[1], "-") == 0)) // dans le cas ou le probleme est lié à un cd -, on affiche pas le message d'erreur classique
+			ft_cd_perror(argv);
 		free(old_pwd);
 		return (FAILURE);
 	}

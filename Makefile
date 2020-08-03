@@ -63,7 +63,7 @@ SRCS += p_lexer.c
 SRCS += p_lexer_fsm.c
 SRCS += p_lexer_fsm2.c
 SRCS += p_clean_quotes.c
-SRCS += p_fsm_clean_quotes.c
+SRCS += p_clean_quotes_fsm.c
 SRCS += p_parsing_utils.c
 SRCS += p_filler_cmdpath_argv.c
 

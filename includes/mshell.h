@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 14:23:51 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 18:48:06 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,9 @@ void	ft_print_argv_list(t_list *argv_list);
 int			ft_built_in(t_cmd *cmd, int index, t_list **env);
 int			ms_echo(int argc, char *argv[], t_list **env);
 int			ms_cd(int argc, char *argv[], t_list **env);
-int			cd_handle_home(t_key_val *key, char *old_pwd);
+int			cd_home_not_set(t_key_val *key, char *old_pwd);
 int			cd_too_many_args(char *old_pwd);
+int			cd_back_to_oldpwd(t_list *env);
 int			ms_pwd(int argc, char *argv[], t_list **env);
 int			ms_export(int argc, char *argv[], t_list **env);
 int			ms_env(int argc, char *argv[], t_list **env);
