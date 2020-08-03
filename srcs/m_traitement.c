@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 14:10:17 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 16:05:50 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int		ft_traitement(t_list *pipe_list, t_list **env)
 			print_cmd_list(cmd_list);
 		#endif
 		clean_quotes(cmd_list);
+		fill_cmdlist_path(cmd_list, *env);
 		#ifdef DEBUG_PARSING
 			printf("\n--CLEANING DONE--\n");
 			printf("\nPrinting cmd_list\n");

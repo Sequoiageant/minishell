@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_substitution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/03 10:20:10 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/03 15:44:26 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,11 +197,11 @@ int ft_substitution(t_list *cmd_list, t_list *env)
 		substitute_redirs(&cmd->redir, cmd->flag_redir, env);
 		cmd->argv = ft_list_to_tab_argv(cmd->argv_list);
 		cmd->argc = ft_lstsize(cmd->argv_list);
-		if (cmd->argv[0])
-		{
-			if (fill_cmd_path(cmd, env) == FAILURE)
-				return (FAILURE);
-		}
+		// if (cmd->argv[0])
+		// {
+		// 	if (fill_cmd_path(cmd, env) == FAILURE)
+		// 		return (FAILURE);
+		// }
 		cmd_list = cmd_list->next;
 	}
 	return (SUCCESS);

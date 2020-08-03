@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_filler_cmdpath_argv.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 11:09:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 15:54:29 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/03 16:06:11 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,21 @@ int		fill_cmd_path(t_cmd *cmd, t_list *env)
 	return (SUCCESS);
 }
 
-int	fill_argv(t_cmd *cmd)
+int		fill_cmdlist_path(t_list *cmd_list, t_list *env)
+{
+	t_cmd *cmd;
+
+	while (cmd_list)
+	{
+		cmd = (t_cmd *)cmd_list->content;
+		if (cmd->argv[0])
+			fill_cmd_path(cmd, env);
+		cmd_list = cmd_list->next;
+	}
+	return (SUCCESS);
+}
+
+int		fill_argv(t_cmd *cmd)
 {
 	int i;
 
