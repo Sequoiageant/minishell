@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 17:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 16:46:29 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 10:03:09 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int			parsing_cmd(t_list *cmd_list, t_list *env)
 {
 	t_cmd	*cmd;
 
+	(void)env;
 	while (cmd_list)
 	{
 		cmd = (t_cmd*)cmd_list->content;
@@ -42,7 +43,7 @@ int			parsing_cmd(t_list *cmd_list, t_list *env)
 		// #endif
 		// if (parse_cmd_subst(cmd, env) == FAILURE)
 		// 	return (FAILURE);
-		fill_cmd(cmd, env);
+		// fill_cmd(cmd, env);
 		#ifdef DEBUG_PARSING
 			if(cmd_list->next)
 				printf("\nNEXT CMD\n");

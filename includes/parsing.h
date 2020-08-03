@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 14:20:11 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 09:35:10 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define NB_STATE_MULTI	5
 # define NB_STATE_SUBST	5
-# define NB_STATE_SPLIT	7
+# define NB_STATE_SPLIT	8
 # define NB_STATE_LEX	5
 
 # define REDIR_OUT		1
@@ -126,7 +126,8 @@ enum			e_state_split
 	SP_FLAG_DQUOTE,
 	SP_REDIR_ON,
 	SP_REDIR_OFF,
-	SP_WHITESPACE
+	SP_WHITESPACE,
+	SP_DOLLAR
 };
 
 typedef struct	s_fsm_cmd
@@ -195,6 +196,7 @@ int		sp_flag_redir_on(t_fsm_cmd *m, char *buf, t_cmd *cmd);
 int		sp_flag_redir_off(t_fsm_cmd *m, char *buf, t_cmd *cmd);
 int		sp_letter(t_fsm_cmd *m, char *buf, t_cmd *cmd);
 int		sp_whitespace(t_fsm_cmd *m, char *buf, t_cmd *cmd);
+int		sp_dollar(t_fsm_cmd *m, char *buf, t_cmd *cmd);
 
 /*
 ** ------------------------------- OTHER ------------------------------

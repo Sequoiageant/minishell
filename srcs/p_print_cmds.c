@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 17:29:46 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 14:25:07 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 10:04:25 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void	print_cmd(t_cmd *cmd)
 			ft_print_flag(cmd->flag);
 		if (cmd->redir)
 			ft_print_redir(cmd->redir);
+		if (cmd->flag_redir)
+			ft_print_flag_redir(cmd->flag_redir);
 		if (cmd->cmd_path)
 			printf(" cmdpath: %s\n", cmd->cmd_path);
 		printf("---------------------------------\n");

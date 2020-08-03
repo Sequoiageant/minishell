@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 09:55:37 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 16:47:41 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 09:45:52 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,17 @@ int		sp_backslash(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 	if (buf[1])
 	{
 		if (m->flag_redir)
+		{
 			ft_join_to_redir(char_to_str(buf[1]), cmd->redir);
+			if (buf[1] == '$')
+				ft_set_env_flag(cmd, FALSE, REDIR);
+		}
 		else
+		{
 			ft_join_to_argv(char_to_str(buf[1]), cmd);
+			if (buf[1] == '$')
+				ft_set_env_flag(cmd, FALSE, ARGV);
+		}
 		return (2);
 	}
 	return (1);
@@ -149,9 +157,17 @@ int		sp_letter(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 		printf("[%c] -> LETTER ", *buf);
 	#endif
 	if (m->flag_redir)
+	{
 		ft_join_to_redir(char_to_str(buf[0]), cmd->redir);
+		if (buf[0] == '$')
+			ft_set_env_flag(cmd, FALSE, REDIR);
+	}
 	else
+	{
 		ft_join_to_argv(char_to_str(buf[0]), cmd);
+		if (buf[0] == '$')
+			ft_set_env_flag(cmd, FALSE, ARGV);
+	}
 	return (1);
 }
 	
@@ -175,4 +191,28 @@ int		sp_whitespace(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 		#endif
 	}
 	return (ret);
+}
+
+int		sp_dollar(t_fsm_cmd *m, char *buf, t_cmd *cmd)
+{
+	int		i;
+	char	*str;
+
+	(void)m;
+	i = count_dollar_char(buf);
+	str = ft_substr(buf, 0, i + 1); // +1 car on compte le $
+	#ifdef DEBUG_PARSING
+		printf("[%s] -> SUBST ", str);
+	#endif
+	if (m->flag_redir)
+	{
+		ft_join_to_redir(str, cmd->redir);
+		ft_set_env_flag(cmd, TRUE, REDIR);
+	}
+	else
+	{
+		ft_join_to_argv(str, cmd);
+		ft_set_env_flag(cmd, TRUE, ARGV);
+	}
+	return (i + 1); // +1 car on compte le $
 }

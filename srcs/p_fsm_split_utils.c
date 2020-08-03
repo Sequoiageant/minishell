@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:19 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 12:17:04 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 09:39:52 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,3 +82,17 @@ int	ft_join_to_argv(char *added_str, t_cmd *cmd)
 	#endif
 	return (SUCCESS);
 }
+
+int		ft_set_env_flag(t_cmd *cmd, int val, int where)
+{
+	int		*ptr_val;
+
+	ptr_val = malloc(sizeof(int));
+	*ptr_val = val;
+	if (where == ARGV)
+		ft_lstadd_back(&cmd->flag, ft_lstnew(ptr_val));
+	if (where == REDIR)
+		ft_lstadd_back(&cmd->flag_redir, ft_lstnew(ptr_val));
+	return (SUCCESS);
+}
+
