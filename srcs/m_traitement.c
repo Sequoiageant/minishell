@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_traitement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 10:02:24 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 10:18:06 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		ft_traitement(t_list *pipe_list, t_list **env)
 			printf("\nPrinting cmd_list\n");
 			print_cmd_list(cmd_list);
 		#endif
-		// ft_substitution(cmd_list, *env);
+		ft_substitution(cmd_list, *env);
 		cmd = (t_cmd*)cmd_list->content;
 		if (ft_traitement_cmdlist(cmd_list, env) == EXIT_CODE)
 			ms_exit(pipe_list, cmd->argc, cmd->argv, env);
