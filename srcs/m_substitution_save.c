@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_substitution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/03 18:45:35 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/03 15:44:26 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ size_t	substitute_dollar(char **str, t_list *env)
 	return (i);
 }
 
-/*int	ft_handle_argv(char **tmp, t_list *env, t_list **flag, char c)
+int	ft_handle_argv(char **tmp, t_list *env, t_list **flag, char c)
 {
 	size_t	len;
 
@@ -93,38 +93,24 @@ size_t	substitute_dollar(char **str, t_list *env)
 		len = ft_strlen(*tmp) - 1;
 	return (len);
 }
-*/
-int		ft_substitute(char **str, t_list *env, t_list **flag)
+
+void	ft_substitute(char **str, t_list *env, t_list *flag)
 {
 	size_t	i;
 	size_t	len;
 	char	*tmp;
 	char	*final;
-	int		ret;
 
 	i = 0;
 	tmp = NULL;
 	final = NULL;
-	ret = FALSE;
 	while ((*str)[i])
 	{
 		len = 0;
 		tmp = ft_substr(*str, i, ft_strchr_pos(*str + i + 1, '$') + 1);
 		if (tmp)
 		{
-			if ((*str)[i] == '$')
-			{
-				if (*(int *)(*flag)->content == TRUE)
-				{
-					len = substitute_dollar(&tmp, env);
-					ret = TRUE;
-				}
-				else
-					len = ft_strlen(tmp) - 1;
-				(*flag) = (*flag)->next;
-			}
-			else
-				len = ft_strlen(tmp) - 1;
+			len = ft_handle_argv(&tmp, env, &flag, (*str)[i]);
 			ft_strjoin_back(tmp, &final);
 			free(tmp);
 		}
@@ -132,10 +118,9 @@ int		ft_substitute(char **str, t_list *env, t_list **flag)
 	}
 	if (final)
 		ft_realloc_or_free(&final, str);
-	return (ret);
 }
 
-void	lst_del_null_nodes(t_list **list)
+void	lst_del_node(t_list **list)
 {
 	t_list		*tmp;
 	t_list		*before;
@@ -164,51 +149,20 @@ void	lst_del_null_nodes(t_list **list)
 	}
 }
 
-size_t	tab2_size(char **tab)
-{
-	size_t			i;
-
-	i = 0;
-	while (tab[i] != NULL)
-		i++;
-	return (i);
-}
-
-void	ft_tab_to_list(t_list **list, char **tab)
-{
-	size_t	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		ft_lstadd_back(list, ft_lstnew(ft_strdup(tab[i])));
-		i++;
-	}
-}
-
-t_list *substitute_argv(t_list **argv_list, t_list	*flag, t_list *env)
+int substitute_cmd(t_list **argv_list, t_list	*flag, t_list *env)
 {
 	char	**argv;
-	char	**argv_split;
 	t_list	*tmp;
-	t_list	*new_argv_list;
 
 	tmp = *argv_list;
-	new_argv_list = NULL;
 	while (tmp)
 	{
 		argv = (char **)&tmp->content;
-		if (ft_substitute(argv, env, &flag) && (*argv)[0]!= '"' &&( *argv)[0] != '\'')
-		{
-			argv_split = ft_split(*argv, ' ');
-			ft_tab_to_list(&new_argv_list, argv_split);
-		}
-		else
-			ft_lstadd_back(&new_argv_list, ft_lstnew(ft_strdup(*argv)));
+		ft_substitute(argv, env, flag);
 		tmp = tmp->next;
 	}
-	lst_del_null_nodes(&new_argv_list);
-	return (new_argv_list);
+	lst_del_node(argv_list);
+	return (SUCCESS);
 }
 
 int substitute_redirs(t_list **redir_lst, t_list	*flag, t_list *env)
@@ -222,29 +176,27 @@ int substitute_redirs(t_list **redir_lst, t_list	*flag, t_list *env)
 	{
 		redir = (t_redir *)tmp->content;
 		original = ft_strdup(redir->file);
-		ft_substitute(&redir->file, env, &flag);
+		ft_substitute(&redir->file, env, flag);
 		if (redir->file == NULL)
 			redir->original = ft_strdup(original);
 		free(original);
 		tmp = tmp->next;
 	}
-	lst_del_null_nodes(redir_lst);
+	lst_del_node(redir_lst);
 	return (SUCCESS);
 }
 
-int ft_expansion(t_list *cmd_list, t_list *env)
+int ft_substitution(t_list *cmd_list, t_list *env)
 {
 	t_cmd	*cmd;
-	t_list	*new_argv_list;
 
 	while (cmd_list)
 	{
 		cmd = (t_cmd*)cmd_list->content;
-		new_argv_list = substitute_argv(&cmd->argv_list, cmd->flag, env);
+		substitute_cmd(&cmd->argv_list, cmd->flag, env);
 		substitute_redirs(&cmd->redir, cmd->flag_redir, env);
-		cmd->argv = ft_list_to_tab_argv(new_argv_list);
-		cmd->argc = ft_lstsize(new_argv_list);
-		ft_lstclear(&cmd->argv_list, &del_argv_list_elem);
+		cmd->argv = ft_list_to_tab_argv(cmd->argv_list);
+		cmd->argc = ft_lstsize(cmd->argv_list);
 		// if (cmd->argv[0])
 		// {
 		// 	if (fill_cmd_path(cmd, env) == FAILURE)

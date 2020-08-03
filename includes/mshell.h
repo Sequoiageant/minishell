@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 18:48:06 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 19:01:38 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void		ft_exec_cmd(t_list *cmd_elem, char **env_tab);
 void		ft_exec_solo_cmd(t_list *cmd_elem, char **env_tab);
 int			ft_choose_builtin_or_bin(t_list *cmd_list, t_list **env, char **env_tab);
 void		ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab);
-int			ft_substitution(t_list *cmd_list, t_list *env);
+int			ft_expansion(t_list *cmd_list, t_list *env);
 
 /*
 ** ------------------------------- Utils ------------------------------
@@ -110,6 +110,7 @@ void		del_env_node(t_list **env);
 void		del_argv_node(t_list **argv);
 void   		del_cmd(void *elem);
 void		del_pipe(void *elem);
+void		del_argv_list_elem(void *elem);
 char		*find_in_env_path(t_list *env, char *cmd);
 t_key_val	*find_key_val(t_list *env, char *key);
 char		*find_env_val(t_list *env, char *key);

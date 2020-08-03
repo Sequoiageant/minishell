@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_traitement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 16:20:10 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/03 16:35:59 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		ft_traitement(t_list *pipe_list, t_list **env)
 			printf("\nPrinting cmd_list\n");
 			print_cmd_list(cmd_list);
 		#endif
-		ft_substitution(cmd_list, *env);
+		ft_expansion(cmd_list, *env);
 		#ifdef DEBUG_PARSING
 			printf("\n--SUBST DONE--\n");
 			printf("\nPrinting cmd_list\n");
