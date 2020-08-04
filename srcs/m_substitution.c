@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_substitution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/04 09:56:43 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/04 12:11:52 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,31 @@ void	ft_realloc(char **new, char **src)
 		*src = *new;
 	}
 }
+
+void	preserve_quotes(char **str)
+{
+	char *tmp;
+	char *new;
+	int i;
+
+	if (*str == NULL)
+		return ;
+	i = 0;
+	tmp = *str;
+	new = ft_strdup(""); // on initialise new
+	while (tmp[i])
+	{
+		if (tmp[i] == '"' || tmp[i] == '\'' || tmp[i] == '\\')
+			ft_join_to_str(char_to_str('\\'), &new);
+		ft_join_to_str(char_to_str(tmp[i]), &new);
+		i++;
+	}
+	free(*str);
+	*str = new;
+	
+	printf("preserved str: [%s]\n", *str);
+}
+
 
 void	ft_realloc_or_free(char **final, char **src)
 {
@@ -65,7 +90,10 @@ size_t	substitute_dollar(char **str, t_list *env)
 		{
 			key_val = find_key_val(env, tmp);
 			if (key_val)
+			{
+				preserve_quotes(&key_val->val); // escape single quotes, double quotes and backslashes, if not they will be lost during "clean_quotes"
 				ret = ft_strdup(key_val->val);
+			}
 			else
 				ret = ft_strdup("");
 		}
