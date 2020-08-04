@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/04 14:54:13 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/04 15:35:36 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ size_t	tab2_size(char **tab)
 	i = 0;
 	while (tab[i] != NULL)
 		i++;
+	free_tab2(tab);
 	return (i);
 }
 
@@ -210,6 +211,7 @@ void	ft_tab_to_list(t_list **list, char **tab)
 		ft_lstadd_back(list, ft_lstnew(ft_strdup(tab[i])));
 		i++;
 	}
+	free_tab2(tab);
 }
 
 int		is_odd(int nb)
@@ -217,7 +219,7 @@ int		is_odd(int nb)
 	return ((nb % 2) != 0);
 }
 
-int		is_splitable(char *argv)
+int		is_splittable(char *argv)
 {
 	size_t	i;
 	int		count_before;
@@ -259,7 +261,7 @@ t_list *substitute_argv(t_list *argv_list, t_list *flag, t_list *env)
 		{
 			if (*argv)
 			{
-				if (is_splitable(argv_cpy))
+				if (is_splittable(argv_cpy))
 					ft_tab_to_list(&new_argv_list, ft_split_wp(*argv));
 				else
 					ft_lstadd_back(&new_argv_list, ft_lstnew(ft_strdup(*argv)));
@@ -289,7 +291,7 @@ int substitute_redirs(t_list **redir_lst, t_list *flag, t_list *env)
 		{
 			if (redir->file)
 			{
-				if (is_splitable(redir->original))
+				if (is_splittable(redir->original))
 				{
 					file_count = tab2_size(ft_split_wp(redir->file));
 					if (file_count > 1)
@@ -314,7 +316,7 @@ int ft_expansion(t_list *cmd_list, t_list *env)
 		substitute_redirs(&cmd->redir, cmd->flag_redir, env);
 		cmd->argv = ft_list_to_tab_argv(new_argv_list);
 		cmd->argc = ft_lstsize(new_argv_list);
-		ft_lstclear(&cmd->argv_list, &del_argv_list_elem);
+		ft_lstclear(&new_argv_list, &del_argv_list_elem);
 		// if (cmd->argv[0])
 		// {
 		// 	if (fill_cmd_path(cmd, env) == FAILURE)
