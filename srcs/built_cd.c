@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/08/04 16:12:38 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/04 16:37:49 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	ft_cd_perror(char **argv)
 
 int		handle_cd(char *dir, t_list *env)
 {
-	t_key_val	*key;
-
 	if (ft_strcmp(dir, "-") == 0)
 		return (cd_back_to_oldpwd(env));
 	// if ((key = find_key_val(env, "CDPATH"))) // si CD PATH est set
