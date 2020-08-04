@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/04 13:38:09 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/04 13:41:18 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void	preserve_quotes(char **str)
 	}
 	free(*str);
 	*str = new;
-	
-	printf("preserved str: [%s]\n", *str);
 }
 
 
