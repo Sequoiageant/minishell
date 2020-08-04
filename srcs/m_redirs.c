@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 11:31:47 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 16:42:58 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/04 14:38:52 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,12 @@ int			ft_handle_redir(t_redir *redir)
 	if (redir->state == REDIR_IN)
 		if (ft_redir_in(redir->file, redir->original) == FAILURE)
 			return (FAILURE);
+	if (redir->state == -1)
+	{
+		put_err(redir->original, ": ", "ambiguous redir", TRUE);
+		g_glob.ret = 1;
+		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
