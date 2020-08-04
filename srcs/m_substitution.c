@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/04 15:35:36 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/04 18:08:26 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,9 +214,9 @@ void	ft_tab_to_list(t_list **list, char **tab)
 	free_tab2(tab);
 }
 
-int		is_odd(int nb)
+int		is_even(int nb)
 {
-	return ((nb % 2) != 0);
+	return ((nb % 2) == 0);
 }
 
 int		is_splittable(char *argv)
@@ -241,7 +241,7 @@ int		is_splittable(char *argv)
 			count_after++;
 		i++;
 	}
-	if (!is_odd(count_before) && !is_odd(count_after))
+	if (is_even(count_before) && is_even(count_after))
 		return (TRUE);
 	return (FALSE);
 }

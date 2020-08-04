@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/30 17:04:29 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/04 17:56:07 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,25 @@ static void	print_sorted_list(t_list *env)
 			ft_putendl_fd("\"", 1);
 			free_tab2(tab);
 		}
+		else if (tab && (ft_strcmp(tab[0], "_") == 0))
+			free_tab2(tab);
 		i++;
 	}
 	free_tab2(env_tab);
 }
 
-static	int	handle_env(t_list **env, char **tab, char *arg, int ret)
+static	int	handle_env(t_list **env, char **tab, int ret)
 {
 	if (is_key_in_env(*env, tab[0]) && tab[1])
+	{
 		change_env_val(env, tab[0], tab[1]);
+		free(tab[0]);
+	}
 	else if (tab[1] && is_valid_identifier(tab[0]))
 		add_keyval_to_env(tab[0], tab[1], env);
 	else if (!is_valid_identifier(tab[0]))
 	{
-		put_err("export: `", arg, "': not a valid identifier", TRUE);
+		put_err("export: `", tab[0], "': not a valid identifier", TRUE);
 		return (FAILURE);
 	}
 	else if (!tab[1])
@@ -69,7 +74,7 @@ int			ms_export(int argc, char *argv[], t_list **env)
 		{
 			if ((tab = ft_split_env(argv[i])))
 			{
-				if ((ret = handle_env(env, tab, argv[i], ret)) == FAILURE)
+				if ((ret = handle_env(env, tab, ret)) == FAILURE)
 					free_tab2(tab);
 				else
 					free(tab);
