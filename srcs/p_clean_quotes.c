@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 12:21:56 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 15:43:10 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/04 16:46:16 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,11 @@ int			clean_quotes_cmd(t_cmd *cmd)
 	while (tmp)
 	{
 		redir = (t_redir *)tmp->content;
-		str = &redir->file;
-		clean_quotes_str(str);
+		if (redir->file)
+		{
+			str = &redir->file;
+			clean_quotes_str(str);
+		}
 		tmp = tmp->next;
 	}
 	return (SUCCESS);

@@ -6,17 +6,17 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 11:31:47 by grim              #+#    #+#             */
-/*   Updated: 2020/08/04 14:38:52 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/04 16:57:27 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-static int	ft_redir_out(char *file, char *original)
+static int	ft_redir_out(char *file)
 {
 	int fd;
-
+	
 	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	if (fd != -1)
 	{
@@ -25,17 +25,14 @@ static int	ft_redir_out(char *file, char *original)
 	}
 	else
 	{
-		if (file == NULL)
-			put_err(original, ": ", "ambiguous redir", TRUE);
-		else
-			put_err(file, ": ", strerror(errno), TRUE);
+		put_err(file, ": ", strerror(errno), TRUE);
 		g_glob.ret = 1;
 		return (FAILURE);
 	}
 	return (SUCCESS);
 }
 
-static int	ft_redir_append(char *file, char *original)
+static int	ft_redir_append(char *file)
 {
 	int fd;
 
@@ -47,27 +44,21 @@ static int	ft_redir_append(char *file, char *original)
 	}
 	else
 	{
-		if (file == NULL)
-			put_err(original, ": ", "ambiguous redir", TRUE);
-		else
-			put_err(file, ": ", strerror(errno), TRUE);
+		put_err(file, ": ", strerror(errno), TRUE);
 		g_glob.ret = 1;
 		return (FAILURE);
 	}
 	return (SUCCESS);
 }
 
-static int	ft_redir_in(char *file, char *original)
+static int	ft_redir_in(char *file)
 {
 	int fd;
 
 	fd = open(file, O_RDWR);
 	if (fd == -1)
 	{
-		if (file == NULL)
-			put_err(original, ": ", "ambiguous redir", TRUE);
-		else
-			put_err(file, ": ", strerror(errno), TRUE);
+		put_err(file, ": ", strerror(errno), TRUE);
 		g_glob.ret = 1;
 		return (FAILURE);
 	}
@@ -81,21 +72,21 @@ static int	ft_redir_in(char *file, char *original)
 
 int			ft_handle_redir(t_redir *redir)
 {
-	if (redir->state == REDIR_OUT)
-		if (ft_redir_out(redir->file, redir->original) == FAILURE)
-			return (FAILURE);
-	if (redir->state == REDIR_APPEND)
-		if (ft_redir_append(redir->file, redir->original) == FAILURE)
-			return (FAILURE);
-	if (redir->state == REDIR_IN)
-		if (ft_redir_in(redir->file, redir->original) == FAILURE)
-			return (FAILURE);
-	if (redir->state == -1)
+	if (redir->state == -1 || redir->file == NULL) // redir->state == -1 si le word spliting donne plus d'un argument, redir->file == NULL si substitution d'une variable non set
 	{
 		put_err(redir->original, ": ", "ambiguous redir", TRUE);
 		g_glob.ret = 1;
 		return (FAILURE);
 	}
+	if (redir->state == REDIR_OUT)
+		if (ft_redir_out(redir->file) == FAILURE)
+			return (FAILURE);
+	if (redir->state == REDIR_APPEND)
+		if (ft_redir_append(redir->file) == FAILURE)
+			return (FAILURE);
+	if (redir->state == REDIR_IN)
+		if (ft_redir_in(redir->file) == FAILURE)
+			return (FAILURE);
 	return (SUCCESS);
 }
 
