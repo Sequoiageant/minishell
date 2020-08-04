@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 18:12:14 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 18:57:49 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/04 16:11:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@ int	cd_back_to_oldpwd(t_list *env)
 		return (FAILURE);
 	}
 	else
+	{
+		ft_putendl_fd(oldpwd->val, 1);	
 		return (chdir(oldpwd->val));
+	}
 }

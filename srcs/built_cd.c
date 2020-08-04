@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 18:55:49 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/04 16:12:38 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ int		handle_cd(char *dir, t_list *env)
 
 	if (ft_strcmp(dir, "-") == 0)
 		return (cd_back_to_oldpwd(env));
-	if ((key = find_key_val(env, "CDPATH"))) // si CD PATH est set
-	{
-		(void)dir;
-		(void)env;
-		// cheche "dir" dans chaque element du CDPATH
-		// si ne trouve pas, va à ./dir
-	}
+	// if ((key = find_key_val(env, "CDPATH"))) // si CD PATH est set
+	// {
+	// 	(void)dir;
+	// 	(void)env;
+	// 	// cheche "dir" dans chaque element du CDPATH
+	// 	// si ne trouve pas, va à ./dir
+	// }
 	return (chdir(dir));
 }
 
