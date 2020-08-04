@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/03 18:45:35 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/04 09:56:43 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,28 +186,34 @@ void	ft_tab_to_list(t_list **list, char **tab)
 	}
 }
 
-t_list *substitute_argv(t_list **argv_list, t_list	*flag, t_list *env)
+t_list *substitute_argv(t_list *argv_list, t_list	*flag, t_list *env)
 {
 	char	**argv;
 	char	**argv_split;
-	t_list	*tmp;
 	t_list	*new_argv_list;
 
-	tmp = *argv_list;
 	new_argv_list = NULL;
-	while (tmp)
+	while (argv_list)
 	{
-		argv = (char **)&tmp->content;
-		if (ft_substitute(argv, env, &flag) && (*argv)[0]!= '"' &&( *argv)[0] != '\'')
+		argv = (char **)&argv_list->content;
+		if (ft_substitute(argv, env, &flag))
 		{
-			argv_split = ft_split(*argv, ' ');
-			ft_tab_to_list(&new_argv_list, argv_split);
+			if (*argv)
+			{
+				if ((*argv)[0]!= '"' && (*argv)[0] != '\'')
+				{
+					argv_split = ft_split(*argv, ' ');
+					ft_tab_to_list(&new_argv_list, argv_split);
+				}
+				else
+					ft_tab_to_list(&new_argv_list, argv);
+			}
 		}
 		else
 			ft_lstadd_back(&new_argv_list, ft_lstnew(ft_strdup(*argv)));
-		tmp = tmp->next;
+		argv_list = argv_list->next;
 	}
-	lst_del_null_nodes(&new_argv_list);
+	// lst_del_null_nodes(&new_argv_list);
 	return (new_argv_list);
 }
 
@@ -240,7 +246,7 @@ int ft_expansion(t_list *cmd_list, t_list *env)
 	while (cmd_list)
 	{
 		cmd = (t_cmd*)cmd_list->content;
-		new_argv_list = substitute_argv(&cmd->argv_list, cmd->flag, env);
+		new_argv_list = substitute_argv(cmd->argv_list, cmd->flag, env);
 		substitute_redirs(&cmd->redir, cmd->flag_redir, env);
 		cmd->argv = ft_list_to_tab_argv(new_argv_list);
 		cmd->argc = ft_lstsize(new_argv_list);
