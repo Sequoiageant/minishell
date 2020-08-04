@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_substitution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/04 13:41:18 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/04 14:54:13 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ int		ft_substitute(char **str, t_list *env, t_list **flag)
 	return (ret);
 }
 
-void	lst_del_null_nodes(t_list **list)
+/*void	lst_del_null_nodes(t_list **list)
 {
 	t_list		*tmp;
 	t_list		*before;
@@ -188,7 +188,7 @@ void	lst_del_null_nodes(t_list **list)
 		before = tmp;
 		tmp = tmp->next;
 	}
-}
+}*/
 
 size_t	tab2_size(char **tab)
 {
@@ -244,7 +244,7 @@ int		is_splitable(char *argv)
 	return (FALSE);
 }
 
-t_list *substitute_argv(t_list *argv_list, t_list	*flag, t_list *env)
+t_list *substitute_argv(t_list *argv_list, t_list *flag, t_list *env)
 {
 	char	**argv;
 	char	*argv_cpy;
@@ -270,28 +270,35 @@ t_list *substitute_argv(t_list *argv_list, t_list	*flag, t_list *env)
 		argv_list = argv_list->next;
 		ft_str_free(&argv_cpy);
 	}
-	// lst_del_null_nodes(&new_argv_list);
 	return (new_argv_list);
 }
 
-int substitute_redirs(t_list **redir_lst, t_list	*flag, t_list *env)
+int substitute_redirs(t_list **redir_lst, t_list *flag, t_list *env)
 {
 	t_redir	*redir;
 	t_list	*tmp;
-	char	*original;
+	size_t	file_count;
 
 	tmp = *redir_lst;
+	file_count = 0;
 	while (tmp)
 	{
 		redir = (t_redir *)tmp->content;
-		original = ft_strdup(redir->file);
-		ft_substitute(&redir->file, env, &flag);
-		if (redir->file == NULL)
-			redir->original = ft_strdup(original);
-		free(original);
+		redir->original = ft_strdup(redir->file);
+		if (ft_substitute(&redir->file, env, &flag))
+		{
+			if (redir->file)
+			{
+				if (is_splitable(redir->original))
+				{
+					file_count = tab2_size(ft_split_wp(redir->file));
+					if (file_count > 1)
+						redir->state = FAILURE;
+				}
+			}
+		}
 		tmp = tmp->next;
 	}
-	lst_del_null_nodes(redir_lst);
 	return (SUCCESS);
 }
 
