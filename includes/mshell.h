@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/04 11:56:14 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/04 14:57:12 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ int			ft_executable_cmd(t_list *cmd_list, t_list *env);
 int			ft_executable_cmd_single(t_list *cmd_list, t_list *env);
 int			contains_pipe(t_list *cmd_list);
 int			ft_build_pipes(t_list *cmd_list, int ***fd);
-void		dup_close_pipes(int *fd[2], int fd_in, int fd_out, int num);
+int			dup_close_pipes(int *fd[2], int fd_in, int fd_out, int num);
+void		close_wait_free(int *fd[2], int num_pipe, char **env_tab);
 void		close_pipes(int *fd[2], int num);
 void		ft_wait(int num_pipe);
 int			ft_redirs(t_cmd *cmd);
