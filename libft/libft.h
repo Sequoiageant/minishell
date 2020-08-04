@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 16:58:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/07/22 17:04:22 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/04 12:02:38 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ int				get_next_line(int fd, char **line);
 // int				ft_clean(int ret, t_fd **begin, t_fd **elem, int error);
 char			*ft_str_del_1_sur_2(char *a);
 int				ft_isalnum_str(char *str);
+char			**ft_split_wp(char const *str);
 
 #endif

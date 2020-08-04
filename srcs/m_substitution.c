@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/04 12:11:52 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/04 13:38:09 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,32 +214,63 @@ void	ft_tab_to_list(t_list **list, char **tab)
 	}
 }
 
+int		is_odd(int nb)
+{
+	return ((nb % 2) != 0);
+}
+
+int		is_splitable(char *argv)
+{
+	size_t	i;
+	int		count_before;
+	int		count_after;
+
+	i = 0;
+	count_before = 0;
+	count_after = 0;
+	while(argv[i] && argv[i] != '$')
+	{
+		if (argv[i] == '"')
+			count_before++;
+		i++;
+	}
+	i++;
+	while(argv[i] && argv[i] != '$')
+	{
+		if (argv[i] == '"')
+			count_after++;
+		i++;
+	}
+	if (!is_odd(count_before) && !is_odd(count_after))
+		return (TRUE);
+	return (FALSE);
+}
+
 t_list *substitute_argv(t_list *argv_list, t_list	*flag, t_list *env)
 {
 	char	**argv;
-	char	**argv_split;
+	char	*argv_cpy;
 	t_list	*new_argv_list;
 
 	new_argv_list = NULL;
 	while (argv_list)
 	{
 		argv = (char **)&argv_list->content;
+		argv_cpy = ft_strdup(*argv);
 		if (ft_substitute(argv, env, &flag))
 		{
 			if (*argv)
 			{
-				if ((*argv)[0]!= '"' && (*argv)[0] != '\'')
-				{
-					argv_split = ft_split(*argv, ' ');
-					ft_tab_to_list(&new_argv_list, argv_split);
-				}
+				if (is_splitable(argv_cpy))
+					ft_tab_to_list(&new_argv_list, ft_split_wp(*argv));
 				else
-					ft_tab_to_list(&new_argv_list, argv);
+					ft_lstadd_back(&new_argv_list, ft_lstnew(ft_strdup(*argv)));
 			}
 		}
 		else
 			ft_lstadd_back(&new_argv_list, ft_lstnew(ft_strdup(*argv)));
 		argv_list = argv_list->next;
+		ft_str_free(&argv_cpy);
 	}
 	// lst_del_null_nodes(&new_argv_list);
 	return (new_argv_list);

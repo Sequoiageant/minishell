@@ -62,6 +62,7 @@ SRCS += ft_putnbr_fd.c
 SRCS += ft_strncmp.c
 SRCS += get_next_line.c
 SRCS += ft_str_free.c
+SRCS += ft_split_whitespaces.c
 # SRCS += get_next_line_save.c
 # SRCS += get_next_line_utils_save.c
 
