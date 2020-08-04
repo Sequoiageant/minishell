@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_traitement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 16:35:59 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/04 12:05:05 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		ft_traitement_cmdlist(t_list *cmd_list, t_list **env)
 		else if (ft_strcmp(cmd->argv[0], "exit") == 0)
 			return (EXIT_CODE);
 		else
-			ft_executable_cmd(cmd_list, *env);
+			ft_executable_cmd_single(cmd_list, *env);
 	}
 	return (SUCCESS);
 }
