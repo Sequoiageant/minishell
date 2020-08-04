@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_substitution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/04 15:35:36 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/04 19:14:03 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,23 @@ void	ft_realloc(char **new, char **src)
 	}
 }
 
-void	preserve_quotes(char **str)
+char	*preserve_quotes(char *str)
 {
-	char *tmp;
 	char *new;
 	int i;
 
-	if (*str == NULL)
-		return ;
+	if (str == NULL)
+		return (NULL);
 	i = 0;
-	tmp = *str;
 	new = ft_strdup(""); // on initialise new
-	while (tmp[i])
+	while (str[i])
 	{
-		if (tmp[i] == '"' || tmp[i] == '\'' || tmp[i] == '\\')
+		if (str[i] == '"' || str[i] == '\'' || str[i] == '\\')
 			ft_join_to_str(char_to_str('\\'), &new);
-		ft_join_to_str(char_to_str(tmp[i]), &new);
+		ft_join_to_str(char_to_str(str[i]), &new);
 		i++;
 	}
-	free(*str);
-	*str = new;
+	return (new);
 }
 
 
@@ -88,10 +85,7 @@ size_t	substitute_dollar(char **str, t_list *env)
 		{
 			key_val = find_key_val(env, tmp);
 			if (key_val)
-			{
-				preserve_quotes(&key_val->val); // escape single quotes, double quotes and backslashes, if not they will be lost during "clean_quotes"
-				ret = ft_strdup(key_val->val);
-			}
+				ret = preserve_quotes(key_val->val); // escape single quotes, double quotes and backslashes, if not they will be lost during "clean_quotes"
 			else
 				ret = ft_strdup("");
 		}
