@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 09:55:37 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:09:59 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:21:58 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int		sp_flag_redir_on(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 	int		offset;
 	t_redir	*redir;
-	
+
 	redir = malloc(sizeof(t_redir));
 	redir->file = ft_strdup("");
 	redir->original = NULL;
@@ -85,11 +85,10 @@ int		sp_flag_redir_off(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 	(void)m;
 	(void)buf;
 	(void)cmd;
-	
 	m->flag_redir = OFF;
 	return (0);
-	
 }
+
 int		sp_letter(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 	(void)m;
@@ -107,18 +106,18 @@ int		sp_letter(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 	}
 	return (1);
 }
-	
+
 int		sp_whitespace(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
 	int ret;
-	
+
 	(void)m;
 	(void)cmd;
 	ret = 0;
 	while (buf[ret] == TAB || buf[ret] == SPACE)
 		ret++;
 	if (ft_is_special(buf[ret]) == FALSE)
-		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); 
+		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup("")));
 	return (ret);
 }
 

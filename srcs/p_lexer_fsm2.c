@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/30 12:08:29 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:05:23 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:29:08 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,26 @@ static int	rien_apres(char *apres)
 	return (FALSE);
 }
 
-int		lex_check_avant(t_fsm_lexer *m, char *buf, int i)
+int			lex_check_avant(t_fsm_lexer *m, char *buf, int i)
 {
 	(void)m;
-    if (rien_avant(ft_substr(buf, 0, i)) == TRUE)
+	if (rien_avant(ft_substr(buf, 0, i)) == TRUE)
 		return (FAILURE);
 	return (1);
 }
 
-int		lex_check_apres(t_fsm_lexer *m, char *buf, int i)
+int			lex_check_apres(t_fsm_lexer *m, char *buf, int i)
 {
-    (void)m;
-    if (buf[i] == '<')
-        if (rien_apres(ft_substr(buf, i + 1, ft_strlen(buf))) == TRUE)
-            return (FAILURE);
-    if (buf[i] == '>')
-    {
-        if (buf[i + 1] == '>')
-            i++;
-        if (rien_apres(ft_substr(buf, i + 1, ft_strlen(buf))) == TRUE)
-            return (FAILURE);
-    }
+	(void)m;
+	if (buf[i] == '<')
+		if (rien_apres(ft_substr(buf, i + 1, ft_strlen(buf))) == TRUE)
+			return (FAILURE);
+	if (buf[i] == '>')
+	{
+		if (buf[i + 1] == '>')
+			i++;
+		if (rien_apres(ft_substr(buf, i + 1, ft_strlen(buf))) == TRUE)
+			return (FAILURE);
+	}
 	return (1);
 }

@@ -6,63 +6,62 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:19 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:01:16 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:23:23 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-
-int set_redir_state(char *buf, int *state)
+int	set_redir_state(char *buf, int *state)
 {
-    int ret;
-    
+	int ret;
+
 	if (buf[0] == '>' && buf[1] == '>')
-    {
+	{
 		ret = 2;
-        *state = REDIR_APPEND;
-    }
+		*state = REDIR_APPEND;
+	}
 	else
-    {
-        if (buf[0] == '>')
-            *state = REDIR_OUT;
-        if (buf[0] == '<')
-            *state = REDIR_IN;
+	{
+		if (buf[0] == '>')
+			*state = REDIR_OUT;
+		if (buf[0] == '<')
+			*state = REDIR_IN;
 		ret = 1;
-    }
+	}
 	while (buf[ret] == 9 || buf[ret] == 32)
 		ret++;
-    return (ret);
+	return (ret);
 }
 
-int ft_join_to_str(char *added_str, char **initial_str)
+int	ft_join_to_str(char *added_str, char **initial_str)
 {
-    char *tmp;
-    
+	char *tmp;
+
 	tmp = *initial_str;
 	if ((*initial_str = ft_strjoin(tmp, added_str)) == NULL)
 		return (FAILURE);
-    free(tmp);
-    free(added_str);
-    return (SUCCESS);
+	free(tmp);
+	free(added_str);
+	return (SUCCESS);
 }
 
-int ft_join_to_redir(char *added_str, t_list *redir_list)
+int	ft_join_to_redir(char *added_str, t_list *redir_list)
 {
 	t_redir	*redir;
- 
+
 	while (redir_list->next)
 		redir_list = redir_list->next;
 	redir = (t_redir*)redir_list->content;
 	ft_join_to_str(added_str, &redir->file);
-    return (SUCCESS);
+	return (SUCCESS);
 }
 
 int	ft_join_to_argv(char *added_str, t_cmd *cmd)
 {
-	
 	t_list	*tmp;
+
 	if (ft_lstsize(cmd->argv_list) == 0)
 		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup("")));
 	tmp = cmd->argv_list;
@@ -77,7 +76,7 @@ int	ft_join_to_argv(char *added_str, t_cmd *cmd)
 	return (SUCCESS);
 }
 
-int		ft_set_env_flag(t_cmd *cmd, int val, int where)
+int	ft_set_env_flag(t_cmd *cmd, int val, int where)
 {
 	int		*ptr_val;
 

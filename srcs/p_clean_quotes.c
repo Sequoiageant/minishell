@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 12:21:56 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:07:23 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:33:19 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		chose_state(char *buf, t_fsm_cmd *machine)
 		machine->state = SP_LETTER;
 }
 
-int			clean_quotes_str(char **cleaned)
+int				clean_quotes_str(char **cleaned)
 {
 	t_fsm_cmd			machine;
 	static t_func_clean	func[NB_CLEANER] = {cl_letter, cl_backslash,
@@ -47,7 +47,7 @@ int			clean_quotes_str(char **cleaned)
 	int					ret;
 	char				*buf;
 	char				*save;
-	
+
 	buf = ft_strdup(*cleaned);
 	save = buf;
 	free(*cleaned);
@@ -66,12 +66,12 @@ int			clean_quotes_str(char **cleaned)
 	return (SUCCESS);
 }
 
-int			clean_quotes_cmd(t_cmd *cmd)
+int				clean_quotes_cmd(t_cmd *cmd)
 {
-	char **str;
-	t_redir *redir;
-	int i;
-	t_list *tmp;
+	char	**str;
+	t_redir	*redir;
+	int		i;
+	t_list	*tmp;
 
 	i = 0;
 	while (cmd->argv[i])
@@ -94,7 +94,7 @@ int			clean_quotes_cmd(t_cmd *cmd)
 	return (SUCCESS);
 }
 
-int			clean_quotes(t_list *cmd_list)
+int				clean_quotes(t_list *cmd_list)
 {
 	t_cmd	*cmd;
 

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:58:58 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:04:35 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:25:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int		fsm_backslash(char *buf, t_state_machine *m, t_list *e, t_list **p_list)
 {
 	(void)m;
 	(void)e;
-	
 	if (ft_join_to_cmd_buf(char_to_str(buf[0]), *p_list) == FAILURE)
 		return (FAILURE);
 	if (buf[1] && ft_join_to_cmd_buf(char_to_str(buf[1]), *p_list) == FAILURE)
@@ -72,7 +71,7 @@ int		fsm_flag(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 	return (1);
 }
 
-int			fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
+int		fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p_list)
 {
 	(void)m;
 	(void)env;

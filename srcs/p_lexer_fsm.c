@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:55:50 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:09:45 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:29:34 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 int			lex_backslash(t_fsm_lexer *m, char *buf, int i)
 {
 	(void)m;
-	
 	if (buf[i + 1])
 		return (2);
 	else

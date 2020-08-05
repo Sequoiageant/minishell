@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 17:57:28 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:21:09 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int			split_buf(char *buf, t_list *env, t_list **pipe_list)
 	ft_lstadd_back(pipe_list, ft_lstnew(NULL));
 	add_cmd(*pipe_list);
 	if (parser_split_buf(buf, env, pipe_list) == FAILURE)
-		return (FAILURE);	
+		return (FAILURE);
 	return (SUCCESS);
 }
 
@@ -39,7 +39,7 @@ int			parsing_cmd(t_list *cmd_list)
 int			split_cmd(t_list *pipe_list)
 {
 	t_list *cmd_list;
-	
+
 	while (pipe_list)
 	{
 		cmd_list = (t_list *)pipe_list->content;
@@ -48,7 +48,6 @@ int			split_cmd(t_list *pipe_list)
 		pipe_list = pipe_list->next;
 	}
 	return (SUCCESS);
-	
 }
 
 int			parser_split(char *buf, t_list *env, t_list **pipe_list)

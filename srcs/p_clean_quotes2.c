@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 12:43:54 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:06:52 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:31:26 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 int		cl_backslash(t_fsm_cmd *m, char *buf, char **cleaned)
 {
-	(void)m;	
+	(void)m;
 	if (buf[1])
 	{
-        ft_join_to_str(char_to_str(buf[1]), cleaned);
+		ft_join_to_str(char_to_str(buf[1]), cleaned);
 		return (2);
 	}
 	return (1);
@@ -27,7 +27,7 @@ int		cl_backslash(t_fsm_cmd *m, char *buf, char **cleaned)
 int		cl_flag_quote(t_fsm_cmd *m, char *buf, char **cleaned)
 {
 	(void)buf;
-    (void)cleaned;	
+	(void)cleaned;
 	if (m->flag_quote == ON)
 		m->flag_quote = OFF;
 	else
@@ -38,7 +38,7 @@ int		cl_flag_quote(t_fsm_cmd *m, char *buf, char **cleaned)
 int		cl_flag_dquote(t_fsm_cmd *m, char *buf, char **cleaned)
 {
 	(void)buf;
-    (void)cleaned;	
+	(void)cleaned;
 	if (m->flag_dquote == ON)
 		m->flag_dquote = OFF;
 	else
@@ -49,6 +49,6 @@ int		cl_flag_dquote(t_fsm_cmd *m, char *buf, char **cleaned)
 int		cl_letter(t_fsm_cmd *m, char *buf, char **cleaned)
 {
 	(void)m;
-    ft_join_to_str(char_to_str(buf[0]), cleaned);
+	ft_join_to_str(char_to_str(buf[0]), cleaned);
 	return (1);
 }
