@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:45 by grim              #+#    #+#             */
-/*   Updated: 2020/08/04 12:05:05 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 11:42:30 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,6 @@ int		ft_traitement(t_list *pipe_list, t_list **env)
 	while (pipe_list)
 	{
 		cmd_list = (t_list*)pipe_list->content;
-		parsing_cmd(cmd_list, *env);
-		#ifdef DEBUG_PARSING
-			printf("\n--PARSING DONE--\n");
-			printf("\nPrinting cmd_list\n");
-			print_cmd_list(cmd_list);
-		#endif
 		ft_expansion(cmd_list, *env);
 		#ifdef DEBUG_PARSING
 			printf("\n--SUBST DONE--\n");

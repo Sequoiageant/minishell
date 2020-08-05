@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 12:56:04 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 11:41:12 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,28 +63,61 @@ int			parser(char *buf, t_list *env, t_list **pipe_list)
 	return (SUCCESS);
 }
 
-int			ft_parse(char *buf, t_list *env, t_list **pipe_list)
+int			split_buf(char *buf, t_list *env, t_list **pipe_list)
 {
 	#ifdef DEBUG_PARSING
-		printf("LEXER \n");
+		printf("\n SPLIT BUF\n");
 	#endif
+	ft_lstadd_back(pipe_list, ft_lstnew(NULL));
+	add_cmd(*pipe_list);
+	if (parser(buf, env, pipe_list) == FAILURE)
+		return (FAILURE);	
+	#ifdef DEBUG_PARSING
+		printf("\nPrinting pipe_list\n");
+		print_pipe_list(*pipe_list);
+	#endif
+	return (SUCCESS);
+}
+
+int			split_cmd(t_list *env, t_list *pipe_list)
+{
+	t_list *cmd_list;
+	
+	#ifdef DEBUG_PARSING
+		printf("\n SPLIT CMD\n");
+	#endif
+	while (pipe_list)
+	{
+		cmd_list = (t_list *)pipe_list->content;
+		parsing_cmd(cmd_list, env);
+		pipe_list = pipe_list->next;
+		#ifdef DEBUG_PARSING
+			printf("\nPrinting cmd_list\n");
+			print_cmd_list(cmd_list);
+		#endif
+	}
+	return (SUCCESS);
+	
+}
+
+int			parser_split(char *buf, t_list *env, t_list **pipe_list)
+{
+	if (split_buf(buf, env, pipe_list) == FAILURE)
+		return (FAILURE);
+	if (split_cmd(env, *pipe_list) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+int			ft_parse(char *buf, t_list *env, t_list **pipe_list)
+{
 	if (lexer(buf) == FAILURE)
 	{
 		g_glob.ret = 2;
 		ft_putstr_fd("synthax error\n", 2);
 		return (FAILURE);
 	}
-	ft_lstadd_back(pipe_list, ft_lstnew(NULL));
-	if (add_cmd(*pipe_list) == FAILURE)
+	if (parser_split(buf, env, pipe_list) == FAILURE)
 		return (FAILURE);
-	#ifdef DEBUG_PARSING
-		printf("\nPARSING MULTI\n");
-	#endif
-	if (parser(buf, env, pipe_list) == FAILURE)
-		return (FAILURE);
-	#ifdef DEBUG_PARSING
-		printf("\nPrinting pipe_list\n");
-		print_pipe_list(*pipe_list);
-	#endif
 	return (EXIT_SUCCESS);
 }
