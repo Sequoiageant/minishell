@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 15:06:54 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:46:47 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,19 @@ void		ft_exec_cmd(t_list *cmd_elem, char **env_tab);
 void		ft_exec_solo_cmd(t_list *cmd_elem, char **env_tab);
 int			ft_choose_builtin_or_bin(t_list *cmd_list, t_list **env, char **env_tab);
 void		ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab);
+
+/*
+** ---------------------------- Substitution --------------------------
+*/
+
 int			ft_expansion(t_list *cmd_list, t_list *env);
+int			ft_handle_argv(char **tmp, t_list *env, t_list **flag, int ret);
+int			is_even(int nb);
+void		ft_tab_to_list(t_list **list, char **tab);
+size_t		tab2_size(char **tab);
+size_t		ft_strclen(const char *s, int c);
+void		ft_realloc(char **new, char **src);
+void		ft_realloc_or_free(char **final, char **src);
 
 /*
 ** ------------------------------- Utils ------------------------------
