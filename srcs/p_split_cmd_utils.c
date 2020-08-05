@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_fsm_split_utils.c                                :+:      :+:    :+:   */
+/*   p_split_cmd_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 15:58:19 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 09:39:52 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:01:16 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ int ft_join_to_redir(char *added_str, t_list *redir_list)
 		redir_list = redir_list->next;
 	redir = (t_redir*)redir_list->content;
 	ft_join_to_str(added_str, &redir->file);
-    #ifdef DEBUG_PARSING
-		printf("file: [%s]\n", redir->file);
-	#endif
     return (SUCCESS);
 }
 
@@ -66,8 +63,8 @@ int	ft_join_to_argv(char *added_str, t_cmd *cmd)
 {
 	
 	t_list	*tmp;
-	if (ft_lstsize(cmd->argv_list) == 0) // = on a pas encore rencontré de whitespace
-		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup(""))); // on prépare le premier maillon de la chaine
+	if (ft_lstsize(cmd->argv_list) == 0)
+		ft_lstadd_back(&cmd->argv_list, ft_lstnew(ft_strdup("")));
 	tmp = cmd->argv_list;
 	while (tmp->next)
 		tmp = tmp->next;
@@ -77,9 +74,6 @@ int	ft_join_to_argv(char *added_str, t_cmd *cmd)
 	}
 	else
 		ft_join_to_str(added_str, (char **)&tmp->content);
-    #ifdef DEBUG_PARSING
-		printf("argv: [%s]\n", tmp->content);
-	#endif
 	return (SUCCESS);
 }
 
@@ -95,4 +89,3 @@ int		ft_set_env_flag(t_cmd *cmd, int val, int where)
 		ft_lstadd_back(&cmd->flag_redir, ft_lstnew(ptr_val));
 	return (SUCCESS);
 }
-

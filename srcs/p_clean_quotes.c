@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 12:21:56 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 16:59:15 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:07:23 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,10 @@ int			clean_quotes_str(char **cleaned)
 	char				*buf;
 	char				*save;
 	
-	buf = ft_strdup(*cleaned); // on initialise buf, que l'on va parser
-	save = buf; // on save buf pour pouvoir le free à la fin
-	free(*cleaned); // on free la string initiale
-	*cleaned = ft_strdup(""); // on initialise *cleaned avec une chaine vide (pour ne pas avoir de problème avec les ft_strjoin)
-	// on remplira *cleaned au fur et a mesure du parsing de "buf", avec des ft_strjoin
+	buf = ft_strdup(*cleaned);
+	save = buf;
+	free(*cleaned);
+	*cleaned = ft_strdup("");
 	machine.flag_dquote = 0;
 	machine.flag_quote = 0;
 	while (*buf != '\0')
@@ -102,9 +101,6 @@ int			clean_quotes(t_list *cmd_list)
 	while (cmd_list)
 	{
 		cmd = (t_cmd*)cmd_list->content;
-		#ifdef DEBUG_PARSING
-			printf("\nPARSING CLEAN\n");
-		#endif
 		if (clean_quotes_cmd(cmd) == FAILURE)
 			return (FAILURE);
 		cmd_list = cmd_list->next;

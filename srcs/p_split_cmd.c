@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 09:55:37 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 16:59:48 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:03:57 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ static void		chose_state(char *buf, t_fsm_cmd *machine)
 		machine->state = SP_FLAG_QUOTE;
 	else if (*buf == '\\' && backslash_activated(buf, machine))
 		machine->state = SP_BACKSLASH;
-	else if ((*buf == '>' || *buf == '<') && // activer le flag
+	else if ((*buf == '>' || *buf == '<') && 
 	!machine->flag_quote && !machine->flag_dquote)
 		machine->state = SP_REDIR_ON;
-	else if ((*buf == TAB || *buf == SPACE) && machine->flag_redir &&// desactiver le flag redir lorsqu'on rencontre un espace ou un tab non "escapés"
+	else if ((*buf == TAB || *buf == SPACE) && machine->flag_redir && 
 	!machine->flag_quote && !machine->flag_dquote)
 		machine->state = SP_REDIR_OFF;
 	else if (*buf == '$' && !machine->flag_quote && ft_is_dollar_start(buf[1]))
 		machine->state = SP_DOLLAR;
-	else if (!machine->flag_quote && !machine->flag_dquote && !machine->flag_redir // les whitespace dans les redir sont gérés a part
+	else if (!machine->flag_quote && !machine->flag_dquote && !machine->flag_redir 
 	&& (*buf == TAB || *buf == SPACE))
 		machine->state = SP_WHITESPACE;
 	else
@@ -59,8 +59,8 @@ int				parser_split_cmd(t_cmd *cmd)
 	char				*buf;
 	char				*save;
 	
-	buf = ft_strdup(cmd->buf); // on initialise buf, que l'on va parser
-	save = buf; // on save buf pour pouvoir le free à la fin
+	buf = ft_strdup(cmd->buf);
+	save = buf;
 	machine.flag_dquote = 0;
 	machine.flag_quote = 0;
 	machine.flag_redir = 0;

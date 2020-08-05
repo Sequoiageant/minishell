@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 09:34:41 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 16:36:40 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:04:57 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ int		ft_join_to_cmd_buf(char *str, t_list *pipe_list)
 		return (FAILURE);
 	free(tmp);
 	free(str);
-	#ifdef DEBUG_PARSING
-		printf("buf: [%s]\n", cmd->buf);
-	#endif
 	return (1);
 }
 

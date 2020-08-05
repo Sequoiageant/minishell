@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 16:28:39 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 17:57:28 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,10 @@
 
 int			split_buf(char *buf, t_list *env, t_list **pipe_list)
 {
-	#ifdef DEBUG_PARSING
-		printf("\n SPLIT BUF\n");
-	#endif
 	ft_lstadd_back(pipe_list, ft_lstnew(NULL));
 	add_cmd(*pipe_list);
 	if (parser_split_buf(buf, env, pipe_list) == FAILURE)
 		return (FAILURE);	
-	#ifdef DEBUG_PARSING
-		printf("\nPrinting pipe_list\n");
-		print_pipe_list(*pipe_list);
-	#endif
 	return (SUCCESS);
 }
 
@@ -36,15 +29,8 @@ int			parsing_cmd(t_list *cmd_list)
 	while (cmd_list)
 	{
 		cmd = (t_cmd*)cmd_list->content;
-		#ifdef DEBUG_PARSING
-			printf("\nPARSING SPLIT\n");
-		#endif
 		if (parser_split_cmd(cmd) == FAILURE)
 			return (FAILURE);
-		#ifdef DEBUG_PARSING
-			if(cmd_list->next)
-				printf("\nNEXT CMD\n");
-		#endif
 		cmd_list = cmd_list->next;
 	}
 	return (SUCCESS);
@@ -54,19 +40,12 @@ int			split_cmd(t_list *pipe_list)
 {
 	t_list *cmd_list;
 	
-	#ifdef DEBUG_PARSING
-		printf("\n SPLIT CMD\n");
-	#endif
 	while (pipe_list)
 	{
 		cmd_list = (t_list *)pipe_list->content;
 		if (parsing_cmd(cmd_list) == FAILURE)
 			return (FAILURE);
 		pipe_list = pipe_list->next;
-		#ifdef DEBUG_PARSING
-			printf("\nPrinting cmd_list\n");
-			print_cmd_list(cmd_list);
-		#endif
 	}
 	return (SUCCESS);
 	

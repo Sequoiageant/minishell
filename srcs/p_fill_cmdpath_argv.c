@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_filler_cmdpath_argv.c                            :+:      :+:    :+:   */
+/*   p_fill_cmdpath_argv.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 11:09:47 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 16:06:11 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:05:51 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int		ft_ckeck_bin(DIR *dir, char *cmd)
 	{
 		if (ft_strcmp(dir_content->d_name, cmd) == 0)
 		{
-			// printf("Cmd found: %s\n", dir_content->d_name);
 			closedir(dir);
 			return (TRUE);
 		}

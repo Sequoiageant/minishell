@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 11:29:23 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 16:58:59 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:05:45 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,6 @@ int	lexer(char *buf)
 	int					ret;
 	int					i;
 	
-	#ifdef DEBUG_PARSING
-		printf("LEXER \n");
-	#endif
 	i = 0;
 	machine.flag_dquote = 0;
 	machine.flag_quote = 0;
