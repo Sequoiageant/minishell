@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/07/30 18:11:00 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 12:58:22 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,66 @@ void	ft_shell_init(t_list **env)
 		add_keyval_to_env(ft_strdup("SHLVL"), tmp, env);
 }
 
+void	delete_bn(char **str)
+{
+	size_t	i;
+
+	i = 0;
+	while((*str)[i])
+	{
+		if ((*str)[i] == '\n')
+			(*str)[i] = '\0';
+		i++;
+	}
+}
+
+void	ft_realloc2(char **new, char **src)
+{
+	if (new == NULL || src == NULL)
+		return ;
+	if (*src)
+	{
+		free(*src);
+		*src = NULL;
+		*src = *new;
+	}
+	else
+		*src = *new;
+}
+
+
 int		main(void)
+{
+	t_list	*env;
+	char	buf[BUFFER_SIZE + 1];
+	char	*str;
+	char	*tmp;
+
+	str = NULL;
+	tmp = NULL;
+	ft_init(&env);
+	ft_shell_init(&env);
+	if (signal(SIGINT, signal_handler) == SIG_ERR)
+		return (1);
+	if (signal(SIGQUIT, signal_handler) == SIG_ERR)
+		return (1);
+	ft_putstr_fd("cmd: ", 1);
+	ft_bzero(buf, BUFFER_SIZE);
+	while (read(STDIN_FILENO, buf, BUFFER_SIZE) > 0)
+	{
+		ft_strjoin_back(buf, &tmp);
+		str = ft_strdup(tmp);
+		delete_bn(&str);
+		ft_handle(str, &env);
+		ft_str_free(&tmp);
+		ft_putstr_fd("cmd: ", 1);
+	}
+	ft_lstclear(&env, &del_key_val);
+	ft_putendl_fd("exit", 1);
+	return (g_glob.ret);
+}
+
+/*int		main(void)
 {
 	t_list	*env;
 	char	*buf;
@@ -100,4 +159,4 @@ int		main(void)
 	ft_lstclear(&env, &del_key_val);
 	ft_putendl_fd("exit", 1);
 	return (g_glob.ret);
-}
+}*/

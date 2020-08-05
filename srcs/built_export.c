@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/04 17:56:07 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 11:44:09 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,16 @@ static	int	handle_env(t_list **env, char **tab, int ret)
 	else if (!is_valid_identifier(tab[0]))
 	{
 		put_err("export: `", tab[0], "': not a valid identifier", TRUE);
+		free(tab[0]);
+		free(tab[1]);
 		return (FAILURE);
 	}
 	else if (!tab[1])
+	{
+		free(tab[0]);
+		free(tab[1]);
 		return (FAILURE);
+	}
 	return (ret == FAILURE ? FAILURE : SUCCESS);
 }
 
@@ -74,10 +80,8 @@ int			ms_export(int argc, char *argv[], t_list **env)
 		{
 			if ((tab = ft_split_env(argv[i])))
 			{
-				if ((ret = handle_env(env, tab, ret)) == FAILURE)
-					free_tab2(tab);
-				else
-					free(tab);
+				ret = handle_env(env, tab, ret);
+				free(tab);
 			}
 			else
 				ret = FAILURE;

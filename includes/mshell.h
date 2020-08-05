@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/04 14:57:12 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 12:28:31 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 #define CTRLBACK_RET	131
 #define NB_BLT			6
 #define EXIT_CODE		2
+#define BUFFER_SIZE		32
+
+
 
 typedef int (*t_built)(int argc, char *argv[], t_list **env);
 
