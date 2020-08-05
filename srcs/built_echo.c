@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_echo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:34 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 14:47:17 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/24 11:31:15 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,12 @@ void	ms_echo_suite(int argc, char *argv[], int num_opt)
 	i = num_opt + 1;
 	while (i < argc - 1)
 	{
-		if (ft_strcmp(argv[i], "?") == 0)
-			ft_putnbr_fd(g_glob.ret, 1);
-		else
-			ft_putstr_fd(argv[i], 1);
+		ft_putstr_fd(argv[i], 1);
 		ft_putstr_fd(" ", 1);
 
 		i++;
 	}
-	if (ft_strcmp(argv[i], "?") == 0)
-		ft_putnbr_fd(g_glob.ret, 1);
-	else
-		ft_putstr_fd(argv[i], 1);
+	ft_putstr_fd(argv[i], 1);
 	if (num_opt == 0) // pas de "-n"
 		ft_putstr_fd("\n", 1);
 }

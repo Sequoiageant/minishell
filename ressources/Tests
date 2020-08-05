@@ -1,0 +1,197 @@
+echo "basile" "$test"
+test = "foo  bar"
+
+1ER SPLIT
+argv[0] echo
+argv[1] "basile"
+argv[2] "$test"
+argv[3] $test
+
+SUBST
+echo "basile" "$test"
+argv[0] echo
+argv[1] "basile"
+argv[2] "foo  bar"
+argv[3] foo  bar
+
+WORD SPLIT
+echo "basile" "$test"
+argv[0] echo
+argv[1] "basile"
+argv[2] "foo  bar"
+argv[3] foo
+argv[3] bar
+
+SUPPR / " et '
+echo "basile" "$test"
+argv[0] echo
+argv[1] basile
+argv[2] foo  bar
+argv[3] foo
+argv[3] bar
+
+------------------------------------------------------
+echo "\"basile" "$test"
+test = "foo  bar"
+
+1ER SPLIT
+echo "\"basile" "$test"
+argv[0] echo
+argv[1] "\"basile"
+argv[2] "$test"
+argv[3] $test
+
+SUBST
+echo "basile" "$test"
+argv[0] echo
+argv[1] "\"basile"
+argv[2] "foo  bar"
+argv[3] foo  bar
+
+WORD SPLIT
+echo "basile" "$test"
+argv[0] echo
+argv[1] "\"basile"
+argv[2] "foo  bar"
+argv[3] foo
+argv[3] bar
+
+SUPPR / " et '
+echo "basile" "$test"
+argv[0] echo
+argv[1] "basile
+argv[2] foo  bar
+argv[3] foo
+argv[3] bar
+
+------------------------------------------------------
+
+echo "basile" "$test" $test
+test non set
+
+1ER SPLIT
+
+argv[0] echo
+argv[1] "\"basile"
+argv[2] "$test"
+argv[3] $test
+
+SUBST
+echo "basile" "$test"
+argv[0] echo
+argv[1] "basile"
+argv[2] ""
+argv[3] []
+
+WORD SPLIT
+echo "basile" "$test"
+argv[0] echo
+argv[1] "basile"
+argv[2] []
+
+SUPPR / " et '
+echo "basile" "$test"
+argv[0] echo
+argv[1] "basile
+argv[2] foo  bar
+argv[3] foo
+argv[3] bar
+
+------------------------------------------------------
+
+echo "" "$test" $test
+test non set
+
+1ER SPLIT
+
+argv[0] echo
+argv[1] ""
+argv[2] "$test"
+argv[3] $test
+
+SUBST
+argv[0] echo
+argv[1] ""
+argv[2] ""
+argv[3] []
+
+->> fonction suppression args vide
+
+WORD SPLIT
+argv[0] echo
+argv[1] ""
+argv[2] ""
+
+SUPPR / " et '
+argv[0] echo
+argv[1] "basile
+argv[2] foo  bar
+argv[3] foo
+argv[3] bar
+
+------------------------------------------------------
+
+echo basile\  "$test" $test
+test non set
+
+1ER SPLIT
+
+argv[0] echo
+argv[1] [basile\ ]
+argv[2] "$test"
+argv[3] $test
+
+SUBST
+argv[0] echo
+argv[1] [basile\ ]
+argv[1] ""
+argv[2] ""
+argv[3] []
+
+->> fonction suppression args vide
+
+WORD SPLIT
+argv[0] echo
+argv[1] ""
+argv[2] ""
+
+SUPPR / " et '
+argv[0] echo
+argv[1] "basile
+argv[2] foo  bar
+argv[3] foo
+argv[3] bar
+
+------------------------------------------------------
+
+export "basile julien"
+echo $test
+test non set
+
+1ER SPLIT
+
+argv[0] echo
+argv[1] [basile\ ]
+argv[2] "$test"
+argv[3] $test
+
+SUBST
+argv[0] echo
+argv[1] [basile\ ]
+argv[1] ""
+argv[2] ""
+argv[3] []
+
+->> fonction suppression args vide
+
+WORD SPLIT
+argv[0] echo
+argv[1] ""
+argv[2] ""
+
+SUPPR / " et '
+argv[0] echo
+argv[1] "basile
+argv[2] foo  bar
+argv[3] foo
+argv[3] bar

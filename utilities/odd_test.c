@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   odd_test.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/05 17:00:23 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/05 16:39:17 by julnolle         ###   ########.fr       */
+/*   Created: 2020/08/04 12:20:40 by julnolle          #+#    #+#             */
+/*   Updated: 2020/08/04 12:24:04 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-char	*ft_strchr(const char *s, int c)
+int		is_odd(int nb)
 {
-	int i;
+	return ((nb % 2) != 0);
+}
 
-	i = 0;
-	if (!s)
-		return (NULL);
-	if (c == 0)
-		return ((char *)s + ft_strlen(s));
-	while (s[i])
+int main(int argc, char const *argv[])
+{
+	if (argc == 2)
 	{
-		if (s[i] == c)
-			return ((char *)s + i);
-		i++;
+		if (is_odd(atoi(argv[1])))
+			printf("%s: odd\n", argv[1]);
+		else
+			printf("%s: even\n", argv[1]);
 	}
-	return (NULL);
+	return (0);
 }

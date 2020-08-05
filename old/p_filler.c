@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 10:09:13 by grim              #+#    #+#             */
-/*   Updated: 2020/07/23 12:11:14 by grim             ###   ########.fr       */
+/*   Updated: 2020/07/27 15:17:36 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 int	fill_cmd(t_cmd *cmd, t_list *env)
 {
-	if (fill_argv(cmd) == FAILURE)
-		return (FAILURE);
+	cmd->argv = ft_list_to_tab_argv(cmd->argv_list);
+	cmd->argc = ft_lstsize(cmd->argv_list);
 	if (cmd->argv[0]) // si NULL cause un segfault
 	{	if (fill_cmd_path(cmd, env) == FAILURE)
 			return (FAILURE);

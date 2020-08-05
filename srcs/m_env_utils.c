@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 16:20:00 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/07/30 17:04:53 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,6 @@ void	display_tab2(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		ft_putendl_fd(tab[i], 1);
-		i++;
-	}
-}
-
-
-void	display_tab2_export(char **tab)
-{
-	size_t i;
-
-	i = 0;
-	while (tab[i])
-	{
-		ft_putstr_fd("declare -x ", 1);
 		ft_putendl_fd(tab[i], 1);
 		i++;
 	}
@@ -109,9 +95,9 @@ void	ft_print_env(t_list *env)
 	while (env)
 	{
 		elem = (t_key_val *)(env->content);
-			ft_putstr_fd(elem->key, 1);
-			ft_putchar_fd('=', 1);
-			ft_putendl_fd(elem->val, 1);
+		ft_putstr_fd(elem->key, 1);
+		ft_putchar_fd('=', 1);
+		ft_putendl_fd(elem->val, 1);
 		env = env->next;
 	}
 }
@@ -158,21 +144,29 @@ t_key_val	*find_key_val(t_list *env, char *key)
 	return (NULL);
 }
 
-void	change_env_val(t_list *env, char *key, char *val)
+void	change_env_val(t_list **env, char *key, char *val)
 {
-	t_key_val *elem;
+	t_key_val	*elem;
+	t_list		*tmp;
 
-	while (env)
+	tmp = *env;
+	if (tmp)
 	{
-		elem = (t_key_val *)env->content;
-		if (ft_strcmp(elem->key, key) == 0)
+		while (tmp)
 		{
-			free(elem->val);
-			elem->val = NULL;
-			elem->val = val; 
+			elem = (t_key_val *)tmp->content;
+			if (ft_strcmp(elem->key, key) == 0)
+			{
+				free(elem->val);
+				elem->val = NULL;
+				elem->val = val; 
+				return ;
+			}
+			tmp = tmp->next;
 		}
-		env = env->next;
 	}
+	else
+		add_keyval_to_env(ft_strdup(key), val, env);
 }
 
 void	lst_delone_env(t_list **env, char *key)

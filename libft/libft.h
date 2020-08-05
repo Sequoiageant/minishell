@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 16:58:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/07/22 17:04:22 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 15:05:27 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void			ft_strjoin_back(char *back, char **src);
 void			ft_str_free(char **str);
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
+#  define BUFFER_SIZE 10
 # endif
 
 typedef struct	s_fd
@@ -104,5 +104,6 @@ int				get_next_line(int fd, char **line);
 // int				ft_clean(int ret, t_fd **begin, t_fd **elem, int error);
 char			*ft_str_del_1_sur_2(char *a);
 int				ft_isalnum_str(char *str);
+char			**ft_split_wp(char const *str);
 
 #endif

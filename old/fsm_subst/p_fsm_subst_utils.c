@@ -1,39 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_parsing_utils.c                                  :+:      :+:    :+:   */
+/*   p_fsm_split_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/30 09:34:41 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 16:36:40 by grim             ###   ########.fr       */
+/*   Created: 2020/07/31 10:46:01 by grim              #+#    #+#             */
+/*   Updated: 2020/07/31 10:53:35 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int		ft_is_special(char c)
+int		ft_join_to_cmd_buf2(char *str, t_cmd *cmd)
 {
-	if (c == ';' || c == '>'
-	|| c == '<' || c == '|' || c == 0)
-		return (TRUE);
-	else
-		return (FALSE);
-}
-
-int		ft_join_to_cmd_buf(char *str, t_list *pipe_list)
-{
-	t_list	*cmd_list;
-	t_cmd	*cmd;
 	char	*tmp;
 
-	while (pipe_list->next)
-		pipe_list = pipe_list->next;
-	cmd_list = (t_list*)pipe_list->content;
-	while (cmd_list->next)
-		cmd_list = cmd_list->next;
-	cmd = (t_cmd*)cmd_list->content;
 	tmp = cmd->buf;
 	if ((cmd->buf = ft_strjoin(tmp, str)) == NULL)
 		return (FAILURE);
@@ -42,17 +25,17 @@ int		ft_join_to_cmd_buf(char *str, t_list *pipe_list)
 	#ifdef DEBUG_PARSING
 		printf("buf: [%s]\n", cmd->buf);
 	#endif
-	return (1);
+	return (SUCCESS);
 }
 
-char	*char_to_str(char c)
+int     variable_substitution(t_cmd *cmd, t_key_val *key_val)
 {
-	char *str;
-
-	str = malloc(2);
-	str[0] = c;
-	str[1] = 0;
-	return (str);
+	if (key_val)
+	{
+		if ((ft_join_to_cmd_buf2(ft_strdup(key_val->val), cmd) == FAILURE))
+			return (FAILURE);
+	}
+	return (SUCCESS);
 }
 
 int		ft_is_dollar_start(char c)

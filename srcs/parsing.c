@@ -6,85 +6,90 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 18:08:50 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 16:28:39 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-static int	backslash_activated(char *buf, t_state_machine *machine)
+int			split_buf(char *buf, t_list *env, t_list **pipe_list)
 {
-	if (machine->flag_quote)
-		return (0);
-	if (machine->flag_dquote)
-	{
-		if (buf[1] == '$' || buf[1] == '"' || buf[1] == '\\')
-			return (1);
-		else
-			return (0);
-	}
-	return (1);
+	#ifdef DEBUG_PARSING
+		printf("\n SPLIT BUF\n");
+	#endif
+	ft_lstadd_back(pipe_list, ft_lstnew(NULL));
+	add_cmd(*pipe_list);
+	if (parser_split_buf(buf, env, pipe_list) == FAILURE)
+		return (FAILURE);	
+	#ifdef DEBUG_PARSING
+		printf("\nPrinting pipe_list\n");
+		print_pipe_list(*pipe_list);
+	#endif
+	return (SUCCESS);
 }
 
-static void	chose_state(char *buf, t_state_machine *machine)
+int			parsing_cmd(t_list *cmd_list)
 {
-	if (*buf == '"' && !machine->flag_quote)
-		machine->state = FLAG;
-	else if (*buf == '\'' && !machine->flag_dquote)
-		machine->state = FLAG;
-	else if (*buf == '\\' && backslash_activated(buf, machine))
-		machine->state = BACKSLASH;
-	else if (*buf == '$' && !machine->flag_quote && ft_is_dollar_start(buf[1]))
-		machine->state = DOLLAR;
-	else if (*buf == ';' && !machine->flag_quote && !machine->flag_dquote)
-		machine->state = MULTI;
-	else if (*buf == '|' && !machine->flag_quote && !machine->flag_dquote)
-		machine->state = PIPE;
-	else
-		machine->state = LETTER;
-}
+	t_cmd	*cmd;
 
-int			parser(char *buf, t_list *env, t_list **pipe_list)
-{
-	t_state_machine		machine;
-	static t_function	func[NB_STATE] = {fsm_letter, fsm_dollar,
-	fsm_backslash, fsm_flag, fsm_multi, fsm_pipe};
-	int					ret;
-
-	machine.flag_dquote = 0;
-	machine.flag_quote = 0;
-	while (*buf != '\0')
+	while (cmd_list)
 	{
-		chose_state(buf, &machine);
-		ret = func[machine.state](buf, &machine, env, pipe_list);
-		if (ret == FAILURE)
+		cmd = (t_cmd*)cmd_list->content;
+		#ifdef DEBUG_PARSING
+			printf("\nPARSING SPLIT\n");
+		#endif
+		if (parser_split_cmd(cmd) == FAILURE)
 			return (FAILURE);
-		buf += ret;
+		#ifdef DEBUG_PARSING
+			if(cmd_list->next)
+				printf("\nNEXT CMD\n");
+		#endif
+		cmd_list = cmd_list->next;
 	}
+	return (SUCCESS);
+}
+
+int			split_cmd(t_list *pipe_list)
+{
+	t_list *cmd_list;
+	
+	#ifdef DEBUG_PARSING
+		printf("\n SPLIT CMD\n");
+	#endif
+	while (pipe_list)
+	{
+		cmd_list = (t_list *)pipe_list->content;
+		if (parsing_cmd(cmd_list) == FAILURE)
+			return (FAILURE);
+		pipe_list = pipe_list->next;
+		#ifdef DEBUG_PARSING
+			printf("\nPrinting cmd_list\n");
+			print_cmd_list(cmd_list);
+		#endif
+	}
+	return (SUCCESS);
+	
+}
+
+int			parser_split(char *buf, t_list *env, t_list **pipe_list)
+{
+	if (split_buf(buf, env, pipe_list) == FAILURE)
+		return (FAILURE);
+	if (split_cmd(*pipe_list) == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }
 
 int			ft_parse(char *buf, t_list *env, t_list **pipe_list)
 {
-	ft_lstadd_back(pipe_list, ft_lstnew(NULL));
-	if (add_cmd(*pipe_list) == FAILURE)
-		return (EXIT_FAILURE);	//pour moi on doit return (FAILURE) ici
-	#ifdef DEBUG_PARSING
-		printf("1ST PARSING \n");
-	#endif
-	// parser: différence avec la version précédente: conserve les guillemets ('' "") et les '\', afin de pouvoir refaire un parsing
-	if (parser(buf, env, pipe_list) == FAILURE)
-		return (EXIT_FAILURE);	//pour moi on doit return (FAILURE) ici
-	#ifdef DEBUG_PARSING
-		printf("\nPARSING REDIR \n");
-	#endif
-	if (parser_redir(*pipe_list) == FAILURE)
-		return (EXIT_FAILURE);	//pour moi on doit return (FAILURE) ici
-	if (filler(*pipe_list, env) == FAILURE)
-		return (EXIT_FAILURE);	//pour moi on doit return (FAILURE) ici
-	#ifdef DEBUG_PARSING
-		print_commands(*pipe_list);
-	#endif
+	if (lexer(buf) == FAILURE)
+	{
+		g_glob.ret = 2;
+		ft_putstr_fd("synthax error\n", 2);
+		return (FAILURE);
+	}
+	if (parser_split(buf, env, pipe_list) == FAILURE)
+		return (FAILURE);
 	return (EXIT_SUCCESS);
 }

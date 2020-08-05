@@ -48,34 +48,31 @@ endif
 # Debug Sources
 SRCS += p_print_cmds.c
 
-# # Parsing Sources
-# SRCS += parsing.c
-# SRCS += parsing_redir.c
-# SRCS += parsing_redir_fsm.c
-# SRCS += parsing_redir_utils.c
-# SRCS += p_fsm_other.c
-# SRCS += p_parsing_utils.c
-# SRCS += p_filler.c
-# SRCS += p_filler_cmdpath_argv.c
-# SRCS += p_add_cmd.c
-# SRCS += p_fsm_multi.c
+# Parsing Sources
+SRCS += parsing.c
 
-# Parsing Sources TEST
-SRCS += parsing_test.c
-SRCS += parsing_redir_test.c
-SRCS += parsing_redir_fsm_test.c
-SRCS += parsing_redir_utils_test.c
-SRCS += p_fsm_other_test.c
-SRCS += p_parsing_utils_test.c
-SRCS += p_filler_test.c
-SRCS += p_filler_cmdpath_argv_test.c
-SRCS += p_add_cmd_test.c
-SRCS += p_fsm_multi_test.c
-# _______________________________
+SRCS += p_split_buf.c
+SRCS += p_split_buf2.c
+SRCS += p_split_buf_utils.c
+
+SRCS += p_split_cmd.c
+SRCS += p_split_cmd2.c
+SRCS += p_split_cmd_utils.c
+
+SRCS += p_lexer.c
+SRCS += p_lexer_fsm.c
+SRCS += p_lexer_fsm2.c
+
+SRCS += p_clean_quotes.c
+SRCS += p_clean_quotes2.c
+
+SRCS += p_parsing_utils.c
+SRCS += p_fill_cmdpath_argv.c
 
 # Built in Sources
 SRCS += built_in.c
 SRCS += built_cd.c
+SRCS += built_cd_utils.c
 SRCS += built_echo.c
 SRCS += built_pwd.c
 SRCS += built_env.c
@@ -92,6 +89,7 @@ SRCS += m_utils.c
 SRCS += m_redirs.c
 SRCS += m_traitement.c
 SRCS += m_executable_cmd.c
+SRCS += m_substitution.c
 # SRCS += m_traitement_test.c		# pour tests pipes ju
 # SRCS += m_executable_cmd_test.c # pour tests pipes ju
 

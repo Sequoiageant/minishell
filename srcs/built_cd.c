@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/07/22 10:27:38 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/04 16:37:49 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void ft_cd_change_env(t_list **env, char *oldpwd)
 {
 	t_key_val *env_pwd;
 	t_key_val *env_oldpwd;
+
 	if ((env_oldpwd = find_key_val(*env, "OLDPWD")) == NULL) //cas où OLDPWD n'est pas set
 	{
 		env_oldpwd = malloc(sizeof(t_key_val));
@@ -49,7 +50,6 @@ void ft_cd_change_env(t_list **env, char *oldpwd)
 	env_pwd->val = getcwd(NULL, 0);
 }
 
-
 void	ft_cd_perror(char **argv)
 {
 	ft_putstr_fd("bash: cd: ", STDERR_FILENO);
@@ -60,46 +60,39 @@ void	ft_cd_perror(char **argv)
 
 int		handle_cd(char *dir, t_list *env)
 {
-	t_key_val	*key;
-	
-	if ((key = find_key_val(env, "CDPATH")))
-	{
-		(void)dir;
-		(void)env;
-		// cheche "dir" dans chaque element du CDPATH
-		// si ne trouve pas, va à ./dir
-	}
+	if (ft_strcmp(dir, "-") == 0)
+		return (cd_back_to_oldpwd(env));
+	// if ((key = find_key_val(env, "CDPATH"))) // si CD PATH est set
+	// {
+	// 	(void)dir;
+	// 	(void)env;
+	// 	// cheche "dir" dans chaque element du CDPATH
+	// 	// si ne trouve pas, va à ./dir
+	// }
 	return (chdir(dir));
 }
 
 int		ms_cd(int argc, char **argv, t_list **env)
 {
-	int		ret;
-	char	*old_pwd;
+	int			ret;
+	char		*old_pwd;
 	t_key_val	*key;
 
 	old_pwd = getcwd(NULL, 0);
 	if (argc > 2)
-	{
-		ft_putstr_fd("bash: cd: too many arguments\n", 1);
-		free(old_pwd);
-		return (FAILURE);
-	}
+		return (cd_too_many_args(old_pwd));
 	if (argc == 1)
 	{
-		if ((key = find_key_val(*env, "HOME")) == NULL || ft_strcmp(key->val, "") == 0)
-		{
-			free(old_pwd);
-			return (SUCCESS);
-		}
+		if ((key = find_key_val(*env, "HOME")) == NULL || !ft_strcmp(key->val, ""))
+			return (cd_home_not_set(key, old_pwd));
 		ret = chdir(key->val);
 	}
 	if (argc == 2)
 		ret = handle_cd(argv[1], *env);
-
 	if (ret == FAILURE)
 	{
-		ft_cd_perror(argv);
+		if (!(argc == 2 && ft_strcmp(argv[1], "-") == 0)) // dans le cas ou le probleme est lié à un cd -, on affiche pas le message d'erreur classique
+			ft_cd_perror(argv);
 		free(old_pwd);
 		return (FAILURE);
 	}
