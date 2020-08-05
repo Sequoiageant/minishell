@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 12:58:22 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 15:25:12 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int		main(void)
 	char	buf[BUFFER_SIZE + 1];
 	char	*str;
 	char	*tmp;
+	int		ret;
 
 	str = NULL;
 	tmp = NULL;
@@ -124,19 +125,62 @@ int		main(void)
 		return (1);
 	ft_putstr_fd("cmd: ", 1);
 	ft_bzero(buf, BUFFER_SIZE);
-	while (read(STDIN_FILENO, buf, BUFFER_SIZE) > 0)
+	while ((ret = read(STDIN_FILENO, buf, BUFFER_SIZE)) > 0)
 	{
+		buf[ret] = 0;
 		ft_strjoin_back(buf, &tmp);
+		// printf("tmp: %s\n", tmp);
+		// printf("ret: %d\n", ret);
+		while (ret == BUFFER_SIZE && (ret = read(STDIN_FILENO, buf, BUFFER_SIZE)) > 0)
+		{
+			buf[ret] = 0;
+			// printf("in\n");
+			// printf("ret: %d\n", ret);
+			// printf("buf: %s\n", buf);
+			ft_strjoin_back(buf, &tmp);
+			// printf("tmp: %s\n", tmp);
+		}
 		str = ft_strdup(tmp);
 		delete_bn(&str);
-		ft_handle(str, &env);
 		ft_str_free(&tmp);
+		ft_handle(str, &env);
 		ft_putstr_fd("cmd: ", 1);
 	}
 	ft_lstclear(&env, &del_key_val);
 	ft_putendl_fd("exit", 1);
 	return (g_glob.ret);
 }
+
+// int		main(void)
+// {
+// 	t_list	*env;
+// 	char	buf[BUFFER_SIZE + 1];
+// 	char	*str;
+// 	char	*tmp;
+
+// 	str = NULL;
+// 	tmp = NULL;
+// 	ft_init(&env);
+// 	ft_shell_init(&env);
+// 	if (signal(SIGINT, signal_handler) == SIG_ERR)
+// 		return (1);
+// 	if (signal(SIGQUIT, signal_handler) == SIG_ERR)
+// 		return (1);
+// 	ft_putstr_fd("cmd: ", 1);
+// 	ft_bzero(buf, BUFFER_SIZE);
+// 	while (read(STDIN_FILENO, buf, BUFFER_SIZE) > 0)
+// 	{
+// 		ft_strjoin_back(buf, &tmp);
+// 		str = ft_strdup(tmp);
+// 		delete_bn(&str);
+// 		ft_str_free(&tmp);
+// 		ft_handle(str, &env);
+// 		ft_putstr_fd("cmd: ", 1);
+// 	}
+// 	ft_lstclear(&env, &del_key_val);
+// 	ft_putendl_fd("exit", 1);
+// 	return (g_glob.ret);
+// }
 
 /*int		main(void)
 {

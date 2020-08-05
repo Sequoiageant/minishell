@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 12:28:31 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 15:06:54 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 #define CTRLBACK_RET	131
 #define NB_BLT			6
 #define EXIT_CODE		2
-#define BUFFER_SIZE		32
+// #define BUFFER_SIZE		32
 
 
 
