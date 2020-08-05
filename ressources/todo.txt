@@ -1,11 +1,13 @@
 A COMMENCER
 
 - Creer une fonction display_prompt() ?
+- Mettre les srcs dans des dossiers ?
+- Regrouper les deux fonctions parsing qui font le split
 
 BUILT INS
 
 - built in echo: gerer ou non l'éventualité d'un problème de "write"
-- voir si on ajoute une condition pour les built ins qui exit avec 2
+- voir si on ajoute une condition pour les built ins qui exit avec 2. A priori correspond aux "invalid options", donc pas à gérer puisque nos built ins ne gèrent pas d'option (sauf echo, qui ne semble jamais retourner "invalid option")
 
 AUTRE
 
@@ -13,7 +15,7 @@ AUTRE
   par exemple commande vide ou commande qui n'existe pas, cf ft_exec_cmd.
     = duplication du process au moment du fork(), donc duplication aussi de tous les mallocs ??
     pourquoi ne le fait pas quand on envoie un execve ?
-    pas grave vu que plus de leak après un ctrl-D ?
+    pas grave vu que plus de leak après un ctrl-D ? une fois qu'on exit le process, il libère toute la mémoire
 - pid globale: voir s'il faut un tableau/liste de pid
 - utiliser le char **env argument du main plutot que __environ pour récupérer l'environnement ? 
 - redirs: sur les execed cmds, voir s'il faut "restaurer stdout / stdin" -> a priori on en a plus besoin, car si l'execve retourne une erreur: dans ce cas on affiche le message d'erreur sur STDERR
@@ -30,7 +32,7 @@ BONUS (?)
 - built in export: gerer le +=
 - built in cd: 
     recherche dans CDVAR & 
-    gérer ou non le cas "invalid option" (exit code = 2) ?
+    gérer ou non le cas "invalid option" (exit code = 2) ? Non a priori car on a pas à gérer d'option sur cd...
 
 NORME
 
