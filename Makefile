@@ -83,6 +83,7 @@ SRCS += built_exit.c
 SRCS += main.c
 SRCS += m_init.c
 SRCS += m_del.c
+SRCS += m_del2.c
 SRCS += m_env_utils.c
 SRCS += m_executable_utils.c
 SRCS += m_utils.c
@@ -90,6 +91,8 @@ SRCS += m_redirs.c
 SRCS += m_traitement.c
 SRCS += m_executable_cmd.c
 SRCS += m_substitution.c
+SRCS += m_substitution2.c
+SRCS += m_substitution_utils.c
 # SRCS += m_traitement_test.c		# pour tests pipes ju
 # SRCS += m_executable_cmd_test.c # pour tests pipes ju
 

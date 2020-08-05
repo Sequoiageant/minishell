@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_del.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/07/29 16:35:28 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 19:02:03 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,24 +29,6 @@ void	free_tab2(char **tab)
 	free(tab);
 	tab = NULL;
 }
-
-void	free_tab2_stop(char **tab, size_t stop)
-{
-	size_t i;
-
-	if (tab == NULL)
-		return ;
-	i = 0;
-	while (i < stop)
-	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
-	}
-	free(tab);
-	tab = NULL;
-}
-
 
 void	free_tab2_int(int **tab, int num)
 {
@@ -78,44 +60,6 @@ void	del_key_val(void *elem)
 	key_val = NULL;
 }
 
-void	del_redir(void *elem)
-{
-	t_redir	*redir;
-
-	redir = (t_redir *)elem;
-	free(redir->file);
-	redir->file = NULL;
-	if (redir->original)
-	{
-		free(redir->original);
-		redir->original = NULL;
-	}
-	free(redir);
-}
-
-void	del_flag(void *elem)
-{
-	int	*flag;
-
-	flag = (int*)elem;
-	free(flag);
-	flag = NULL;
-}
-
-void	del_only_t_list(void *elem)
-{
-	(void)elem;
-}
-
-void	del_argv_list_elem(void *elem)
-{
-	char	*str;
-
-	str = (char*)elem;
-	free(str);
-	str = NULL;
-}
-
 void	del_env_node(t_list **env)
 {
 	del_key_val((*env)->content);
@@ -123,39 +67,8 @@ void	del_env_node(t_list **env)
 	*env = NULL;
 }
 
-
 void	del_argv_node(t_list **argv)
 {
 	free(*argv);
 	*argv = NULL;
-}
-
-
-void    del_cmd(void *elem)
-{
-    t_cmd	*cmd;
-
-    cmd = (t_cmd*)elem;
-	if (cmd->cmd_path)
-	{
-		free(cmd->cmd_path);
-    	cmd->cmd_path = NULL;
-	}
-	free(cmd->buf);
-   	cmd->buf = NULL;
-	ft_lstclear(&cmd->redir, &del_redir);
-	ft_lstclear(&cmd->flag, &del_flag);
-	ft_lstclear(&cmd->flag_redir, &del_flag);
-	free_tab2(cmd->argv);
-	ft_lstclear(&cmd->argv_list, &del_argv_list_elem);
-	free(cmd);
-	cmd = NULL;
-}
-
-void	del_pipe(void *elem)
-{
-	t_list *cmd_list;
-
-	cmd_list = (t_list*)elem;
-	ft_lstclear(&cmd_list, &del_cmd);
 }
