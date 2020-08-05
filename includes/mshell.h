@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:46:47 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 19:46:49 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void		ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab);
 */
 
 int			ft_expansion(t_list *cmd_list, t_list *env);
-int			ft_handle_argv(char **tmp, t_list *env, t_list **flag, int ret);
+int			ft_handle_argv(char **tmp, t_list *env, t_list **flag, int *ret);
 int			is_even(int nb);
 void		ft_tab_to_list(t_list **list, char **tab);
 size_t		tab2_size(char **tab);
@@ -141,9 +141,7 @@ void		display_tab2_export(char **tab);
 void		free_tab2(char **tab);
 void		free_tab2_int(int **tab, int num);
 void		free_tab2_stop(char **tab, size_t stop);
-void		ft_n_sort_string_tab(char **tab, char stop);
 int			is_key_in_env(t_list *env, char *key);
-void		lst_delone_env(t_list **env, char *key);
 void		change_env_val(t_list **env, char *key, char *val);
 char		**ft_split_env(char *key_val);
 char		**ft_list_to_tab(t_list *env);

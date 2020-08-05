@@ -6,12 +6,34 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/05 17:22:13 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 19:47:44 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
+
+static void	ft_n_sort_string_tab(char **tab, char stop)
+{
+	size_t	i;
+	size_t	len;
+	char	*temp;
+
+	i = 0;
+	while (tab[i + 1])
+	{
+		len = ft_strclen(tab[i], stop);
+		if (ft_strncmp(tab[i], tab[i + 1], len) > 0)
+		{
+			temp = tab[i];
+			tab[i] = tab[i + 1];
+			tab[i + 1] = temp;
+			i = 0;
+		}
+		else
+			i++;
+	}
+}
 
 static void	print_sorted_list(t_list *env)
 {

@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/05 18:48:22 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 19:46:32 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static size_t	substitute_dollar(char **str, t_list *env)
 	return (i);
 }
 
-int				ft_handle_argv(char **tmp, t_list *env, t_list **flag, int ret)
+int				ft_handle_argv(char **tmp, t_list *env, t_list **flag, int *ret)
 {
 	size_t	len;
 
@@ -82,7 +82,7 @@ int				ft_handle_argv(char **tmp, t_list *env, t_list **flag, int ret)
 		if (*(int *)(*flag)->content == TRUE)
 		{
 			len = substitute_dollar(tmp, env);
-			ret = TRUE;
+			*ret = TRUE;
 		}
 		else
 			len = ft_strlen(*tmp) - 1;

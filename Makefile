@@ -84,19 +84,18 @@ SRCS += m_del.c
 SRCS += m_del2.c
 SRCS += m_env_utils.c
 SRCS += m_executable_utils.c
-SRCS += m_utils.c
+SRCS += m_error.c
 SRCS += m_redirs.c
 SRCS += m_traitement.c
 SRCS += m_executable_cmd.c
 SRCS += m_substitution.c
 SRCS += m_substitution2.c
 SRCS += m_substitution_utils.c
-# SRCS += m_traitement_test.c		# pour tests pipes ju
-# SRCS += m_executable_cmd_test.c # pour tests pipes ju
 
 vpath %.c ./srcs/
-vpath %.c ./parsing/
-# vpath %.c ./old/
+vpath %.c ./srcs/parsing/
+vpath %.c ./srcs/builtin/
+vpath %.c ./srcs/execution/
 
 # ---------------- INC --------------- #
 

@@ -1,30 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_utils.c                                          :+:      :+:    :+:   */
+/*   m_error.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 19:53:25 by grim              #+#    #+#             */
-/*   Updated: 2020/07/18 12:06:51 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 19:50:49 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
-
-void    ft_print_status(int status)
-{
-	if (WIFEXITED(status)) {
-		printf("terminé, code=%d\n", WEXITSTATUS(status));
-	} else if (WIFSIGNALED(status)) {
-		printf("tué par le signal %d\n", WTERMSIG(status));
-	} else if (WIFSTOPPED(status)) {
-		printf("arrêté par le signal %d\n", WSTOPSIG(status));
-	} else if (WIFCONTINUED(status)) {
-		printf("relancé\n");
-	}
-}
 
 void	put_err(char *cmd, char *arg, char *last, int minishell)
 {

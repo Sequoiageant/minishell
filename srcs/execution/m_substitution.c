@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/05 18:50:53 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 19:47:14 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		ft_substitute(char **str, t_list *env, t_list **flag)
 		tmp = ft_substr(*str, i, ft_strclen(*str + i + 1, '$') + 1);
 		if (tmp)
 		{
-			len = ft_handle_argv(&tmp, env, flag, ret);
+			len = ft_handle_argv(&tmp, env, flag, &ret);
 			ft_strjoin_back(tmp, &final);
 			ft_str_free(&tmp);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 16:58:10 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/05 15:05:27 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 19:58:58 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,22 @@
 # define TRUE		1
 # define FALSE		0
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
 typedef struct	s_list
 {
 	void			*content;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct	s_fd
+{
+	int			fd;
+	char		*str;
+	struct s_fd	*next;
+}				t_fd;
 
 int				ft_isalpha(int c);
 char			*ft_inter(char *a, char *b);
@@ -84,24 +95,6 @@ void			ft_swap_f(float *a, float *b);
 char			*ft_strcat(char *s1, const char *s2);
 void			ft_strjoin_back(char *back, char **src);
 void			ft_str_free(char **str);
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
-# endif
-
-typedef struct	s_fd
-{
-	int			fd;
-	char		*str;
-	struct s_fd	*next;
-}				t_fd;
-
-int				get_next_line(int fd, char **line);
-// int				f_line(char *str);
-// int				ft_read(char **buf, int fd);
-// int				ft_len(char *str);
-// int				ft_cat(char **str, char *buf, int ret);
-// int				ft_clean(int ret, t_fd **begin, t_fd **elem, int error);
 char			*ft_str_del_1_sur_2(char *a);
 int				ft_isalnum_str(char *str);
 char			**ft_split_wp(char const *str);
