@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_redirs.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 11:31:47 by grim              #+#    #+#             */
-/*   Updated: 2020/08/04 16:57:27 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 20:15:28 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static int	ft_redir_out(char *file)
 {
 	int fd;
-	
+
 	fd = open(file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
 	if (fd != -1)
 	{
@@ -72,7 +72,7 @@ static int	ft_redir_in(char *file)
 
 int			ft_handle_redir(t_redir *redir)
 {
-	if (redir->state == -1 || redir->file == NULL) // redir->state == -1 si le word spliting donne plus d'un argument, redir->file == NULL si substitution d'une variable non set
+	if (redir->state == -1 || redir->file == NULL)
 	{
 		put_err(redir->original, ": ", "ambiguous redir", TRUE);
 		g_glob.ret = 1;
@@ -90,7 +90,6 @@ int			ft_handle_redir(t_redir *redir)
 	return (SUCCESS);
 }
 
-
 int			ft_redirs(t_cmd *cmd)
 {
 	t_list	*redir_list;
@@ -102,5 +101,5 @@ int			ft_redirs(t_cmd *cmd)
 			return (FAILURE);
 		redir_list = redir_list->next;
 	}
-	return(SUCCESS);
+	return (SUCCESS);
 }

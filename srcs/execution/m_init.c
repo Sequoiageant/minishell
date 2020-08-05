@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:11 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 19:06:47 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 20:14:34 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int		ft_init(t_list **env)
 	ft_putstr_fd("Welcome to Minishell\n", 1);
 	*env = NULL;
 	i = 0;
-
 	if (__environ[0])
 	{
 		while (__environ[i])

@@ -6,37 +6,45 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 19:46:49 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 22:33:42 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MSHELL_H
 # define MSHELL_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <errno.h>
-#include <dirent.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include "parsing.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <string.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <errno.h>
+# include <dirent.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include "parsing.h"
 
-#define TRUE			1
-#define FALSE			0
-#define SUCCESS			0
-#define FAILURE			-1
-#define PIPE_WRITE		1
-#define PIPE_READ		0
-#define CTRLC_RET		130
-#define CTRLBACK_RET	131
-#define NB_BLT			6
-#define EXIT_CODE		2
+# define TRUE			1
+# define FALSE			0
+# define SUCCESS			0
+# define FAILURE			-1
+# define PIPE_WRITE		1
+# define PIPE_READ		0
+# define CTRLC_RET		130
+# define CTRLBACK_RET	131
+# define NB_BLT			6
+# define EXIT_CODE		2
+
+# define ECHO		"echo"
+# define CD			"cd"
+# define PWD		"pwd"
+# define EXPORT		"export"
+# define UNSET		"unset"
+# define ENV		"env"
+
 // #define BUFFER_SIZE		32
 
 
@@ -95,7 +103,6 @@ int			ft_simple_cmd_fork(char **cmd, t_list **env, char *cmd_path);
 int			ft_traitement(t_list *pipe_list, t_list **env);
 int			ft_executable_cmd(t_list *cmd_list, t_list *env);
 int			ft_executable_cmd_single(t_list *cmd_list, t_list *env);
-int			contains_pipe(t_list *cmd_list);
 int			ft_build_pipes(t_list *cmd_list, int ***fd);
 int			dup_close_pipes(int *fd[2], int fd_in, int fd_out, int num);
 void		close_wait_free(int *fd[2], int num_pipe, char **env_tab);

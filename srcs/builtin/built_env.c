@@ -6,21 +6,21 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/05 19:25:04 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/05 20:38:59 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "mshell.h"
 
-int	is_valid_identifier(char *str)
+int			is_valid_identifier(char *str)
 {
 	if ((!ft_isalpha(str[0]) && str[0] != '_') || !ft_isalnum_str(str))
 		return (FALSE);
 	return (TRUE);
 }
 
-int	ms_env(int argc, char **av, t_list **env)
+int			ms_env(int argc, char **av, t_list **env)
 {
 	t_key_val	*elem;
 
@@ -60,7 +60,7 @@ static void	lst_delone_env(t_list **env, char *key)
 				*env = before;
 			}
 			del_env_node(&tmp);
-			return ; 
+			return ;
 		}
 		before = tmp;
 		i++;
@@ -68,7 +68,7 @@ static void	lst_delone_env(t_list **env, char *key)
 	}
 }
 
-int	ms_unset(int argc, char **av, t_list **env)
+int			ms_unset(int argc, char **av, t_list **env)
 {
 	size_t	i;
 	int		ret;

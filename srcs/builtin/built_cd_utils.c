@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_cd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 18:12:14 by grim              #+#    #+#             */
-/*   Updated: 2020/08/04 16:11:30 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 20:21:00 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ int	cd_too_many_args(char *old_pwd)
 int	cd_back_to_oldpwd(t_list *env)
 {
 	t_key_val *oldpwd;
-	
-	if ((oldpwd = find_key_val(env, "OLDPWD")) == NULL) //cas où OLDPWD n'est pas set
+
+	if ((oldpwd = find_key_val(env, "OLDPWD")) == NULL)
 	{
 		ft_putstr_fd("bash: cd: OLDPWD not set\n", 2);
 		return (FAILURE);
 	}
 	else
 	{
-		ft_putendl_fd(oldpwd->val, 1);	
+		ft_putendl_fd(oldpwd->val, 1);
 		return (chdir(oldpwd->val));
 	}
 }
