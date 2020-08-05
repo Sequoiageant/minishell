@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_fsm_split.c                                      :+:      :+:    :+:   */
+/*   p_split_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 09:55:37 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 10:00:18 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 14:47:59 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void		chose_state(char *buf, t_fsm_cmd *machine)
 		machine->state = SP_LETTER;
 }
 
-int				parse_cmd_split(t_cmd *cmd)
+int				parser_split_cmd(t_cmd *cmd)
 {
 	t_fsm_cmd			machine;
 	static t_func_split	func[NB_STATE_SPLIT] = {sp_letter, sp_backslash,

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/08/03 15:53:47 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 14:55:20 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ int		fsm_letter(char *buf, t_state_machine *m, t_list *env, t_list **p);
 int		fsm_multi(char *buf, t_state_machine *m, t_list *env, t_list **p);
 int		fsm_pipe(char *buf, t_state_machine *m, t_list *env, t_list **p);
 
+int		parser_split_buf(char *buf, t_list *env, t_list **pipe_list);
 int		add_pipe(t_list **pipe_list);
 int		add_cmd(t_list *pipe_list);
 void	ft_init_cmd(t_cmd *cmd);
@@ -204,7 +205,8 @@ int		count_dollar_char(char *buf);
 ** ------------------------------- Parser SPLIT ------------------------------
 */
 
-int		parse_cmd_split(t_cmd *cmd);
+int		parser_split_cmd(t_cmd *cmd);
+int		parsing_cmd(t_list *cmd_list);
 int		sp_backslash(t_fsm_cmd *m, char *buf, t_cmd *cmd);
 int		sp_flag_quote(t_fsm_cmd *m, char *buf, t_cmd *cmd);
 int		sp_flag_dquote(t_fsm_cmd *m, char *buf, t_cmd *cmd);
@@ -230,7 +232,6 @@ int		cl_backslash(t_fsm_cmd *m, char *buf, char **cleaned);
 
 
 int		ft_parse(char *buf, t_list *env, t_list **pipe_list);
-int		parsing_cmd(t_list *cmd_list, t_list *env);
 
 char	*char_to_str(char c);
 int		ft_is_special(char c);
