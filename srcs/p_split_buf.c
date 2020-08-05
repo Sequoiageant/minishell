@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 14:37:07 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 14:39:11 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 16:59:31 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	chose_state(char *buf, t_state_machine *machine)
 int			parser_split_buf(char *buf, t_list *env, t_list **pipe_list)
 {
 	t_state_machine		machine;
-	static t_function	func[NB_STATE_MULTI] = {fsm_letter,
+	static t_function	func[NB_SPLIT_BUF] = {fsm_letter,
 	fsm_backslash, fsm_flag, fsm_multi, fsm_pipe};
 	int					ret;
 

@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 09:55:37 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 14:47:59 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 16:59:48 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void		chose_state(char *buf, t_fsm_cmd *machine)
 int				parser_split_cmd(t_cmd *cmd)
 {
 	t_fsm_cmd			machine;
-	static t_func_split	func[NB_STATE_SPLIT] = {sp_letter, sp_backslash,
+	static t_func_split	func[NB_SPLIT_CMD] = {sp_letter, sp_backslash,
 	sp_flag_quote, sp_flag_dquote, sp_flag_redir_on, sp_flag_redir_off, sp_whitespace, sp_dollar};
 	int					ret;
 	char				*buf;

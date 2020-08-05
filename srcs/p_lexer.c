@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 11:29:23 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 16:38:45 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 16:58:59 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	chose_state(char *buf, t_fsm_lexer *machine, int i)
 int	lexer(char *buf)
 {
 	t_fsm_lexer			machine;
-	static t_func_lex	func[NB_STATE_LEX] = {lex_letter,
+	static t_func_lex	func[NB_LEXER] = {lex_letter,
 	lex_backslash, lex_flag, lex_check_apres, lex_check_avant};
 	int					ret;
 	int					i;

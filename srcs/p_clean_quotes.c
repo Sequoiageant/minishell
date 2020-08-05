@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 12:21:56 by grim              #+#    #+#             */
-/*   Updated: 2020/08/04 16:46:16 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 16:59:15 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		chose_state(char *buf, t_fsm_cmd *machine)
 int			clean_quotes_str(char **cleaned)
 {
 	t_fsm_cmd			machine;
-	static t_func_clean	func[NB_STATE_CLEAN] = {cl_letter, cl_backslash,
+	static t_func_clean	func[NB_CLEANER] = {cl_letter, cl_backslash,
 	cl_flag_quote, cl_flag_dquote};
 	int					ret;
 	char				*buf;
