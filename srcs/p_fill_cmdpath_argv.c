@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 11:09:47 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:30:42 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 18:58:58 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,6 @@ int		fill_cmdlist_path(t_list *cmd_list, t_list *env)
 			fill_cmd_path(cmd, env);
 		cmd_list = cmd_list->next;
 	}
-	return (SUCCESS);
-}
-
-int		fill_argv(t_cmd *cmd)
-{
-	int i;
-
-	cmd->argv = ft_split(cmd->buf, ' ');
-	if (cmd->argv == NULL)
-		return (FAILURE);
-	i = 0;
-	while (cmd->argv[i])
-		i++;
-	cmd->argc = i;
 	return (SUCCESS);
 }
 

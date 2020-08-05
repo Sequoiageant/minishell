@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 17:06:30 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 19:05:46 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,18 +216,8 @@ int		ft_join_to_str(char *added_str, char **initial_str);
 int		ft_is_dollar_start(char c);
 int		count_dollar_char(char *buf);
 
-int		fill_argv(t_cmd *cmd);
 int		fill_cmdlist_path(t_list *cmd_list, t_list *env);
 int		fill_cmd_path(t_cmd *cmd, t_list *env);
 char	**ft_list_to_tab_argv(t_list *argv);
-
-/*
-** ------------------------------- DEBUG ------------------------------
-*/
-
-void	print_pipe_list(t_list *pipe_list);
-void	print_cmd_list(t_list *cmd_list);
-void	print_cmd(t_cmd *cmd);
-
 
 #endif

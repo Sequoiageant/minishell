@@ -45,9 +45,6 @@ endif
 
 # ---------------- SRC --------------- #
 
-# Debug Sources
-SRCS += p_print_cmds.c
-
 # Parsing Sources
 SRCS += parsing.c
 
@@ -57,6 +54,7 @@ SRCS += p_split_buf_utils.c
 
 SRCS += p_split_cmd.c
 SRCS += p_split_cmd2.c
+SRCS += p_split_cmd3.c
 SRCS += p_split_cmd_utils.c
 
 SRCS += p_lexer.c
