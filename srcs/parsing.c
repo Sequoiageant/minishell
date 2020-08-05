@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 14:50:09 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 16:28:39 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,27 @@ int			split_buf(char *buf, t_list *env, t_list **pipe_list)
 		printf("\nPrinting pipe_list\n");
 		print_pipe_list(*pipe_list);
 	#endif
+	return (SUCCESS);
+}
+
+int			parsing_cmd(t_list *cmd_list)
+{
+	t_cmd	*cmd;
+
+	while (cmd_list)
+	{
+		cmd = (t_cmd*)cmd_list->content;
+		#ifdef DEBUG_PARSING
+			printf("\nPARSING SPLIT\n");
+		#endif
+		if (parser_split_cmd(cmd) == FAILURE)
+			return (FAILURE);
+		#ifdef DEBUG_PARSING
+			if(cmd_list->next)
+				printf("\nNEXT CMD\n");
+		#endif
+		cmd_list = cmd_list->next;
+	}
 	return (SUCCESS);
 }
 

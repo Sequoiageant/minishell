@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 09:34:41 by grim              #+#    #+#             */
-/*   Updated: 2020/07/31 10:54:23 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 16:36:40 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,27 @@ char	*char_to_str(char c)
 	str[0] = c;
 	str[1] = 0;
 	return (str);
+}
+
+int		ft_is_dollar_start(char c)
+{
+	if (c == '?' || c == '_' || ft_isalpha(c))
+		return (TRUE);
+	else
+		return (FALSE);
+}
+
+int		count_dollar_char(char *buf)
+{
+	int i;
+
+	i = 1;
+	if (buf[1] == '?')
+		return (1);
+	else
+	{
+		while (ft_isalnum(buf[i]) || buf[i] == '_')
+			i++;
+	}
+	return (i - 1);
 }
