@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 16:16:52 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 16:41:00 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,21 +92,52 @@ void	delete_bn(char **str)
 	}
 }
 
-void	ft_realloc2(char **new, char **src)
+static	int		ft_read_line(char **str)
 {
-	if (new == NULL || src == NULL)
-		return ;
-	if (*src)
+	char	buf[BUFFER_SIZE + 1];
+	int		ret;
+
+	ret = 1;
+	while (ft_strchr(*str, '\n') == NULL && ret > 0)
 	{
-		free(*src);
-		*src = NULL;
-		*src = *new;
+		if ((ret = read(0, buf, BUFFER_SIZE)) > 0)
+		{
+			buf[ret] = '\0';
+			ft_strjoin_back(buf, str);
+		}
 	}
-	else
-		*src = *new;
+	return (ret);
 }
 
+int		main(void)
+{
+	t_list	*env;
+	char	*str;
+	char	*tmp;
 
+	str = NULL;
+	tmp = NULL;
+	ft_init(&env);
+	ft_shell_init(&env);
+	if (signal(SIGINT, signal_handler) == SIG_ERR)
+		return (1);
+	if (signal(SIGQUIT, signal_handler) == SIG_ERR)
+		return (1);
+	ft_putstr_fd("cmd: ", 1);
+	while (ft_read_line(&tmp) > 0)
+	{
+		str = ft_strdup(tmp);
+		delete_bn(&str);
+		ft_str_free(&tmp);
+		ft_handle(str, &env);
+		ft_putstr_fd("cmd: ", 1);
+	}
+	ft_lstclear(&env, &del_key_val);
+	ft_putendl_fd("exit", 1);
+	return (g_glob.ret);
+}
+
+/*
 int		main(void)
 {
 	t_list	*env;
@@ -143,38 +174,7 @@ int		main(void)
 	ft_lstclear(&env, &del_key_val);
 	ft_putendl_fd("exit", 1);
 	return (g_glob.ret);
-}
-
-// int		main(void)
-// {
-// 	t_list	*env;
-// 	char	buf[BUFFER_SIZE + 1];
-// 	char	*str;
-// 	char	*tmp;
-
-// 	str = NULL;
-// 	tmp = NULL;
-// 	ft_init(&env);
-// 	ft_shell_init(&env);
-// 	if (signal(SIGINT, signal_handler) == SIG_ERR)
-// 		return (1);
-// 	if (signal(SIGQUIT, signal_handler) == SIG_ERR)
-// 		return (1);
-// 	ft_putstr_fd("cmd: ", 1);
-// 	ft_bzero(buf, BUFFER_SIZE);
-// 	while (read(STDIN_FILENO, buf, BUFFER_SIZE) > 0)
-// 	{
-// 		ft_strjoin_back(buf, &tmp);
-// 		str = ft_strdup(tmp);
-// 		delete_bn(&str);
-// 		ft_str_free(&tmp);
-// 		ft_handle(str, &env);
-// 		ft_putstr_fd("cmd: ", 1);
-// 	}
-// 	ft_lstclear(&env, &del_key_val);
-// 	ft_putendl_fd("exit", 1);
-// 	return (g_glob.ret);
-// }
+}*/
 
 /*int		main(void)
 {
