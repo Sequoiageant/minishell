@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 15:25:12 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/05 16:16:52 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,16 +129,10 @@ int		main(void)
 	{
 		buf[ret] = 0;
 		ft_strjoin_back(buf, &tmp);
-		// printf("tmp: %s\n", tmp);
-		// printf("ret: %d\n", ret);
-		while (ret == BUFFER_SIZE && (ret = read(STDIN_FILENO, buf, BUFFER_SIZE)) > 0)
+		while ((ft_strchr(buf, '\n') == NULL) && (ret = read(STDIN_FILENO, buf, BUFFER_SIZE)))
 		{
 			buf[ret] = 0;
-			// printf("in\n");
-			// printf("ret: %d\n", ret);
-			// printf("buf: %s\n", buf);
 			ft_strjoin_back(buf, &tmp);
-			// printf("tmp: %s\n", tmp);
 		}
 		str = ft_strdup(tmp);
 		delete_bn(&str);
