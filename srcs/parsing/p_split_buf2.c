@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 int		fsm_multi(char *buf, t_state_machine *m, t_list *env, t_list **p_list)

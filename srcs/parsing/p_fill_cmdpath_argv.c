@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 int		ft_ckeck_bin(DIR *dir, char *cmd)

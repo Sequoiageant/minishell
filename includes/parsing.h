@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 19:05:46 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/06 09:43:08 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PARSING_H
 
 # include "libft.h"
-# include "mshell.h"
 
 # define SUCCESS	0
 # define FAILURE	-1
@@ -30,14 +29,14 @@
 # define REDIR_APPEND	2
 # define REDIR_IN		3
 
-#define REDIR	1
-#define ARGV	2
+# define REDIR	1
+# define ARGV	2
 
-#define ON		1
-#define OFF		0
+# define ON		1
+# define OFF	0
 
-#define SPACE	32
-#define TAB		9
+# define SPACE	32
+# define TAB	9
 
 typedef struct	s_cmd
 {
@@ -63,7 +62,6 @@ typedef struct	s_redir
 /*
 ** ------------------------------- FSM LEXER ------------------------------
 */
-
 
 enum			e_state_lexer
 {
@@ -172,6 +170,7 @@ int		add_pipe(t_list **pipe_list);
 int		add_cmd(t_list *pipe_list);
 void	ft_init_cmd(t_cmd *cmd);
 int		ft_join_to_cmd_buf(char *str, t_list *pipe_list);
+void	delete_bn(char **str);
 
 /*
 ** ------------------------------- SPLIT CMD ------------------------------

@@ -1,16 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   p_add_cmd.c                                        :+:      :+:    :+:   */
+/*   p_split_buf_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 18:34:48 by grim              #+#    #+#             */
-/*   Updated: 2020/07/27 11:15:59 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/06 09:39:22 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 void	ft_init_cmd(t_cmd *cmd)
@@ -41,4 +40,17 @@ int		add_cmd(t_list *pipe_list)
 	if (pipe_list->content == NULL)
 		pipe_list->content = cmd_list;
 	return (SUCCESS);
+}
+
+void	delete_bn(char **str)
+{
+	size_t	i;
+
+	i = 0;
+	while ((*str)[i])
+	{
+		if ((*str)[i] == '\n')
+			(*str)[i] = '\0';
+		i++;
+	}
 }

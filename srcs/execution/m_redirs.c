@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 static int	ft_redir_out(char *file)

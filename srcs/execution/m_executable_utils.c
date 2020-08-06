@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 int		ft_build_pipes(t_list *cmd_list, int ***fd)

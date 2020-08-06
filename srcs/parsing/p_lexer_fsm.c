@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 int			lex_backslash(t_fsm_lexer *m, char *buf, int i)

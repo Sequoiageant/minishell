@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 22:33:42 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 09:41:06 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@
 # include <sys/stat.h>
 # include "parsing.h"
 
-# define TRUE			1
-# define FALSE			0
-# define SUCCESS			0
-# define FAILURE			-1
 # define PIPE_WRITE		1
 # define PIPE_READ		0
 # define CTRLC_RET		130
@@ -38,18 +34,11 @@
 # define NB_BLT			6
 # define EXIT_CODE		2
 
-# define ECHO		"echo"
-# define CD			"cd"
-# define PWD		"pwd"
-# define EXPORT		"export"
-# define UNSET		"unset"
-# define ENV		"env"
+/*
+** ---------------------- Typedef and structures ---------------------
+*/
 
-// #define BUFFER_SIZE		32
-
-
-
-typedef int (*t_built)(int argc, char *argv[], t_list **env);
+typedef int	(*t_built)(int argc, char *argv[], t_list **env);
 
 typedef struct		s_key_val
 {
@@ -64,17 +53,6 @@ typedef struct		s_globale
 }					t_globale;
 
 extern	t_globale	g_glob;
-
-
-
-
-/*
-** ---------------------- Pour test (à supprimer) ---------------------
-*/
-
-void	ft_print_argv_list(t_list *argv_list);
-
-// ====================================================================
 
 /*
 ** ----------------------------- Built-in -----------------------------
@@ -111,11 +89,10 @@ void		ft_wait(int num_pipe);
 int			ft_redirs(t_cmd *cmd);
 void		ft_exec_cmd(t_list *cmd_elem, char **env_tab);
 void		ft_exec_solo_cmd(t_list *cmd_elem, char **env_tab);
-int			ft_choose_builtin_or_bin(t_list *cmd_list, t_list **env, char **env_tab);
 void		ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab);
 
 /*
-** ---------------------------- Substitution --------------------------
+** ----------------------------- Expansion ---------------------------
 */
 
 int			ft_expansion(t_list *cmd_list, t_list *env);
@@ -134,7 +111,7 @@ void		ft_realloc_or_free(char **final, char **src);
 void		del_key_val(void *elem);
 void		del_env_node(t_list **env);
 void		del_argv_node(t_list **argv);
-void   		del_cmd(void *elem);
+void		del_cmd(void *elem);
 void		del_pipe(void *elem);
 void		del_argv_list_elem(void *elem);
 char		*find_in_env_path(t_list *env, char *cmd);
@@ -155,8 +132,4 @@ char		**ft_list_to_tab(t_list *env);
 void		put_err(char *cmd, char *arg, char *last, int minishell);
 void		add_keyval_to_env(char *key, char *val, t_list **env);
 
-
-// pour fsm_subst (a besoin que t_key_val soit défini)
-int     variable_substitution(t_cmd *cmd, t_key_val *key_val);
 #endif
-

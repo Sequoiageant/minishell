@@ -6,16 +6,15 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:14:58 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 16:41:00 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 09:38:49 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 t_globale	g_glob;
 
-int		ft_handle(char *buf, t_list **env)
+int			ft_handle(char *buf, t_list **env)
 {
 	t_list	*pipe_list;
 
@@ -23,7 +22,7 @@ int		ft_handle(char *buf, t_list **env)
 	if (ft_parse(buf, *env, &pipe_list) == FAILURE)
 	{
 		ft_str_free(&buf);
-		return(FAILURE);
+		return (FAILURE);
 	}
 	ft_str_free(&buf);
 	ft_traitement(pipe_list, env);
@@ -31,7 +30,7 @@ int		ft_handle(char *buf, t_list **env)
 	return (SUCCESS);
 }
 
-void	signal_handler(int signum)
+void		signal_handler(int signum)
 {
 	if (g_glob.pid && signum == SIGINT)
 	{
@@ -56,7 +55,7 @@ void	signal_handler(int signum)
 		g_glob.ret = CTRLBACK_RET;
 }
 
-void	ft_shell_init(t_list **env)
+void		ft_shell_init(t_list **env)
 {
 	char	*tmp;
 	char	*path;
@@ -79,20 +78,7 @@ void	ft_shell_init(t_list **env)
 		add_keyval_to_env(ft_strdup("SHLVL"), tmp, env);
 }
 
-void	delete_bn(char **str)
-{
-	size_t	i;
-
-	i = 0;
-	while((*str)[i])
-	{
-		if ((*str)[i] == '\n')
-			(*str)[i] = '\0';
-		i++;
-	}
-}
-
-static	int		ft_read_line(char **str)
+static	int	ft_read_line(char **str)
 {
 	char	buf[BUFFER_SIZE + 1];
 	int		ret;
@@ -109,7 +95,7 @@ static	int		ft_read_line(char **str)
 	return (ret);
 }
 
-int		main(void)
+int			main(void)
 {
 	t_list	*env;
 	char	*str;
@@ -136,65 +122,3 @@ int		main(void)
 	ft_putendl_fd("exit", 1);
 	return (g_glob.ret);
 }
-
-/*
-int		main(void)
-{
-	t_list	*env;
-	char	buf[BUFFER_SIZE + 1];
-	char	*str;
-	char	*tmp;
-	int		ret;
-
-	str = NULL;
-	tmp = NULL;
-	ft_init(&env);
-	ft_shell_init(&env);
-	if (signal(SIGINT, signal_handler) == SIG_ERR)
-		return (1);
-	if (signal(SIGQUIT, signal_handler) == SIG_ERR)
-		return (1);
-	ft_putstr_fd("cmd: ", 1);
-	ft_bzero(buf, BUFFER_SIZE);
-	while ((ret = read(STDIN_FILENO, buf, BUFFER_SIZE)) > 0)
-	{
-		buf[ret] = 0;
-		ft_strjoin_back(buf, &tmp);
-		while ((ft_strchr(buf, '\n') == NULL) && (ret = read(STDIN_FILENO, buf, BUFFER_SIZE)))
-		{
-			buf[ret] = 0;
-			ft_strjoin_back(buf, &tmp);
-		}
-		str = ft_strdup(tmp);
-		delete_bn(&str);
-		ft_str_free(&tmp);
-		ft_handle(str, &env);
-		ft_putstr_fd("cmd: ", 1);
-	}
-	ft_lstclear(&env, &del_key_val);
-	ft_putendl_fd("exit", 1);
-	return (g_glob.ret);
-}*/
-
-/*int		main(void)
-{
-	t_list	*env;
-	char	*buf;
-
-	ft_init(&env);
-	ft_shell_init(&env);
-	if (signal(SIGINT, signal_handler) == SIG_ERR)
-		return (1);
-	if (signal(SIGQUIT, signal_handler) == SIG_ERR)
-		return (1);
-	ft_putstr_fd("cmd: ", 1);
-	while (get_next_line(STDIN_FILENO, &buf) > 0)
-	{
-		ft_handle(buf, &env);
-		ft_putstr_fd("cmd: ", 1);
-	}
-	ft_str_free(&buf);
-	ft_lstclear(&env, &del_key_val);
-	ft_putendl_fd("exit", 1);
-	return (g_glob.ret);
-}*/

@@ -6,11 +6,10 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:34 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 20:22:47 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 09:25:54 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 void	ms_echo_suite(int argc, char *argv[], int num_opt)

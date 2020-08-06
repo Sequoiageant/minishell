@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 void	ft_exec_cmd(t_list *cmd_elem, char **env_tab)

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 int		sp_backslash(t_fsm_cmd *m, char *buf, t_cmd *cmd)

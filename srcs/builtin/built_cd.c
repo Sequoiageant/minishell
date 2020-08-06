@@ -6,11 +6,10 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 20:20:22 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 09:25:34 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 void	ft_cd_change_env(t_list **env, char *oldpwd)

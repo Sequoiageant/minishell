@@ -6,13 +6,13 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 16:34:55 by julnolle          #+#    #+#             */
-/*   Updated: 2020/07/01 16:39:47 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 09:17:31 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-int main(void)
+int	main(void)
 {
 	char c;
 

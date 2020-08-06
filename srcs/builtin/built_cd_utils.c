@@ -6,11 +6,10 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 18:12:14 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 20:21:00 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 09:25:49 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 int	cd_home_not_set(t_key_val *key, char *old_pwd)

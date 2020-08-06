@@ -6,11 +6,10 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 19:02:03 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 09:26:35 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 void	free_tab2(char **tab)

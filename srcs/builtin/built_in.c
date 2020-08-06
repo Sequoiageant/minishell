@@ -6,11 +6,10 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:06 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 20:37:22 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 09:26:09 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "mshell.h"
 
 int		ft_built_in(t_cmd *cmd, int index, t_list **env)
