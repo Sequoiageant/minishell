@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 10:57:57 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 13:05:35 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int			is_key_in_env(t_list *env, char *key)
 	return (FALSE);
 }
 
-char		*find_env_val(t_list *env, char *key)
+char		*find_env_val(t_list *env, const char *key)
 {
 	t_key_val *elem;
 

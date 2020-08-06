@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_fill_cmdpath_argv.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 11:09:47 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 10:40:21 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/06 13:06:56 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int			ft_ckeck_bin(DIR *dir, char *cmd)
 	return (FALSE);
 }
 
-char		*find_in_env_path(t_list *env, char *cmd)
+char		*find_in_path(t_list *env, char *cmd, const char *key)
 {
 	DIR		*dir;
 	size_t	i;
 	char	**path;
 	char	*selected_path;
 
-	if ((path = ft_split(find_env_val(env, "PATH"), ':')))
+	if ((path = ft_split(find_env_val(env, key), ':')))
 	{
 		i = 0;
 		while (path[i])
@@ -58,7 +58,7 @@ char		*find_in_env_path(t_list *env, char *cmd)
 
 static int	fill_cmd_path(t_cmd *cmd, t_list *env)
 {
-	cmd->cmd_path = find_in_env_path(env, cmd->argv[0]);
+	cmd->cmd_path = find_in_path(env, cmd->argv[0], "PATH");
 	if (cmd->cmd_path == NULL)
 	{
 		if (ft_strchr(cmd->argv[0], '/') != NULL)
