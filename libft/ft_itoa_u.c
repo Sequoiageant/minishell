@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_u.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbrunet <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 10:07:55 by bbrunet           #+#    #+#             */
-/*   Updated: 2019/12/16 13:07:55 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/08/06 10:27:31 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_charnum(unsigned long long n)
+static int	ft_charnum(unsigned long n)
 {
 	int	count;
 
@@ -27,7 +27,7 @@ static int	ft_charnum(unsigned long long n)
 	return (count);
 }
 
-char		*ft_itoa_u(unsigned long long nlong)
+char		*ft_itoa_u(unsigned long nlong)
 {
 	char		*p;
 	int			i;

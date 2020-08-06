@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:42 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:21:09 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/06 10:18:11 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mshell.h"
 
-int			split_buf(char *buf, t_list *env, t_list **pipe_list)
+static int	split_buf(char *buf, t_list *env, t_list **pipe_list)
 {
 	ft_lstadd_back(pipe_list, ft_lstnew(NULL));
 	add_cmd(*pipe_list);
@@ -21,7 +21,7 @@ int			split_buf(char *buf, t_list *env, t_list **pipe_list)
 	return (SUCCESS);
 }
 
-int			parsing_cmd(t_list *cmd_list)
+static int	parsing_cmd(t_list *cmd_list)
 {
 	t_cmd	*cmd;
 
@@ -35,7 +35,7 @@ int			parsing_cmd(t_list *cmd_list)
 	return (SUCCESS);
 }
 
-int			split_cmd(t_list *pipe_list)
+static int	split_cmd(t_list *pipe_list)
 {
 	t_list *cmd_list;
 
@@ -49,7 +49,7 @@ int			split_cmd(t_list *pipe_list)
 	return (SUCCESS);
 }
 
-int			parser_split(char *buf, t_list *env, t_list **pipe_list)
+static int	parser_split(char *buf, t_list *env, t_list **pipe_list)
 {
 	if (split_buf(buf, env, pipe_list) == FAILURE)
 		return (FAILURE);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 10:22:16 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/06 10:26:25 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ enum	e_state_clean
 	CL_LETTER,
 	CL_BACKSLASH,
 	CL_FLAG_QUOTE,
-	CL_FLAG_DQUOTE,
+	CL_FLAG_DQUOTE
 };
 
 typedef	int	(*t_func_clean)(t_fsm_cmd *, char *buf, char **clean_str);
@@ -177,7 +177,6 @@ void			delete_bn(char **str);
 */
 
 int				parser_split_cmd(t_cmd *cmd);
-int				parsing_cmd(t_list *cmd_list);
 
 int				sp_backslash(t_fsm_cmd *m, char *buf, t_cmd *cmd);
 int				sp_flag_quote(t_fsm_cmd *m, char *buf, t_cmd *cmd);

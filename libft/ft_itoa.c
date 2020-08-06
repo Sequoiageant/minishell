@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static int	ft_charnum(long long int n)
+static int	ft_charnum(long int n)
 {
 	int	count;
 
@@ -29,7 +29,7 @@ static int	ft_charnum(long long int n)
 	return (count);
 }
 
-char		*ft_itoa(long long int nlong)
+char		*ft_itoa(long int nlong)
 {
 	char		*p;
 	int			i;
