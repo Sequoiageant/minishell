@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_fill_cmdpath_argv.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 11:09:47 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 13:06:56 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 16:53:41 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ char		*find_in_path(t_list *env, char *cmd, const char *key)
 					free_tab2(path);
 					return (selected_path);
 				}
-				i++;
 				closedir(dir);
 			}
+			i++;
 		}
 		free_tab2(path);
 	}
