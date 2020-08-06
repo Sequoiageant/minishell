@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/06 09:25:58 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 09:50:53 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	lst_delone_env(t_list **env, char *key)
 {
 	t_list		*tmp;
 	t_list		*before;
-	t_key_val	*elem;
 	int			i;
 
 	before = *env;
@@ -48,8 +47,7 @@ static void	lst_delone_env(t_list **env, char *key)
 	i = 0;
 	while (tmp)
 	{
-		elem = (t_key_val *)tmp->content;
-		if (ft_strcmp(elem->key, key) == 0)
+		if (ft_strcmp(((t_key_val *)tmp->content)->key, key) == 0)
 		{
 			if (i != 0)
 				before->next = tmp->next;

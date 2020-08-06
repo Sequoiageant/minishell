@@ -88,9 +88,9 @@ SRCS += m_error.c
 SRCS += m_redirs.c
 SRCS += m_traitement.c
 SRCS += m_executable_cmd.c
-SRCS += m_substitution.c
-SRCS += m_substitution2.c
-SRCS += m_substitution_utils.c
+SRCS += m_expansion.c
+SRCS += m_expansion2.c
+SRCS += m_expansion_utils.c
 
 vpath %.c ./srcs/
 vpath %.c ./srcs/parsing/
