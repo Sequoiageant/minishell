@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_substitution2.c                                  :+:      :+:    :+:   */
+/*   m_expansion2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/05 19:46:32 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:02:06 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void			ft_realloc_or_free(char **final, char **src)
 static char		*preserve_quotes(char *str)
 {
 	char	*new;
-	int		i;
+	size_t	i;
 
 	if (str == NULL)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 10:43:45 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:13:14 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ int				ft_simple_cmd_fork(char **cmd, t_list **env, char *cmd_path);
 int				ft_traitement(t_list *pipe_list, t_list **env);
 int				ft_executable_cmd(t_list *cmd_list, t_list *env);
 int				ft_executable_cmd_single(t_list *cmd_list, t_list *env);
-int				ft_build_pipes(t_list *cmd_list, int ***fd);
+size_t			ft_build_pipes(t_list *cmd_list, int ***fd);
 int				dup_close_pipes(int *fd[2], int fd_in, int fd_out, int num);
-void			close_wait_free(int *fd[2], int num_pipe, char **env_tab);
+void			close_wait_free(int *fd[2], size_t num_pipe, char **env_tab);
 void			close_pipes(int *fd[2], int num);
 void			ft_wait(int num_pipe);
 int				ft_redirs(t_cmd *cmd);
@@ -121,7 +121,7 @@ void			ft_print_status(int status);
 void			display_tab2(char **tab);
 void			display_tab2_export(char **tab);
 void			free_tab2(char **tab);
-void			free_tab2_int(int **tab, int num);
+void			free_tab2_int(int **tab, size_t num);
 void			free_tab2_stop(char **tab, size_t stop);
 int				is_key_in_env(t_list *env, char *key);
 void			change_env_val(t_list **env, char *key, char *val);

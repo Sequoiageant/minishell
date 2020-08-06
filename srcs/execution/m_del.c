@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 14:35:55 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 09:26:35 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:09:58 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_tab2(char **tab)
 {
-	int i;
+	size_t i;
 
 	if (tab == NULL)
 		return ;
@@ -29,9 +29,9 @@ void	free_tab2(char **tab)
 	tab = NULL;
 }
 
-void	free_tab2_int(int **tab, int num)
+void	free_tab2_int(int **tab, size_t num)
 {
-	int i;
+	size_t i;
 
 	if (tab == NULL)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:39 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 19:30:48 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 10:57:57 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ char		**ft_list_to_tab(t_list *env)
 {
 	char		**tab;
 	t_key_val	*e;
-	int			size;
-	int			i;
+	size_t		size;
+	size_t		i;
 
 	size = ft_lstsize(env);
 	tab = (char **)malloc(sizeof(char *) * (size + 1));

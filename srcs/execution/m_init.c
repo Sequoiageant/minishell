@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:11 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 10:41:39 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:03:27 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	is_in_str(char *str, char c)
 char		**ft_split_env(char *key_val)
 {
 	char	**elem;
-	int		i;
+	size_t	i;
 
 	elem = NULL;
 	elem = malloc(3 * sizeof(char *));
@@ -65,7 +65,7 @@ void		add_keyval_to_env(char *key, char *val, t_list **env)
 int			ft_init(t_list **env)
 {
 	char		**elem;
-	int			i;
+	size_t		i;
 
 	ft_putstr_fd("Welcome to Minishell\n", 1);
 	*env = NULL;

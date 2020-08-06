@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 10:48:49 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:10:45 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			ft_executable_cmd(t_list *cmd_list, t_list *env)
 {
 	int		**fd;
 	char	**env_tab;
-	int		num_pipe;
+	size_t	num_pipe;
 	int		i;
 
 	i = 0;

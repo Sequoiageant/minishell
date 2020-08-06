@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_parsing_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 09:34:41 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:04:57 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/06 11:06:23 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int		ft_is_dollar_start(char c)
 		return (FALSE);
 }
 
-int		count_dollar_char(char *buf)
+size_t	count_dollar_char(char *buf)
 {
-	int i;
+	size_t i;
 
 	i = 1;
 	if (buf[1] == '?')

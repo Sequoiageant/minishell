@@ -6,16 +6,16 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 09:15:15 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 22:31:50 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:11:26 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mshell.h"
 
-int		ft_build_pipes(t_list *cmd_list, int ***fd)
+size_t	ft_build_pipes(t_list *cmd_list, int ***fd)
 {
-	int num_cmd;
-	int i;
+	size_t	num_cmd;
+	size_t	i;
 
 	num_cmd = 0;
 	while (cmd_list)
@@ -65,7 +65,7 @@ int		dup_close_pipes(int *fd[2], int fd_in, int fd_out, int num)
 	return (TRUE);
 }
 
-void	close_wait_free(int *fd[2], int num_pipe, char **env_tab)
+void	close_wait_free(int *fd[2], size_t num_pipe, char **env_tab)
 {
 	close_pipes(fd, num_pipe);
 	ft_wait(num_pipe);

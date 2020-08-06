@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   p_split_cmd3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 19:01:51 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 19:09:49 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/06 11:08:06 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		sp_whitespace(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 
 int		sp_dollar(t_fsm_cmd *m, char *buf, t_cmd *cmd)
 {
-	int		i;
+	size_t	i;
 	char	*str;
 
 	(void)m;

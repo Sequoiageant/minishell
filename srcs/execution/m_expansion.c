@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_substitution.c                                   :+:      :+:    :+:   */
+/*   m_expansion.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/05 19:47:14 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:01:03 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static int		ft_substitute(char **str, t_list *env, t_list **flag)
 static int		is_splittable(char *argv)
 {
 	size_t	i;
-	int		count_before;
-	int		count_after;
+	size_t	count_before;
+	size_t	count_after;
 
 	i = 0;
 	count_before = 0;

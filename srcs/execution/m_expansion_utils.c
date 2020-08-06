@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   m_substitution_utils.c                             :+:      :+:    :+:   */
+/*   m_expansion_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 10:04:11 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/05 18:45:57 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:11:52 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ size_t	ft_strclen(const char *s, int c)
 
 size_t	tab2_size(char **tab)
 {
-	size_t			i;
+	size_t	i;
 
 	i = 0;
 	while (tab[i] != NULL)
