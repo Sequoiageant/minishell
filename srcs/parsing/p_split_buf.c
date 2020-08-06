@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/05 14:37:07 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:26:32 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/06 10:23:06 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			parser_split_buf(char *buf, t_list *env, t_list **pipe_list)
 {
 	t_state_machine		machine;
 	static t_function	func[NB_SPLIT_BUF] = {fsm_letter,
-	fsm_backslash, fsm_flag, fsm_multi, fsm_pipe};
+	fsm_backsl, fsm_flag, fsm_multi, fsm_pipe};
 	int					ret;
 
 	machine.flag_dquote = 0;

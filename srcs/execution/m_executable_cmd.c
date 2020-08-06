@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   m_executable_cmd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/02 18:51:03 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 22:29:35 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 10:00:05 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ int		ft_choose_builtin_or_bin(t_list *cmd_list, t_list **env, char **env_tab)
 
 	ret = FAILURE;
 	cmd = (t_cmd*)cmd_list->content;
-	// if (cmd->argc == 0) plus besoin, cas géré dans ft_exec_cmd
-	// 	return (SUCCESS);
 	if (ft_check_built_in(cmd->argv[0], &index) == TRUE)
 	{
 		ret = ft_built_in(cmd, index, env);
