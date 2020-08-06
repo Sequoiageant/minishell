@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 10:47:11 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/06 13:16:20 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,17 @@ static void	ft_cd_perror(char **argv)
 
 static int	handle_cd(char *dir, t_list *env)
 {
+	char		*cdpath_dir;
+
 	if (ft_strcmp(dir, "-") == 0)
 		return (cd_back_to_oldpwd(env));
+	cdpath_dir = find_in_path(env, dir, "CDPATH");
+	if (cdpath_dir)
+	{
+		ft_strjoin_back(dir, &cdpath_dir);
+		ft_putendl_fd(cdpath_dir, 1);
+		return (chdir(cdpath_dir));
+	}
 	return (chdir(dir));
 }
 
