@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   built_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 09:25:34 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 10:47:11 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mshell.h"
 
-void	ft_cd_change_env(t_list **env, char *oldpwd)
+static void	ft_cd_change_env(t_list **env, char *oldpwd)
 {
 	t_key_val *env_pwd;
 	t_key_val *env_oldpwd;
@@ -37,7 +37,7 @@ void	ft_cd_change_env(t_list **env, char *oldpwd)
 	env_pwd->val = getcwd(NULL, 0);
 }
 
-void	ft_cd_perror(char **argv)
+static void	ft_cd_perror(char **argv)
 {
 	ft_putstr_fd("bash: cd: ", STDERR_FILENO);
 	ft_putstr_fd(argv[1], STDERR_FILENO);
@@ -45,14 +45,14 @@ void	ft_cd_perror(char **argv)
 	ft_putendl_fd(strerror(errno), STDERR_FILENO);
 }
 
-int		handle_cd(char *dir, t_list *env)
+static int	handle_cd(char *dir, t_list *env)
 {
 	if (ft_strcmp(dir, "-") == 0)
 		return (cd_back_to_oldpwd(env));
 	return (chdir(dir));
 }
 
-int		ms_cd(int argc, char **argv, t_list **env)
+int			ms_cd(int argc, char **argv, t_list **env)
 {
 	int			ret;
 	char		*old_pwd;

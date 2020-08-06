@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   built_echo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:34 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 09:25:54 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 10:48:39 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mshell.h"
 
-void	ms_echo_suite(int argc, char *argv[], int num_opt)
+static void	ms_echo_suite(int argc, char *argv[], int num_opt)
 {
 	int i;
 
@@ -28,7 +28,7 @@ void	ms_echo_suite(int argc, char *argv[], int num_opt)
 		ft_putstr_fd("\n", 1);
 }
 
-int		is_option(char *str)
+static int	is_option(char *str)
 {
 	int i;
 
@@ -44,7 +44,7 @@ int		is_option(char *str)
 	return (TRUE);
 }
 
-int		count_options(char *argv[])
+static int	count_options(char *argv[])
 {
 	int count;
 	int i;
@@ -64,7 +64,7 @@ int		count_options(char *argv[])
 	return (count);
 }
 
-int		ms_echo(int argc, char *argv[], t_list **env)
+int			ms_echo(int argc, char *argv[], t_list **env)
 {
 	int	num_opt;
 
