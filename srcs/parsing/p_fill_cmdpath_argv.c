@@ -6,13 +6,13 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 11:09:47 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 18:58:58 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/06 10:40:21 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mshell.h"
 
-int		ft_ckeck_bin(DIR *dir, char *cmd)
+int			ft_ckeck_bin(DIR *dir, char *cmd)
 {
 	struct dirent	*dir_content;
 
@@ -27,7 +27,7 @@ int		ft_ckeck_bin(DIR *dir, char *cmd)
 	return (FALSE);
 }
 
-char	*find_in_env_path(t_list *env, char *cmd)
+char		*find_in_env_path(t_list *env, char *cmd)
 {
 	DIR		*dir;
 	size_t	i;
@@ -56,7 +56,7 @@ char	*find_in_env_path(t_list *env, char *cmd)
 	return (NULL);
 }
 
-int		fill_cmd_path(t_cmd *cmd, t_list *env)
+static int	fill_cmd_path(t_cmd *cmd, t_list *env)
 {
 	cmd->cmd_path = find_in_env_path(env, cmd->argv[0]);
 	if (cmd->cmd_path == NULL)
@@ -69,7 +69,7 @@ int		fill_cmd_path(t_cmd *cmd, t_list *env)
 	return (SUCCESS);
 }
 
-int		fill_cmdlist_path(t_list *cmd_list, t_list *env)
+int			fill_cmdlist_path(t_list *cmd_list, t_list *env)
 {
 	t_cmd *cmd;
 
@@ -83,7 +83,7 @@ int		fill_cmdlist_path(t_list *cmd_list, t_list *env)
 	return (SUCCESS);
 }
 
-char	**ft_list_to_tab_argv(t_list *argv)
+char		**ft_list_to_tab_argv(t_list *argv)
 {
 	char		**argv_tab;
 	int			size;

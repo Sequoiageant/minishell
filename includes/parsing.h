@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:10 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 10:31:15 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 10:40:33 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,6 @@ int				ft_is_dollar_start(char c);
 int				count_dollar_char(char *buf);
 
 int				fill_cmdlist_path(t_list *cmd_list, t_list *env);
-int				fill_cmd_path(t_cmd *cmd, t_list *env);
 char			**ft_list_to_tab_argv(t_list *argv);
 
 #endif
