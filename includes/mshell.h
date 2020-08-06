@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 10:18:42 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/06 10:43:45 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void			close_wait_free(int *fd[2], int num_pipe, char **env_tab);
 void			close_pipes(int *fd[2], int num);
 void			ft_wait(int num_pipe);
 int				ft_redirs(t_cmd *cmd);
-void			ft_exec_cmd(t_list *cmd_elem, char **env_tab);
 void			ft_exec_solo_cmd(t_list *cmd_elem, char **env_tab);
 void			ft_handle_pipes(t_list *cmd_list, t_list **env, char **env_tab);
 

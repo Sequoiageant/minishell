@@ -6,13 +6,13 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/23 12:15:11 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 20:14:34 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 10:41:39 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mshell.h"
 
-int		is_in_str(char *str, char c)
+static int	is_in_str(char *str, char c)
 {
 	size_t	i;
 
@@ -26,7 +26,7 @@ int		is_in_str(char *str, char c)
 	return (FALSE);
 }
 
-char	**ft_split_env(char *key_val)
+char		**ft_split_env(char *key_val)
 {
 	char	**elem;
 	int		i;
@@ -48,7 +48,7 @@ char	**ft_split_env(char *key_val)
 	return (elem);
 }
 
-void	add_keyval_to_env(char *key, char *val, t_list **env)
+void		add_keyval_to_env(char *key, char *val, t_list **env)
 {
 	t_key_val *key_val;
 
@@ -62,7 +62,7 @@ void	add_keyval_to_env(char *key, char *val, t_list **env)
 	}
 }
 
-int		ft_init(t_list **env)
+int			ft_init(t_list **env)
 {
 	char		**elem;
 	int			i;

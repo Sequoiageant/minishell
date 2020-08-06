@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 11:31:47 by grim              #+#    #+#             */
-/*   Updated: 2020/08/05 20:15:28 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 10:40:49 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	ft_redir_in(char *file)
 	return (SUCCESS);
 }
 
-int			ft_handle_redir(t_redir *redir)
+static int	ft_handle_redir(t_redir *redir)
 {
 	if (redir->state == -1 || redir->file == NULL)
 	{
