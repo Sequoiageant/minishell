@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 11:17:43 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/06 11:19:26 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int				is_valid_identifier(char *str);
 */
 
 int				ft_init(t_list **env);
-int				ft_simple_cmd_fork(chmaar **cmd, t_list **env, char *cmd_path);
+int				ft_simple_cmd_fork(char **cmd, t_list **env, char *cmd_path);
 int				ft_traitement(t_list *pipe_list, t_list **env);
 int				ft_executable_cmd(t_list *cmd_list, t_list *env);
 int				ft_executable_cmd_single(t_list *cmd_list, t_list *env);
