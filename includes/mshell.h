@@ -6,7 +6,7 @@
 /*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 13:13:23 by grim             ###   ########.fr       */
+/*   Updated: 2020/08/06 13:28:03 by grim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,23 +112,24 @@ void			del_argv_node(t_list **argv);
 void			del_cmd(void *elem);
 void			del_pipe(void *elem);
 void			del_argv_list_elem(void *elem);
-char			*find_in_env_path(t_list *env, char *cmd, const char *key);
+void			free_tab2(char **tab);
+void			free_tab2_int(int **tab, size_t num);
+void			free_tab2_stop(char **tab, size_t stop);
+
 t_key_val		*find_key_val(t_list *env, char *key);
 char			*find_env_val(t_list *env, const char *key);
 char			*find_in_path(t_list *env, char *cmd, const char *key);
 void			ft_print_env(t_list *env);
-void			print_env_elem(t_list *env, char *key);
-void			ft_print_status(int status);
-void			display_tab2(char **tab);
-void			display_tab2_export(char **tab);
-void			free_tab2(char **tab);
-void			free_tab2_int(int **tab, size_t num);
-void			free_tab2_stop(char **tab, size_t stop);
 int				is_key_in_env(t_list *env, char *key);
 void			change_env_val(t_list **env, char *key, char *val);
 char			**ft_split_env(char *key_val);
 char			**ft_list_to_tab(t_list *env);
 void			put_err(char *cmd, char *arg, char *last, int minishell);
 void			add_keyval_to_env(char *key, char *val, t_list **env);
+
+void			print_env_elem(t_list *env, char *key);
+void			ft_print_status(int status);
+void			display_tab2(char **tab);
+void			display_tab2_export(char **tab);
 
 #endif
