@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/06 09:50:53 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/07 09:39:24 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,18 @@ int			is_valid_identifier(char *str)
 int			ms_env(int argc, char **av, t_list **env)
 {
 	t_key_val	*elem;
+	t_list		*tmp;
 
 	(void)argc;
 	(void)av;
-	while (*env)
+	tmp = *env;
+	while (tmp)
 	{
-		elem = (t_key_val *)((*env)->content);
+		elem = (t_key_val *)(tmp->content);
 		ft_putstr_fd(elem->key, 1);
 		ft_putchar_fd('=', 1);
 		ft_putendl_fd(elem->val, 1);
-		(*env) = (*env)->next;
+		tmp = tmp->next;
 	}
 	return (SUCCESS);
 }
