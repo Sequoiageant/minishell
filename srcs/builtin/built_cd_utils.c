@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_cd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 18:12:14 by bbrunet           #+#    #+#             */
-/*   Updated: 2020/08/07 10:05:27 by bbrunet          ###   ########.fr       */
+/*   Updated: 2020/08/07 16:55:39 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	cd_home_not_set(t_key_val *key)
 	}
 }
 
-int	cd_too_many_args()
+int	cd_too_many_args(void)
 {
 	ft_putstr_fd("bash: cd: too many arguments\n", 2);
 	return (FAILURE);
