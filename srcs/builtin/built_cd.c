@@ -3,38 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   built_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/23 12:15:30 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 13:16:20 by grim             ###   ########.fr       */
+/*   Created: 2020/06/23 12:15:30 by bbrunet           #+#    #+#             */
+/*   Updated: 2020/08/07 12:24:15 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mshell.h"
 
-static void	ft_cd_change_env(t_list **env, char *oldpwd)
+static void	ft_cd_change_env(t_list **env, char *dir, t_key_val *env_pwd)
+{
+	t_key_val	*env_oldpwd;
+	char		*old_pwd;
+	char		*tmp;
+
+	old_pwd = ft_strdup(env_pwd->val);
+	if ((tmp = getcwd(NULL, 0)))
+	{
+		free(env_pwd->val);
+		env_pwd->val = tmp;
+	}
+	else
+	{
+		ft_strjoin_back("/", &env_pwd->val);
+		ft_strjoin_back(dir, &env_pwd->val);
+	}
+	if ((env_oldpwd = find_key_val(*env, "OLDPWD")))
+	{
+		free(env_oldpwd->val);
+		env_oldpwd->val = old_pwd;
+	}
+	else
+		free(old_pwd);
+}
+
+int			change_env(int argc, t_list **env, char **argv, t_key_val *key)
 {
 	t_key_val *env_pwd;
-	t_key_val *env_oldpwd;
 
-	if ((env_oldpwd = find_key_val(*env, "OLDPWD")) == NULL)
+	if ((env_pwd = find_key_val(*env, "PWD")))
 	{
-		env_oldpwd = malloc(sizeof(t_key_val));
-		env_oldpwd->key = ft_strdup("OLDPWD");
-		ft_lstadd_back(env, ft_lstnew(env_oldpwd));
+		if (argc == 2)
+			ft_cd_change_env(env, argv[1], env_pwd);
+		else
+			ft_cd_change_env(env, key->val, env_pwd);
 	}
-	else
-		free(env_oldpwd->val);
-	env_oldpwd->val = oldpwd;
-	if ((env_pwd = find_key_val(*env, "PWD")) == NULL)
-	{
-		env_pwd = malloc(sizeof(t_key_val));
-		env_pwd->key = ft_strdup("PWD");
-		ft_lstadd_back(env, ft_lstnew(env_pwd));
-	}
-	else
-		free(env_pwd->val);
-	env_pwd->val = getcwd(NULL, 0);
+	return (SUCCESS);
 }
 
 static void	ft_cd_perror(char **argv)
@@ -64,17 +79,16 @@ static int	handle_cd(char *dir, t_list *env)
 int			ms_cd(int argc, char **argv, t_list **env)
 {
 	int			ret;
-	char		*old_pwd;
+	char		*tmp;
 	t_key_val	*key;
 
-	old_pwd = getcwd(NULL, 0);
 	if (argc > 2)
-		return (cd_too_many_args(old_pwd));
+		return (cd_too_many_args());
 	if (argc == 1)
 	{
 		if ((key = find_key_val(*env, "HOME")) == NULL
 			|| !ft_strcmp(key->val, ""))
-			return (cd_home_not_set(key, old_pwd));
+			return (cd_home_not_set(key));
 		ret = chdir(key->val);
 	}
 	if (argc == 2)
@@ -83,9 +97,10 @@ int			ms_cd(int argc, char **argv, t_list **env)
 	{
 		if (!(argc == 2 && ft_strcmp(argv[1], "-") == 0))
 			ft_cd_perror(argv);
-		free(old_pwd);
 		return (FAILURE);
 	}
-	ft_cd_change_env(env, old_pwd);
-	return (SUCCESS);
+	if ((tmp = getcwd(NULL, 0)) == NULL)
+		ft_putendl_fd(strerror(errno), 2);
+	free(tmp);
+	return (change_env(argc, env, argv, key));
 }

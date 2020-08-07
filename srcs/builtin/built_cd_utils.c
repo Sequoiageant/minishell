@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   built_cd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/29 18:12:14 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 09:25:49 by julnolle         ###   ########.fr       */
+/*   Created: 2020/07/29 18:12:14 by bbrunet           #+#    #+#             */
+/*   Updated: 2020/08/07 10:05:27 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mshell.h"
 
-int	cd_home_not_set(t_key_val *key, char *old_pwd)
+int	cd_home_not_set(t_key_val *key)
 {
-	free(old_pwd);
-	old_pwd = NULL;
 	if (key)
 		return (SUCCESS);
 	else
@@ -25,11 +23,9 @@ int	cd_home_not_set(t_key_val *key, char *old_pwd)
 	}
 }
 
-int	cd_too_many_args(char *old_pwd)
+int	cd_too_many_args()
 {
 	ft_putstr_fd("bash: cd: too many arguments\n", 2);
-	free(old_pwd);
-	old_pwd = NULL;
 	return (FAILURE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/10 10:27:32 by julnolle          #+#    #+#             */
-/*   Updated: 2020/08/06 09:26:12 by julnolle         ###   ########.fr       */
+/*   Updated: 2020/08/07 11:42:32 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,15 @@ int	ms_pwd(int argc, char *argv[], t_list **env)
 
 	(void)argc;
 	(void)argv;
-	(void)env;
 	ret = SUCCESS;
-	path = getcwd(NULL, 0);
-	if (path)
+	if ((path = getcwd(NULL, PATH_MAX)))
 	{
-		if (write(1, path, ft_strlen(path)) == -1)
-			ret = FAILURE;
-		if (write(1, "\n", 1) == -1)
-			ret = FAILURE;
+		ft_putendl_fd(path, 1);
 		free(path);
 		path = NULL;
 	}
+	else if ((path = find_env_val(*env, "PWD")))
+		ft_putendl_fd(path, 1);
 	else
 	{
 		put_err("pwd: ", NULL, "Current directory not found", TRUE);
