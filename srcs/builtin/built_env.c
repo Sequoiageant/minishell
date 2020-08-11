@@ -22,16 +22,18 @@ int			is_valid_identifier(char *str)
 int			ms_env(int argc, char **av, t_list **env)
 {
 	t_key_val	*elem;
+	t_list		*tmp;
 
 	(void)argc;
 	(void)av;
-	while (*env)
+	tmp = *env;
+	while (tmp)
 	{
-		elem = (t_key_val *)((*env)->content);
+		elem = (t_key_val *)(tmp->content);
 		ft_putstr_fd(elem->key, 1);
 		ft_putchar_fd('=', 1);
 		ft_putendl_fd(elem->val, 1);
-		(*env) = (*env)->next;
+		tmp = tmp->next;
 	}
 	return (SUCCESS);
 }

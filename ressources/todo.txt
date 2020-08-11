@@ -21,14 +21,12 @@ BONUS (?)
 
 - built in export: gerer le +=
 - built in cd: 
-    recherche dans CDVAR & 
     gérer ou non le cas "invalid option" (exit code = 2) ? Non a priori car on a pas à gérer d'option sur cd...
 - Gerer le ~
 
 NORME
 
 - proteger les mallocs, pipe, fork, dup ... -> voir quand ca vaut le coup :)
-- changer les headers "grim" ?
 - pid globale = OK norme ?
 
 PARSING

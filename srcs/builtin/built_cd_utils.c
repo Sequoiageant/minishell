@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   built_cd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/29 18:12:14 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 09:25:49 by julnolle         ###   ########.fr       */
+/*   Created: 2020/07/29 18:12:14 by bbrunet           #+#    #+#             */
+/*   Updated: 2020/08/10 15:33:59 by bbrunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mshell.h"
 
-int	cd_home_not_set(t_key_val *key, char *old_pwd)
+int		cd_home_not_set(t_key_val *key)
 {
-	free(old_pwd);
-	old_pwd = NULL;
 	if (key)
 		return (SUCCESS);
 	else
@@ -25,15 +23,13 @@ int	cd_home_not_set(t_key_val *key, char *old_pwd)
 	}
 }
 
-int	cd_too_many_args(char *old_pwd)
+int		cd_too_many_args(void)
 {
 	ft_putstr_fd("bash: cd: too many arguments\n", 2);
-	free(old_pwd);
-	old_pwd = NULL;
 	return (FAILURE);
 }
 
-int	cd_back_to_oldpwd(t_list *env)
+int		cd_back_to_oldpwd(t_list *env)
 {
 	t_key_val *oldpwd;
 
@@ -47,4 +43,43 @@ int	cd_back_to_oldpwd(t_list *env)
 		ft_putendl_fd(oldpwd->val, 1);
 		return (chdir(oldpwd->val));
 	}
+}
+
+char	*add_slash(char *path)
+{
+	char *modified;
+
+	if (path[ft_strlen(path) - 1] == '/')
+		modified = ft_strdup(path);
+	else
+		modified = ft_strjoin(path, "/");
+	return (modified);
+}
+
+char	*cd_find_path(t_list *env, char *cmd)
+{
+	size_t	i;
+	DIR		*dir;
+	char	**path;
+	char	*selected_path;
+
+	if ((path = ft_split(find_env_val(env, "CDPATH"), ':')))
+	{
+		i = 0;
+		while (path[i])
+		{
+			selected_path = add_slash(path[i]);
+			ft_strjoin_back(cmd, &selected_path);
+			if ((dir = opendir(selected_path)))
+			{
+				free_tab2(path);
+				closedir(dir);
+				return (selected_path);
+			}
+			free(selected_path);
+			i++;
+		}
+		free_tab2(path);
+	}
+	return (NULL);
 }

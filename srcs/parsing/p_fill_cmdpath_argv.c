@@ -3,47 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   p_fill_cmdpath_argv.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bbrunet <bbrunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/09 11:09:47 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 16:53:41 by bbrunet          ###   ########.fr       */
+/*   Created: 2020/07/09 11:09:47 by bbrunet           #+#    #+#             */
+/*   Updated: 2020/08/10 15:37:15 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mshell.h"
 
-int			ft_ckeck_bin(DIR *dir, char *cmd)
+static char	*ft_ckeck_bin(DIR *dir, char *cmd, char *path)
 {
 	struct dirent	*dir_content;
+	char			*selected_path;
 
 	while ((dir_content = readdir(dir)))
 	{
 		if (ft_strcmp(dir_content->d_name, cmd) == 0)
 		{
+			if (path[ft_strlen(path) - 1] == '/')
+				selected_path = ft_strdup(path);
+			else
+				selected_path = ft_strjoin(path, "/");
 			closedir(dir);
-			return (TRUE);
+			return (selected_path);
 		}
 	}
-	return (FALSE);
+	return (NULL);
 }
 
-char		*find_in_path(t_list *env, char *cmd, const char *key)
+char		*find_in_path(t_list *env, char *cmd)
 {
 	DIR		*dir;
 	size_t	i;
 	char	**path;
 	char	*selected_path;
 
-	if ((path = ft_split(find_env_val(env, key), ':')))
+	if ((path = ft_split(find_env_val(env, "PATH"), ':')))
 	{
 		i = 0;
 		while (path[i])
 		{
 			if ((dir = opendir(path[i])))
 			{
-				if (ft_ckeck_bin(dir, cmd) == TRUE)
+				if ((selected_path = ft_ckeck_bin(dir, cmd, path[i])))
 				{
-					selected_path = ft_strjoin(path[i], "/");
 					free_tab2(path);
 					return (selected_path);
 				}
@@ -58,7 +62,10 @@ char		*find_in_path(t_list *env, char *cmd, const char *key)
 
 static int	fill_cmd_path(t_cmd *cmd, t_list *env)
 {
-	cmd->cmd_path = find_in_path(env, cmd->argv[0], "PATH");
+	if (ft_strcmp(cmd->argv[0], ".") && ft_strcmp(cmd->argv[0], ".."))
+		cmd->cmd_path = find_in_path(env, cmd->argv[0]);
+	else
+		cmd->cmd_path = NULL;
 	if (cmd->cmd_path == NULL)
 	{
 		if (ft_strchr(cmd->argv[0], '/') != NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mshell.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grim <grim@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: julnolle <julnolle@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/24 09:59:13 by grim              #+#    #+#             */
-/*   Updated: 2020/08/06 13:28:03 by grim             ###   ########.fr       */
+/*   Created: 2020/06/24 09:59:13 by bbrunet           #+#    #+#             */
+/*   Updated: 2020/08/10 15:22:51 by julnolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ extern	t_globale	g_glob;
 int				ft_built_in(t_cmd *cmd, int index, t_list **env);
 int				ms_echo(int argc, char *argv[], t_list **env);
 int				ms_cd(int argc, char *argv[], t_list **env);
-int				cd_home_not_set(t_key_val *key, char *old_pwd);
-int				cd_too_many_args(char *old_pwd);
+int				cd_home_not_set(t_key_val *key);
+int				cd_too_many_args();
 int				cd_back_to_oldpwd(t_list *env);
+char			*cd_find_path(t_list *env, char *cmd);
 int				ms_pwd(int argc, char *argv[], t_list **env);
 int				ms_export(int argc, char *argv[], t_list **env);
 int				ms_env(int argc, char *argv[], t_list **env);
@@ -118,7 +119,6 @@ void			free_tab2_stop(char **tab, size_t stop);
 
 t_key_val		*find_key_val(t_list *env, char *key);
 char			*find_env_val(t_list *env, const char *key);
-char			*find_in_path(t_list *env, char *cmd, const char *key);
 void			ft_print_env(t_list *env);
 int				is_key_in_env(t_list *env, char *key);
 void			change_env_val(t_list **env, char *key, char *val);
